@@ -86,9 +86,15 @@ function describeCartItem(item) {
     };
   }
   if (item.kind === 'fixedRoute') {
+    // passengers is only set by the calculator's own reserve button (see
+    // js/calculator.js) — Popular Routes ticket-rail adds have no passenger
+    // input and stay flat "up to 6", so item.passengers is undefined there.
+    const meta = item.passengers > FIXED_FARE_PAX_INCLUDED
+      ? t('cart.passengers', { n: item.passengers })
+      : t('routes.upTo6');
     return {
       title: `${t(item.fromKey)} → ${t(item.toKey)}`,
-      meta: t('routes.upTo6'),
+      meta,
       price: item.price,
     };
   }

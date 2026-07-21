@@ -190,6 +190,7 @@ const I18N = {
     'calc.paymentValue': 'Cash on arrival',
     'calc.capacityValue': 'Up to {n} guests',
     'calc.upgradeNote': "For {pax} passengers we recommend a {vehicle} — we've updated your quote so everyone rides together.",
+    'calc.extraPaxNote': 'Includes a US$5 surcharge per passenger beyond 6 ({extra} extra × US$5 = US${fee}).',
     'calc.totalLabel': 'Total · per vehicle',
     'calc.fineprint': 'Free cancellation · Flight tracked',
 
@@ -253,7 +254,7 @@ const I18N = {
 
     'exc4.eyebrow': '04 — Culture',
     'exc4.title': 'Puerto Plata City Tour',
-    'exc4.desc': 'Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. Flat price for your whole group, up to 6 guests.',
+    'exc4.desc': 'Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. US$65 per person, up to 6 guests.',
     'exc4.include1': 'Private transportation',
     'exc4.include2': 'Cable car tickets',
     'exc4.include3': 'Fortaleza San Felipe',
@@ -298,7 +299,7 @@ const I18N = {
     'cruise1.desc': "Climb, slide and jump through 27 natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.",
     'cruise1.duration': 'Half day',
     'cruise2.title': 'Puerto Plata City Tour',
-    'cruise2.desc': 'Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. Flat price for your whole group, up to 6 guests.',
+    'cruise2.desc': 'Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. US$65 per person, up to 6 guests.',
     'cruise2.duration': 'Half day',
     'cruise3.title': 'Shore Excursion 3',
     'cruise3.desc': 'Description coming soon.',
@@ -593,6 +594,7 @@ const I18N = {
     'calc.paymentValue': 'Efectivo al llegar',
     'calc.capacityValue': 'Hasta {n} pasajeros',
     'calc.upgradeNote': 'Para {pax} pasajeros recomendamos {vehicle} — actualizamos tu cotización para que todos viajen juntos.',
+    'calc.extraPaxNote': 'Incluye un cargo de US$5 por pasajero adicional a partir del 6to ({extra} extra × US$5 = US${fee}).',
     'calc.totalLabel': 'Total · por vehículo',
     'calc.fineprint': 'Cancelación gratuita · Vuelo monitoreado',
 
@@ -656,7 +658,7 @@ const I18N = {
 
     'exc4.eyebrow': '04 — Cultura',
     'exc4.title': 'Tour por la Ciudad de Puerto Plata',
-    'exc4.desc': 'Casas victorianas, la fortaleza más antigua de América, vistas desde el teleférico del Monte Isabel de Torres y degustaciones de ámbar, ron y cacao. Precio fijo para todo tu grupo, hasta 6 personas.',
+    'exc4.desc': 'Casas victorianas, la fortaleza más antigua de América, vistas desde el teleférico del Monte Isabel de Torres y degustaciones de ámbar, ron y cacao. US$65 por persona, hasta 6 personas.',
     'exc4.include1': 'Transporte privado',
     'exc4.include2': 'Boletos de teleférico',
     'exc4.include3': 'Fortaleza San Felipe',
@@ -701,7 +703,7 @@ const I18N = {
     'cruise1.desc': 'Escala, desliza y salta a través de 27 cascadas naturales talladas en la selva — la aventura más emocionante de la costa norte.',
     'cruise1.duration': 'Medio día',
     'cruise2.title': 'Tour por la Ciudad de Puerto Plata',
-    'cruise2.desc': 'Casas victorianas, la fortaleza más antigua de América, vistas desde el teleférico del Monte Isabel de Torres y degustaciones de ámbar, ron y cacao. Precio fijo para todo tu grupo, hasta 6 personas.',
+    'cruise2.desc': 'Casas victorianas, la fortaleza más antigua de América, vistas desde el teleférico del Monte Isabel de Torres y degustaciones de ámbar, ron y cacao. US$65 por persona, hasta 6 personas.',
     'cruise2.duration': 'Medio día',
     'cruise3.title': 'Excursión 3',
     'cruise3.desc': 'Descripción próximamente.',
@@ -993,6 +995,7 @@ const I18N = {
     'calc.paymentValue': "Espèces à l'arrivée",
     'calc.capacityValue': "Jusqu'à {n} personnes",
     'calc.upgradeNote': 'Pour {pax} passagers, nous recommandons {vehicle} — nous avons mis à jour votre devis pour que tout le monde voyage ensemble.',
+    'calc.extraPaxNote': 'Comprend un supplément de 5 $US par passager au-delà de 6 ({extra} en plus × 5 $US = {fee} $US).',
     'calc.totalLabel': 'Total · par véhicule',
     'calc.fineprint': 'Annulation gratuite · Vol suivi',
 
@@ -1056,7 +1059,7 @@ const I18N = {
 
     'exc4.eyebrow': '04 — Culture',
     'exc4.title': 'Visite de la Ville de Puerto Plata',
-    'exc4.desc': "Maisons victoriennes, la plus ancienne forteresse des Amériques, vue depuis le téléphérique du Mont Isabel et dégustations d'ambre, de rhum et de cacao. Prix fixe pour tout votre groupe, jusqu'à 6 personnes.",
+    'exc4.desc': "Maisons victoriennes, la plus ancienne forteresse des Amériques, vue depuis le téléphérique du Mont Isabel et dégustations d'ambre, de rhum et de cacao. 65 $US par personne, jusqu'à 6 personnes.",
     'exc4.include1': 'Transport privé',
     'exc4.include2': 'Billets de téléphérique',
     'exc4.include3': 'Forteresse San Felipe',
@@ -1101,7 +1104,7 @@ const I18N = {
     'cruise1.desc': "Grimpez, glissez et sautez à travers 27 cascades naturelles sculptées dans la jungle — l'aventure la plus palpitante de la côte nord.",
     'cruise1.duration': 'Demi-journée',
     'cruise2.title': 'Visite de la Ville de Puerto Plata',
-    'cruise2.desc': "Maisons victoriennes, la plus ancienne forteresse des Amériques, vue depuis le téléphérique du Mont Isabel et dégustations d'ambre, de rhum et de cacao. Prix fixe pour tout votre groupe, jusqu'à 6 personnes.",
+    'cruise2.desc': "Maisons victoriennes, la plus ancienne forteresse des Amériques, vue depuis le téléphérique du Mont Isabel et dégustations d'ambre, de rhum et de cacao. 65 $US par personne, jusqu'à 6 personnes.",
     'cruise2.duration': 'Demi-journée',
     'cruise3.title': 'Excursion 3',
     'cruise3.desc': 'Description à venir.',

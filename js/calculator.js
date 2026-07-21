@@ -81,6 +81,17 @@
     return null;
   }
 
+  /**
+   * Adds the per-extra-passenger surcharge to a fixed fare's base price.
+   * @param {number} basePrice Flat price covering up to FIXED_FARE_PAX_INCLUDED.
+   * @param {number} pax       Passenger count.
+   * @returns {number} Base price plus FIXED_FARE_EXTRA_PAX_FEE_USD per passenger over the included count.
+   */
+  function fixedFarePrice(basePrice, pax) {
+    const extraPax = Math.max(0, pax - FIXED_FARE_PAX_INCLUDED);
+    return basePrice + extraPax * FIXED_FARE_EXTRA_PAX_FEE_USD;
+  }
+
   /** Recomputes the boarding pass from the current form values. */
   function update() {
     // A `fixed:` destination only has a confirmed price from POP — force
@@ -93,11 +104,11 @@
     const pickup = AIRPORTS[pickupEl.value];
     const fixed = resolveFixedFare(pickupEl.value, destEl.value);
 
-    // Fixed fares are flat "up to 6 guests" (per the source price sign) —
-    // no vehicle surcharge, so the vehicle select doesn't affect price and
-    // is disabled to avoid implying otherwise.
+    // Fixed fares don't vary by vehicle — the vehicle select doesn't affect
+    // price and is disabled to avoid implying otherwise. They still scale
+    // by passenger count above FIXED_FARE_PAX_INCLUDED (see fixedFarePrice).
     vehicleEl.disabled = !!fixed;
-    const paxMax = fixed ? 6 : 15;
+    const paxMax = 15;
     const pax = Math.min(Math.max(parseInt(paxEl.value, 10) || 1, 1), paxMax);
     paxEl.value = pax;
     paxEl.max = paxMax;
@@ -106,13 +117,22 @@
     out.fromName.textContent = t(pickup.nameKey);
 
     if (fixed) {
+      const extraPax = Math.max(0, pax - FIXED_FARE_PAX_INCLUDED);
       out.toCode.textContent = fixed.code;
       out.toName.textContent = fixed.name;
       out.vehicle.textContent = t('vehicle.minivan');
       out.capacity.textContent = t('routes.upTo6');
       out.duration.textContent = '—';
-      animatePrice(out.amount, fixed.price);
-      out.note.hidden = true;
+      animatePrice(out.amount, fixedFarePrice(fixed.price, pax));
+      if (extraPax > 0) {
+        out.note.textContent = t('calc.extraPaxNote', {
+          extra: extraPax,
+          fee: formatMoney(extraPax * FIXED_FARE_EXTRA_PAX_FEE_USD),
+        });
+        out.note.hidden = false;
+      } else {
+        out.note.hidden = true;
+      }
       return;
     }
 
@@ -168,7 +188,8 @@
         const toKey = destVal.startsWith('fixed:')
           ? POP_FIXED_DESTINATIONS[destVal.slice(6)].nameKey || POP_FIXED_DESTINATIONS[destVal.slice(6)].name
           : PROVINCES[destVal].nameKey;
-        addToCart({ kind: 'fixedRoute', fromKey: 'place.pop', toKey, price: fixed.price });
+        const pax = parseInt(paxEl.value, 10);
+        addToCart({ kind: 'fixedRoute', fromKey: 'place.pop', toKey, price: fixedFarePrice(fixed.price, pax), passengers: pax });
         openCart();
         return;
       }

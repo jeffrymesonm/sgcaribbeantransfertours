@@ -97,10 +97,11 @@ const LUGGAGE_FREE_LIMIT = 10;
 const LUGGAGE_EXTRA_FEE_USD = 15;
 
 /* Fixed one-way fares FROM Puerto Plata Airport (POP) ONLY — owner-confirmed
-   real prices (2026-07-20), not calculator-estimated. Flat regardless of
-   vehicle/passenger count (matches the source price sign's "1 to 6 person"
-   note) — calculator.js disables the vehicle select and caps passengers at
-   6 whenever one of these is the active destination.
+   real prices (2026-07-21), not calculator-estimated. Covers up to
+   FIXED_FARE_PAX_INCLUDED passengers regardless of vehicle (matches the
+   source price sign's "1 to 6 person" note); calculator.js disables the
+   vehicle select whenever one of these is the active destination and adds
+   FIXED_FARE_EXTRA_PAX_FEE_USD per passenger beyond that count.
    - POP_PROVINCE_FIXED_FARES overrides estimateRoute()'s formula price for
      an existing PROVINCES entry, keyed by its slug (e.g. a same-city hop
      like POP→Puerto Plata has a real confirmed price, not a distance guess).
@@ -109,12 +110,15 @@ const LUGGAGE_EXTRA_FEE_USD = 15;
      used by the Popular Routes ticket rail — nameKey points at their
      existing place.* i18n keys instead of a literal name). Selectable in
      the calculator's Destination dropdown as `fixed:<slug>`. */
+const FIXED_FARE_PAX_INCLUDED = 6;
+const FIXED_FARE_EXTRA_PAX_FEE_USD = 5;
+
 const POP_PROVINCE_FIXED_FARES = {
   'barahona': 298.50,
   'dajabon': 198.50,
   'la-romana': 298.50,
   'la-vega': 108.50,
-  'puerto-plata': 33.50,
+  'puerto-plata': 38.95,
   'samana': 178.50,
   'san-pedro-de-macoris': 218.50,
   'santiago': 98.50,
@@ -124,8 +128,8 @@ const POP_PROVINCE_FIXED_FARES = {
 };
 
 const POP_FIXED_DESTINATIONS = {
-  'sosua': { nameKey: 'place.sosua', price: 5.50 },
-  'cabarete': { nameKey: 'place.cabarete', price: 13.50 },
+  'sosua': { nameKey: 'place.sosua', price: 23.95 },
+  'cabarete': { nameKey: 'place.cabarete', price: 28.95 },
   'bahia-principe': { name: 'Bahía Príncipe', price: 78.50 },
   'blue-lagoon': { name: 'Blue Lagoon', price: 118.50 },
   'blue-moon': { name: 'Blue Moon', price: 28.50 },
