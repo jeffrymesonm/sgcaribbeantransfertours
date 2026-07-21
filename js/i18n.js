@@ -196,6 +196,7 @@ const I18N = {
 
     'cart.title': 'Your Requests',
     'cart.add': 'Add to Cart',
+    'cart.bookDirect': 'Book Directly',
     'cart.empty': 'Your cart is empty. Add a transfer or excursion to get started.',
     'cart.total': 'Estimated total',
     'cart.checkout': 'Send via WhatsApp',
@@ -221,6 +222,7 @@ const I18N = {
     'exc.guest5': '5 Guests',
     'exc.guest6': '6 Guests',
     'exc.perLabel': 'total · private',
+    'exc.perPersonSuffix': 'per person',
     'exc.manualLabel': 'Or enter your group size',
     'exc.priceOnRequest': 'Contact us for a quote',
     'exc.requestQuote': 'Ask for a Quote',
@@ -241,6 +243,7 @@ const I18N = {
     'exc2.include2': 'Park entrance &amp; safety gear',
     'exc2.include3': 'Certified canyoning guides',
     'exc2.include4': 'Lunch after the falls',
+    'exc2.include5': 'Cooler with water, soda &amp; beer',
     'exc2.duration': 'Half day · 8:30 AM – 2:00 PM',
 
     'exc3.eyebrow': '03 — Seasonal · Jan to Mar',
@@ -250,6 +253,7 @@ const I18N = {
     'exc3.include2': 'Certified whale-watching boat',
     'exc3.include3': 'Marine sanctuary fees',
     'exc3.include4': 'Lunch in Samaná',
+    'exc3.include5': 'Cooler with water, soda &amp; beer',
     'exc3.duration': 'Full day · 6:30 AM – 6:00 PM',
 
     'exc4.eyebrow': '04 — Culture',
@@ -259,13 +263,14 @@ const I18N = {
     'exc4.include2': 'Cable car tickets',
     'exc4.include3': 'Fortaleza San Felipe',
     'exc4.include4': 'Rum &amp; chocolate tasting',
+    'exc4.include5': 'Cooler with water, soda &amp; beer',
     'exc4.duration': 'Half day · 9:00 AM – 2:30 PM',
 
     'exc5.eyebrow': '05 — Slow day',
     'exc5.title': 'Beach Experiences',
     'exc5.desc': "Playa Grande, Playa Encuentro, hidden coves only locals know — we design your perfect beach-hopping day.",
     'exc5.include1': 'Private transportation all day',
-    'exc5.include2': 'Beach chairs &amp; cooler',
+    'exc5.include2': 'Beach chairs &amp; cooler with water, soda &amp; beer',
     'exc5.include3': 'Local beach guide',
     'exc5.include4': 'Fresh seafood lunch stop',
     'exc5.duration': 'Flexible · You set the pace',
@@ -277,6 +282,7 @@ const I18N = {
     'exc6.include2': 'Safety gear &amp; briefing',
     'exc6.include3': 'Experienced guide',
     'exc6.include4': 'Round-trip transportation',
+    'exc6.include5': 'Cooler with water &amp; soda',
     'exc6.duration': 'Half day · Departure times vary',
 
     'exc7.eyebrow': '07 — Adventure',
@@ -286,6 +292,7 @@ const I18N = {
     'exc7.include2': 'Safety gear &amp; briefing',
     'exc7.include3': 'Experienced guide',
     'exc7.include4': 'Round-trip transportation',
+    'exc7.include5': 'Cooler with water &amp; soda',
     'exc7.duration': 'Half day · Departure times vary',
 
     'cruise.guaranteeTitle': 'Back before you sail — guaranteed',
@@ -600,6 +607,7 @@ const I18N = {
 
     'cart.title': 'Tus Solicitudes',
     'cart.add': 'Agregar al Carrito',
+    'cart.bookDirect': 'Reservar Directamente',
     'cart.empty': 'Tu carrito está vacío. Agrega un transfer o una excursión para comenzar.',
     'cart.total': 'Total estimado',
     'cart.checkout': 'Enviar por WhatsApp',
@@ -625,6 +633,7 @@ const I18N = {
     'exc.guest5': '5 Invitados',
     'exc.guest6': '6 Invitados',
     'exc.perLabel': 'total · privado',
+    'exc.perPersonSuffix': 'por persona',
     'exc.manualLabel': 'O escribe el tamaño de tu grupo',
     'exc.priceOnRequest': 'Contáctanos para cotizar',
     'exc.requestQuote': 'Solicitar Cotización',
@@ -645,6 +654,7 @@ const I18N = {
     'exc2.include2': 'Entrada al parque y equipo de seguridad',
     'exc2.include3': 'Guías certificados de canyoning',
     'exc2.include4': 'Almuerzo después de las cascadas',
+    'exc2.include5': 'Nevera con agua, refresco y cerveza',
     'exc2.duration': 'Medio día · 8:30 a.m. – 2:00 p.m.',
 
     'exc3.eyebrow': '03 — Temporada · Ene a Mar',
@@ -654,6 +664,7 @@ const I18N = {
     'exc3.include2': 'Bote certificado para avistamiento',
     'exc3.include3': 'Tarifas del santuario marino',
     'exc3.include4': 'Almuerzo en Samaná',
+    'exc3.include5': 'Nevera con agua, refresco y cerveza',
     'exc3.duration': 'Día completo · 6:30 a.m. – 6:00 p.m.',
 
     'exc4.eyebrow': '04 — Cultura',
@@ -663,13 +674,14 @@ const I18N = {
     'exc4.include2': 'Boletos de teleférico',
     'exc4.include3': 'Fortaleza San Felipe',
     'exc4.include4': 'Degustación de ron y chocolate',
+    'exc4.include5': 'Nevera con agua, refresco y cerveza',
     'exc4.duration': 'Medio día · 9:00 a.m. – 2:30 p.m.',
 
     'exc5.eyebrow': '05 — Día relajado',
     'exc5.title': 'Experiencias de Playa',
     'exc5.desc': 'Playa Grande, Playa Encuentro, calas escondidas que solo los locales conocen — diseñamos tu día perfecto recorriendo playas.',
     'exc5.include1': 'Transporte privado todo el día',
-    'exc5.include2': 'Sillas de playa y nevera',
+    'exc5.include2': 'Sillas de playa y nevera con agua, refresco y cerveza',
     'exc5.include3': 'Guía local de playas',
     'exc5.include4': 'Parada para almuerzo de mariscos frescos',
     'exc5.duration': 'Flexible · Tú marcas el ritmo',
@@ -681,6 +693,7 @@ const I18N = {
     'exc6.include2': 'Equipo de seguridad y charla informativa',
     'exc6.include3': 'Guía experimentado',
     'exc6.include4': 'Transporte ida y vuelta',
+    'exc6.include5': 'Nevera con agua y refresco',
     'exc6.duration': 'Medio día · Horarios variables',
 
     'exc7.eyebrow': '07 — Aventura',
@@ -690,6 +703,7 @@ const I18N = {
     'exc7.include2': 'Equipo de seguridad y charla informativa',
     'exc7.include3': 'Guía experimentado',
     'exc7.include4': 'Transporte ida y vuelta',
+    'exc7.include5': 'Nevera con agua y refresco',
     'exc7.duration': 'Medio día · Horarios variables',
 
     'cruise.guaranteeTitle': 'De vuelta antes de zarpar — garantizado',
@@ -1001,6 +1015,7 @@ const I18N = {
 
     'cart.title': 'Vos Demandes',
     'cart.add': 'Ajouter au Panier',
+    'cart.bookDirect': 'Réserver Directement',
     'cart.empty': 'Votre panier est vide. Ajoutez un transfert ou une excursion pour commencer.',
     'cart.total': 'Total estimé',
     'cart.checkout': 'Envoyer via WhatsApp',
@@ -1026,6 +1041,7 @@ const I18N = {
     'exc.guest5': '5 Personnes',
     'exc.guest6': '6 Personnes',
     'exc.perLabel': 'total · privé',
+    'exc.perPersonSuffix': 'par personne',
     'exc.manualLabel': 'Ou indiquez la taille de votre groupe',
     'exc.priceOnRequest': 'Contactez-nous pour un devis',
     'exc.requestQuote': 'Demander un Devis',
@@ -1046,6 +1062,7 @@ const I18N = {
     'exc2.include2': 'Entrée du parc et équipement de sécurité',
     'exc2.include3': 'Guides de canyoning certifiés',
     'exc2.include4': 'Déjeuner après les cascades',
+    'exc2.include5': 'Glacière avec eau, soda et bière',
     'exc2.duration': 'Demi-journée · 8h30 – 14h00',
 
     'exc3.eyebrow': '03 — Saisonnier · Jan à Mar',
@@ -1055,6 +1072,7 @@ const I18N = {
     'exc3.include2': "Bateau certifié pour l'observation",
     'exc3.include3': 'Frais du sanctuaire marin',
     'exc3.include4': 'Déjeuner à Samaná',
+    'exc3.include5': 'Glacière avec eau, soda et bière',
     'exc3.duration': 'Journée complète · 6h30 – 18h00',
 
     'exc4.eyebrow': '04 — Culture',
@@ -1064,13 +1082,14 @@ const I18N = {
     'exc4.include2': 'Billets de téléphérique',
     'exc4.include3': 'Forteresse San Felipe',
     'exc4.include4': 'Dégustation de rhum et chocolat',
+    'exc4.include5': 'Glacière avec eau, soda et bière',
     'exc4.duration': 'Demi-journée · 9h00 – 14h30',
 
     'exc5.eyebrow': '05 — Journée détente',
     'exc5.title': 'Expériences de Plage',
     'exc5.desc': 'Playa Grande, Playa Encuentro, criques cachées connues seulement des habitants — nous concevons votre journée parfaite à la découverte des plages.',
     'exc5.include1': 'Transport privé toute la journée',
-    'exc5.include2': 'Chaises de plage et glacière',
+    'exc5.include2': 'Chaises de plage et glacière avec eau, soda et bière',
     'exc5.include3': 'Guide de plage local',
     'exc5.include4': 'Arrêt déjeuner de fruits de mer frais',
     'exc5.duration': 'Flexible · Vous fixez le rythme',
@@ -1082,6 +1101,7 @@ const I18N = {
     'exc6.include2': 'Équipement de sécurité et briefing',
     'exc6.include3': 'Guide expérimenté',
     'exc6.include4': 'Transport aller-retour',
+    'exc6.include5': 'Glacière avec eau et soda',
     'exc6.duration': 'Demi-journée · Horaires variables',
 
     'exc7.eyebrow': '07 — Aventure',
@@ -1091,6 +1111,7 @@ const I18N = {
     'exc7.include2': 'Équipement de sécurité et briefing',
     'exc7.include3': 'Guide expérimenté',
     'exc7.include4': 'Transport aller-retour',
+    'exc7.include5': 'Glacière avec eau et soda',
     'exc7.duration': 'Demi-journée · Horaires variables',
 
     'cruise.guaranteeTitle': "De retour avant l'appareillage — garanti",

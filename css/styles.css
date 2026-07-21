@@ -784,15 +784,18 @@ section { scroll-margin-top: var(--header-h); }
 .ticket-price { font-size: 0.85rem; color: rgba(252, 250, 245, 0.75); }
 .ticket-price strong { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
 
-.ticket-reserve {
-  display: block;
-  width: 100%;
+.ticket-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 0.9rem;
+}
+
+.ticket-reserve, .ticket-book-direct {
+  flex: 1 1 auto;
   padding: 0.55rem;
   border: 0;
   border-radius: 999px;
-  background: var(--gold);
-  color: var(--abyss);
   text-align: center;
   text-decoration: none;
   font-family: inherit;
@@ -802,10 +805,22 @@ section { scroll-margin-top: var(--header-h); }
   transition: transform 160ms var(--ease-out), background-color 200ms ease;
 }
 
-.ticket-reserve:active { transform: scale(0.96); }
+.ticket-reserve {
+  background: var(--gold);
+  color: var(--abyss);
+}
+
+.ticket-book-direct {
+  background: transparent;
+  color: var(--shell);
+  border: 1.5px solid rgba(252, 250, 245, 0.35);
+}
+
+.ticket-reserve:active, .ticket-book-direct:active { transform: scale(0.96); }
 
 @media (hover: hover) and (pointer: fine) {
   .ticket-reserve:hover { background: #D6A64A; }
+  .ticket-book-direct:hover { background: rgba(252, 250, 245, 0.08); border-color: var(--shell); }
 }
 
 /* ---------- 7b. Full destination price list ---------- */
@@ -1275,6 +1290,22 @@ section { scroll-margin-top: var(--header-h); }
   font-weight: 500;
   color: rgba(252, 250, 245, 0.6);
 }
+
+.exc-per-person {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: rgba(252, 250, 245, 0.65);
+  margin-top: -0.5rem;
+}
+.exc-per-person[hidden] { display: none; }
+
+.exc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  width: 100%;
+}
+.exc-actions .btn { flex: 1 1 auto; }
 
 /* ---------- 10. Gallery ---------- */
 .masonry {

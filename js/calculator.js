@@ -173,31 +173,40 @@
   // Re-render with translated names/labels when the language changes.
   document.addEventListener('sariel:langchange', update);
 
-  // Calculator's own "Add to Cart" button: reads whatever is currently
-  // selected (including any auto-upgraded vehicle) and adds it. A fixed
-  // fare (see resolveFixedFare) snapshots as 'fixedRoute', same as the
-  // Popular Routes tickets below — it must NOT go in as 'transfer', which
-  // would ignore the fixed price and re-derive a (wrong) formula price the
-  // next time the cart re-renders.
+  /**
+   * Builds the cart/booking item for whatever the boarding pass currently
+   * shows — shared by the "Add to Cart" and "Book Directly" buttons below.
+   * A fixed fare (see resolveFixedFare) snapshots as 'fixedRoute', same as
+   * the Popular Routes tickets further down — it must NOT go in as
+   * 'transfer', which would ignore the fixed price and re-derive a (wrong)
+   * formula price the next time the cart re-renders.
+   * @returns {Object} Item shape accepted by addToCart()/bookDirect().
+   */
+  function buildCalcItem() {
+    const fixed = resolveFixedFare(pickupEl.value, destEl.value);
+    const pax = parseInt(paxEl.value, 10);
+    if (fixed) {
+      const destVal = destEl.value;
+      const toKey = destVal.startsWith('fixed:')
+        ? POP_FIXED_DESTINATIONS[destVal.slice(6)].nameKey || POP_FIXED_DESTINATIONS[destVal.slice(6)].name
+        : PROVINCES[destVal].nameKey;
+      return { kind: 'fixedRoute', fromKey: 'place.pop', toKey, price: fixedFarePrice(fixed.price, pax), passengers: pax };
+    }
+    const { vehicle } = resolveVehicle(pax, vehicleEl.value);
+    return { kind: 'transfer', pickupKey: pickupEl.value, destKey: destEl.value, vehicleId: vehicle.id, passengers: pax };
+  }
+
   const reserveBtn = document.getElementById('bpReserve');
   if (reserveBtn) {
     reserveBtn.addEventListener('click', () => {
-      const fixed = resolveFixedFare(pickupEl.value, destEl.value);
-      if (fixed) {
-        const destVal = destEl.value;
-        const toKey = destVal.startsWith('fixed:')
-          ? POP_FIXED_DESTINATIONS[destVal.slice(6)].nameKey || POP_FIXED_DESTINATIONS[destVal.slice(6)].name
-          : PROVINCES[destVal].nameKey;
-        const pax = parseInt(paxEl.value, 10);
-        addToCart({ kind: 'fixedRoute', fromKey: 'place.pop', toKey, price: fixedFarePrice(fixed.price, pax), passengers: pax });
-        openCart();
-        return;
-      }
-      const pax = parseInt(paxEl.value, 10);
-      const { vehicle } = resolveVehicle(pax, vehicleEl.value);
-      addToCart({ kind: 'transfer', pickupKey: pickupEl.value, destKey: destEl.value, vehicleId: vehicle.id, passengers: pax });
+      addToCart(buildCalcItem());
       openCart();
     });
+  }
+
+  const bookDirectBtn = document.getElementById('bpBookDirect');
+  if (bookDirectBtn) {
+    bookDirectBtn.addEventListener('click', () => bookDirect(buildCalcItem()));
   }
 
   // Route ticket "Add to Cart" buttons: sync the calculator to that route
@@ -219,14 +228,22 @@
   // Popular Routes ticket buttons carrying a literal fixed price (not
   // formula-derived — some destinations, like Sosúa/Cabarete, aren't
   // provinces the calculator knows about). See js/cart.js 'fixedRoute'.
+  // Each ticket has two buttons sharing the same data-fixed-* attributes:
+  // .ticket-reserve adds to cart, .ticket-book-direct skips straight to
+  // WhatsApp for that one route (see js/cart.js bookDirect()).
   document.querySelectorAll('[data-fixed-from][data-fixed-to]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      addToCart({
+      const item = {
         kind: 'fixedRoute',
         fromKey: btn.dataset.fixedFrom,
         toKey: btn.dataset.fixedTo,
         price: parseFloat(btn.dataset.fixedPrice),
-      });
+      };
+      if (btn.classList.contains('ticket-book-direct')) {
+        bookDirect(item);
+        return;
+      }
+      addToCart(item);
       openCart();
     });
   });

@@ -30,9 +30,12 @@
     const amountEl = panel.querySelector('.exc-amount');
     const priceAmountEl = panel.querySelector('.exc-price-amount');
     const priceQuoteEl = panel.querySelector('.exc-price-quote');
+    const perPersonWrap = panel.querySelector('.exc-per-person');
+    const perPersonAmountEl = panel.querySelector('.exc-per-person-amount');
     const buttons = panel.querySelectorAll('.guest-btn');
     const manualInput = panel.querySelector('.guest-manual-input');
     const addBtn = panel.querySelector('.exc-add');
+    const bookDirectBtn = panel.querySelector('.exc-book-direct');
     const decimals = parseInt(panel.dataset.decimals, 10) || 0;
     let currentGuests = panel.querySelector('.guest-btn.is-active')?.dataset.guests || '4';
     let priceKnown = true;
@@ -44,8 +47,9 @@
 
     /**
      * Selects a guest count and updates the price display accordingly:
-     * an exact match animates the known price, anything else switches the
-     * card into a "contact us for a quote" state instead of inventing one.
+     * an exact match animates the known price (plus its per-person
+     * breakdown), anything else switches the card into a "contact us for a
+     * quote" state instead of inventing one.
      * @param {string} guestsStr
      * @returns {void}
      */
@@ -53,9 +57,16 @@
       currentGuests = guestsStr;
       const price = prices[guestsStr];
       priceKnown = price != null;
-      if (priceKnown) animatePrice(amountEl, price, decimals);
+      if (priceKnown) {
+        animatePrice(amountEl, price, decimals);
+        if (perPersonAmountEl) {
+          const perPerson = Math.round((price / parseInt(guestsStr, 10)) * 100) / 100;
+          perPersonAmountEl.textContent = formatMoney(perPerson);
+        }
+      }
       if (priceAmountEl) priceAmountEl.hidden = !priceKnown;
       if (priceQuoteEl) priceQuoteEl.hidden = priceKnown;
+      if (perPersonWrap) perPersonWrap.hidden = !priceKnown;
       renderAddBtnLabel();
     }
 
@@ -86,40 +97,60 @@
     // by i18n.js's own data-i18n re-render) after a language switch.
     document.addEventListener('sariel:langchange', renderAddBtnLabel);
 
+    /**
+     * Opens a WhatsApp quote request for the current (unpriced) guest count
+     * — shared by both the Add-to-Cart and Book-Directly buttons, since
+     * neither can add a guessed price for a manual size beyond the presets.
+     * @returns {void}
+     */
+    function requestQuote() {
+      const guests = parseInt(currentGuests, 10);
+      const title = t(addBtn.dataset.titleKey);
+      window.open(
+        whatsappLink(t('whatsapp.quoteRequest', { excursion: title, n: guests })),
+        '_blank',
+        'noopener'
+      );
+    }
+
+    /**
+     * Builds the cart/booking item for the currently selected guest count —
+     * shared by the Add-to-Cart and Book-Directly buttons. Only call once
+     * priceKnown is confirmed true (see requestQuote() for the alternative).
+     * @returns {Object} Item shape accepted by addToCart()/bookDirect().
+     */
+    function buildItem() {
+      // Cruise cards (same .exc markup) may carry two optional inputs for
+      // ship name + departure time. Excursion panels lack these elements,
+      // so shipEl/timeEl are null and `extra` stays empty — no behavior
+      // change for plain excursions.
+      const shipEl = panel.querySelector('.cruise-ship');
+      const timeEl = panel.querySelector('.cruise-departure');
+      const extra = {};
+      if (shipEl && shipEl.value.trim()) extra.shipName = shipEl.value.trim();
+      if (timeEl && timeEl.value) extra.departureTime = timeEl.value;
+      return {
+        kind: 'excursion',
+        titleKey: addBtn.dataset.titleKey,
+        serviceKey: addBtn.dataset.serviceKey,
+        guests: parseInt(currentGuests, 10),
+        price: prices[currentGuests],
+        ...extra,
+      };
+    }
+
     if (addBtn) {
       addBtn.addEventListener('click', () => {
-        const guests = parseInt(currentGuests, 10);
-
-        // No exact price for this count (a manual size beyond the presets)
-        // — ask for a quote over WhatsApp instead of adding a guessed price.
-        if (!priceKnown) {
-          const title = t(addBtn.dataset.titleKey);
-          window.open(
-            whatsappLink(t('whatsapp.quoteRequest', { excursion: title, n: guests })),
-            '_blank',
-            'noopener'
-          );
-          return;
-        }
-
-        // Cruise cards (same .exc markup) may carry two optional inputs for
-        // ship name + departure time. Excursion panels lack these elements,
-        // so shipEl/timeEl are null and `extra` stays empty — no behavior
-        // change for plain excursions.
-        const shipEl = panel.querySelector('.cruise-ship');
-        const timeEl = panel.querySelector('.cruise-departure');
-        const extra = {};
-        if (shipEl && shipEl.value.trim()) extra.shipName = shipEl.value.trim();
-        if (timeEl && timeEl.value) extra.departureTime = timeEl.value;
-        addToCart({
-          kind: 'excursion',
-          titleKey: addBtn.dataset.titleKey,
-          serviceKey: addBtn.dataset.serviceKey,
-          guests,
-          price: prices[currentGuests],
-          ...extra,
-        });
+        if (!priceKnown) { requestQuote(); return; }
+        addToCart(buildItem());
         openCart();
+      });
+    }
+
+    if (bookDirectBtn) {
+      bookDirectBtn.addEventListener('click', () => {
+        if (!priceKnown) { requestQuote(); return; }
+        bookDirect(buildItem());
       });
     }
   });

@@ -165,6 +165,18 @@ function renderCart() {
   totalEl.textContent = `US$${formatMoney(cartTotal() + luggageFee())}`;
 }
 
+/**
+ * Opens WhatsApp with a message for a single service, bypassing the cart —
+ * the "Book Directly" action shown next to every "Add to Cart" button.
+ * @param {Object} item Same shape accepted by addToCart().
+ * @returns {void}
+ */
+function bookDirect(item) {
+  const { title, meta, price } = describeCartItem(item);
+  const lines = [t('whatsapp.greeting'), '', title, meta, `US$${formatMoney(price)}`];
+  window.open(whatsappLink(lines.join('\n')), '_blank', 'noopener');
+}
+
 /** Opens the cart drawer. */
 function openCart() {
   const panel = document.getElementById('cartPanel');
