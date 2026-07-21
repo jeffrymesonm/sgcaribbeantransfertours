@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<!--
+  SG Caribbean Transfers & Tours — Private Transfers & Excursions (Puerto Plata, Dominican Republic)
+  Purpose: conversion-focused marketing landing page. Static HTML/CSS/JS, no build step.
+  Bilingual EN/ES: text lives in js/i18n.js and is applied via [data-i18n] /
+  [data-i18n-attr] attributes below (see DOCS/DEVELOPER_GUIDE.md). Structured
+  data (JSON-LD) stays English-only to match the default rendered language.
+  Structure: hero → services picker → gallery → why us → reviews → FAQ →
+             booking CTA → footer. ("Meet the team" lives on nosotros.html.)
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SG Caribbean Transfers &amp; Tours — Private Transfers &amp; Excursions in the Dominican Republic</title>
+  <meta name="description" content="Private airport transfers, transportation and excursions in Puerto Plata, Cabarete, Sosúa and the Dominican Republic north coast. Safe, comfortable, always on time. Book your transfer today." />
+  <meta name="theme-color" content="#062A31" />
+  <link rel="canonical" href="https://sgcaribbeantransfertours.com/" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SG Caribbean Transfers & Tours — Private Transfers & Excursions in the Dominican Republic" />
+  <meta property="og:description" content="Safe, comfortable and reliable transportation for airport transfers, private tours and unforgettable Caribbean experiences." />
+  <meta property="og:image" content="img/hero-main.jpg" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Favicon: real company logo -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png" />
+
+  <!-- Typography: Fraunces (display) + Archivo (body) + IBM Plex Mono (ticket data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,340;1,9..144,420&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Structured data: business + FAQ for rich results (English-only, matches default page language) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "SG Caribbean Transfers & Tours",
+    "description": "Private airport transfers, transportation and excursions in Puerto Plata and the Dominican Republic north coast.",
+    "areaServed": ["Puerto Plata", "Cabarete", "Sosúa", "Playa Dorada", "Samaná", "Dominican Republic"],
+    "url": "https://sgcaribbeantransfertours.com/",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Puerto Plata",
+      "addressCountry": "DO"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Do you provide child seats?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Child and booster seats are available free of charge — just tell us the age of your little ones when booking." } },
+      { "@type": "Question", "name": "Can I pay on arrival?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can pay your driver in cash (USD or DOP) on arrival. No prepayment is required to confirm your reservation." } },
+      { "@type": "Question", "name": "How many passengers fit in the vehicle?", "acceptedAnswer": { "@type": "Answer", "text": "Private cars seat up to 3 guests, minivans up to 6, vans up to 10 and minibuses up to 15 — all with room for standard luggage." } },
+      { "@type": "Question", "name": "What happens if my flight is delayed?", "acceptedAnswer": { "@type": "Answer", "text": "We track your flight in real time and adjust your pickup automatically. Your driver waits for you at no extra cost." } },
+      { "@type": "Question", "name": "Are excursions private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every excursion is 100% private — your group, your vehicle, your own pace. No strangers, no fixed bus schedules." } }
+    ]
+  }
+  </script>
+</head>
+<body data-page="home">
+
+  <a class="skip-link" href="#main" data-i18n="skip.toContent">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers & Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+        <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
+        <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
+          <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a español">ES</button>
+          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" aria-label="Passer au français">FR</button>
+        </div>
+        <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="cart-badge" id="cartBadge" hidden>0</span>
+        </button>
+        <a class="btn btn-primary btn-sm header-book-btn" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" data-i18n-attr="aria-label:nav.mobileAria">
+      <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+      <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+      <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+      <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+    </nav>
+  </header>
+
+  <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
+       buttons; checkout sends one consolidated WhatsApp message. -->
+  <div class="cart-scrim" id="cartScrim"></div>
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your cart" data-i18n-attr="aria-label:cart.title">
+    <div class="cart-panel-inner">
+      <header class="cart-panel-header">
+        <h3 data-i18n="cart.title">Your Requests</h3>
+        <button type="button" class="cart-close" id="cartClose" aria-label="Close cart" data-i18n-attr="aria-label:cart.close">×</button>
+      </header>
+      <div class="cart-items" id="cartItems"></div>
+      <p class="cart-empty" id="cartEmpty" data-i18n="cart.empty">Your cart is empty. Add a transfer or excursion to get started.</p>
+      <div class="cart-panel-footer">
+        <div class="field">
+          <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
+          <input type="text" id="cartName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cartFlight" data-i18n="cart.flightLabel">Flight number (if picking up at the airport)</label>
+          <input type="text" id="cartFlight" />
+        </div>
+        <div class="field">
+          <label for="cartFlightDate" data-i18n="cart.flightDateLabel">Flight / pickup date (optional)</label>
+          <input type="date" id="cartFlightDate" />
+        </div>
+        <div class="field">
+          <label for="cartExcursionDate" data-i18n="cart.excursionDateLabel">Excursion date (optional)</label>
+          <input type="date" id="cartExcursionDate" />
+        </div>
+        <div class="field">
+          <label for="cartLuggage" data-i18n="cart.luggageLabel">Number of suitcases (optional)</label>
+          <input type="number" id="cartLuggage" min="0" inputmode="numeric" />
+          <p class="field-hint" data-i18n="cart.luggageHint">More than 10 suitcases? A US$15 fee applies.</p>
+        </div>
+        <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
+        <div class="cart-checkout-options">
+          <button type="button" class="btn btn-primary btn-block" id="cartCheckout" data-i18n="cart.checkout">Send via WhatsApp</button>
+          <button type="button" class="btn btn-outline btn-block" id="cartCheckoutEmail" data-i18n="cart.checkoutEmail">Send via Email</button>
+        </div>
+        <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
+      </div>
+    </div>
+  </aside>
+
+  <main id="main">
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" id="heroBg">
+      <img
+        src="img/hero-main.jpg"
+        alt="Aerial view of a turquoise Caribbean beach in the Dominican Republic with boats on clear water"
+        fetchpriority="high" />
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-line"><span data-i18n="hero.eyebrow">Puerto Plata · North Coast · Dominican Republic</span></p>
+      <h1 class="hero-title">
+        <span class="reveal-line"><span data-i18n="hero.title1">Private Transfers</span></span>
+        <span class="reveal-line"><span data-i18n="hero.title2">&amp; <em>Excursions</em> in the</span></span>
+        <span class="reveal-line"><span data-i18n="hero.title3">Dominican Republic</span></span>
+      </h1>
+      <p class="hero-sub reveal-line"><span data-i18n="hero.subtitle">Safe, comfortable and reliable transportation for airport transfers, private tours and unforgettable Caribbean experiences.</span></p>
+      <div class="hero-cta reveal-line">
+        <span>
+          <a class="btn btn-primary btn-lg" href="transfers.html#calculator" data-i18n="hero.ctaPrimary">Get Your Quote</a>
+          <a class="btn btn-ghost btn-lg" href="excursions.html" data-i18n="hero.ctaSecondary">Explore Excursions</a>
+        </span>
+      </div>
+      <ul class="hero-trust reveal-line">
+        <li><strong>4.9</strong><svg class="star" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg> <span data-i18n="hero.trustReviews">350+ reviews</span></li>
+        <li aria-hidden="true">·</li>
+        <li data-i18n="hero.trustLicensed">Licensed &amp; insured</li>
+        <li aria-hidden="true">·</li>
+        <li data-i18n="hero.trustTracking">Flight tracking included</li>
+      </ul>
+    </div>
+
+    <a class="hero-scroll" href="#services-picker" aria-label="Scroll to services" data-i18n-attr="aria-label:hero.scrollAria">
+      <span class="hero-scroll-dot" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ============ 2. SERVICES PICKER ============
+       Replaces the old inline transfers/calculator/excursions sections
+       (moved to dedicated pages). Three cards route visitors to the
+       right service page. Copy keys (picker.*) are shared with the
+       service-picker popup (see js/service-picker.js, added in a later
+       task) so both surfaces stay in sync from one translation source. -->
+  <section class="section services-picker" id="services-picker">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="picker.eyebrow">What we do</p>
+        <h2 data-i18n="picker.heading">Three ways to explore <em>the island</em></h2>
+        <p class="section-lead" data-i18n="picker.lead">Tell us where you're headed — we'll take you straight to the right page.</p>
+      </header>
+
+      <div class="picker-grid">
+        <a class="picker-card reveal" href="transfers.html">
+          <span class="picker-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M2 15V8.5A2.5 2.5 0 0 1 4.5 6H13l4-4h3a2 2 0 0 1 2 2v11a1 1 0 0 1-1 1h-1.4a2.8 2.8 0 0 1-5.4 0H9.8a2.8 2.8 0 0 1-5.4 0H3a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.1" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.9" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          <span class="picker-name" data-i18n="picker.transfersName">Transfers</span>
+          <span class="picker-desc" data-i18n="picker.transfersDesc">Landing at the airport? Get a fixed-price ride to your hotel.</span>
+        </a>
+
+        <a class="picker-card reveal" href="excursions.html">
+          <span class="picker-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 16.8l-5.8 3.1 1.1-6.5L2.6 8.8l6.5-.9z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="picker-name" data-i18n="picker.excursionsName">Excursions</span>
+          <span class="picker-desc" data-i18n="picker.excursionsDesc">Already settled in? Book a private day tour to waterfalls, beaches and more.</span>
+        </a>
+
+        <a class="picker-card reveal" href="cruises.html">
+          <span class="picker-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.2-8 10.8-4.6-1.6-8-5.8-8-10.8V5.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.6 12l2.3 2.3 4.5-4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="picker-name" data-i18n="picker.cruisesName">Cruises</span>
+          <span class="picker-desc" data-i18n="picker.cruisesDesc">Docking for the day? Shore excursions guaranteed to have you back on time.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. GALLERY ============ -->
+  <section class="section gallery" id="gallery">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="gallery.eyebrow">Postcards from our guests</p>
+        <h2 data-i18n="gallery.heading">The island, <em>up close</em></h2>
+      </header>
+      <div class="masonry">
+        <figure class="masonry-item reveal"><img src="img/gallery-1-surf.jpg" alt="Surfer riding inside a turquoise barrel wave" loading="lazy" /><figcaption data-i18n="gallery.caption1">Surf morning · Playa Encuentro</figcaption></figure>
+        <figure class="masonry-item reveal"><img src="img/gallery-2-diving.jpg" alt="Scuba diver swimming beside a school of yellow fish" loading="lazy" /><figcaption data-i18n="gallery.caption2">Reef snorkeling · Sosúa Bay</figcaption></figure>
+        <figure class="masonry-item reveal"><img src="img/gallery-3-fleet.jpg" alt="Modern tour coach parked at golden hour" loading="lazy" /><figcaption data-i18n="gallery.caption3">Our fleet, ready at sunrise</figcaption></figure>
+        <figure class="masonry-item reveal"><img src="img/gallery-4-aerial-coast.jpg" alt="Aerial view of waves breaking on a palm-fringed shore" loading="lazy" /><figcaption data-i18n="gallery.caption4">North coast from above</figcaption></figure>
+        <figure class="masonry-item reveal"><img src="img/gallery-5-hiking.jpg" alt="Hiker walking a golden mountain ridge at sunset" loading="lazy" /><figcaption data-i18n="gallery.caption5">Ridge walk · Cordillera Septentrional</figcaption></figure>
+        <figure class="masonry-item reveal"><img src="img/gallery-6-sunset.jpg" alt="Ocean wave rising at sunset under pink clouds" loading="lazy" /><figcaption data-i18n="gallery.caption6">Atlantic sunset · Cabarete</figcaption></figure>
+        <figure class="masonry-item reveal"><img src="img/gallery-7-overwater-villas.jpg" alt="Aerial view of overwater villas on turquoise sea" loading="lazy" /><figcaption data-i18n="gallery.caption7">Resort arrivals, handled</figcaption></figure>
+        <figure class="masonry-item reveal"><img src="img/gallery-8-first-light.jpg" alt="Soft waves washing over sand at first light" loading="lazy" /><figcaption data-i18n="gallery.caption8">First light · Playa Dorada</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. WHY CHOOSE US ============ -->
+  <section class="section section-abyss why" id="why">
+    <div class="container">
+      <header class="section-head section-head-light reveal">
+        <p class="eyebrow" data-i18n="why.eyebrow">Why choose us?</p>
+        <h2 data-i18n="why.heading">What sets us apart</h2>
+        <p class="section-lead" data-i18n="why.lead">At SG Caribbean Transfers &amp; Tours, we believe a tour is much more than getting people from one place to another. Our mission is to make every visitor live a safe, comfortable and authentic experience from the first contact to the end of their adventure.</p>
+      </header>
+
+      <div class="why-grid">
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 15V8.5A2.5 2.5 0 0 1 4.5 6H13l4-4h3a2 2 0 0 1 2 2v11a1 1 0 0 1-1 1h-1.4a2.8 2.8 0 0 1-5.4 0H9.8a2.8 2.8 0 0 1-5.4 0H3a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.1" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.9" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <h3 data-i18n="why.card1Title">Safe &amp; Reliable Service</h3>
+          <p data-i18n="why.card1Desc">Your safety and peace of mind are our priority throughout the journey.</p>
+        </article>
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 16.8l-5.8 3.1 1.1-6.5L2.6 8.8l6.5-.9z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <h3 data-i18n="why.card2Title">Local Knowledge</h3>
+          <p data-i18n="why.card2Desc">We know Sosúa, Cabarete, Puerto Plata and the region's top destinations inside out, so we can recommend the best places and experiences.</p>
+        </article>
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 6.5V12l3.8 2.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h3 data-i18n="why.card3Title">Guaranteed Punctuality</h3>
+          <p data-i18n="why.card3Desc">We know your vacation time is valuable. We always arrive on time so you can make the most of it.</p>
+        </article>
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.2-8 10.8-4.6-1.6-8-5.8-8-10.8V5.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.6 12l2.3 2.3 4.5-4.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3 data-i18n="why.card4Title">Personalized Attention</h3>
+          <p data-i18n="why.card4Desc">We treat every client as a guest, not a number. We adapt to your needs and schedule.</p>
+        </article>
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 21c.8-4 4-6 8-6s7.2 2 8 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M8.5 4.5h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h3 data-i18n="why.card5Title">Clear, Friendly Communication</h3>
+          <p data-i18n="why.card5Desc">We're available to answer questions before, during and after every tour, with a close and professional service.</p>
+        </article>
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.4L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <h3 data-i18n="why.card6Title">Unforgettable Experiences</h3>
+          <p data-i18n="why.card6Desc">We don't just offer excursions and transfers; we create memories that will make you want to return to the Dominican Republic.</p>
+        </article>
+      </div>
+
+      <dl class="stats reveal">
+        <div class="stat"><dt data-i18n="why.stat1">Years on the road</dt><dd><span class="counter" data-target="20" data-suffix="+">0</span></dd></div>
+        <div class="stat"><dt data-i18n="why.stat2">Happy travelers</dt><dd><span class="counter" data-target="10000" data-suffix="+">0</span></dd></div>
+        <div class="stat"><dt data-i18n="why.stat3">Average rating</dt><dd><span class="counter" data-target="4.9" data-decimals="1">0</span></dd></div>
+        <div class="stat"><dt data-i18n="why.stat4">Missed pickups</dt><dd><span class="counter" data-target="0">0</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 5. REVIEWS ============
+       "Meet the team" (team + fleet content) moved to its own page,
+       nosotros.html, on 2026-07-20 — see DOCS/DEVELOPER_GUIDE.md. -->
+  <section class="section section-sand reviews" id="reviews">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="reviews.eyebrow">Guest reviews</p>
+        <h2 data-i18n="reviews.heading">Trusted by travelers <em>worldwide</em></h2>
+      </header>
+      <div class="review-grid">
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote1">"Our driver was waiting with a sign even though our flight landed 2 hours late. Cold water, spotless van, zero stress. This is how every vacation should start."</p>
+          <footer><strong>Sarah M.</strong><span>Toronto, Canada 🇨🇦</span></footer>
+        </blockquote>
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote2">"The Beach Experiences tour was the highlight of our honeymoon. Just the two of us, hidden coves, and the clearest water I've ever seen. Worth every dollar."</p>
+          <footer><strong>James &amp; Emily R.</strong><span>London, UK 🇬🇧</span></footer>
+        </blockquote>
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote3">"We traveled with 9 family members and two car seats. Everything was arranged over WhatsApp in minutes. Fair fixed price, beautiful van, kind driver."</p>
+          <footer><strong>Miriam G.</strong><span>New Jersey, USA 🇺🇸</span></footer>
+        </blockquote>
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote4">"27 Charcos with Sariel was pure adrenaline — the guides made us feel safe the whole way. Then fresh fish on the beach. Perfect day."</p>
+          <footer><strong>Lukas B.</strong><span>Munich, Germany 🇩🇪</span></footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. FAQ ============ -->
+  <section class="section faq" id="faq">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="faq.eyebrow">Good to know</p>
+        <h2 data-i18n="faq.heading">Questions, <em>answered</em></h2>
+      </header>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="faqQ1" aria-expanded="false" aria-controls="faqA1"><span data-i18n="faq.q1">Do you provide child seats?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faqA1" role="region" aria-labelledby="faqQ1"><div class="faq-panel-inner"><p data-i18n="faq.a1">Yes — child and booster seats are available free of charge. Just tell us the ages of your little ones when you book and we'll have the right seats installed before pickup.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="faqQ2" aria-expanded="false" aria-controls="faqA2"><span data-i18n="faq.q2">Can I pay on arrival?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faqA2" role="region" aria-labelledby="faqQ2"><div class="faq-panel-inner"><p data-i18n="faq.a2">Yes. No prepayment is needed to confirm your reservation — you pay your driver in cash (USD or Dominican pesos) when we meet you. Card payment is available on request.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="faqQ3" aria-expanded="false" aria-controls="faqA3"><span data-i18n="faq.q3">How many passengers fit in the vehicle?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faqA3" role="region" aria-labelledby="faqQ3"><div class="faq-panel-inner"><p data-i18n="faq.a3">Private cars seat up to 3 guests, minivans up to 6, vans up to 10 and minibuses up to 15 — all with space for standard luggage. Traveling with surfboards or extra bags? Tell us and we'll plan for it.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="faqQ4" aria-expanded="false" aria-controls="faqA4"><span data-i18n="faq.q4">What happens if my flight is delayed?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faqA4" role="region" aria-labelledby="faqQ4"><div class="faq-panel-inner"><p data-i18n="faq.a4">Nothing changes for you. We monitor your flight number in real time and adjust the pickup automatically — your driver will be waiting whenever you land, at no extra cost.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="faqQ5" aria-expanded="false" aria-controls="faqA5"><span data-i18n="faq.q5">Are excursions private?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="faqA5" role="region" aria-labelledby="faqQ5"><div class="faq-panel-inner"><p data-i18n="faq.a5">Completely. Every excursion is just your group — your own vehicle, your own guide, your own schedule. No strangers, no waiting for a bus to fill up.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. FINAL BOOKING CTA ============ -->
+  <section class="book" id="book">
+    <div class="book-bg" id="bookBg">
+      <img src="img/cta-band.jpg" alt="" loading="lazy" aria-hidden="true" />
+    </div>
+    <div class="book-scrim" aria-hidden="true"></div>
+    <div class="container book-inner book-inner-solo">
+      <div class="book-copy reveal">
+        <p class="eyebrow" data-i18n="book.eyebrow">Your island is waiting</p>
+        <h2 data-i18n="book.heading">Ready to explore the<br /><em>Dominican Republic?</em></h2>
+        <p data-i18n="book.lead">Prefer to talk to a real person? Send us a WhatsApp message and we'll help you plan transfers, excursions or a custom itinerary — no forms, no waiting.</p>
+        <ul class="book-points">
+          <li data-i18n="book.point1">Free cancellation up to 24 h before</li>
+          <li data-i18n="book.point2">No prepayment — pay on arrival</li>
+          <li data-i18n="book.point3">Instant WhatsApp confirmation</li>
+        </ul>
+        <div class="book-direct-ctas">
+          <a class="btn btn-primary btn-lg" id="bookDirectCta" href="#" rel="noopener" data-i18n="book.directCta">Chat on WhatsApp</a>
+          <a class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" href="#" rel="noopener" data-i18n="book.directCtaEmail">Email Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers & Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+          <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+        </a>
+        <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
+      </div>
+      <nav class="footer-col" aria-label="Services">
+        <h4 class="mono" data-i18n="footer.servicesHeading">Services</h4>
+        <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>
+        <a href="#why" data-i18n="why.eyebrow">Why choose us?</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#gallery" data-i18n="footer.companyGallery">Gallery</a>
+      </nav>
+      <div class="footer-col">
+        <h4 class="mono" data-i18n="footer.contactHeading">Contact</h4>
+        <a class="footer-whatsapp" id="footerWhatsApp" href="#" rel="noopener" data-i18n="footer.whatsappUs">WhatsApp us</a>
+        <a href="mailto:sg.caribbeantrasferstours@gmail.com">sg.caribbeantrasferstours@gmail.com</a>
+        <p data-i18n="footer.address">Puerto Plata, Dominican Republic</p>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. All rights reserved.</span></p>
+      <p class="mono" data-i18n="footer.tagline">POP · STI · North Coast · DR</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button: primary conversion shortcut, visible after hero -->
+  <a class="whatsapp-fab" id="whatsappFab" href="#" rel="noopener" aria-label="Chat with us on WhatsApp" data-i18n-attr="aria-label:fab.aria">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.3-.5v-.5L9.7 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a11.6 11.6 0 0 0 4.5 4.5c1.8.9 2.7 1 3.7.8.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
+  </a>
+
+  <!-- Service picker popup: shown once per session on the home page only.
+       Copy keys (picker.*) are shared with the #services-picker section
+       above; see js/service-picker.js. -->
+  <dialog class="service-dialog" id="serviceDialog" aria-labelledby="serviceDialogTitle">
+    <div class="service-dialog-inner">
+      <button type="button" class="service-dialog-close" id="serviceDialogClose" data-i18n-attr="aria-label:picker.close" aria-label="Close">×</button>
+      <p class="eyebrow" data-i18n="picker.eyebrow">Choose your experience</p>
+      <h2 id="serviceDialogTitle" data-i18n="picker.title">What can we help you with?</h2>
+      <div class="service-options">
+        <a class="service-option" href="transfers.html" data-service="transfers">
+          <span class="service-option-icon" aria-hidden="true">🚐</span>
+          <span class="service-option-name" data-i18n="picker.transfersName">Transfers</span>
+          <span class="service-option-desc" data-i18n="picker.transfersDesc">Landing at the airport? Get a fixed-price ride to your hotel.</span>
+        </a>
+        <a class="service-option" href="excursions.html" data-service="excursions">
+          <span class="service-option-icon" aria-hidden="true">🏝️</span>
+          <span class="service-option-name" data-i18n="picker.excursionsName">Excursions</span>
+          <span class="service-option-desc" data-i18n="picker.excursionsDesc">Already settled in? Book a private day tour to waterfalls, beaches and more.</span>
+        </a>
+        <a class="service-option" href="cruises.html" data-service="cruises">
+          <span class="service-option-icon" aria-hidden="true">🛳️</span>
+          <span class="service-option-name" data-i18n="picker.cruisesName">Cruises</span>
+          <span class="service-option-desc" data-i18n="picker.cruisesDesc">Docking for the day? Shore excursions guaranteed to have you back on time.</span>
+        </a>
+      </div>
+      <button type="button" class="service-dialog-browse" id="serviceDialogBrowse" data-i18n="picker.browse">Browse everything</button>
+    </div>
+  </dialog>
+
+  <script src="js/i18n.js" defer></script>
+  <script src="js/config.js" defer></script>
+  <script src="js/core.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/shell.js" defer></script>
+  <script src="js/service-picker.js" defer></script>
+</body>
+</html>

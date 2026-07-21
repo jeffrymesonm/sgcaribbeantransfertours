@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!--
+  SG Caribbean Transfers & Tours — Meet the Team & Our Fleet (Puerto Plata, Dominican Republic)
+  Purpose: dedicated "About Us" page (split out of index.html's #about section on
+  2026-07-20 so the team/fleet/company story get their own page instead of a
+  home-page anchor). Static HTML/CSS/JS, no build step. Trilingual EN/ES/FR:
+  text lives in js/i18n.js and is applied via [data-i18n] / [data-i18n-attr]
+  attributes below (see DOCS/DEVELOPER_GUIDE.md).
+  Structure: header/cart → hero (banner nosotros.jpeg) → intro (logo + company
+             story) → team grid → fleet grid → booking CTA → footer.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet the Team & Our Fleet — SG Caribbean Transfers & Tours | Puerto Plata</title>
+  <meta name="description" content="Meet the local drivers and modern fleet behind SG Caribbean Transfers & Tours — real photos, real people, serving Puerto Plata, Sosúa and Cabarete." />
+  <meta name="theme-color" content="#062A31" />
+  <link rel="canonical" href="https://sgcaribbeantransfertours.com/nosotros.html" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Meet the Team & Our Fleet — SG Caribbean Transfers & Tours | Puerto Plata" />
+  <meta property="og:description" content="Meet the local drivers and modern fleet behind SG Caribbean Transfers & Tours — real photos, real people, serving Puerto Plata, Sosúa and Cabarete." />
+  <meta property="og:image" content="img/banner%20nosotros.jpeg" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Favicon: real company logo -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png" />
+
+  <!-- Typography: Fraunces (display) + Archivo (body) + IBM Plex Mono (ticket data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,340;1,9..144,420&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Structured data: AboutPage + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"AboutPage","name":"Meet the Team & Our Fleet — SG Caribbean Transfers & Tours","url":"https://sgcaribbeantransfertours.com/nosotros.html","about":{"@type":"TravelAgency","name":"SG Caribbean Transfers & Tours"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://sgcaribbeantransfertours.com/"},{"@type":"ListItem","position":2,"name":"Meet the team","item":"https://sgcaribbeantransfertours.com/nosotros.html"}]}
+  </script>
+</head>
+<body data-page="nosotros">
+
+  <a class="skip-link" href="#main" data-i18n="skip.toContent">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers & Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+        <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
+        <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="nosotros.html" aria-current="page" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
+          <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a español">ES</button>
+          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" aria-label="Passer au français">FR</button>
+        </div>
+        <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="cart-badge" id="cartBadge" hidden>0</span>
+        </button>
+        <a class="btn btn-primary btn-sm header-book-btn" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" data-i18n-attr="aria-label:nav.mobileAria">
+      <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+      <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+      <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+      <a href="nosotros.html" aria-current="page" data-i18n="about.eyebrow">Meet the team</a>
+      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+    </nav>
+  </header>
+
+  <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
+       buttons; checkout sends one consolidated WhatsApp message. -->
+  <div class="cart-scrim" id="cartScrim"></div>
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your cart" data-i18n-attr="aria-label:cart.title">
+    <div class="cart-panel-inner">
+      <header class="cart-panel-header">
+        <h3 data-i18n="cart.title">Your Requests</h3>
+        <button type="button" class="cart-close" id="cartClose" aria-label="Close cart" data-i18n-attr="aria-label:cart.close">×</button>
+      </header>
+      <div class="cart-items" id="cartItems"></div>
+      <p class="cart-empty" id="cartEmpty" data-i18n="cart.empty">Your cart is empty. Add a transfer or excursion to get started.</p>
+      <div class="cart-panel-footer">
+        <div class="field">
+          <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
+          <input type="text" id="cartName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cartFlight" data-i18n="cart.flightLabel">Flight number (if picking up at the airport)</label>
+          <input type="text" id="cartFlight" />
+        </div>
+        <div class="field">
+          <label for="cartFlightDate" data-i18n="cart.flightDateLabel">Flight / pickup date (optional)</label>
+          <input type="date" id="cartFlightDate" />
+        </div>
+        <div class="field">
+          <label for="cartExcursionDate" data-i18n="cart.excursionDateLabel">Excursion date (optional)</label>
+          <input type="date" id="cartExcursionDate" />
+        </div>
+        <div class="field">
+          <label for="cartLuggage" data-i18n="cart.luggageLabel">Number of suitcases (optional)</label>
+          <input type="number" id="cartLuggage" min="0" inputmode="numeric" />
+          <p class="field-hint" data-i18n="cart.luggageHint">More than 10 suitcases? A US$15 fee applies.</p>
+        </div>
+        <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
+        <div class="cart-checkout-options">
+          <button type="button" class="btn btn-primary btn-block" id="cartCheckout" data-i18n="cart.checkout">Send via WhatsApp</button>
+          <button type="button" class="btn btn-outline btn-block" id="cartCheckoutEmail" data-i18n="cart.checkoutEmail">Send via Email</button>
+        </div>
+        <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
+      </div>
+    </div>
+  </aside>
+
+  <main id="main">
+
+  <!-- ============ 1. HERO (nosotros-specific) ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" id="heroBg">
+      <img
+        src="img/banner%20nosotros.jpeg"
+        alt="SG Caribbean Transfers & Tours team banner"
+        fetchpriority="high" />
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-line"><span data-i18n="nosotrosHero.eyebrow">Meet the team</span></p>
+      <h1 class="hero-title">
+        <span class="reveal-line"><span data-i18n="nosotrosHero.title">The people <em>behind SG Caribbean</em></span></span>
+      </h1>
+      <p class="hero-sub reveal-line"><span data-i18n="nosotrosHero.lead">Four local drivers, a modern fleet and a family business that has called the north coast home for years.</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 2. ABOUT US / MEET THE TEAM ============
+       Real team + fleet photos live in img/ (resized + EXIF-stripped copies
+       of the owner's "Nueva carpeta" originals). All 4 drivers (Saul,
+       Sariel, Luis, Leuris) have real photos. Moved here from index.html's
+       #about section on 2026-07-20 so the team/fleet/story get their own
+       page instead of a home-page anchor. -->
+  <section class="section about" id="about">
+    <div class="container">
+      <header class="section-head reveal about-intro">
+        <img class="about-logo" src="img/logo.jpg" alt="SG Caribbean Transfers & Tours logo" width="120" height="120" loading="lazy" />
+        <p class="eyebrow" data-i18n="about.introEyebrow">Who we are</p>
+        <h2 data-i18n="about.introHeading">A family business on <em>the north coast</em></h2>
+        <p class="section-lead" data-i18n="about.introBody">SG Caribbean Transfers &amp; Tours was born on the north coast of the Dominican Republic, out of a simple idea: every visitor deserves a safe, comfortable ride and a driver who treats them like family. Today our team moves thousands of travelers a year between the airports, Sosúa, Cabarete and Puerto Plata — always on time, always private.</p>
+      </header>
+
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="about.eyebrow">Meet the team</p>
+        <h2 data-i18n="about.heading">The people behind <em>the wheel</em></h2>
+        <p class="section-lead" data-i18n="about.lead">Saul, Sariel, Luis and Leuris — four local drivers who know every road on the north coast and treat every guest like family.</p>
+      </header>
+
+      <div class="team-grid">
+        <figure class="team-card reveal">
+          <div class="team-photo"><img src="img/team-saul.jpg" width="960" height="1280" alt="Saul, one of our drivers, standing beside a white Toyota Hiace van" loading="lazy" /></div>
+          <figcaption><strong class="team-name">Saul</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
+        </figure>
+        <figure class="team-card reveal">
+          <div class="team-photo"><img src="img/team-sariel.jpg" width="1200" height="1500" alt="Sariel, one of our drivers, in the team's yellow taxi polo" loading="lazy" /></div>
+          <figcaption><strong class="team-name">Sariel</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
+        </figure>
+        <figure class="team-card reveal">
+          <div class="team-photo"><img src="img/team-luis.jpg" width="860" height="1280" alt="Luis, one of our drivers, smiling at a beachside lounge" loading="lazy" /></div>
+          <figcaption><strong class="team-name">Luis</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
+        </figure>
+        <figure class="team-card reveal">
+          <div class="team-photo"><img src="img/team-leuris.jpg" width="523" height="1139" alt="Leuris, one of our drivers, smiling in a garden wearing the company polo" loading="lazy" /></div>
+          <figcaption><strong class="team-name">Leuris</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="fleet">
+        <header class="fleet-head reveal">
+          <p class="eyebrow" data-i18n="about.fleetEyebrow">The fleet</p>
+          <h3 class="fleet-heading" data-i18n="about.fleetHeading">Travel in a Toyota Hiace, kept <em>spotless</em></h3>
+        </header>
+        <div class="fleet-grid">
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-vans.jpg" width="1280" height="960" alt="Three white Toyota Hiace vans of the SG Caribbean fleet parked side by side" loading="lazy" /><figcaption data-i18n="about.fleet1">The Hiace fleet — room for up to 15 guests</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-1.jpg" width="1280" height="960" alt="White Toyota Hiace van gleaming at golden hour" loading="lazy" /><figcaption data-i18n="about.fleet2">Detailed and inspected before every pickup</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-2.jpg" width="960" height="1280" alt="White Toyota Hiace van parked at the airport" loading="lazy" /><figcaption data-i18n="about.fleet4">Every van, ready for the road</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-3.jpg" width="960" height="1280" alt="White Toyota Hiace van facing the camera at the airport" loading="lazy" /><figcaption data-i18n="about.fleet5">Custom-fitted and road-tested</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-4.jpg" width="900" height="1179" alt="White Toyota Hiace van with off-road styling under a cloudy sky" loading="lazy" /><figcaption data-i18n="about.fleet6">Our newest addition to the fleet</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-1.jpg" width="1200" height="799" alt="Spotless two-tone seats inside a Toyota Hiace van" loading="lazy" /><figcaption data-i18n="about.fleet3">Air-conditioned, spotless interiors</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-2.jpg" width="960" height="1280" alt="Grey leather seats inside a Toyota Hiace van with the door open" loading="lazy" /><figcaption data-i18n="about.fleet7">Comfortable seating for every group size</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-3.jpg" width="1448" height="1086" alt="Grey fabric seats inside a Toyota Hiace van, seen from the back row" loading="lazy" /><figcaption data-i18n="about.fleet8">Spacious and immaculate, every trip</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. FINAL BOOKING CTA ============ -->
+  <section class="book" id="book">
+    <div class="book-bg" id="bookBg">
+      <img src="img/cta-band.jpg" alt="" loading="lazy" aria-hidden="true" />
+    </div>
+    <div class="book-scrim" aria-hidden="true"></div>
+    <div class="container book-inner book-inner-solo">
+      <div class="book-copy reveal">
+        <p class="eyebrow" data-i18n="book.eyebrow">Your island is waiting</p>
+        <h2 data-i18n="book.heading">Ready to explore the<br /><em>Dominican Republic?</em></h2>
+        <p data-i18n="book.lead">Prefer to talk to a real person? Send us a WhatsApp message and we'll help you plan transfers, excursions or a custom itinerary — no forms, no waiting.</p>
+        <ul class="book-points">
+          <li data-i18n="book.point1">Free cancellation up to 24 h before</li>
+          <li data-i18n="book.point2">No prepayment — pay on arrival</li>
+          <li data-i18n="book.point3">Instant WhatsApp confirmation</li>
+        </ul>
+        <div class="book-direct-ctas">
+          <a class="btn btn-primary btn-lg" id="bookDirectCta" href="#" rel="noopener" data-i18n="book.directCta">Chat on WhatsApp</a>
+          <a class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" href="#" rel="noopener" data-i18n="book.directCtaEmail">Email Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers & Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+          <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+        </a>
+        <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
+      </div>
+      <nav class="footer-col" aria-label="Services">
+        <h4 class="mono" data-i18n="footer.servicesHeading">Services</h4>
+        <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>
+        <a href="index.html#why" data-i18n="why.eyebrow">Why choose us?</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="index.html#reviews" data-i18n="nav.reviews">Reviews</a>
+        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="index.html#gallery" data-i18n="footer.companyGallery">Gallery</a>
+      </nav>
+      <div class="footer-col">
+        <h4 class="mono" data-i18n="footer.contactHeading">Contact</h4>
+        <a class="footer-whatsapp" id="footerWhatsApp" href="#" rel="noopener" data-i18n="footer.whatsappUs">WhatsApp us</a>
+        <a href="mailto:sg.caribbeantrasferstours@gmail.com">sg.caribbeantrasferstours@gmail.com</a>
+        <p data-i18n="footer.address">Puerto Plata, Dominican Republic</p>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. All rights reserved.</span></p>
+      <p class="mono" data-i18n="footer.tagline">POP · STI · North Coast · DR</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button: primary conversion shortcut, visible after hero -->
+  <a class="whatsapp-fab" id="whatsappFab" href="#" rel="noopener" aria-label="Chat with us on WhatsApp" data-i18n-attr="aria-label:fab.aria">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.3-.5v-.5L9.7 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a11.6 11.6 0 0 0 4.5 4.5c1.8.9 2.7 1 3.7.8.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
+  </a>
+
+  <script src="js/i18n.js" defer></script>
+  <script src="js/config.js" defer></script>
+  <script src="js/core.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/shell.js" defer></script>
+</body>
+</html>

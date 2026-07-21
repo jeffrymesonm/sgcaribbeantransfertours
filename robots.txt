@@ -1,0 +1,5 @@
+# SG Caribbean Transfers & Tours — allow all crawlers.
+User-agent: *
+Allow: /
+
+Sitemap: https://sgcaribbeantransfertours.com/sitemap.xml

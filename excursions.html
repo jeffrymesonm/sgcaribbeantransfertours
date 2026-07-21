@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<!--
+  SG Caribbean Transfers & Tours — Private Excursions & Day Tours (Dominican Republic)
+  Purpose: dedicated excursions landing page (split out of index.html). Static
+  HTML/CSS/JS, no build step. Bilingual EN/ES: text lives in js/i18n.js and is
+  applied via [data-i18n] / [data-i18n-attr] attributes below (see
+  DOCS/DEVELOPER_GUIDE.md). Structured data (JSON-LD) stays English-only to
+  match the default rendered language.
+  Structure: header/cart → hero → excursions showcase (5 tours) →
+             trust strip (why + reviews) → booking CTA → footer.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private Excursions & Day Tours — SG Caribbean Transfers & Tours | North Coast DR</title>
+  <meta name="description" content="Private excursions on the DR north coast: Punta Rusia, 27 Charcos, whale watching, city tours, ATV and buggy adventures. Your group, your pace, round-trip transport included." />
+  <meta name="theme-color" content="#062A31" />
+  <link rel="canonical" href="https://sgcaribbeantransfertours.com/excursions.html" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Private Excursions & Day Tours — SG Caribbean Transfers & Tours | North Coast DR" />
+  <meta property="og:description" content="Private excursions on the DR north coast: Punta Rusia, 27 Charcos, whale watching, city tours, ATV and buggy adventures. Your group, your pace, round-trip transport included." />
+  <meta property="og:image" content="img/hero-main.jpg" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Favicon: real company logo -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon-180.png" />
+
+  <!-- Typography: Fraunces (display) + Archivo (body) + IBM Plex Mono (ticket data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,340;1,9..144,420&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ItemList","itemListElement":[
+  {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Punta Rusia","url":"https://sgcaribbeantransfertours.com/excursions.html#exc1"}},
+  {"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"27 Charcos","url":"https://sgcaribbeantransfertours.com/excursions.html#exc2"}},
+  {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"Whale Watching","url":"https://sgcaribbeantransfertours.com/excursions.html#exc3"}},
+  {"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"City Tour","url":"https://sgcaribbeantransfertours.com/excursions.html#exc4"}},
+  {"@type":"ListItem","position":5,"item":{"@type":"TouristTrip","name":"Beach Experience","url":"https://sgcaribbeantransfertours.com/excursions.html#exc5"}},
+  {"@type":"ListItem","position":6,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://sgcaribbeantransfertours.com/excursions.html#exc6"}},
+  {"@type":"ListItem","position":7,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://sgcaribbeantransfertours.com/excursions.html#exc7"}}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://sgcaribbeantransfertours.com/"},{"@type":"ListItem","position":2,"name":"Excursions","item":"https://sgcaribbeantransfertours.com/excursions.html"}]}
+  </script>
+</head>
+<body data-page="excursions">
+
+  <a class="skip-link" href="#main" data-i18n="skip.toContent">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers & Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+        <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
+        <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+        <a href="excursions.html" aria-current="page" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
+          <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
+          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a español">ES</button>
+          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" aria-label="Passer au français">FR</button>
+        </div>
+        <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="cart-badge" id="cartBadge" hidden>0</span>
+        </button>
+        <a class="btn btn-primary btn-sm header-book-btn" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" data-i18n-attr="aria-label:nav.mobileAria">
+      <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+      <a href="excursions.html" aria-current="page" data-i18n="nav.excursions">Excursions</a>
+      <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+      <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+    </nav>
+  </header>
+
+  <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
+       buttons; checkout sends one consolidated WhatsApp message. -->
+  <div class="cart-scrim" id="cartScrim"></div>
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your cart" data-i18n-attr="aria-label:cart.title">
+    <div class="cart-panel-inner">
+      <header class="cart-panel-header">
+        <h3 data-i18n="cart.title">Your Requests</h3>
+        <button type="button" class="cart-close" id="cartClose" aria-label="Close cart" data-i18n-attr="aria-label:cart.close">×</button>
+      </header>
+      <div class="cart-items" id="cartItems"></div>
+      <p class="cart-empty" id="cartEmpty" data-i18n="cart.empty">Your cart is empty. Add a transfer or excursion to get started.</p>
+      <div class="cart-panel-footer">
+        <div class="field">
+          <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
+          <input type="text" id="cartName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cartFlight" data-i18n="cart.flightLabel">Flight number (if picking up at the airport)</label>
+          <input type="text" id="cartFlight" />
+        </div>
+        <div class="field">
+          <label for="cartFlightDate" data-i18n="cart.flightDateLabel">Flight / pickup date (optional)</label>
+          <input type="date" id="cartFlightDate" />
+        </div>
+        <div class="field">
+          <label for="cartExcursionDate" data-i18n="cart.excursionDateLabel">Excursion date (optional)</label>
+          <input type="date" id="cartExcursionDate" />
+        </div>
+        <div class="field">
+          <label for="cartLuggage" data-i18n="cart.luggageLabel">Number of suitcases (optional)</label>
+          <input type="number" id="cartLuggage" min="0" inputmode="numeric" />
+          <p class="field-hint" data-i18n="cart.luggageHint">More than 10 suitcases? A US$15 fee applies.</p>
+        </div>
+        <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
+        <div class="cart-checkout-options">
+          <button type="button" class="btn btn-primary btn-block" id="cartCheckout" data-i18n="cart.checkout">Send via WhatsApp</button>
+          <button type="button" class="btn btn-outline btn-block" id="cartCheckoutEmail" data-i18n="cart.checkoutEmail">Send via Email</button>
+        </div>
+        <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
+      </div>
+    </div>
+  </aside>
+
+  <main id="main">
+
+  <!-- ============ 1. HERO (excursions-specific) ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" id="heroBg">
+      <img
+        src="img/hero-main.jpg"
+        alt="Aerial view of a turquoise Caribbean beach in the Dominican Republic with boats on clear water"
+        fetchpriority="high" />
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-line"><span data-i18n="excursionsHero.eyebrow">Signature private experiences</span></p>
+      <h1 class="hero-title">
+        <span class="reveal-line"><span data-i18n="excursionsHero.title">Days you'll <em>never forget</em></span></span>
+      </h1>
+      <p class="hero-sub reveal-line"><span data-i18n="excursionsHero.lead">Every excursion is private: your group, your pace, your own guide. Round-trip transport always included.</span></p>
+    </div>
+
+    <a class="hero-scroll" href="#excursions" aria-label="Scroll to excursions" data-i18n-attr="aria-label:hero.scrollAria">
+      <span class="hero-scroll-dot" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ============ 2. EXCURSIONS SHOWCASE (copied verbatim from index.html #excursions) ============ -->
+  <section class="excursions" id="excursions">
+    <header class="section-head reveal">
+      <p class="eyebrow" data-i18n="exc.eyebrow">Signature experiences</p>
+      <h2 data-i18n="exc.heading">Days you'll <em>never forget</em></h2>
+      <p class="section-lead" data-i18n="exc.lead">Every excursion is private: your group, your pace, your own guide. Round-trip transportation always included.</p>
+    </header>
+
+    <!-- Each excursion is a full-width storytelling panel.
+         data-prices maps guest count (2–5) to total USD price. -->
+    <article class="exc" id="exc1" data-decimals="2" data-prices='{"4":495.80,"5":619.75,"6":743.70}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-punta-rusia.jpg" alt="Aerial view of Cayo Arena, a white sandbar with thatched umbrellas surrounded by turquoise reef" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <p class="eyebrow" data-i18n="exc1.eyebrow">01 — Boat &amp; beach</p>
+        <h3 data-i18n="exc1.title">Punta Rusia</h3>
+        <p class="exc-desc" data-i18n="exc1.desc">Discover crystal clear waters and a private sandbar in the middle of the sea — a boat trip to Cayo Arena, one of the most unique adventures on the north coast. Groups of 7 or more get a better per-person rate — just ask us on WhatsApp.</p>
+        <ul class="exc-includes">
+          <li data-i18n="exc1.include1">Ground &amp; boat transportation</li>
+          <li data-i18n="exc1.include2">Boat ride to Cayo Arena</li>
+          <li data-i18n="exc1.include3">Dominican buffet lunch</li>
+          <li data-i18n="exc1.include4">Water, soda &amp; beer included</li>
+        </ul>
+        <p class="exc-duration mono" data-i18n="exc1.duration">Full day · 8:00 AM – 5:30 PM</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn" data-guests="4" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn is-active" data-guests="5" aria-pressed="true" data-i18n="exc.guest5">5 Guests</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">619.75</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <button type="button" class="btn btn-primary exc-add" data-service-key="punta-rusia" data-title-key="exc1.title" data-i18n="cart.add">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc exc-flip" id="exc2" data-prices='{"4":235,"5":270}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-waterfalls.jpg" alt="Waterfalls cascading into a natural pool surrounded by tropical forest" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <p class="eyebrow" data-i18n="exc2.eyebrow">02 — Adventure</p>
+        <h3 data-i18n="exc2.title">27 Charcos de Damajagua</h3>
+        <p class="exc-desc" data-i18n="exc2.desc">Climb, slide and jump through 27 natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.</p>
+        <ul class="exc-includes">
+          <li data-i18n="exc2.include1">Round-trip transportation</li>
+          <li data-i18n="exc2.include2">Park entrance &amp; safety gear</li>
+          <li data-i18n="exc2.include3">Certified canyoning guides</li>
+          <li data-i18n="exc2.include4">Lunch after the falls</li>
+        </ul>
+        <p class="exc-duration mono" data-i18n="exc2.duration">Half day · 8:30 AM – 2:00 PM</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">235</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <button type="button" class="btn btn-primary exc-add" data-service-key="charcos-27" data-title-key="exc2.title" data-i18n="cart.add">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc" id="exc3" data-prices='{"4":390,"5":440}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-whale-watching.jpg" alt="Humpback whale breaching out of blue ocean water" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <p class="eyebrow" data-i18n="exc3.eyebrow">03 — Seasonal · Jan to Mar</p>
+        <h3 data-i18n="exc3.title">Whale Watching in Samaná</h3>
+        <p class="exc-desc" data-i18n="exc3.desc">Every winter, thousands of humpback whales return to Samaná Bay to breed. Watch them breach meters from your boat.</p>
+        <ul class="exc-includes">
+          <li data-i18n="exc3.include1">Round-trip transportation</li>
+          <li data-i18n="exc3.include2">Certified whale-watching boat</li>
+          <li data-i18n="exc3.include3">Marine sanctuary fees</li>
+          <li data-i18n="exc3.include4">Lunch in Samaná</li>
+        </ul>
+        <p class="exc-duration mono" data-i18n="exc3.duration">Full day · 6:30 AM – 6:00 PM</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">390</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <button type="button" class="btn btn-primary exc-add" data-service-key="whale-watching" data-title-key="exc3.title" data-i18n="cart.add">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc exc-flip" id="exc4" data-prices='{"4":65,"5":65,"6":65}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-city-tour.jpg" alt="Historic colonial architecture decorated with colorful festival flags" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <p class="eyebrow" data-i18n="exc4.eyebrow">04 — Culture</p>
+        <h3 data-i18n="exc4.title">Puerto Plata City Tour</h3>
+        <p class="exc-desc" data-i18n="exc4.desc">Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. Flat price for your whole group, up to 6 guests.</p>
+        <ul class="exc-includes">
+          <li data-i18n="exc4.include1">Private transportation</li>
+          <li data-i18n="exc4.include2">Cable car tickets</li>
+          <li data-i18n="exc4.include3">Fortaleza San Felipe</li>
+          <li data-i18n="exc4.include4">Rum &amp; chocolate tasting</li>
+        </ul>
+        <p class="exc-duration mono" data-i18n="exc4.duration">Half day · 9:00 AM – 2:30 PM</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">65</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <button type="button" class="btn btn-primary exc-add" data-service-key="city-tour" data-title-key="exc4.title" data-i18n="cart.add">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc" id="exc5" data-prices='{"4":215,"5":245}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-beach-day.jpg" alt="Secluded tropical beach lined with leaning palm trees" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <p class="eyebrow" data-i18n="exc5.eyebrow">05 — Slow day</p>
+        <h3 data-i18n="exc5.title">Beach Experiences</h3>
+        <p class="exc-desc" data-i18n="exc5.desc">Playa Grande, Playa Encuentro, hidden coves only locals know — we design your perfect beach-hopping day.</p>
+        <ul class="exc-includes">
+          <li data-i18n="exc5.include1">Private transportation all day</li>
+          <li data-i18n="exc5.include2">Beach chairs &amp; cooler</li>
+          <li data-i18n="exc5.include3">Local beach guide</li>
+          <li data-i18n="exc5.include4">Fresh seafood lunch stop</li>
+        </ul>
+        <p class="exc-duration mono" data-i18n="exc5.duration">Flexible · You set the pace</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">215</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <button type="button" class="btn btn-primary exc-add" data-service-key="beach-experience" data-title-key="exc5.title" data-i18n="cart.add">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc exc-flip" id="exc6" data-prices='{"4":260,"5":325}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-atv.jpg" alt="Rider on an ATV quad bike kicking up dust on a dirt trail" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <p class="eyebrow" data-i18n="exc6.eyebrow">06 — Adventure</p>
+        <h3 data-i18n="exc6.title">ATV Adventure</h3>
+        <p class="exc-desc" data-i18n="exc6.desc">Ride through trails, rivers and countryside on your own quad bike — an adrenaline-packed adventure through the Dominican backcountry.</p>
+        <ul class="exc-includes">
+          <li data-i18n="exc6.include1">Quad bike per rider</li>
+          <li data-i18n="exc6.include2">Safety gear &amp; briefing</li>
+          <li data-i18n="exc6.include3">Experienced guide</li>
+          <li data-i18n="exc6.include4">Round-trip transportation</li>
+        </ul>
+        <p class="exc-duration mono" data-i18n="exc6.duration">Half day · Departure times vary</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">260</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <button type="button" class="btn btn-primary exc-add" data-service-key="atv-adventure" data-title-key="exc6.title" data-i18n="cart.add">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc" id="exc7" data-prices='{"4":400,"5":500}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-buggies.jpg" alt="Dune buggy parked in the desert with a safety flag mounted on the roll cage" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <p class="eyebrow" data-i18n="exc7.eyebrow">07 — Adventure</p>
+        <h3 data-i18n="exc7.title">Dune Buggy Adventure</h3>
+        <p class="exc-desc" data-i18n="exc7.desc">Take the wheel of your own dune buggy and explore trails, rivers and rural roads — a thrilling ride for the whole group.</p>
+        <ul class="exc-includes">
+          <li data-i18n="exc7.include1">Buggy per group</li>
+          <li data-i18n="exc7.include2">Safety gear &amp; briefing</li>
+          <li data-i18n="exc7.include3">Experienced guide</li>
+          <li data-i18n="exc7.include4">Round-trip transportation</li>
+        </ul>
+        <p class="exc-duration mono" data-i18n="exc7.duration">Half day · Departure times vary</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">400</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <button type="button" class="btn btn-primary exc-add" data-service-key="dune-buggy" data-title-key="exc7.title" data-i18n="cart.add">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ 3. TRUST STRIP (why + reviews, reused from index.html/transfers.html) ============ -->
+  <section class="section section-abyss why" id="why">
+    <div class="container">
+      <header class="section-head section-head-light reveal">
+        <p class="eyebrow" data-i18n="why.eyebrow">Why choose us?</p>
+        <h2 data-i18n="why.heading">What sets us apart</h2>
+      </header>
+
+      <div class="why-grid">
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 15V8.5A2.5 2.5 0 0 1 4.5 6H13l4-4h3a2 2 0 0 1 2 2v11a1 1 0 0 1-1 1h-1.4a2.8 2.8 0 0 1-5.4 0H9.8a2.8 2.8 0 0 1-5.4 0H3a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.1" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.9" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <h3 data-i18n="why.card1Title">Safe &amp; Reliable Service</h3>
+          <p data-i18n="why.card1Desc">Your safety and peace of mind are our priority throughout the journey.</p>
+        </article>
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 6.5V12l3.8 2.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h3 data-i18n="why.card3Title">Guaranteed Punctuality</h3>
+          <p data-i18n="why.card3Desc">We know your vacation time is valuable. We always arrive on time so you can make the most of it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sand reviews" id="reviews">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="reviews.eyebrow">Guest reviews</p>
+        <h2 data-i18n="reviews.heading">Trusted by travelers <em>worldwide</em></h2>
+      </header>
+      <div class="review-grid">
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote1">"Our driver was waiting with a sign even though our flight landed 2 hours late. Cold water, spotless van, zero stress. This is how every vacation should start."</p>
+          <footer><strong>Sarah M.</strong><span>Toronto, Canada 🇨🇦</span></footer>
+        </blockquote>
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote3">"We traveled with 9 family members and two car seats. Everything was arranged over WhatsApp in minutes. Fair fixed price, beautiful van, kind driver."</p>
+          <footer><strong>Miriam G.</strong><span>New Jersey, USA 🇺🇸</span></footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. FINAL BOOKING CTA ============ -->
+  <section class="book" id="book">
+    <div class="book-bg" id="bookBg">
+      <img src="img/cta-band.jpg" alt="" loading="lazy" aria-hidden="true" />
+    </div>
+    <div class="book-scrim" aria-hidden="true"></div>
+    <div class="container book-inner book-inner-solo">
+      <div class="book-copy reveal">
+        <p class="eyebrow" data-i18n="book.eyebrow">Your island is waiting</p>
+        <h2 data-i18n="book.heading">Ready to explore the<br /><em>Dominican Republic?</em></h2>
+        <p data-i18n="book.lead">Prefer to talk to a real person? Send us a WhatsApp message and we'll help you plan transfers, excursions or a custom itinerary — no forms, no waiting.</p>
+        <ul class="book-points">
+          <li data-i18n="book.point1">Free cancellation up to 24 h before</li>
+          <li data-i18n="book.point2">No prepayment — pay on arrival</li>
+          <li data-i18n="book.point3">Instant WhatsApp confirmation</li>
+        </ul>
+        <div class="book-direct-ctas">
+          <a class="btn btn-primary btn-lg" id="bookDirectCta" href="#" rel="noopener" data-i18n="book.directCta">Chat on WhatsApp</a>
+          <a class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" href="#" rel="noopener" data-i18n="book.directCtaEmail">Email Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers & Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+          <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+        </a>
+        <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
+      </div>
+      <nav class="footer-col" aria-label="Services">
+        <h4 class="mono" data-i18n="footer.servicesHeading">Services</h4>
+        <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>
+        <a href="#why" data-i18n="why.eyebrow">Why choose us?</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="index.html#gallery" data-i18n="footer.companyGallery">Gallery</a>
+      </nav>
+      <div class="footer-col">
+        <h4 class="mono" data-i18n="footer.contactHeading">Contact</h4>
+        <a class="footer-whatsapp" id="footerWhatsApp" href="#" rel="noopener" data-i18n="footer.whatsappUs">WhatsApp us</a>
+        <a href="mailto:sg.caribbeantrasferstours@gmail.com">sg.caribbeantrasferstours@gmail.com</a>
+        <p data-i18n="footer.address">Puerto Plata, Dominican Republic</p>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. All rights reserved.</span></p>
+      <p class="mono" data-i18n="footer.tagline">POP · STI · North Coast · DR</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button: primary conversion shortcut, visible after hero -->
+  <a class="whatsapp-fab" id="whatsappFab" href="#" rel="noopener" aria-label="Chat with us on WhatsApp" data-i18n-attr="aria-label:fab.aria">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.3-.5v-.5L9.7 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a11.6 11.6 0 0 0 4.5 4.5c1.8.9 2.7 1 3.7.8.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
+  </a>
+
+  <script src="js/i18n.js" defer></script>
+  <script src="js/config.js" defer></script>
+  <script src="js/core.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/shell.js" defer></script>
+  <script src="js/tours.js" defer></script>
+</body>
+</html>
