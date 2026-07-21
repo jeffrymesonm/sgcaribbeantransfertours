@@ -136,6 +136,18 @@
 })();
 
 /* ============================================================
+   Hero background video: skip autoplay for prefers-reduced-motion —
+   the poster frame (img/hero-main.jpg) stays as a static fallback.
+   ============================================================ */
+(function initHeroVideo() {
+  if (!prefersReducedMotion) return;
+  document.querySelectorAll('.hero-bg video').forEach((video) => {
+    video.pause();
+    video.removeAttribute('autoplay');
+  });
+})();
+
+/* ============================================================
    Animated counters (Why choose us stats)
    ============================================================ */
 (function initCounters() {
