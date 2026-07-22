@@ -887,17 +887,40 @@ section { scroll-margin-top: var(--header-h); }
   .calc-layout { grid-template-columns: 1fr 1.1fr; gap: 3rem; }
 }
 
+/* Two columns at every width: pickup|destination share row 1, and the
+   pax/luggage row spans the full grid so its own 2-col layout lines up. */
 .calc-form {
   display: grid;
-  gap: 1.3rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 0.75rem;
+  align-items: start;
 }
 
-.field { display: grid; gap: 0.45rem; }
+.field { display: grid; gap: 0.45rem; align-content: start; }
 .field[hidden] { display: none; }
 
-.calc-form-row { display: grid; gap: 1.3rem; align-items: start; }
+.calc-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  grid-column: 1 / -1;
+}
+
 @media (min-width: 480px) {
-  .calc-form-row { grid-template-columns: 1fr 1fr; }
+  .calc-form { gap: 1.3rem; }
+  .calc-form-row { gap: 1.3rem; }
+}
+
+/* Narrow phones: half-width controls need tighter type and chrome so option
+   labels like "Puerto Plata Airport (POP)" stay readable. */
+@media (max-width: 479px) {
+  .calc-form .field label { font-size: 0.78rem; }
+  .calc-form .field select,
+  .calc-form .field input[type="number"] { font-size: 0.9rem; padding: 0.7rem 0.7rem; }
+  .calc-form .field select { padding-right: 1.9rem; background-position: right 0.65rem center; }
+  .calc-form .field-hint { font-size: 0.72rem; }
+  .calc-form .stepper { grid-template-columns: 2.4rem 1fr 2.4rem; }
 }
 
 .field label {
@@ -1130,6 +1153,23 @@ section { scroll-margin-top: var(--header-h); }
 
 .bp-quote-text { color: var(--ink-soft); max-width: 26rem; }
 
+/* Stacked (mobile) boarding pass: same information, tighter rhythm so the
+   card doesn't run past the fold. Only spacing and type scale change. */
+@media (max-width: 639.98px) {
+  .bp-main { padding: 1.2rem 1.2rem 1.1rem; }
+  .bp-label { margin-bottom: 0.75rem; }
+  .bp-route { margin-bottom: 1rem; gap: 0.75rem; }
+  .bp-code { font-size: 1.5rem; }
+  .bp-place { font-size: 0.74rem; margin-top: 0.2rem; }
+  .bp-details { gap: 0.6rem 1rem; }
+  .bp-details dd { font-size: 0.86rem; }
+  .bp-note { margin-top: 0.75rem; font-size: 0.78rem; }
+  .bp-stub { padding: 1.1rem 1.2rem 1.3rem; gap: 0.6rem; }
+  .bp-amount { font-size: 2.6rem; }
+  .bp-stub .btn { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
+  .bp-fineprint { font-size: 0.72rem; }
+}
+
 /* ---------- 9. Excursions ---------- */
 .excursions {
   background: var(--abyss);
@@ -1343,6 +1383,30 @@ section { scroll-margin-top: var(--header-h); }
   width: 100%;
 }
 .exc-actions .btn { flex: 1 1 auto; }
+
+/* Phones: one excursion should read as a single screenful, so the card is
+   compacted rather than truncated — shorter media band, tighter rhythm,
+   and the paired fields/actions forced side by side instead of stacked. */
+@media (max-width: 599.98px) {
+  .exc { min-height: 0; }
+  .exc-media { min-height: 12.4rem; }
+  .exc-body { padding: 1rem 1.25rem 1.4rem; gap: 0.6rem; }
+  .exc-body h3 { font-size: 1.55rem; }
+  .exc-desc { font-size: 0.88rem; }
+  .exc-duration { margin-top: 0; font-size: 0.72rem; }
+  .exc-includes { gap: 0.35rem 1rem; margin-top: 0; }
+  .exc-includes li { font-size: 0.8rem; }
+  .exc-booking { margin-top: 0.5rem; gap: 0.7rem; }
+  .guest-btn { padding: 0.42rem 0.8rem; font-size: 0.8rem; }
+  .guest-manual { font-size: 0.8rem; gap: 0.5rem; }
+  .exc-price { font-size: 1.6rem; }
+  .exc-per-person { font-size: 0.78rem; margin-top: -0.35rem; }
+  .cruise-fields { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .cruise-fields .field span { font-size: 0.76rem; }
+  .cruise-fields .field input { padding: 0.6rem 0.7rem; font-size: 0.88rem; }
+  .exc-actions { flex-wrap: nowrap; gap: 0.5rem; }
+  .exc-actions .btn { flex: 1 1 0; padding: 0.7rem 0.6rem; font-size: 0.85rem; white-space: normal; }
+}
 
 /* ---------- 10. Gallery ---------- */
 .masonry {

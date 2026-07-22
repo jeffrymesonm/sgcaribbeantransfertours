@@ -37,7 +37,7 @@
     toName: document.getElementById('bpToName'),
     vehicle: document.getElementById('bpVehicle'),
     capacity: document.getElementById('bpCapacity'),
-    duration: document.getElementById('bpDuration'),
+    suitcases: document.getElementById('bpSuitcases'),
     amount: document.getElementById('bpAmount'),
     note: document.getElementById('bpNote'),
   };
@@ -163,7 +163,7 @@
     out.toName.textContent = fixed.name;
     out.vehicle.textContent = t('vehicle.minivan');
     out.capacity.textContent = t('routes.upTo6');
-    out.duration.textContent = '—';
+    out.suitcases.textContent = String(luggage);
     animatePrice(out.amount, fixedFarePrice(fixed.price, pax) + luggageFee);
 
     const noteParts = [];

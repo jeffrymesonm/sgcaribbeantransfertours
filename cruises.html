@@ -48,7 +48,8 @@
   {"@context":"https://schema.org","@type":"ItemList","itemListElement":[
   {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise1"}},
   {"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Puerto Plata City Tour","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise2"}},
-  {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"Shore Excursion 3","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise3"}}]}
+  {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise4"}},
+  {"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise5"}}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://sgcaribbeantransfertours.com/"},{"@type":"ListItem","position":2,"name":"Cruises","item":"https://sgcaribbeantransfertours.com/cruises.html"}]}
@@ -265,14 +266,14 @@
       </div>
     </article>
 
-    <article class="exc" id="cruise3" data-prices='{"4":0,"5":0,"6":0}'>
+    <article class="exc" id="cruise4" data-prices='{"4":260,"5":325,"6":390}'>
       <figure class="exc-media reveal-img">
-        <img src="img/exc-beach-day.jpg" alt="Secluded tropical beach lined with leaning palm trees" loading="lazy" />
+        <img src="img/exc-atv.jpg" alt="Rider on an ATV quad bike kicking up dust on a dirt trail" loading="lazy" />
       </figure>
       <div class="exc-body reveal">
-        <h3 data-i18n="cruise3.title">Shore Excursion 3</h3>
-        <p class="exc-desc" data-i18n="cruise3.desc">Description coming soon.</p>
-        <p class="exc-duration mono" data-i18n="cruise3.duration">Full day</p>
+        <h3 data-i18n="cruise4.title">ATV Adventure</h3>
+        <p class="exc-desc" data-i18n="cruise4.desc">Ride through trails, rivers and countryside on your own quad bike — an adrenaline-packed adventure through the Dominican backcountry.</p>
+        <p class="exc-duration mono" data-i18n="cruise4.duration">Half day</p>
         <div class="exc-booking">
           <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
             <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
@@ -284,10 +285,10 @@
             <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
           </label>
           <p class="exc-price" aria-live="polite">
-            <span class="exc-price-amount">US$<span class="exc-amount">0</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-amount">US$<span class="exc-amount">260</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
             <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
           </p>
-          <p class="exc-per-person">US$<span class="exc-per-person-amount">0</span> <span data-i18n="exc.perPersonSuffix">per person</span></p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">65</span> <span data-i18n="exc.perPersonSuffix">per person</span></p>
           <div class="cruise-fields">
             <label class="field">
               <span data-i18n="cruise.shipLabel">Cruise ship (optional)</span>
@@ -299,7 +300,48 @@
             </label>
           </div>
           <div class="exc-actions">
-            <button type="button" class="btn btn-primary exc-add" data-service-key="cruise-3" data-title-key="cruise3.title" data-i18n="cart.add">Add to Cart</button>
+            <button type="button" class="btn btn-primary exc-add" data-service-key="cruise-4" data-title-key="cruise4.title" data-i18n="cart.add">Add to Cart</button>
+            <button type="button" class="btn btn-ghost exc-book-direct" data-i18n="cart.bookDirect">Book Directly</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc exc-flip" id="cruise5" data-prices='{"4":400,"5":500,"6":600}'>
+      <figure class="exc-media reveal-img">
+        <img src="img/exc-buggies.jpg" alt="Dune buggy parked in the desert with a safety flag mounted on the roll cage" loading="lazy" />
+      </figure>
+      <div class="exc-body reveal">
+        <h3 data-i18n="cruise5.title">Dune Buggy Adventure</h3>
+        <p class="exc-desc" data-i18n="cruise5.desc">Take the wheel of your own dune buggy and explore trails, rivers and rural roads — a thrilling ride for the whole group.</p>
+        <p class="exc-duration mono" data-i18n="cruise5.duration">Half day</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Guests</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Or enter your group size</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">400</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
+          </p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">100</span> <span data-i18n="exc.perPersonSuffix">per person</span></p>
+          <div class="cruise-fields">
+            <label class="field">
+              <span data-i18n="cruise.shipLabel">Cruise ship (optional)</span>
+              <input type="text" class="cruise-ship" placeholder="e.g. Carnival Vista" data-i18n-attr="placeholder:cruise.shipPlaceholder" />
+            </label>
+            <label class="field">
+              <span data-i18n="cruise.departureLabel">Departure time (optional)</span>
+              <input type="time" class="cruise-departure" />
+            </label>
+          </div>
+          <div class="exc-actions">
+            <button type="button" class="btn btn-primary exc-add" data-service-key="cruise-5" data-title-key="cruise5.title" data-i18n="cart.add">Add to Cart</button>
             <button type="button" class="btn btn-ghost exc-book-direct" data-i18n="cart.bookDirect">Book Directly</button>
           </div>
         </div>
