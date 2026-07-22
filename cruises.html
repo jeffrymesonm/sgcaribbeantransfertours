@@ -46,7 +46,7 @@
   <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (English-only, matches default page language) -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ItemList","itemListElement":[
-  {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"27 Charcos de Damajagua","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise1"}},
+  {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise1"}},
   {"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Puerto Plata City Tour","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise2"}},
   {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"Shore Excursion 3","url":"https://sgcaribbeantransfertours.com/cruises.html#cruise3"}}]}
   </script>
@@ -183,18 +183,19 @@
          (ship name + departure time) inside .exc-booking, before the add
          button. data-prices are all 0 — the owner will fill real prices
          once cruise-line rates are confirmed (see DOCS/USER_MANUAL.md). -->
-    <article class="exc" id="cruise1" data-prices='{"4":235,"5":270}'>
+    <article class="exc" id="cruise1" data-prices='{"4":235,"5":270,"6":324}'>
       <figure class="exc-media reveal-img">
-        <img src="img/exc-waterfalls.jpg" alt="Waterfalls cascading into a natural pool surrounded by tropical forest" loading="lazy" />
+        <img src="img/exc-waterfalls.jpeg" alt="Waterfalls cascading into a natural pool surrounded by tropical forest" loading="lazy" />
       </figure>
       <div class="exc-body reveal">
-        <h3 data-i18n="cruise1.title">27 Charcos de Damajagua</h3>
+        <h3 data-i18n="cruise1.title">Charcos de Damajagua</h3>
         <p class="exc-desc" data-i18n="cruise1.desc">Climb, slide and jump through 27 natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.</p>
         <p class="exc-duration mono" data-i18n="cruise1.duration">Half day</p>
         <div class="exc-booking">
           <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
             <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
             <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Guests</button>
           </div>
           <label class="guest-manual">
             <span data-i18n="exc.manualLabel">Or enter your group size</span>
@@ -264,7 +265,7 @@
       </div>
     </article>
 
-    <article class="exc" id="cruise3" data-prices='{"4":0,"5":0}'>
+    <article class="exc" id="cruise3" data-prices='{"4":0,"5":0,"6":0}'>
       <figure class="exc-media reveal-img">
         <img src="img/exc-beach-day.jpg" alt="Secluded tropical beach lined with leaning palm trees" loading="lazy" />
       </figure>
@@ -276,6 +277,7 @@
           <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
             <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Guests</button>
             <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Guests</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Guests</button>
           </div>
           <label class="guest-manual">
             <span data-i18n="exc.manualLabel">Or enter your group size</span>
@@ -309,7 +311,6 @@
   <section class="section section-abyss why" id="why">
     <div class="container">
       <header class="section-head section-head-light reveal">
-        <p class="eyebrow" data-i18n="why.eyebrow">Why choose us?</p>
         <h2 data-i18n="why.heading">What sets us apart</h2>
       </header>
 
@@ -331,7 +332,6 @@
   <section class="section section-sand reviews" id="reviews">
     <div class="container">
       <header class="section-head reveal">
-        <p class="eyebrow" data-i18n="reviews.eyebrow">Guest reviews</p>
         <h2 data-i18n="reviews.heading">Trusted by travelers <em>worldwide</em></h2>
       </header>
       <div class="review-grid">
@@ -357,7 +357,6 @@
     <div class="book-scrim" aria-hidden="true"></div>
     <div class="container book-inner book-inner-solo">
       <div class="book-copy reveal">
-        <p class="eyebrow" data-i18n="book.eyebrow">Your island is waiting</p>
         <h2 data-i18n="book.heading">Ready to explore the<br /><em>Dominican Republic?</em></h2>
         <p data-i18n="book.lead">Prefer to talk to a real person? Send us a WhatsApp message and we'll help you plan transfers, excursions or a custom itinerary — no forms, no waiting.</p>
         <ul class="book-points">

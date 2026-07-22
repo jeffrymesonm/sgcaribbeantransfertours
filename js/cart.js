@@ -86,12 +86,16 @@ function describeCartItem(item) {
     };
   }
   if (item.kind === 'fixedRoute') {
-    // passengers is only set by the calculator's own reserve button (see
-    // js/calculator.js) — Popular Routes ticket-rail adds have no passenger
-    // input and stay flat "up to 6", so item.passengers is undefined there.
-    const meta = item.passengers > FIXED_FARE_PAX_INCLUDED
+    // passengers/luggage are only set by the calculator's own reserve button
+    // (see js/calculator.js) — Popular Routes ticket-rail adds have neither
+    // input and stay flat "up to 6" with no luggage note, so both are
+    // undefined there. This transfer's own luggage fee is already baked
+    // into item.price (see calculator.js buildCalcItem) — this meta line is
+    // just informational, independent from the cart panel's own luggage field.
+    let meta = item.passengers > FIXED_FARE_PAX_INCLUDED
       ? t('cart.passengers', { n: item.passengers })
       : t('routes.upTo6');
+    if (item.luggage > LUGGAGE_FREE_LIMIT) meta += ` · ${t('cart.luggageCount', { n: item.luggage })}`;
     return {
       title: `${t(item.fromKey)} → ${t(item.toKey)}`,
       meta,

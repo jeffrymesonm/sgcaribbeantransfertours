@@ -116,7 +116,6 @@ const FIXED_FARE_EXTRA_PAX_FEE_USD = 5;
 const POP_PROVINCE_FIXED_FARES = {
   'barahona': 298.50,
   'dajabon': 198.50,
-  'la-romana': 298.50,
   'la-vega': 108.50,
   'puerto-plata': 38.95,
   'samana': 178.50,
@@ -167,6 +166,22 @@ const POP_FIXED_DESTINATIONS = {
   'sea-horse-ranch': { name: 'Sea Horse Ranch', price: 10.50 },
   'celuisma': { name: 'Celuisma', price: 16.50 },
   'villa-caribick': { name: 'Villa Caribick', price: 8.50 },
+};
+
+/* Confirmed fixed fares FROM airports other than Puerto Plata (POP) — owner-
+   confirmed real prices, mirroring the non-POP tickets already on the
+   Popular Routes rail (transfers.html). Keyed by pickup airport code, then
+   by the same destination-value format the calculator's Destination select
+   uses: `fixed:<slug>` for a POP_FIXED_DESTINATIONS entry (reused here only
+   for its name/nameKey — the price below always wins over that entry's POP
+   price), or a bare PROVINCES slug. Airports with no entry here (LRM, BRX)
+   have no confirmed routes yet — calculator.js shows a "request a quote"
+   state instead of guessing a price for them. */
+const OTHER_AIRPORT_FIXED_FARES = {
+  sti: { 'fixed:sosua': 98.50, 'fixed:cabarete': 98.95 },
+  sdq: { 'fixed:sosua': 198.50 },
+  azs: { 'fixed:sosua': 148.50 },
+  puj: { 'fixed:sosua': 425 },
 };
 
 /**

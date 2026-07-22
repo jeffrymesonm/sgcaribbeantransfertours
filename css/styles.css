@@ -99,6 +99,12 @@ section { scroll-margin-top: var(--header-h); }
 .section-sand { background: var(--sand); }
 .section-abyss { background: var(--abyss); color: var(--shell); }
 
+/* Sparse text-only band (cruises.html) — the generic .section padding is
+   tuned for sections with a grid/content area below the header; this one
+   has only the heading + lead, so it needs much less breathing room. */
+.guarantee-band { padding-block: clamp(2rem, 4vw, 3rem); }
+.guarantee-band .section-head { margin-bottom: 0; }
+
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -784,6 +790,12 @@ section { scroll-margin-top: var(--header-h); }
 .ticket-price { font-size: 0.85rem; color: rgba(252, 250, 245, 0.75); }
 .ticket-price strong { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
 
+.ticket-extra-note {
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+  color: rgba(252, 250, 245, 0.55);
+}
+
 .ticket-actions {
   display: flex;
   flex-wrap: wrap;
@@ -881,6 +893,12 @@ section { scroll-margin-top: var(--header-h); }
 }
 
 .field { display: grid; gap: 0.45rem; }
+.field[hidden] { display: none; }
+
+.calc-form-row { display: grid; gap: 1.3rem; align-items: start; }
+@media (min-width: 480px) {
+  .calc-form-row { grid-template-columns: 1fr 1fr; }
+}
 
 .field label {
   font-weight: 600;
@@ -1093,6 +1111,25 @@ section { scroll-margin-top: var(--header-h); }
   text-align: center;
 }
 
+/* .bp-content wraps bp-main/bp-divider/bp-stub only so the trio can be
+   hidden as one unit (see js/calculator.js) — display:contents keeps them
+   direct grid children of .boarding-pass so its 3-column layout is
+   unaffected by the extra wrapper. */
+.bp-content { display: contents; }
+.bp-content[hidden] { display: none; }
+
+.bp-quote-cta {
+  grid-column: 1 / -1;
+  padding: 2.2rem 1.8rem;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  text-align: center;
+}
+.bp-quote-cta[hidden] { display: none; }
+
+.bp-quote-text { color: var(--ink-soft); max-width: 26rem; }
+
 /* ---------- 9. Excursions ---------- */
 .excursions {
   background: var(--abyss);
@@ -1113,7 +1150,7 @@ section { scroll-margin-top: var(--header-h); }
 
 .exc {
   display: grid;
-  min-height: 80svh;
+  min-height: 18rem;
 }
 
 @media (min-width: 900px) {
@@ -1126,7 +1163,7 @@ section { scroll-margin-top: var(--header-h); }
   margin: 0;
   overflow: hidden;
   position: relative;
-  min-height: 46vh;
+  min-height: 14rem;
 }
 
 .exc-media img {
@@ -1137,7 +1174,7 @@ section { scroll-margin-top: var(--header-h); }
 }
 
 .exc-body {
-  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 5vw, 5rem);
+  padding: clamp(0.75rem, 2vw, 4rem) clamp(1.25rem, 5vw, 5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1389,6 +1426,13 @@ section { scroll-margin-top: var(--header-h); }
 
 .why-card p { font-size: 0.9rem; color: rgba(252, 250, 245, 0.72); }
 
+/* nosotros.html reuses the same why-grid/why-card content on a light
+   section (no section-abyss wrapper) — override the dark-tuned colors. */
+.why-grid-full .why-card { background: none; border: none; padding: 0; }
+.why-grid-full .why-card:hover { background: none; transform: none; }
+.why-grid-full .why-card h3 { color: var(--ink); }
+.why-grid-full .why-card p { color: var(--ink-soft); }
+
 .stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1420,6 +1464,11 @@ section { scroll-margin-top: var(--header-h); }
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
+
+/* nosotros.html reuses .stats on a light section with only 2 figures —
+   keep it to 2 columns and swap the dark-tuned label color for ink. */
+.stats-light { grid-template-columns: repeat(2, 1fr); border-top-color: rgba(6, 38, 46, 0.12); }
+.stats-light .stat dt { color: var(--ink-soft); }
 
 /* ---------- 11b. About us / meet the team ---------- */
 .about-intro {

@@ -1,11 +1,13 @@
 /* ============================================================
    SG Caribbean Transfers & Tours — Private Transfers & Excursions
    Module: calculator.js
-   Purpose: transfer price calculator (route matrix + vehicle logic) and
-   its "Add to Cart" wiring, including the route ticket buttons.
-   Depends on: config.js (AIRPORTS/PROVINCES/VEHICLES/estimateRoute),
-   core.js (animatePrice, formatDuration), cart.js (addToCart, openCart),
-   i18n.js (t()).
+   Purpose: transfer price calculator — every selectable destination has an
+   owner-confirmed fixed price (no distance-estimated guessing) — and its
+   "Add to Cart"/"Book Directly" wiring, including the route ticket buttons.
+   Depends on: config.js (AIRPORTS/PROVINCES/POP_FIXED_DESTINATIONS/
+   POP_PROVINCE_FIXED_FARES/OTHER_AIRPORT_FIXED_FARES/FIXED_FARE_*),
+   core.js (animatePrice, formatMoney, whatsappLink),
+   cart.js (addToCart, openCart, bookDirect), i18n.js (t()).
    ============================================================ */
 
 'use strict';
@@ -20,7 +22,13 @@
   const pickupEl = document.getElementById('calcPickup');
   const destEl = document.getElementById('calcDest');
   const paxEl = document.getElementById('calcPax');
-  const vehicleEl = document.getElementById('calcVehicle');
+  const luggageEl = document.getElementById('calcLuggage');
+  const noDestHint = document.getElementById('calcNoDestHint');
+  const paxField = document.getElementById('calcPaxField');
+  const luggageField = document.getElementById('calcLuggageField');
+  const bpContent = document.getElementById('bpContent');
+  const bpQuoteCta = document.getElementById('bpQuoteCta');
+  const bpQuoteWhatsapp = document.getElementById('bpQuoteWhatsapp');
 
   const out = {
     fromCode: document.getElementById('bpFromCode'),
@@ -35,50 +43,65 @@
   };
 
   /**
-   * Picks the vehicle for a group: the user's choice if it fits,
-   * otherwise the smallest tier with enough seats (auto-upgrade).
-   * @param {number} pax      Passenger count.
-   * @param {string} selected Vehicle id from the select ("auto" = recommend).
-   * @returns {{vehicle: object, upgraded: boolean}} Chosen tier + upgrade flag.
+   * This pickup's confirmed fixed fares: destination-select value → price.
+   * POP combines every POP_FIXED_DESTINATIONS entry (as `fixed:<slug>`)
+   * with POP_PROVINCE_FIXED_FARES; other airports use their (smaller)
+   * OTHER_AIRPORT_FIXED_FARES entry, or none at all (LRM/BRX have no
+   * confirmed routes yet — see config.js).
+   * @param {string} pickupVal calcPickup <select> value.
+   * @returns {Object<string, number>}
    */
-  function resolveVehicle(pax, selected) {
-    const fits = (v) => v.capacity >= pax;
-    const recommended = VEHICLES.find(fits) || VEHICLES[VEHICLES.length - 1];
-    if (selected === 'auto') return { vehicle: recommended, upgraded: false };
-
-    const chosen = VEHICLES.find((v) => v.id === selected);
-    if (chosen && fits(chosen)) return { vehicle: chosen, upgraded: false };
-    return { vehicle: recommended, upgraded: true };
+  function getFixedFareMap(pickupVal) {
+    if (pickupVal === 'pop') {
+      const named = {};
+      Object.keys(POP_FIXED_DESTINATIONS).forEach((slug) => {
+        named[`fixed:${slug}`] = POP_FIXED_DESTINATIONS[slug].price;
+      });
+      return { ...named, ...POP_PROVINCE_FIXED_FARES };
+    }
+    return OTHER_AIRPORT_FIXED_FARES[pickupVal] || {};
   }
 
   /**
-   * Looks up a confirmed fixed fare for the current pickup+destination, if
-   * one exists — these only exist FROM Puerto Plata Airport (POP), see
-   * POP_PROVINCE_FIXED_FARES/POP_FIXED_DESTINATIONS in js/config.js. Flat
-   * regardless of vehicle/passenger count (source price sign: "1 to 6
-   * person"), so callers should skip the vehicle surcharge entirely when
-   * this returns non-null.
+   * Looks up the confirmed fixed fare for the current pickup+destination.
    * @param {string} pickupVal calcPickup <select> value (e.g. 'pop').
    * @param {string} destVal   calcDest <select> value — either a
    *   PROVINCES slug or `fixed:<slug>` for a POP_FIXED_DESTINATIONS entry.
    * @returns {{price:number, name:string, code:string}|null}
    */
   function resolveFixedFare(pickupVal, destVal) {
+    const price = getFixedFareMap(pickupVal)[destVal];
+    if (price == null) return null;
     if (destVal.startsWith('fixed:')) {
       const slug = destVal.slice(6);
       const entry = POP_FIXED_DESTINATIONS[slug];
-      if (!entry) return null;
-      return {
-        price: entry.price,
-        name: entry.nameKey ? t(entry.nameKey) : entry.name,
-        code: slug.replace(/-/g, '').slice(0, 3).toUpperCase(),
-      };
+      return { price, name: entry.nameKey ? t(entry.nameKey) : entry.name, code: slug.replace(/-/g, '').slice(0, 3).toUpperCase() };
     }
-    if (pickupVal === 'pop' && POP_PROVINCE_FIXED_FARES[destVal] != null) {
-      const province = PROVINCES[destVal];
-      return { price: POP_PROVINCE_FIXED_FARES[destVal], name: t(province.nameKey), code: province.code };
-    }
-    return null;
+    const province = PROVINCES[destVal];
+    return { price, name: t(province.nameKey), code: province.code };
+  }
+
+  /**
+   * Shows only the destination <option>s priced for the given pickup,
+   * hiding the rest. Re-selects the first visible option if the current
+   * selection just got hidden; if none are visible (e.g. LRM/BRX), leaves
+   * the select without a valid value — update() reads the return value to
+   * switch the boarding pass into a "request a quote" state.
+   * @param {string} pickupVal
+   * @returns {boolean} True if at least one destination is available.
+   */
+  function filterDestinationOptions(pickupVal) {
+    const fares = getFixedFareMap(pickupVal);
+    let firstVisible = null;
+    let selectedStillValid = false;
+    Array.from(destEl.options).forEach((opt) => {
+      const visible = opt.value in fares;
+      opt.hidden = !visible;
+      if (visible && !firstVisible) firstVisible = opt.value;
+      if (visible && opt.value === destEl.value) selectedStillValid = true;
+    });
+    if (!selectedStillValid) destEl.value = firstVisible || '';
+    return !!firstVisible;
   }
 
   /**
@@ -92,73 +115,74 @@
     return basePrice + extraPax * FIXED_FARE_EXTRA_PAX_FEE_USD;
   }
 
-  /** Recomputes the boarding pass from the current form values. */
+  /**
+   * Flat surcharge when this transfer's luggage count exceeds
+   * LUGGAGE_FREE_LIMIT (see config.js) — same threshold/fee the cart's own
+   * luggage field uses, but scoped to this one transfer rather than the
+   * whole order.
+   * @param {number} count Suitcase count.
+   * @returns {number}
+   */
+  function luggageFeeFor(count) {
+    return count > LUGGAGE_FREE_LIMIT ? LUGGAGE_EXTRA_FEE_USD : 0;
+  }
+
+  /** Recomputes the boarding pass (or the "request a quote" state) from the current form values. */
   function update() {
-    // A `fixed:` destination only has a confirmed price from POP — force
-    // the pickup back to Puerto Plata Airport so the boarding pass never
-    // shows a route we have no real price for.
-    if (destEl.value.startsWith('fixed:') && pickupEl.value !== 'pop') {
-      pickupEl.value = 'pop';
-    }
+    // filterDestinationOptions() re-validates the current destination against
+    // whichever pickup is now selected — a `fixed:` value valid under the
+    // old pickup (e.g. Sosúa priced from both POP and STI) simply stays
+    // selected if it's still priced for the new one, or falls back to the
+    // first valid option otherwise. No manual pickup-forcing needed here.
+    const hasDest = filterDestinationOptions(pickupEl.value);
+    noDestHint.hidden = hasDest;
+    paxField.hidden = !hasDest;
+    luggageField.hidden = !hasDest;
+    bpContent.hidden = !hasDest;
+    bpQuoteCta.hidden = hasDest;
 
     const pickup = AIRPORTS[pickupEl.value];
-    const fixed = resolveFixedFare(pickupEl.value, destEl.value);
+    if (!hasDest) {
+      bpQuoteWhatsapp.href = whatsappLink(t('calc.noRoutesQuoteMessage', { pickup: t(pickup.nameKey) }));
+      return;
+    }
 
-    // Fixed fares don't vary by vehicle — the vehicle select doesn't affect
-    // price and is disabled to avoid implying otherwise. They still scale
-    // by passenger count above FIXED_FARE_PAX_INCLUDED (see fixedFarePrice).
-    vehicleEl.disabled = !!fixed;
     const paxMax = 15;
     const pax = Math.min(Math.max(parseInt(paxEl.value, 10) || 1, 1), paxMax);
     paxEl.value = pax;
     paxEl.max = paxMax;
 
+    const fixed = resolveFixedFare(pickupEl.value, destEl.value);
+    const extraPax = Math.max(0, pax - FIXED_FARE_PAX_INCLUDED);
+    const luggage = Math.max(0, parseInt(luggageEl.value, 10) || 0);
+    const luggageFee = luggageFeeFor(luggage);
+
     out.fromCode.textContent = pickup.code;
     out.fromName.textContent = t(pickup.nameKey);
+    out.toCode.textContent = fixed.code;
+    out.toName.textContent = fixed.name;
+    out.vehicle.textContent = t('vehicle.minivan');
+    out.capacity.textContent = t('routes.upTo6');
+    out.duration.textContent = '—';
+    animatePrice(out.amount, fixedFarePrice(fixed.price, pax) + luggageFee);
 
-    if (fixed) {
-      const extraPax = Math.max(0, pax - FIXED_FARE_PAX_INCLUDED);
-      out.toCode.textContent = fixed.code;
-      out.toName.textContent = fixed.name;
-      out.vehicle.textContent = t('vehicle.minivan');
-      out.capacity.textContent = t('routes.upTo6');
-      out.duration.textContent = '—';
-      animatePrice(out.amount, fixedFarePrice(fixed.price, pax));
-      if (extraPax > 0) {
-        out.note.textContent = t('calc.extraPaxNote', {
-          extra: extraPax,
-          fee: formatMoney(extraPax * FIXED_FARE_EXTRA_PAX_FEE_USD),
-        });
-        out.note.hidden = false;
-      } else {
-        out.note.hidden = true;
-      }
-      return;
+    const noteParts = [];
+    if (extraPax > 0) {
+      noteParts.push(t('calc.extraPaxNote', {
+        extra: extraPax,
+        fee: formatMoney(extraPax * FIXED_FARE_EXTRA_PAX_FEE_USD),
+      }));
     }
-
-    const dest = PROVINCES[destEl.value];
-    const route = estimateRoute(pickup, dest);
-    const { vehicle, upgraded } = resolveVehicle(pax, vehicleEl.value);
-    const vehicleLabel = t(vehicle.labelKey);
-    const price = route.price + vehicle.surcharge;
-
-    out.toCode.textContent = dest.code;
-    out.toName.textContent = t(dest.nameKey);
-    out.vehicle.textContent = vehicleLabel;
-    out.capacity.textContent = t('calc.capacityValue', { n: vehicle.capacity });
-    out.duration.textContent = formatDuration(route.minutes);
-    animatePrice(out.amount, price);
-
-    if (upgraded) {
-      out.note.textContent = t('calc.upgradeNote', { pax, vehicle: vehicleLabel });
-      out.note.hidden = false;
-    } else {
-      out.note.hidden = true;
+    if (luggageFee > 0) {
+      noteParts.push(t('calc.luggageFeeNote', { fee: formatMoney(luggageFee) }));
     }
+    out.note.textContent = noteParts.join(' ');
+    out.note.hidden = noteParts.length === 0;
   }
 
-  [pickupEl, destEl, vehicleEl].forEach((el) => el.addEventListener('change', update));
+  [pickupEl, destEl].forEach((el) => el.addEventListener('change', update));
   paxEl.addEventListener('input', update);
+  luggageEl.addEventListener('input', update);
 
   document.getElementById('paxMinus').addEventListener('click', () => {
     paxEl.value = Math.max(1, (parseInt(paxEl.value, 10) || 1) - 1);
@@ -167,6 +191,15 @@
   document.getElementById('paxPlus').addEventListener('click', () => {
     const max = parseInt(paxEl.max, 10) || 15;
     paxEl.value = Math.min(max, (parseInt(paxEl.value, 10) || 1) + 1);
+    update();
+  });
+
+  document.getElementById('luggageMinus').addEventListener('click', () => {
+    luggageEl.value = Math.max(0, (parseInt(luggageEl.value, 10) || 0) - 1);
+    update();
+  });
+  document.getElementById('luggagePlus').addEventListener('click', () => {
+    luggageEl.value = (parseInt(luggageEl.value, 10) || 0) + 1;
     update();
   });
 
@@ -179,21 +212,28 @@
    * A fixed fare (see resolveFixedFare) snapshots as 'fixedRoute', same as
    * the Popular Routes tickets further down — it must NOT go in as
    * 'transfer', which would ignore the fixed price and re-derive a (wrong)
-   * formula price the next time the cart re-renders.
+   * formula price the next time the cart re-renders. This transfer's own
+   * luggage fee (see luggageFeeFor) is baked into the snapshotted price and
+   * carried separately as `luggage` for the cart's meta line — independent
+   * from the cart panel's own whole-order luggage field.
    * @returns {Object} Item shape accepted by addToCart()/bookDirect().
    */
   function buildCalcItem() {
     const fixed = resolveFixedFare(pickupEl.value, destEl.value);
     const pax = parseInt(paxEl.value, 10);
-    if (fixed) {
-      const destVal = destEl.value;
-      const toKey = destVal.startsWith('fixed:')
-        ? POP_FIXED_DESTINATIONS[destVal.slice(6)].nameKey || POP_FIXED_DESTINATIONS[destVal.slice(6)].name
-        : PROVINCES[destVal].nameKey;
-      return { kind: 'fixedRoute', fromKey: 'place.pop', toKey, price: fixedFarePrice(fixed.price, pax), passengers: pax };
-    }
-    const { vehicle } = resolveVehicle(pax, vehicleEl.value);
-    return { kind: 'transfer', pickupKey: pickupEl.value, destKey: destEl.value, vehicleId: vehicle.id, passengers: pax };
+    const luggage = Math.max(0, parseInt(luggageEl.value, 10) || 0);
+    const destVal = destEl.value;
+    const toKey = destVal.startsWith('fixed:')
+      ? POP_FIXED_DESTINATIONS[destVal.slice(6)].nameKey || POP_FIXED_DESTINATIONS[destVal.slice(6)].name
+      : PROVINCES[destVal].nameKey;
+    return {
+      kind: 'fixedRoute',
+      fromKey: AIRPORTS[pickupEl.value].nameKey,
+      toKey,
+      price: fixedFarePrice(fixed.price, pax) + luggageFeeFor(luggage),
+      passengers: pax,
+      luggage,
+    };
   }
 
   const reserveBtn = document.getElementById('bpReserve');
@@ -208,22 +248,6 @@
   if (bookDirectBtn) {
     bookDirectBtn.addEventListener('click', () => bookDirect(buildCalcItem()));
   }
-
-  // Route ticket "Add to Cart" buttons: sync the calculator to that route
-  // (visual confirmation of what's being added) at its stated passenger
-  // count, then add the same route to the cart.
-  document.querySelectorAll('[data-pickup][data-dest]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      pickupEl.value = btn.dataset.pickup;
-      destEl.value = btn.dataset.dest;
-      paxEl.value = btn.dataset.passengers || 3;
-      update();
-      const pax = parseInt(paxEl.value, 10);
-      const { vehicle } = resolveVehicle(pax, 'auto');
-      addToCart({ kind: 'transfer', pickupKey: btn.dataset.pickup, destKey: btn.dataset.dest, vehicleId: vehicle.id, passengers: pax });
-      openCart();
-    });
-  });
 
   // Popular Routes ticket buttons carrying a literal fixed price (not
   // formula-derived — some destinations, like Sosúa/Cabarete, aren't
