@@ -108,7 +108,7 @@ See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
   rendered as text (`js/cart.js`).
 - Per-page SEO meta: `js/i18n.js` keys `meta.<page>.title` / `meta.<page>.description`,
   resolved from each page's `<body data-page="home|transfers|excursions|cruises|nosotros">`.
-- Canonical/OG URL (real domain, set 2026-07-20): `https://caribbeansgtransfertours.com/`
+- Canonical/OG URL (real domain, set 2026-07-20): `https://caribbeansgtransferstours.com/`
   (appears on all five pages, plus `sitemap.xml` and `robots.txt`).
 - `js/i18n.js` → all page text (`en`/`es`/`fr` dictionaries) — see
   `DOCS/USER_MANUAL.md` for how to edit copy in any language.

@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://caribbeansgtransfertours.com/sitemap.xml
+Sitemap: https://caribbeansgtransferstours.com/sitemap.xml

@@ -177,7 +177,7 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
    exact same file name — no HTML editing needed.** Full list of filenames
    still pending your photos is in `DOCS/DEPLOYMENT.md`'s go-live checklist.
 5. **Domain** — done. All five pages, `sitemap.xml` and `robots.txt` now
-   use `https://caribbeansgtransfertours.com/` (set 2026-07-20).
+   use `https://caribbeansgtransferstours.com/` (set 2026-07-20).
 6. **Reviews** — replace the four sample testimonials (on the home page)
    with real guest quotes.
 

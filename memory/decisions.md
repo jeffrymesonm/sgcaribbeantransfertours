@@ -312,9 +312,9 @@ pedirlo), validado con una regex simple antes de enviar. Se incluye también
 en `buildCartMessage()` cuando está presente, así aparece en el mensaje de
 WhatsApp también si el visitante lo llenó.
 
-## 2026-07-20T01:30Z — Dominio real: caribbeansgtransfertours.com
+## 2026-07-20T01:30Z — Dominio real: caribbeansgtransferstours.com
 El dueño confirmó el dominio real. Se reemplazó el placeholder
-`sarieltransfers.com` por `caribbeansgtransfertours.com` en las 5 páginas
+`sarieltransfers.com` por `caribbeansgtransferstours.com` en las 5 páginas
 (`<link rel="canonical">` + Open Graph), `sitemap.xml` (5 `<loc>`) y
 `robots.txt` (línea `Sitemap:`), vía `sed` global sobre esos 7 archivos
 (no se tocaron los artefactos de QA en `.playwright-mcp/` ni los documentos

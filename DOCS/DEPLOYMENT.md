@@ -40,7 +40,7 @@ asks first-time visitors which service they want. See
 - [x] Real contact email in all 5 footers — `sg.caribbeantransferstours@gmail.com`
 - [x] Cart's "Send via Email" checkout wired to a real Formspree endpoint — `CONFIG.formspreeEndpoint` in `js/config.js` (`https://formspree.io/f/xbdnzrez`), replacing the old `mailto:` link so it delivers without the visitor needing a mail app configured
 - [x] Company name is **SG Caribbean Transfers & Tours** everywhere the brand is shown (title/meta/JSON-LD/footer/header) — "Sariel" is kept only where it names the driver (team card, review quote)
-- [x] Real domain (`caribbeansgtransfertours.com`) in the `<link rel="canonical">` + Open Graph block of all 5 HTML pages (set 2026-07-20)
+- [x] Real domain (`caribbeansgtransferstours.com`) in the `<link rel="canonical">` + Open Graph block of all 5 HTML pages (set 2026-07-20)
 - [x] Host updated in `sitemap.xml` (5 `<loc>`) and `robots.txt` (`Sitemap:` line) to the real domain
 - [x] 2 of 3 cruise cards filled in (`cruises.html`: 27 Charcos de Damajagua, Puerto Plata City Tour) — [ ] 3rd card (`#cruise3`) still a placeholder (`data-prices` all `0`s), owner's choice to leave for a future 3rd cruise excursion — see `DOCS/USER_MANUAL.md`
 - [x] Team + fleet photos (`nosotros.html`, split out of the home page's old About Us section on 2026-07-20) — real, from the owner. All 4 drivers (Saul, Sariel, Luis, Leuris) have photos; fleet gallery expanded to 8 photos (group shot + 4 individual vans + 3 interiors)

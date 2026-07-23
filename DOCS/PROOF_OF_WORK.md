@@ -1106,7 +1106,7 @@ to confirm in a browser, per this session's no-Playwright instruction.
 ## 2026-07-20 UTC — SEO audit, AboutPage JSON-LD, real domain live
 
 **Requested:** confirm every page has SEO essentials, then set the real
-domain (owner-confirmed: `caribbeansgtransfertours.com`).
+domain (owner-confirmed: `caribbeansgtransferstours.com`).
 
 **Delivered:**
 - Audited all 5 pages for title, meta description, canonical, Open Graph,
