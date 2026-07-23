@@ -26,31 +26,50 @@ to maintain.
   book anything automatically or charge anyone. Visitors can add several
   things (a transfer + two excursions, for example) before sending.
 - The cart icon in the header shows how many items are inside, on every
-  page. Clicking it opens the drawer: each item, its price, a total,
-  **full name** (required to send), **flight number** (optional — for
-  airport pickups), a **flight/pickup date** and a separate **excursion
-  date** (both optional — kept as two fields on purpose, since a flight
-  date and an excursion date are often different days), and two send
-  buttons: **"Send via WhatsApp"** and **"Send via Email"** — the visitor
-  picks whichever they prefer, both send the exact same message. Name,
-  flight and both dates apply once to the whole message, not per item —
-  there's one visitor filling the cart, so these cover everything they
-  added, even if it's a transfer plus an excursion together.
-- There's also an optional **"Number of suitcases"** field (added
-  2026-07-20) in that same drawer. If the visitor enters **more than 10**,
-  a flat **US$15 luggage fee** is added to the total shown and to the
-  WhatsApp/email message automatically — you don't have to calculate it. To
-  change the free limit or the fee amount, edit `LUGGAGE_FREE_LIMIT` /
-  `LUGGAGE_EXTRA_FEE_USD` in `js/config.js` (same file as the other pricing
-  constants).
-- Sending (either button) opens WhatsApp or the visitor's email app with one
-  message listing everything requested (name, flight number and both dates
-  right at the top, so you don't have to ask), then empties the cart. You
-  reply to confirm availability and take payment details however you
-  normally do (cash on arrival, per the site's copy). The email option sends
-  to **`sg.caribbeantrasferstours@gmail.com`** (`CONFIG.contactEmail` in
-  `js/config.js` — see "Things you MUST change before going live" if this
-  ever changes, and also update the 4 footers' contact links to match).
+  page. Clicking it opens the drawer with each item and its price. **Every
+  item carries its own trip details** (reworked 2026-07-23): each airport
+  transfer has its own **passengers** (± stepper), **flight number**,
+  **flight/pickup date** and **suitcase count**; each excursion has its own
+  **guests** (± stepper) and **excursion date**. So two transfers on
+  different days, with different flights, are filled in independently right
+  on their own cart rows — nothing is shared across items or hidden behind
+  the send step.
+- Changing the quantity updates the price instantly and correctly: an
+  excursion steps through its real guest-count prices (4/5/6), a transfer
+  steps its passenger count — flat for up to 6 people, then a small
+  per-extra-passenger charge above that, the same rule the price calculator
+  uses. Each transfer's suitcase count adds a flat **US$15** fee to **that
+  transfer** when it's more than 10 bags (each vehicle needs its own
+  trailer), shown right in that item's price. To change the free limit or fee
+  amount, edit `LUGGAGE_FREE_LIMIT` / `LUGGAGE_EXTRA_FEE_USD` in
+  `js/config.js`.
+- Below the items, the cart **asks how they want to send it** — "WhatsApp" or
+  "Email". Only after picking one does the last step appear: **full name**
+  (required), an **email address** (only for the Email choice — WhatsApp
+  skips it), and one send button labeled for that channel ("Send via
+  WhatsApp" / "Send via Email"; a "← Change method" link goes back). Both
+  channels send the exact same message, which lists every item with its own
+  passengers/guests, flight, dates and suitcases.
+- Sending via WhatsApp opens `wa.me` in a new tab with one message listing
+  the name and every item with its own details (passengers/guests, flight,
+  dates, suitcases), then empties the cart. Sending via Email asks for the
+  visitor's email address (required — that's how you reply to them) and
+  submits the same message straight to your inbox through Formspree, without
+  the visitor needing their own mail app open; the cart panel shows
+  "Sending…" then a success/error message in place, and only empties the cart
+  on success (on error it stays intact so they can retry or use WhatsApp
+  instead). Either way, you reply to confirm availability and take payment
+  details however you normally do (cash on arrival, per the site's copy).
+- The email checkout posts to `CONFIG.formspreeEndpoint` in `js/config.js`
+  (`https://formspree.io/f/xbdnzrez`) — manage which inbox receives these from
+  your Formspree dashboard (formspree.io), not from this file.
+- The **"Email Us"** button (in the booking section near the bottom of every
+  page, next to "Chat on WhatsApp") opens a short pop-up form — name, email,
+  what service they're interested in, and a free-text reason — instead of
+  opening the visitor's own mail app (updated 2026-07-23). It posts to the
+  same Formspree endpoint as the cart, with the same "Sending…"/success/error
+  feedback in place. The 5 footers' plain `mailto:` links still open a normal
+  email to the company address.
 - The cart is saved in the visitor's own browser, so it's still there if
   they close the tab and come back later, or move between pages — but it's
   specific to their device/browser, not shared with you until they hit send.
@@ -143,7 +162,7 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
    everywhere (all five pages, the floating WhatsApp button, footer link,
    and cart checkout) — there is nowhere else to change it.
 2. **Contact email** — done. The footer's `mailto:` link on all five pages
-   is `sg.caribbeantrasferstours@gmail.com`.
+   is `sg.caribbeantransferstours@gmail.com`.
 3. **Cruise card prices** — 2 of 3 cruise cards are filled in (27 Charcos,
    City Tour). `#cruise3` still ships with placeholder
    `data-prices='{"4":0,"5":0}'` (see "Editing the cruise cards" below) —
@@ -158,7 +177,7 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
    exact same file name — no HTML editing needed.** Full list of filenames
    still pending your photos is in `DOCS/DEPLOYMENT.md`'s go-live checklist.
 5. **Domain** — done. All five pages, `sitemap.xml` and `robots.txt` now
-   use `https://sgcaribbeantransfertours.com/` (set 2026-07-20).
+   use `https://caribbeansgtransfertours.com/` (set 2026-07-20).
 6. **Reviews** — replace the four sample testimonials (on the home page)
    with real guest quotes.
 

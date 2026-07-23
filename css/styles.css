@@ -940,7 +940,8 @@ section { scroll-margin-top: var(--header-h); }
 .field input[type="tel"],
 .field input[type="date"],
 .field input[type="time"],
-.field input[type="number"] {
+.field input[type="number"],
+.field input[type="email"] {
   font: inherit;
   color: var(--ink);
   padding: 0.8rem 1rem;
@@ -1970,12 +1971,15 @@ section { scroll-margin-top: var(--header-h); }
 }
 
 .cart-item {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(6, 38, 46, 0.08);
+}
+
+.cart-item-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.75rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(6, 38, 46, 0.08);
 }
 
 .cart-item-title {
@@ -1989,11 +1993,85 @@ section { scroll-margin-top: var(--header-h); }
   color: var(--ink-soft);
 }
 
+/* Per-item trip-detail fields (flight/date/luggage for transfers, date for
+   excursions), rendered inline under each cart row — a 2-column grid keeps
+   the drawer scannable instead of stacking every field full-width. */
+.cart-item-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem 0.6rem;
+  margin-top: 0.55rem;
+}
+
+@media (max-width: 380px) {
+  .cart-item-fields { grid-template-columns: 1fr; }
+}
+
+.cart-mini-field {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.cart-mini-field > span {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+}
+
+.cart-mini-field input {
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--ink);
+  padding: 0.4rem 0.55rem;
+  border: 1.5px solid rgba(6, 38, 46, 0.16);
+  border-radius: 8px;
+  background: #fff;
+  width: 100%;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.cart-mini-field input:focus {
+  outline: none;
+  border-color: var(--lagoon);
+  box-shadow: 0 0 0 3px rgba(23, 163, 152, 0.18);
+}
+
+.cart-item-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  justify-self: start;
+  border: 1.5px solid rgba(6, 38, 46, 0.16);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.cart-item-qty .stepper-btn {
+  width: 1.35rem;
+  height: 1.35rem;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.cart-item-qty .stepper-btn:disabled {
+  color: rgba(6, 38, 46, 0.28);
+  cursor: not-allowed;
+}
+
+.cart-item-qty-value {
+  min-width: 0.9rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
 .cart-item-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.4rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
   flex: none;
 }
 
@@ -2039,6 +2117,30 @@ section { scroll-margin-top: var(--header-h); }
   gap: 0.6rem;
 }
 
+.cart-channel-step, .cart-details-step, .field-group {
+  display: grid;
+  gap: 0.9rem;
+}
+.cart-channel-step[hidden], .cart-details-step[hidden], .field-group[hidden] { display: none; }
+
+.cart-channel-lead {
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.cart-channel-back {
+  justify-self: start;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ocean);
+  text-decoration: underline;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
 .cart-total {
   display: flex;
   align-items: baseline;
@@ -2057,6 +2159,18 @@ section { scroll-margin-top: var(--header-h); }
   font-size: 0.76rem;
   color: var(--ink-soft);
 }
+
+.cart-status, .contact-status {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+}
+
+.cart-status.is-sending, .contact-status.is-sending { color: var(--ink-soft); }
+.cart-status.is-success, .contact-status.is-success { color: var(--lagoon); background: rgba(23, 163, 152, 0.1); }
+.cart-status.is-error, .contact-status.is-error { color: #B3261E; background: rgba(179, 38, 30, 0.08); }
 
 /* ---------- 18. Scroll-reveal system ---------- */
 /* .reveal elements fade+rise on first viewport entry (IntersectionObserver).
@@ -2138,6 +2252,31 @@ section { scroll-margin-top: var(--header-h); }
 @media (prefers-reduced-motion: no-preference) {
   .service-dialog[open] { animation: dialogpop .25s ease-out; }
   @keyframes dialogpop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+}
+
+/* ---------- Contact dialog ("Email Us" CTA, all 5 pages) ---------- */
+.contact-dialog {
+  border: none; border-radius: 22px; padding: 0; max-width: 480px; width: calc(100% - 2rem);
+  box-shadow: 0 30px 80px rgba(6,38,46,.4);
+}
+.contact-dialog::backdrop { background: rgba(6,38,46,.55); backdrop-filter: blur(3px); }
+.contact-dialog-inner { padding: clamp(1.5rem, 4vw, 2.5rem); position: relative; display: grid; gap: 0.9rem; }
+.contact-dialog-inner h2 { margin: 0; padding-right: 1.5rem; }
+.contact-dialog-lead { color: var(--ink-soft); font-size: 0.92rem; margin: -0.4rem 0 0; }
+.contact-dialog-close {
+  position: absolute; top: .75rem; right: 1rem; background: none; border: none;
+  font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--ink-soft);
+}
+.contact-dialog textarea {
+  font: inherit; color: var(--ink); padding: 0.8rem 1rem; border-radius: 12px;
+  border: 1.5px solid rgba(6, 38, 46, 0.16); background: #fff; width: 100%;
+  resize: vertical; transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.contact-dialog textarea:focus {
+  outline: none; border-color: var(--lagoon); box-shadow: 0 0 0 3px rgba(23, 163, 152, 0.18);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .contact-dialog[open] { animation: dialogpop .25s ease-out; }
 }
 
 /* ---------- Home service picker section (#services-picker) ----------

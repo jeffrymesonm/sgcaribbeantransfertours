@@ -43,7 +43,7 @@ team": company story, driver team, fleet — split out of `index.html` on
 | `js/i18n.js` | EN/ES/FR dictionary + language switcher, per-page meta (`meta.<page>.*` via `data-page`) — see DEVELOPER_GUIDE.md |
 | `js/config.js` | Business config: `CONFIG.whatsappNumber`, `AIRPORTS`, `PROVINCES`, `VEHICLES`, pricing constants, `LUGGAGE_FREE_LIMIT`/`LUGGAGE_EXTRA_FEE_USD`, `haversineKm`/`estimateRoute` — **the single file to edit for numbers** |
 | `js/core.js` | Shared utilities: `animatePrice`, `formatDuration`, `whatsappLink`, `prefersReducedMotion` |
-| `js/cart.js` | Cart state/panel/checkout — versioned `localStorage` (`sariel-cart`, v2), `describeCartItem`, `buildCartMessage`, `getLuggageCount`/`luggageFee` |
+| `js/cart.js` | Cart state/panel/checkout — versioned `localStorage` (`sariel-cart`, v3), per-item trip details (flight/date/luggage per transfer, date per excursion) + per-item quantity/luggage editing, `describeCartItem`, `buildCartMessage` |
 | `js/shell.js` | Header, mobile nav, scroll reveals, parallax, counters, FAQ accordion, WhatsApp links — loaded on all 5 pages |
 | `js/calculator.js` | Transfer price calculator — `transfers.html` only |
 | `js/tours.js` | Guest-count pricing + Add to Cart for excursion/cruise cards — `excursions.html` and `cruises.html` |
@@ -58,9 +58,15 @@ See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
 - `js/config.js` → `CONFIG.whatsappNumber`: real number `18296277733`
   (+1 829-627-7733). Single edit point; loaded on every page, so one change
   updates the WhatsApp link everywhere (FAB, footer, cart checkout,
-  direct-chat CTA). Contact email `sg.caribbeantrasferstours@gmail.com` is
+  direct-chat CTA). Contact email `sg.caribbeantransferstours@gmail.com` is
+  `CONFIG.contactEmail` (feeds the generic "Email Us" CTA) and also
   hardcoded in each page's footer (`mailto:` link) — update in all 5 HTML
   files if it ever changes.
+- `js/config.js` → `CONFIG.formspreeEndpoint`: `https://formspree.io/f/xbdnzrez`
+  — where the cart's "Send via Email" checkout button posts (see
+  `submitBookingEmail()` in `js/core.js`). Delivers straight to the owner's
+  inbox with no visitor mail client required; manage the recipient address
+  from the Formspree dashboard, not from this file.
 - `js/config.js` → `AIRPORTS` / `PROVINCES` / `VEHICLES` / pricing constants
   (`PRICE_BASE_USD`, `PRICE_PER_KM_USD`, `ROAD_WINDING_FACTOR`,
   `AVG_ROAD_SPEED_KMH`): distance-estimated price/duration model used by the
@@ -84,9 +90,9 @@ See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
   falling back to the distance formula. See `DOCS/USER_MANUAL.md`
   "Changing prices".
 - `js/config.js` → `LUGGAGE_FREE_LIMIT` (10) / `LUGGAGE_EXTRA_FEE_USD` (15):
-  the cart's optional `#cartLuggage` field adds this flat fee to the total
-  when the visitor enters more than the free limit — see `js/cart.js`
-  `getLuggageCount()`/`luggageFee()`.
+  each transfer's own suitcase count adds this flat fee **to that transfer's
+  price** when it exceeds the free limit (per vehicle, not per order) — via
+  the shared `luggageSurcharge()` helper, folded in by `describeCartItem()`.
 - `excursions.html` → excursion prices live in each `<article class="exc">`'s
   `data-prices` attribute (guest count → total USD). Guest count range
   varies per card (e.g. Punta Rusia is 4–6 only, City Tour/others are 2–6).
@@ -102,7 +108,7 @@ See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
   rendered as text (`js/cart.js`).
 - Per-page SEO meta: `js/i18n.js` keys `meta.<page>.title` / `meta.<page>.description`,
   resolved from each page's `<body data-page="home|transfers|excursions|cruises|nosotros">`.
-- Canonical/OG URL (real domain, set 2026-07-20): `https://sgcaribbeantransfertours.com/`
+- Canonical/OG URL (real domain, set 2026-07-20): `https://caribbeansgtransfertours.com/`
   (appears on all five pages, plus `sitemap.xml` and `robots.txt`).
 - `js/i18n.js` → all page text (`en`/`es`/`fr` dictionaries) — see
   `DOCS/USER_MANUAL.md` for how to edit copy in any language.

@@ -16,7 +16,7 @@
   <title>Private Excursions & Day Tours — SG Caribbean Transfers & Tours | North Coast DR</title>
   <meta name="description" content="Private excursions on the DR north coast: Punta Rusia, Charcos de Damajagua, city tours, beach days, ATV and buggy adventures. Your group, your pace, round-trip transport included." />
   <meta name="theme-color" content="#062A31" />
-  <link rel="canonical" href="https://sgcaribbeantransfertours.com/excursions.html" />
+  <link rel="canonical" href="https://caribbeansgtransfertours.com/excursions.html" />
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
@@ -39,15 +39,15 @@
   <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (English-only, matches default page language) -->
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ItemList","itemListElement":[
-  {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Punta Rusia","url":"https://sgcaribbeantransfertours.com/excursions.html#exc1"}},
-  {"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://sgcaribbeantransfertours.com/excursions.html#exc2"}},
-  {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"City Tour","url":"https://sgcaribbeantransfertours.com/excursions.html#exc4"}},
-  {"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Beach Experience","url":"https://sgcaribbeantransfertours.com/excursions.html#exc5"}},
-  {"@type":"ListItem","position":5,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://sgcaribbeantransfertours.com/excursions.html#exc6"}},
-  {"@type":"ListItem","position":6,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://sgcaribbeantransfertours.com/excursions.html#exc7"}}]}
+  {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Punta Rusia","url":"https://caribbeansgtransfertours.com/excursions.html#exc1"}},
+  {"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://caribbeansgtransfertours.com/excursions.html#exc2"}},
+  {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"City Tour","url":"https://caribbeansgtransfertours.com/excursions.html#exc4"}},
+  {"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Beach Experience","url":"https://caribbeansgtransfertours.com/excursions.html#exc5"}},
+  {"@type":"ListItem","position":5,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://caribbeansgtransfertours.com/excursions.html#exc6"}},
+  {"@type":"ListItem","position":6,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://caribbeansgtransfertours.com/excursions.html#exc7"}}]}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://sgcaribbeantransfertours.com/"},{"@type":"ListItem","position":2,"name":"Excursions","item":"https://sgcaribbeantransfertours.com/excursions.html"}]}
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransfertours.com/"},{"@type":"ListItem","position":2,"name":"Excursions","item":"https://caribbeansgtransfertours.com/excursions.html"}]}
   </script>
 </head>
 <body data-page="excursions">
@@ -106,33 +106,28 @@
       <div class="cart-items" id="cartItems"></div>
       <p class="cart-empty" id="cartEmpty" data-i18n="cart.empty">Your cart is empty. Add a transfer or excursion to get started.</p>
       <div class="cart-panel-footer">
-        <div class="field">
-          <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
-          <input type="text" id="cartName" autocomplete="name" required />
+        <div class="cart-channel-step" id="cartChannelStep">
+          <p class="cart-channel-lead" data-i18n="cart.channelLead">How would you like to send your request?</p>
+          <div class="cart-checkout-options">
+            <button type="button" class="btn btn-primary btn-block" id="cartChooseWhatsApp" data-i18n="cart.channelWhatsApp">WhatsApp</button>
+            <button type="button" class="btn btn-outline btn-block" id="cartChooseEmail" data-i18n="cart.channelEmail">Email</button>
+          </div>
         </div>
-        <div class="field">
-          <label for="cartFlight" data-i18n="cart.flightLabel">Flight number (if picking up at the airport)</label>
-          <input type="text" id="cartFlight" />
+        <div class="cart-details-step" id="cartDetailsStep" hidden>
+          <button type="button" class="cart-channel-back" id="cartChannelBack" data-i18n="cart.channelBack">← Change method</button>
+          <div class="field">
+            <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
+            <input type="text" id="cartName" autocomplete="name" required />
+          </div>
+          <div class="field" id="cartEmailField">
+            <label for="cartEmail" data-i18n="cart.emailLabel">Email address (so we can reply to your booking)</label>
+            <input type="email" id="cartEmail" autocomplete="email" />
+          </div>
+          <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
+          <button type="button" class="btn btn-primary btn-block" id="cartSend" data-i18n="cart.checkout">Send via WhatsApp</button>
+          <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
+          <p class="cart-status" id="cartStatus" role="status" aria-live="polite" hidden></p>
         </div>
-        <div class="field">
-          <label for="cartFlightDate" data-i18n="cart.flightDateLabel">Flight / pickup date (optional)</label>
-          <input type="date" id="cartFlightDate" />
-        </div>
-        <div class="field">
-          <label for="cartExcursionDate" data-i18n="cart.excursionDateLabel">Excursion date (optional)</label>
-          <input type="date" id="cartExcursionDate" />
-        </div>
-        <div class="field">
-          <label for="cartLuggage" data-i18n="cart.luggageLabel">Number of suitcases (optional)</label>
-          <input type="number" id="cartLuggage" min="0" inputmode="numeric" />
-          <p class="field-hint" data-i18n="cart.luggageHint">More than 10 suitcases? A US$15 fee applies.</p>
-        </div>
-        <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
-        <div class="cart-checkout-options">
-          <button type="button" class="btn btn-primary btn-block" id="cartCheckout" data-i18n="cart.checkout">Send via WhatsApp</button>
-          <button type="button" class="btn btn-outline btn-block" id="cartCheckoutEmail" data-i18n="cart.checkoutEmail">Send via Email</button>
-        </div>
-        <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
       </div>
     </div>
   </aside>
@@ -248,7 +243,7 @@
       </div>
     </article>
 
-    <article class="exc" id="exc4" data-prices='{"4":260,"5":325,"6":390}'>
+    <article class="exc" id="exc4" data-prices='{"4":100,"5":125,"6":150}'>
       <figure class="exc-media reveal-img">
         <img src="img/exc-city-tour.jpg" alt="Historic colonial architecture decorated with colorful festival flags" loading="lazy" />
       </figure>
@@ -275,10 +270,10 @@
             <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
           </label>
           <p class="exc-price" aria-live="polite">
-            <span class="exc-price-amount">US$<span class="exc-amount">260</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-amount">US$<span class="exc-amount">100</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
             <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
           </p>
-          <p class="exc-per-person">US$<span class="exc-per-person-amount">65</span> <span data-i18n="exc.perPersonSuffix">per person</span></p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">25</span> <span data-i18n="exc.perPersonSuffix">per person</span></p>
           <div class="exc-actions">
             <button type="button" class="btn btn-primary exc-add" data-service-key="city-tour" data-title-key="exc4.title" data-i18n="cart.add">Add to Cart</button>
             <button type="button" class="btn btn-ghost exc-book-direct" data-i18n="cart.bookDirect">Book Directly</button>
@@ -463,7 +458,7 @@
         </ul>
         <div class="book-direct-ctas">
           <a class="btn btn-primary btn-lg" id="bookDirectCta" href="#" rel="noopener" data-i18n="book.directCta">Chat on WhatsApp</a>
-          <a class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" href="#" rel="noopener" data-i18n="book.directCtaEmail">Email Us</a>
+          <button type="button" class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" data-i18n="book.directCtaEmail">Email Us</button>
         </div>
       </div>
     </div>
@@ -499,7 +494,7 @@
       <div class="footer-col">
         <h4 class="mono" data-i18n="footer.contactHeading">Contact</h4>
         <a class="footer-whatsapp" id="footerWhatsApp" href="#" rel="noopener" data-i18n="footer.whatsappUs">WhatsApp us</a>
-        <a href="mailto:sg.caribbeantrasferstours@gmail.com">sg.caribbeantrasferstours@gmail.com</a>
+        <a href="mailto:sg.caribbeantransferstours@gmail.com">sg.caribbeantransferstours@gmail.com</a>
         <p data-i18n="footer.address">Puerto Plata, Dominican Republic</p>
       </div>
     </div>
@@ -513,6 +508,41 @@
   <a class="whatsapp-fab" id="whatsappFab" href="#" rel="noopener" aria-label="Chat with us on WhatsApp" data-i18n-attr="aria-label:fab.aria">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.3-.5v-.5L9.7 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a11.6 11.6 0 0 0 4.5 4.5c1.8.9 2.7 1 3.7.8.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
   </a>
+
+  <!-- Contact dialog: opened by the "Email Us" CTA (js/shell.js) on all 5
+       pages — a short form (name/email/service/reason) posted to Formspree,
+       for visitors who'd rather not chat on WhatsApp. -->
+  <dialog class="contact-dialog" id="contactDialog" aria-labelledby="contactDialogTitle">
+    <div class="contact-dialog-inner">
+      <button type="button" class="contact-dialog-close" id="contactDialogClose" data-i18n-attr="aria-label:contact.close" aria-label="Close">×</button>
+      <h2 id="contactDialogTitle" data-i18n="contact.title">Send us a message</h2>
+      <p class="contact-dialog-lead" data-i18n="contact.lead">Tell us what you need and we'll reply by email.</p>
+      <div class="field">
+        <label for="contactName" data-i18n="cart.nameLabel">Full name</label>
+        <input type="text" id="contactName" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="contactEmail" data-i18n="contact.emailLabel">Email address</label>
+        <input type="email" id="contactEmail" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="contactService" data-i18n="contact.serviceLabel">What service are you interested in?</label>
+        <select id="contactService">
+          <option value="" data-i18n="contact.serviceAny">Not sure yet</option>
+          <option value="transfer" data-i18n="contact.serviceTransfer">Airport transfer</option>
+          <option value="excursion" data-i18n="contact.serviceExcursion">Excursion</option>
+          <option value="cruise" data-i18n="contact.serviceCruise">Cruise shore excursion</option>
+          <option value="other" data-i18n="contact.serviceOther">Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="contactReason" data-i18n="contact.reasonLabel">Tell us a bit more</label>
+        <textarea id="contactReason" rows="3"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="contactSubmit" data-i18n="contact.submit">Send Message</button>
+      <p class="contact-status" id="contactStatus" role="status" aria-live="polite" hidden></p>
+    </div>
+  </dialog>
 
   <script src="js/i18n.js" defer></script>
   <script src="js/config.js" defer></script>

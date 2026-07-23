@@ -15,7 +15,7 @@
   <title>SG Caribbean Transfers &amp; Tours — Private Transfers &amp; Excursions in the Dominican Republic</title>
   <meta name="description" content="Private airport transfers, transportation and excursions in Puerto Plata, Cabarete, Sosúa and the Dominican Republic north coast. Safe, comfortable, always on time. Book your transfer today." />
   <meta name="theme-color" content="#062A31" />
-  <link rel="canonical" href="https://sgcaribbeantransfertours.com/" />
+  <link rel="canonical" href="https://caribbeansgtransfertours.com/" />
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
@@ -43,7 +43,7 @@
     "name": "SG Caribbean Transfers & Tours",
     "description": "Private airport transfers, transportation and excursions in Puerto Plata and the Dominican Republic north coast.",
     "areaServed": ["Puerto Plata", "Cabarete", "Sosúa", "Playa Dorada", "Samaná", "Dominican Republic"],
-    "url": "https://sgcaribbeantransfertours.com/",
+    "url": "https://caribbeansgtransfertours.com/",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
@@ -122,33 +122,28 @@
       <div class="cart-items" id="cartItems"></div>
       <p class="cart-empty" id="cartEmpty" data-i18n="cart.empty">Your cart is empty. Add a transfer or excursion to get started.</p>
       <div class="cart-panel-footer">
-        <div class="field">
-          <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
-          <input type="text" id="cartName" autocomplete="name" required />
+        <div class="cart-channel-step" id="cartChannelStep">
+          <p class="cart-channel-lead" data-i18n="cart.channelLead">How would you like to send your request?</p>
+          <div class="cart-checkout-options">
+            <button type="button" class="btn btn-primary btn-block" id="cartChooseWhatsApp" data-i18n="cart.channelWhatsApp">WhatsApp</button>
+            <button type="button" class="btn btn-outline btn-block" id="cartChooseEmail" data-i18n="cart.channelEmail">Email</button>
+          </div>
         </div>
-        <div class="field">
-          <label for="cartFlight" data-i18n="cart.flightLabel">Flight number (if picking up at the airport)</label>
-          <input type="text" id="cartFlight" />
+        <div class="cart-details-step" id="cartDetailsStep" hidden>
+          <button type="button" class="cart-channel-back" id="cartChannelBack" data-i18n="cart.channelBack">← Change method</button>
+          <div class="field">
+            <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
+            <input type="text" id="cartName" autocomplete="name" required />
+          </div>
+          <div class="field" id="cartEmailField">
+            <label for="cartEmail" data-i18n="cart.emailLabel">Email address (so we can reply to your booking)</label>
+            <input type="email" id="cartEmail" autocomplete="email" />
+          </div>
+          <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
+          <button type="button" class="btn btn-primary btn-block" id="cartSend" data-i18n="cart.checkout">Send via WhatsApp</button>
+          <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
+          <p class="cart-status" id="cartStatus" role="status" aria-live="polite" hidden></p>
         </div>
-        <div class="field">
-          <label for="cartFlightDate" data-i18n="cart.flightDateLabel">Flight / pickup date (optional)</label>
-          <input type="date" id="cartFlightDate" />
-        </div>
-        <div class="field">
-          <label for="cartExcursionDate" data-i18n="cart.excursionDateLabel">Excursion date (optional)</label>
-          <input type="date" id="cartExcursionDate" />
-        </div>
-        <div class="field">
-          <label for="cartLuggage" data-i18n="cart.luggageLabel">Number of suitcases (optional)</label>
-          <input type="number" id="cartLuggage" min="0" inputmode="numeric" />
-          <p class="field-hint" data-i18n="cart.luggageHint">More than 10 suitcases? A US$15 fee applies.</p>
-        </div>
-        <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
-        <div class="cart-checkout-options">
-          <button type="button" class="btn btn-primary btn-block" id="cartCheckout" data-i18n="cart.checkout">Send via WhatsApp</button>
-          <button type="button" class="btn btn-outline btn-block" id="cartCheckoutEmail" data-i18n="cart.checkoutEmail">Send via Email</button>
-        </div>
-        <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
       </div>
     </div>
   </aside>
@@ -336,7 +331,7 @@
         </ul>
         <div class="book-direct-ctas">
           <a class="btn btn-primary btn-lg" id="bookDirectCta" href="#" rel="noopener" data-i18n="book.directCta">Chat on WhatsApp</a>
-          <a class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" href="#" rel="noopener" data-i18n="book.directCtaEmail">Email Us</a>
+          <button type="button" class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" data-i18n="book.directCtaEmail">Email Us</button>
         </div>
       </div>
     </div>
@@ -372,7 +367,7 @@
       <div class="footer-col">
         <h4 class="mono" data-i18n="footer.contactHeading">Contact</h4>
         <a class="footer-whatsapp" id="footerWhatsApp" href="#" rel="noopener" data-i18n="footer.whatsappUs">WhatsApp us</a>
-        <a href="mailto:sg.caribbeantrasferstours@gmail.com">sg.caribbeantrasferstours@gmail.com</a>
+        <a href="mailto:sg.caribbeantransferstours@gmail.com">sg.caribbeantransferstours@gmail.com</a>
         <p data-i18n="footer.address">Puerto Plata, Dominican Republic</p>
       </div>
     </div>
@@ -412,6 +407,41 @@
         </a>
       </div>
       <button type="button" class="service-dialog-browse" id="serviceDialogBrowse" data-i18n="picker.browse">Browse everything</button>
+    </div>
+  </dialog>
+
+  <!-- Contact dialog: opened by the "Email Us" CTA (js/shell.js) on all 5
+       pages — a short form (name/email/service/reason) posted to Formspree,
+       for visitors who'd rather not chat on WhatsApp. -->
+  <dialog class="contact-dialog" id="contactDialog" aria-labelledby="contactDialogTitle">
+    <div class="contact-dialog-inner">
+      <button type="button" class="contact-dialog-close" id="contactDialogClose" data-i18n-attr="aria-label:contact.close" aria-label="Close">×</button>
+      <h2 id="contactDialogTitle" data-i18n="contact.title">Send us a message</h2>
+      <p class="contact-dialog-lead" data-i18n="contact.lead">Tell us what you need and we'll reply by email.</p>
+      <div class="field">
+        <label for="contactName" data-i18n="cart.nameLabel">Full name</label>
+        <input type="text" id="contactName" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="contactEmail" data-i18n="contact.emailLabel">Email address</label>
+        <input type="email" id="contactEmail" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="contactService" data-i18n="contact.serviceLabel">What service are you interested in?</label>
+        <select id="contactService">
+          <option value="" data-i18n="contact.serviceAny">Not sure yet</option>
+          <option value="transfer" data-i18n="contact.serviceTransfer">Airport transfer</option>
+          <option value="excursion" data-i18n="contact.serviceExcursion">Excursion</option>
+          <option value="cruise" data-i18n="contact.serviceCruise">Cruise shore excursion</option>
+          <option value="other" data-i18n="contact.serviceOther">Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="contactReason" data-i18n="contact.reasonLabel">Tell us a bit more</label>
+        <textarea id="contactReason" rows="3"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="contactSubmit" data-i18n="contact.submit">Send Message</button>
+      <p class="contact-status" id="contactStatus" role="status" aria-live="polite" hidden></p>
     </div>
   </dialog>
 

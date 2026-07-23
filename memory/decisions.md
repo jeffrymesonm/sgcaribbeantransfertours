@@ -283,9 +283,38 @@ legibles (opacidad, tamaño y posición del logo se afinaron varias veces
 más tras esto a pedido del dueño — ver historial de la conversación, no
 vale la pena loggear cada ajuste de píxeles individualmente aquí).
 
-## 2026-07-20T01:30Z — Dominio real: sgcaribbeantransfertours.com
+## 2026-07-23T00:00Z — Checkout de email: mailto → Formspree (AJAX, no navega fuera)
+El dueño dio un endpoint real de Formspree (`https://formspree.io/f/xbdnzrez`)
+para el botón "Enviar por Correo" del carrito. Antes abría un `mailto:` con
+`CONFIG.contactEmail` (dependía de que el visitante tuviera un cliente de
+correo configurado, y el dueño no veía nada hasta que el visitante confirmaba
+el envío desde SU correo). Se preguntó al dueño cómo debía comportarse la
+página tras enviar: AJAX silencioso (se queda en el carrito, mensaje inline
+de éxito/error) vs `<form>` tradicional con redirección a la página de
+Formspree. Eligió AJAX. Se agregó `submitBookingEmail()` en `core.js` (fetch
+POST con `Accept: application/json`) y `CONFIG.formspreeEndpoint` en
+`config.js`; el botón ahora es `async`, deshabilita mientras envía, muestra
+`#cartStatus` (nuevo, `role="status"`) con "Enviando…"/éxito/error, y solo
+vacía el carrito si Formspree confirma. `emailLink()`/`CONFIG.contactEmail`
+NO se eliminaron — siguen siendo el mecanismo del CTA genérico "Email Us"
+(`shell.js`) y de los 5 footers, que son enlaces `mailto:` simples sin datos
+estructuradas, un caso distinto del checkout del carrito.
+
+**Campo nuevo obligatorio para este canal:** el carrito nunca pedía el email
+del visitante (solo nombre/vuelo/fechas) porque el `mailto:` lo resolvía
+gratis — el visitante enviaba desde SU propia cuenta, así que el "Reply-To"
+ya quedaba correcto sin pedir nada. Al mover el envío al servidor (Formspree),
+esa dirección de respuesta desaparece a menos que se capture explícitamente.
+Se agregó `#cartEmail` (nuevo campo, compartido por ambos botones de
+checkout, igual que el resto del formulario) y se envía como `_replyto` a
+Formspree — requerido solo para el checkout por email (WhatsApp sigue sin
+pedirlo), validado con una regex simple antes de enviar. Se incluye también
+en `buildCartMessage()` cuando está presente, así aparece en el mensaje de
+WhatsApp también si el visitante lo llenó.
+
+## 2026-07-20T01:30Z — Dominio real: caribbeansgtransfertours.com
 El dueño confirmó el dominio real. Se reemplazó el placeholder
-`sarieltransfers.com` por `sgcaribbeantransfertours.com` en las 5 páginas
+`sarieltransfers.com` por `caribbeansgtransfertours.com` en las 5 páginas
 (`<link rel="canonical">` + Open Graph), `sitemap.xml` (5 `<loc>`) y
 `robots.txt` (línea `Sitemap:`), vía `sed` global sobre esos 7 archivos
 (no se tocaron los artefactos de QA en `.playwright-mcp/` ni los documentos
@@ -295,3 +324,159 @@ marcados como completos en sus checklists de "antes de salir en vivo".
 También se detectó que `nosotros.html` solo tenía el JSON-LD de
 BreadcrumbList (sin un tipo de contenido propio, a diferencia de las otras
 4 páginas) — se agregó un bloque `AboutPage` para igualar el patrón.
+
+## 2026-07-23T01:00Z — Checkout del carrito: elegir canal PRIMERO, campos DESPUÉS
+El dueño probó el checkout con ambos botones ("Enviar por WhatsApp"/"Enviar
+por Correo") y el campo de correo visibles a la vez y señaló que "está
+mezclando cosas": pidió que primero se elija WhatsApp o Email, y solo
+entonces se muestren "las cosas concernientes" a esa elección. Se dividió
+`.cart-panel-footer` en 2 pasos con `[hidden]` (mismo patrón ya usado en el
+proyecto para `.field[hidden]` — nunca un `display:` sin condicionar en la
+misma regla que un elemento que a veces lleva `[hidden]`, o el `[hidden]`
+pierde por origen de cascada, no por especificidad):
+`#cartChannelStep` (los 2 botones de elección, nada más) y
+`#cartDetailsStep` (nombre/vuelo/fechas/maletas/total, oculto hasta elegir).
+`selectChannel('whatsapp'|'email')` en `cart.js` decide 3 cosas a la vez:
+qué campos mostrar (`#cartEmailField` solo se muestra para 'email' — antes
+WhatsApp también lo mostraba sin necesitarlo, eso era el "mezclando cosas"),
+la etiqueta del único botón de envío (`#cartSend`, fusiona los 2 botones
+viejos en 1) y limpia el mensaje de estado. `#cartChannelBack` vuelve al
+paso 1 (`resetChannel()`); abrir el carrito también resetea a paso 1 (nunca
+recuerda la última elección entre aperturas — más simple y evita mostrar el
+paso 2 con datos de una sesión de checkout anterior). `readCheckoutDetails()`
+solo lee `#cartEmail` cuando `checkoutChannel==='email'` (cadena vacía si
+no), para que un envío por WhatsApp nunca arrastre un correo tecleado en un
+intento anterior por email.
+
+**De paso, bug de CSS encontrado:** `#cartEmail` (agregado en la sesión
+anterior, `type="email"`) se veía sin estilo (borde delgado por defecto del
+navegador, distinto a los demás campos) porque la regla `.field input[type=...]`
+listaba `text/tel/date/time/number` pero no `email` — se agregó `email` a
+esa lista.
+
+## 2026-07-23T00:30Z — Botón "Email Us" (CTA genérico): pendiente
+El dueño pidió que el botón "Email Us" de la sección de reserva (`book.
+directCtaEmail`, distinto del checkout del carrito) abra un formulario
+pequeño (razón, tipo de servicio, explicación) en vez de un `mailto:` con
+mensaje enlatado. Todavía no implementado al cierre de esta entrada — el
+dueño interrumpió con feedback más urgente sobre el checkout del carrito
+(ver arriba). Cuando se retome: mismo patrón de `<dialog>` que
+`#serviceDialog` (service-picker.js) + envío vía `submitBookingEmail()` de
+core.js (mismo Formspree, no un mailto nuevo) para no reintroducir el
+problema de "el dueño no ve nada hasta que el visitante mande desde su
+propio correo" que motivó todo el cambio a Formspree.
+
+## 2026-07-23T02:00Z — "Email Us" implementado: dialog + mismo Formspree que el carrito
+Retomado tras el fix del carrito (ver entrada anterior). `#bookDirectCtaEmail`
+pasó de `<a href="mailto:...">` a `<button>` que abre `#contactDialog` (nuevo,
+en las 5 páginas, mismo patrón que `#serviceDialog`): nombre, correo, tipo de
+servicio (select), y una razón/explicación (textarea) — envía vía
+`submitBookingEmail()` de core.js (mismo Formspree que el checkout del
+carrito), con feedback inline "Enviando…"/éxito/error igual que el carrito.
+Efecto secundario: `emailLink()`/`CONFIG.contactEmail` en core.js/config.js
+quedaron sin ningún llamador (los footers usan `mailto:` literal en el HTML,
+nunca leyeron `CONFIG.contactEmail`) — se eliminaron ambos en vez de dejarlos
+como código muerto.
+
+## 2026-07-23T02:30Z — Campos del carrito condicionados al contenido + cantidad editable por ítem
+El dueño pidió 2 cosas relacionadas: (1) que vuelo/fecha-de-vuelo/maletas y
+fecha-de-excursión solo aparezcan cuando el carrito realmente tiene un
+transfer o una excursión respectivamente (antes se mostraban siempre,
+"mezclando cosas" sin relación a lo que había en el carrito); (2) poder
+modificar la cantidad (pasajeros/huéspedes) de cualquier ítem ya agregado sin
+tener que quitarlo y volver a agregarlo.
+
+**Parte 1** — `#cartTransferFields` (vuelo, fecha, maletas) y
+`#cartExcursionFields` (fecha de excursión) son ahora `<div class="field-
+group">` con `[hidden]` que `renderCart()` alterna según
+`cartItems.some(i=>i.kind==='transfer'||i.kind==='fixedRoute')` /
+`...kind==='excursion'`. Mismo bug de especificidad CSS ya documentado
+(2026-07-19, `.exc-price-amount`) evitado desde el inicio: `.field-group`
+lleva su propio `.field-group[hidden]{display:none}` junto a su
+`display:grid`. Importante: `readCheckoutDetails()`/`getLuggageCount()`
+vuelven a chequear `cartItems.some(...)` por su cuenta (no confían en que
+`[hidden]` en el DOM sea el mismo estado) — si no, un número de vuelo o
+cantidad de maletas tecleado ANTES de quitar el único transfer del carrito
+se colaría igual en el mensaje/total.
+
+**Parte 2** — Antes de esto, cambiar la cantidad exigía quitar el ítem y
+volver a agregarlo desde la tarjeta original (a veces en otra página). Se
+agregó un stepper ±1 por fila (`qtyControlHtml()`/`changeItemQty()` en
+cart.js), pero SOLO donde el precio nuevo se puede calcular con certeza, no
+adivinar:
+- `kind:'excursion'`: acotado a los guest counts que el propio mapa
+  `data-prices` snapshotteado tiene tarifa exacta (`excursionGuestOptions()`)
+  — para esto, `tours.js` `buildItem()` ahora guarda el mapa `prices`
+  completo (+ `decimals`) en el ítem, no solo el precio ya elegido; sin esto
+  el carrito no tendría cómo saber el precio de otra cantidad estando en una
+  página distinta a la de la excursión original.
+- `kind:'fixedRoute'` CON `baseFare` (viene del botón "Reserve" de la
+  calculadora, no de un ticket plano de Popular Routes): se recalcula con
+  `fixedFarePrice(item.baseFare, nuevoPax) + luggageSurcharge(item.luggage)`
+  — se movieron `fixedFarePrice`/`luggageSurcharge` (antes locales dentro del
+  closure de `calculator.js`) a `config.js` como funciones compartidas,
+  exactamente por la misma razón que motivó "un solo builder de mensaje"
+  para WhatsApp/email (2026-07-19): si el carrito reimplementara la fórmula
+  por su cuenta, un día divergiría de calculator.js y cobraría distinto por
+  el mismo transfer.
+- Los tickets planos de Popular Routes (mismo precio 1-6 personas, sin
+  `baseFare`) y el `kind:'transfer'` vestigial (ningún flujo de UI actual lo
+  crea — la calculadora solo produce `'fixedRoute'` desde la sesión del
+  2026-07-20) se quedan SIN stepper — no hay nada seguro que recalcular.
+
+Verificado con Node (`vm.Script` sobre `config.js` real, sin navegador):
+`fixedFarePrice`/`luggageSurcharge` dan los montos esperados, y la lógica de
+clamp de guest-count (4→5, 6→6 tope) se comporta como se espera.
+
+## 2026-07-23T04:00Z — Detalles de viaje POR ÍTEM (no a nivel carrito) + CART_VERSION 3
+El dueño probó la versión anterior (campos condicionales en el pie tras
+elegir método) y la rechazó: "cada transfer debe de tener su fecha, vuelo y
+cantidad de maletas y la excursion su propia fecha, esas informaciones no
+deben de estar despues que selecionas el metodo de envio, deben de estar
+donde correspondan". Rediseño: `flight`/`date`/`luggage` viven en cada ítem
+transfer, `date` en cada excursión, editables INLINE en la fila del ítem
+(`itemFieldsHtml()` en cart.js, inputs con `data-field-id`/`data-field`, un
+solo listener `change` delegado en `#cartItems`). El pie tras elegir método
+quedó solo con nombre (+ email para el canal email) y el botón enviar;
+`readCheckoutDetails()` devuelve solo `{name, email}`. Motivo del dueño (real
+y correcto): un carrito puede tener DOS transfers en días distintos con vuelos
+distintos — un set de campos compartido a nivel carrito era inservible para
+eso. Se eliminaron `#cartTransferFields`/`#cartExcursionFields` (los grupos
+condicionales del pie de la sesión anterior), `getLuggageCount()` y
+`luggageFee()`. `CART_VERSION` 2→3 (cambió la forma del ítem; carritos viejos
+se descartan — sin usuarios reales).
+
+**Fee de equipaje ahora POR TRANSFER, no por carrito:** cada transfer con >10
+maletas suma su propio `luggageSurcharge()` a SU precio dentro de
+`describeCartItem()` (cada vehículo necesita su propio trailer). El total es
+solo la suma de precios de ítems, sin línea de fee aparte. Efecto colateral
+bueno: eliminó un doble-cobro latente (el fee a nivel carrito podía apilarse
+sobre un transfer de la calculadora que ya traía su equipaje incluido).
+
+**Paridad de edición transfer/excursión (lo que motivó "se lo agregaste a las
+excursiones pero no a los transfer"):** TODOS los `fixedRoute` ahora llevan
+`baseFare` + `passengers` y stepper de pasajeros — la calculadora pone el
+conteo real, y el ticket-rail de Popular Routes lo default-ea a 1
+(`calculator.js`). El precio se recalcula en vivo en `describeCartItem()` como
+`fixedFarePrice(baseFare, passengers) + luggageSurcharge(luggage)`, plano de
+1-6 y +$5/pasajero sobre 6 — mismas funciones compartidas de config.js que usa
+la calculadora (consistente: rutas de ticket como Sosúa/Cabarete también las
+cotiza la calculadora). Las excursiones ya tenían su stepper de huéspedes.
+
+**Bug de UX evitado por inspección:** `miniStepper()` usa `<div>`, NO
+`<label>`. Un `<label>` envolviendo los botones reenvía los clicks de su texto
+al primer descendiente etiquetable (el botón −), disparando el stepper doble.
+Los campos flight/date/luggage sí usan `<label>` (envuelven un solo input,
+asociación correcta).
+
+Verificado con Node sin navegador: (1) test de composición de precios y clamps
+(14/14 pasan: ticket plano 1-6, +$5 sobre 6, +$15 por transfer con >10
+maletas, dos transfers con fee independiente, excursión por mapa de precios,
+clamps de pax 1-15 y guests 4-6); (2) test de render headless concatenando
+config+core+i18n+cart en un contexto `vm` con stubs de DOM — `renderCart()`
+genera las filas con campos por ítem, editar pasajeros/huéspedes/maletas
+recalcula el precio correcto, y `buildCartMessage()` arma líneas de detalle
+por ítem. Todas las claves i18n usadas por cart.js existen en EN/ES/FR (de
+paso se detectó y corrigió que el bloque FR de la sesión anterior no tenía
+`cart.emailLabel`/`emailRequired`/`emailSending`/`emailSuccess`/`emailError`
+ni `whatsapp.labelEmail` — caían a inglés por el fallback de `t()`).

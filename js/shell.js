@@ -7,10 +7,12 @@
    - Parallax backgrounds
    - Animated counters (Why choose us stats)
    - FAQ accordion
-   - WhatsApp floating button + footer link + direct-chat CTA (WhatsApp +
-     email) + year
-   Depends on: core.js (prefersReducedMotion, whatsappLink, emailLink),
-   i18n.js (t()).
+   - WhatsApp floating button + footer link + direct-chat CTA + year
+   - Contact dialog ("Email Us" CTA): short name/email/service/reason form,
+     posted to Formspree via submitBookingEmail (see core.js) — same channel
+     as the cart's email checkout, no mailto: involved
+   Depends on: core.js (prefersReducedMotion, whatsappLink,
+   submitBookingEmail), i18n.js (t()).
    All motion respects prefers-reduced-motion.
    ============================================================ */
 
@@ -225,22 +227,19 @@
 })();
 
 /* ============================================================
-   WhatsApp floating button + footer link + direct-chat CTA (+ its email
-   sibling) + year
+   WhatsApp floating button + footer link + direct-chat CTA + year
    ============================================================ */
 (function initWhatsAppLinks() {
   const fab = document.getElementById('whatsappFab');
   const footerLink = document.getElementById('footerWhatsApp');
   const directCta = document.getElementById('bookDirectCta');
-  const directCtaEmail = document.getElementById('bookDirectCtaEmail');
 
-  /** Rebuilds every general WhatsApp/email link in the active language. */
+  /** Rebuilds every general WhatsApp link in the active language. */
   function updateLinks() {
     const href = whatsappLink(t('whatsapp.info'));
     if (fab) fab.href = href;
     if (footerLink) footerLink.href = href;
     if (directCta) directCta.href = href;
-    if (directCtaEmail) directCtaEmail.href = emailLink(t('email.subject'), t('whatsapp.info'));
   }
   updateLinks();
   document.addEventListener('sariel:langchange', updateLinks);
@@ -262,4 +261,96 @@
 
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+})();
+
+/* ============================================================
+   Contact dialog: "Email Us" CTA opens a short form (name/email/service/
+   reason) instead of a canned mailto: — submits to the same Formspree
+   endpoint as the cart (see submitBookingEmail in core.js), AJAX, stays on
+   the page. All 5 pages share this markup (#contactDialog).
+   ============================================================ */
+(function initContactDialog() {
+  const trigger = document.getElementById('bookDirectCtaEmail');
+  const dialog = document.getElementById('contactDialog');
+  if (!trigger || !dialog || typeof dialog.showModal !== 'function') return;
+
+  const closeBtn = document.getElementById('contactDialogClose');
+  const submitBtn = document.getElementById('contactSubmit');
+  const statusEl = document.getElementById('contactStatus');
+  const nameInput = document.getElementById('contactName');
+  const emailInput = document.getElementById('contactEmail');
+  const serviceSelect = document.getElementById('contactService');
+  const reasonInput = document.getElementById('contactReason');
+
+  /**
+   * Shows an inline status message under the submit button.
+   * @param {string} text
+   * @param {'sending'|'success'|'error'|null} state
+   * @returns {void}
+   */
+  function setStatus(text, state) {
+    statusEl.textContent = text;
+    statusEl.className = 'contact-status' + (state ? ` is-${state}` : '');
+    statusEl.hidden = !text;
+  }
+
+  /** Clears the form and its status message, ready for the next open. */
+  function resetForm() {
+    nameInput.value = '';
+    emailInput.value = '';
+    serviceSelect.value = '';
+    reasonInput.value = '';
+    submitBtn.disabled = false;
+    setStatus('', null);
+  }
+
+  trigger.addEventListener('click', () => {
+    resetForm();
+    dialog.showModal();
+  });
+  closeBtn.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => {
+    // Click on the backdrop (outside .contact-dialog-inner) closes it.
+    if (event.target === dialog) dialog.close();
+  });
+
+  submitBtn.addEventListener('click', async () => {
+    const name = nameInput.value.trim();
+    if (!name) {
+      nameInput.setCustomValidity(t('contact.nameRequired'));
+      nameInput.reportValidity();
+      nameInput.setCustomValidity('');
+      nameInput.focus();
+      return;
+    }
+    const email = emailInput.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailInput.setCustomValidity(t('contact.emailRequired'));
+      emailInput.reportValidity();
+      emailInput.setCustomValidity('');
+      emailInput.focus();
+      return;
+    }
+
+    const service = serviceSelect.value ? t(`contact.service${serviceSelect.value[0].toUpperCase()}${serviceSelect.value.slice(1)}`) : '';
+    const reason = reasonInput.value.trim();
+    const lines = [`${t('whatsapp.labelName')}: ${name}`, `${t('whatsapp.labelEmail')}: ${email}`];
+    if (service) lines.push(`${t('contact.serviceLabel')}: ${service}`);
+    if (reason) lines.push('', reason);
+
+    submitBtn.disabled = true;
+    setStatus(t('contact.sending'), 'sending');
+    const ok = await submitBookingEmail({
+      name,
+      email,
+      subject: t('contact.subject'),
+      message: lines.join('\n'),
+    });
+    submitBtn.disabled = false;
+    if (ok) {
+      setStatus(t('contact.success'), 'success');
+    } else {
+      setStatus(t('contact.error'), 'error');
+    }
+  });
 })();

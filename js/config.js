@@ -2,7 +2,7 @@
    SG Caribbean Transfers & Tours — Private Transfers & Excursions
    Module: config.js
    Purpose: business configuration + route pricing data/model.
-   - WhatsApp contact number + contact email
+   - WhatsApp contact number + Formspree endpoint
    - Airport / province coordinate + label data
    - Vehicle tiers and pricing constants
    - Distance/price/duration estimation (haversineKm, estimateRoute)
@@ -15,10 +15,14 @@
 const CONFIG = {
   // WhatsApp number in international format, digits only.
   whatsappNumber: '18296277733',
-  // Contact email for the cart's "Send via Email" checkout option (js/cart.js).
-  // The 4 footers' mailto: links are separate static HTML — update those too
-  // if this ever changes (see DOCS/USER_MANUAL.md).
-  contactEmail: 'sg.caribbeantrasferstours@gmail.com',
+  // Formspree endpoint for the cart's "Send via Email" checkout and the
+  // "Email Us" contact dialog (js/cart.js, js/shell.js, submitBookingEmail()
+  // in js/core.js) — delivers straight to the owner's inbox without opening
+  // the visitor's own mail client. Dashboard: https://formspree.io/forms.
+  // The 5 footers' mailto: links are separate static HTML with the contact
+  // email hardcoded — update those too if it ever changes, see
+  // DOCS/USER_MANUAL.md.
+  formspreeEndpoint: 'https://formspree.io/f/xbdnzrez',
 };
 
 /* Every DR international airport, keyed by <select> value. Coordinates are
@@ -112,6 +116,33 @@ const LUGGAGE_EXTRA_FEE_USD = 15;
      the calculator's Destination dropdown as `fixed:<slug>`. */
 const FIXED_FARE_PAX_INCLUDED = 6;
 const FIXED_FARE_EXTRA_PAX_FEE_USD = 5;
+
+/**
+ * Flat fixed-fare price plus the extra-passenger surcharge — shared by
+ * js/calculator.js (building the boarding pass / cart item) and js/cart.js
+ * (recomputing a fixedRoute item's price when the visitor edits its
+ * passenger count in the cart), so the two never drift into charging
+ * different amounts for the same passenger count.
+ * @param {number} basePrice Flat price covering up to FIXED_FARE_PAX_INCLUDED.
+ * @param {number} pax       Passenger count.
+ * @returns {number} Base price plus FIXED_FARE_EXTRA_PAX_FEE_USD per passenger over the included count.
+ */
+function fixedFarePrice(basePrice, pax) {
+  const extraPax = Math.max(0, pax - FIXED_FARE_PAX_INCLUDED);
+  return basePrice + extraPax * FIXED_FARE_EXTRA_PAX_FEE_USD;
+}
+
+/**
+ * Flat surcharge once a suitcase count exceeds LUGGAGE_FREE_LIMIT — shared
+ * by the cart's whole-order luggage field (js/cart.js) and a single
+ * fixedRoute transfer's own luggage count (js/calculator.js), same
+ * threshold/fee either way.
+ * @param {number} count Suitcase count.
+ * @returns {number} LUGGAGE_EXTRA_FEE_USD if count exceeds the free limit, else 0.
+ */
+function luggageSurcharge(count) {
+  return count > LUGGAGE_FREE_LIMIT ? LUGGAGE_EXTRA_FEE_USD : 0;
+}
 
 const POP_PROVINCE_FIXED_FARES = {
   'barahona': 298.50,

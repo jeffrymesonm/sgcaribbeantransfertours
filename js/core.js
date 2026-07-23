@@ -6,8 +6,9 @@
    - animatePrice (blur "reprint" + count transition)
    - formatDuration
    - whatsappLink
-   Depends on: config.js (CONFIG.whatsappNumber). All motion respects
-   prefers-reduced-motion.
+   - submitBookingEmail (Formspree)
+   Depends on: config.js (CONFIG.whatsappNumber, CONFIG.formspreeEndpoint).
+   All motion respects prefers-reduced-motion.
    ============================================================ */
 
 'use strict';
@@ -92,11 +93,28 @@ function whatsappLink(message) {
 }
 
 /**
- * Builds a mailto: link with a prefilled subject and body.
- * @param {string} subject Email subject line.
- * @param {string} body    Plain-text email body.
- * @returns {string} mailto URL.
+ * Submits a booking or contact request to Formspree (CONFIG.formspreeEndpoint)
+ * — used by both the cart's "Send via Email" checkout and the "Email Us"
+ * contact dialog (js/cart.js, js/shell.js) — the owner receives it by email
+ * without the visitor needing a configured mail client. `email` is sent as
+ * `_replyto` (Formspree sets the Reply-To header from it) and `subject` as
+ * `_subject` (Formspree's own field conventions for its plain POST API).
+ * @param {Object} fields
+ * @param {string} fields.name
+ * @param {string} fields.email
+ * @param {string} fields.subject
+ * @param {string} fields.message
+ * @returns {Promise<boolean>} True if Formspree accepted the submission.
  */
-function emailLink(subject, body) {
-  return `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+async function submitBookingEmail({ name, email, subject, message }) {
+  try {
+    const response = await fetch(CONFIG.formspreeEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ name, email, _replyto: email, _subject: subject, message }),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
 }

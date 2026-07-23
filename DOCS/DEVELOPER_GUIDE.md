@@ -255,46 +255,90 @@ identical and shared (via `localStorage`) across all four pages.
   inside `js/tours.js` (`initTours`) — each already has the relevant DOM refs
   and pricing data in scope, and just calls the top-level `addToCart()` +
   `openCart()`.
-- **Traveler details**: cart-level fields, not per-item — one visitor fills
-  one cart, so one set of details covers the whole checkout even if it mixes
-  a transfer and an excursion: `#cartName` (required), `#cartFlight`
-  (optional flight number), `#cartFlightDate` and `#cartExcursionDate`
-  (optional, **kept as two separate date fields on purpose** — a flight/
-  pickup date and an excursion date are frequently different days, so one
-  shared "preferred date" field was ambiguous). `readCheckoutDetails()` in
-  `js/cart.js` reads all four fresh from the DOM into the object
-  `buildCartMessage({name, flight, flightDate, excursionDate})` expects.
-  `#cartName` has the native `required` attribute; `canCheckout()` blocks
-  (via `reportValidity()` + a custom message from `cart.nameRequired`)
-  rather than disabling the button reactively — simpler than wiring an
-  input listener to keep a disabled-state in sync, and shared by both
-  checkout buttons below. These fields exist identically in the
-  cart-panel-footer of all 5 pages (same IDs) since checkout can happen from
-  any page.
-- **Luggage fee** (added 2026-07-20): `#cartLuggage` (optional number input,
-  same cart-panel-footer as the fields above) is **not** part of a cart item
-  or `readCheckoutDetails()` — it's read live by `getLuggageCount()`/
-  `luggageFee()` in `js/cart.js` whenever the total is rendered or the
-  message is built, so it doesn't need its own item shape or `CART_VERSION`
-  bump. `LUGGAGE_FREE_LIMIT` (10) and `LUGGAGE_EXTRA_FEE_USD` (15) live in
-  `js/config.js`; more than 10 suitcases adds one **flat** $15 fee (not
-  per extra bag) to `renderCart()`'s displayed total and to
-  `buildCartMessage()`'s total/line-item. The input has its own `input`
-  listener (`luggageInput.addEventListener('input', renderCart)`) inside
-  `initCart()` since changing it doesn't touch `cartItems` and so wouldn't
-  otherwise trigger a re-render.
-- **Checkout — WhatsApp or email, visitor's choice**: `#cartCheckout` (`kind`
-  unchanged, opens `whatsappLink(...)` in a new tab) and `#cartCheckoutEmail`
-  (opens a `mailto:` link via the new `emailLink(subject, body)` in
-  `js/core.js`, same tab — mail clients don't benefit from `_blank`) both
-  call `buildCartMessage()` with the same `readCheckoutDetails()` output, so
-  the message content is identical regardless of which the visitor picks.
-  `CONFIG.contactEmail` in `js/config.js` is the address `emailLink()` sends
-  to — separate from the 4 footers' static `mailto:` links (update both
-  places if the email ever changes, see `DOCS/USER_MANUAL.md`). `.btn-outline`
-  (new CSS class) is the secondary-button style for the email option —
-  `.btn-ghost` exists but is tuned for dark hero overlays, not the light
-  cart-panel surface.
+- **Per-item trip details** (reworked 2026-07-23, `CART_VERSION` bumped to
+  3): flight number, flight/pickup date and suitcase count live **on each
+  transfer item**, and an excursion date **on each excursion item** — edited
+  inline in that item's cart row, not in the checkout footer. A cart can hold
+  two transfers on different days with different flights, so one shared set
+  of cart-level fields was wrong. `renderCart()` builds the inputs via
+  `itemFieldsHtml(item)`; each input carries `data-field-id`/`data-field`
+  (`flight`/`date`/`luggage`), and a single delegated `change` listener on
+  `#cartItems` writes the value back to the item. `flight`/`date` save
+  without a re-render (no price impact, so the input keeps its value/focus);
+  `luggage` re-renders because it changes that item's price. Values are
+  escaped via `escapeHtml()` before going into the row's `innerHTML`. The
+  checkout footer now only collects `#cartName` (+ `#cartEmail` for the email
+  path); `readCheckoutDetails()` returns just `{name, email}`. `#cartName`
+  uses `canCheckout()` (native `required` + `reportValidity()` +
+  `cart.nameRequired`).
+- **Per-item luggage fee** (reworked 2026-07-23): there is no cart-level
+  luggage field or `luggageFee()` anymore. Each transfer's own suitcase
+  count folds one flat `luggageSurcharge(count)` (config.js:
+  `LUGGAGE_FREE_LIMIT` 10 / `LUGGAGE_EXTRA_FEE_USD` 15, >10 → +$15) into
+  **that item's** price inside `describeCartItem()` — physically each vehicle
+  needs its own trailer, so two transfers each over 10 bags each add $15.
+  `cartTotal()` is just the sum of item prices; no separate fee line. (This
+  also removed a latent double-count: the old cart-level fee could stack on
+  top of a calculator transfer that already had luggage baked in.)
+- **Per-item quantity editing** (reworked 2026-07-23): each transfer/
+  excursion row shows a labeled ±1 stepper (`miniStepper()`/`stepperHtml()`/
+  `changeItemQty()`, `data-qty-minus`/`data-qty-plus` on the delegated click
+  listener). `kind:'excursion'` steps its guest count, bounded to the keys
+  its own snapshotted `prices` map has an exact rate for
+  (`excursionGuestOptions()` — `js/tours.js`'s `buildItem()` carries the
+  whole `prices`/`decimals` so the cart can reprice from any page).
+  `kind:'fixedRoute'` steps its passenger count (1..`FIXED_ROUTE_PAX_MAX`
+  15); the shown stepper appears only when `item.passengers != null`, which
+  is now **every** fixedRoute — the calculator's Reserve flow sets the real
+  count, and the Popular Routes ticket rail defaults it to 1 (see
+  `js/calculator.js`). All fixedRoute items also carry `baseFare`, so
+  `describeCartItem()` recomputes their price live as
+  `fixedFarePrice(baseFare, passengers) + luggageSurcharge(luggage)` — the
+  same shared config.js helpers the calculator prices with, flat for 1–6 and
+  +per-passenger above 6 (consistent, since some ticket routes like
+  Sosúa/Cabarete are also priced by the calculator). The `miniStepper`
+  wrapper is a `<div>`, **not** a `<label>` — a label wrapping the buttons
+  would forward its text-clicks to the first labelable descendant (the −
+  button) and double-fire. The vestigial `kind:'transfer'` (no current UI
+  path creates one; the calculator only ever produces `'fixedRoute'`, see
+  the 2026-07-20 "La lista de 50 precios..." entry in
+  `memory/decisions.md`) gets no stepper.
+- **Checkout — 2-step, channel first, then its own fields**: `#cartPanelFooter`
+  has two mutually-exclusive steps toggled via `[hidden]`. Step 1
+  (`#cartChannelStep`, always shown when the cart opens — `resetChannel()` in
+  `initCart()` resets to it) is just `#cartChooseWhatsApp`/`#cartChooseEmail`;
+  clicking either calls `selectChannel('whatsapp'|'email')`, which hides step
+  1, reveals step 2 (`#cartDetailsStep` — just the name field + total + one
+  `#cartSend` button now that trip details are per-item), toggles
+  `#cartEmailField`'s `hidden` (visible only for the email channel, since
+  WhatsApp never needs it) and relabels `#cartSend`
+  (`cart.checkout`/`cart.checkoutEmail`). `#cartChannelBack` calls
+  `resetChannel()` to go back to step 1. `checkoutChannel` (module-local
+  state in `initCart()`) drives all of this, including what `#cartSend`'s
+  single click handler does: `'whatsapp'` opens `whatsappLink(...)` in a new
+  tab; `'email'` posts to Formspree via
+  `submitBookingEmail({name, email, subject, message})` in `js/core.js`
+  (`async`/`await` + `fetch`, stays on the page). Both branches call
+  `buildCartMessage({name, email})`, which lists every item with its own
+  detail lines (`itemDetailLines()`: passengers/guests, flight, dates,
+  luggage) — so the sent message mirrors exactly what the cart rows show.
+  `readCheckoutDetails()` only reads `#cartEmail` when
+  `checkoutChannel === 'email'` (empty string otherwise, so a WhatsApp send
+  never carries a stale email value from a previous email attempt). `CONFIG.formspreeEndpoint` in `js/config.js`
+  (`https://formspree.io/f/xbdnzrez`) is where the email checkout posts — the
+  email input is validated inline only for that path (sent as Formspree's
+  `_replyto` so the owner can reply straight to the visitor). The same
+  endpoint also backs the "Email Us" contact dialog (js/shell.js); the 5
+  footers' static `mailto:` links have the address hardcoded in HTML.
+  `#cartStatus`
+  (`role="status" aria-live="polite"`, `.cart-status.is-sending/.is-success/
+  .is-error` in `css/styles.css`) shows inline "Sending…"/success/error
+  feedback for the email path instead of navigating away — on success the
+  cart clears in place; on error it's left intact so the visitor can retry or
+  go back and pick WhatsApp instead. `.btn-outline` (CSS class) is the
+  secondary-button style used for the "Email" channel option — `.btn-ghost`
+  exists but is tuned for dark hero overlays, not the light cart-panel
+  surface.
 - To add a new "addable" item elsewhere on a page: give the button
   `type="button"` (not a link), read whatever local state it needs, call
   `addToCart({...})` + `openCart()`. Don't reintroduce a per-item form.

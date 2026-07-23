@@ -481,7 +481,7 @@ pricing, new tour types, remaining photos localized
 transfers; City Tour, ATV and Buggy pricing; new Punta Rusia pricing
 (per-person, tiered by group size, includes boat+buffet+drinks); new "why
 us" copy (6 differentiators); real WhatsApp (+1 829-627-7733) and email
-(sg.caribbeantrasferstours@gmail.com); download the site's current (stock)
+(sg.caribbeantransferstours@gmail.com); download the site's current (stock)
 photos into a named folder so the owner can tell which file to replace —
 owner clarified: put them in `img/` with descriptive names, they'll swap
 files in manually.
@@ -508,7 +508,7 @@ invented pricing below that).
   Experiences" since Punta Rusia (renamed from Paradise Island) now has a
   4-guest minimum and a couple could no longer book it.
 - **Contact:** `CONFIG.whatsappNumber` -> `18296277733`; footer
-  `mailto:` -> `sg.caribbeantrasferstours@gmail.com` on all 4 pages.
+  `mailto:` -> `sg.caribbeantransferstours@gmail.com` on all 4 pages.
 - **Transfers pricing:** replaced the 4 illustrative demo tickets in the
   `.routes` ticket-rail with the 8 real fixed-price routes (POP/STI->
   Sosúa/Cabarete/Puerto Plata, SDQ/PUJ->Sosúa), all 1-6 guests. New
@@ -1106,7 +1106,7 @@ to confirm in a browser, per this session's no-Playwright instruction.
 ## 2026-07-20 UTC — SEO audit, AboutPage JSON-LD, real domain live
 
 **Requested:** confirm every page has SEO essentials, then set the real
-domain (owner-confirmed: `sgcaribbeantransfertours.com`).
+domain (owner-confirmed: `caribbeansgtransfertours.com`).
 
 **Delivered:**
 - Audited all 5 pages for title, meta description, canonical, Open Graph,

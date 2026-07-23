@@ -117,6 +117,10 @@
      * Builds the cart/booking item for the currently selected guest count —
      * shared by the Add-to-Cart and Book-Directly buttons. Only call once
      * priceKnown is confirmed true (see requestQuote() for the alternative).
+     * Carries the panel's full `prices` map (+ `decimals`) so js/cart.js can
+     * let the visitor change the guest count later from inside the cart
+     * itself — without it, the cart would have no way to know what a
+     * different guest count costs once it's off this page.
      * @returns {Object} Item shape accepted by addToCart()/bookDirect().
      */
     function buildItem() {
@@ -135,6 +139,8 @@
         serviceKey: addBtn.dataset.serviceKey,
         guests: parseInt(currentGuests, 10),
         price: prices[currentGuests],
+        prices,
+        decimals,
         ...extra,
       };
     }

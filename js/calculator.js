@@ -5,7 +5,8 @@
    owner-confirmed fixed price (no distance-estimated guessing) — and its
    "Add to Cart"/"Book Directly" wiring, including the route ticket buttons.
    Depends on: config.js (AIRPORTS/PROVINCES/POP_FIXED_DESTINATIONS/
-   POP_PROVINCE_FIXED_FARES/OTHER_AIRPORT_FIXED_FARES/FIXED_FARE_*),
+   POP_PROVINCE_FIXED_FARES/OTHER_AIRPORT_FIXED_FARES/FIXED_FARE_*,
+   fixedFarePrice, luggageSurcharge),
    core.js (animatePrice, formatMoney, whatsappLink),
    cart.js (addToCart, openCart, bookDirect), i18n.js (t()).
    ============================================================ */
@@ -104,28 +105,9 @@
     return !!firstVisible;
   }
 
-  /**
-   * Adds the per-extra-passenger surcharge to a fixed fare's base price.
-   * @param {number} basePrice Flat price covering up to FIXED_FARE_PAX_INCLUDED.
-   * @param {number} pax       Passenger count.
-   * @returns {number} Base price plus FIXED_FARE_EXTRA_PAX_FEE_USD per passenger over the included count.
-   */
-  function fixedFarePrice(basePrice, pax) {
-    const extraPax = Math.max(0, pax - FIXED_FARE_PAX_INCLUDED);
-    return basePrice + extraPax * FIXED_FARE_EXTRA_PAX_FEE_USD;
-  }
-
-  /**
-   * Flat surcharge when this transfer's luggage count exceeds
-   * LUGGAGE_FREE_LIMIT (see config.js) — same threshold/fee the cart's own
-   * luggage field uses, but scoped to this one transfer rather than the
-   * whole order.
-   * @param {number} count Suitcase count.
-   * @returns {number}
-   */
-  function luggageFeeFor(count) {
-    return count > LUGGAGE_FREE_LIMIT ? LUGGAGE_EXTRA_FEE_USD : 0;
-  }
+  // fixedFarePrice()/luggageSurcharge() live in config.js now — shared with
+  // js/cart.js, which recomputes a fixedRoute item's price when the visitor
+  // edits its passenger count in the cart (see selectFixedRouteQty there).
 
   /** Recomputes the boarding pass (or the "request a quote" state) from the current form values. */
   function update() {
@@ -155,7 +137,7 @@
     const fixed = resolveFixedFare(pickupEl.value, destEl.value);
     const extraPax = Math.max(0, pax - FIXED_FARE_PAX_INCLUDED);
     const luggage = Math.max(0, parseInt(luggageEl.value, 10) || 0);
-    const luggageFee = luggageFeeFor(luggage);
+    const luggageFee = luggageSurcharge(luggage);
 
     out.fromCode.textContent = pickup.code;
     out.fromName.textContent = t(pickup.nameKey);
@@ -213,9 +195,14 @@
    * the Popular Routes tickets further down — it must NOT go in as
    * 'transfer', which would ignore the fixed price and re-derive a (wrong)
    * formula price the next time the cart re-renders. This transfer's own
-   * luggage fee (see luggageFeeFor) is baked into the snapshotted price and
-   * carried separately as `luggage` for the cart's meta line — independent
-   * from the cart panel's own whole-order luggage field.
+   * luggage fee (see luggageSurcharge in config.js) is baked into the
+   * snapshotted price and carried separately as `luggage` for the cart's
+   * meta line — independent from the cart panel's own whole-order luggage
+   * field. `baseFare` (the flat rate before extra-pax/luggage) is kept
+   * alongside the final `price` so js/cart.js can recompute a correct price
+   * if the visitor later edits this item's passenger count in the cart —
+   * without it, the cart would have no way to "un-bake" the extras already
+   * folded into `price`.
    * @returns {Object} Item shape accepted by addToCart()/bookDirect().
    */
   function buildCalcItem() {
@@ -230,7 +217,8 @@
       kind: 'fixedRoute',
       fromKey: AIRPORTS[pickupEl.value].nameKey,
       toKey,
-      price: fixedFarePrice(fixed.price, pax) + luggageFeeFor(luggage),
+      price: fixedFarePrice(fixed.price, pax) + luggageSurcharge(luggage),
+      baseFare: fixed.price,
       passengers: pax,
       luggage,
     };
@@ -255,13 +243,19 @@
   // Each ticket has two buttons sharing the same data-fixed-* attributes:
   // .ticket-reserve adds to cart, .ticket-book-direct skips straight to
   // WhatsApp for that one route (see js/cart.js bookDirect()).
+  // `baseFare` + `passengers` (defaulted to 1, the flat-price minimum) let
+  // the cart edit the passenger count and luggage like any other transfer,
+  // recomputing the price with the same fixedFarePrice()/luggageSurcharge()
+  // the calculator uses — flat for 1–6, +per-passenger above that.
   document.querySelectorAll('[data-fixed-from][data-fixed-to]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const item = {
         kind: 'fixedRoute',
         fromKey: btn.dataset.fixedFrom,
         toKey: btn.dataset.fixedTo,
-        price: parseFloat(btn.dataset.fixedPrice),
+        baseFare: parseFloat(btn.dataset.fixedPrice),
+        passengers: 1,
+        luggage: 0,
       };
       if (btn.classList.contains('ticket-book-direct')) {
         bookDirect(item);
