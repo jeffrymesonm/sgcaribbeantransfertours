@@ -18,7 +18,7 @@ const I18N = {
     'meta.home.title': 'SG Caribbean Transfers & Tours — Private Transfers & Excursions in the Dominican Republic',
     'meta.home.description': 'Private airport transfers, transportation and excursions in Puerto Plata, Cabarete, Sosúa and the Dominican Republic north coast. Safe, comfortable, always on time. Book your transfer today.',
     'meta.transfers.title': 'Private Airport Transfers — SG Caribbean Transfers & Tours | Dominican Republic',
-    'meta.transfers.description': 'Private, door-to-door airport transfers across the Dominican Republic. Fixed prices, meet & greet, always on time. Get your instant fare and book on WhatsApp.',
+    'meta.transfers.description': 'Private, door-to-door airport transfers and private taxi service across the Dominican Republic. Fixed prices, meet & greet, always on time. Get your instant fare and book on WhatsApp.',
     'meta.excursions.title': 'Private Excursions & Day Tours — SG Caribbean Transfers & Tours | North Coast DR',
     'meta.excursions.description': 'Private excursions on the DR north coast: Punta Rusia, 27 Charcos, whale watching, city tours and beaches. Your group, your pace, round-trip transport included.',
     'meta.cruises.title': 'Cruise Shore Excursions — SG Caribbean Transfers & Tours | Amber Cove & Taino Bay',
@@ -74,7 +74,7 @@ const I18N = {
 
     'transfersHero.eyebrow': 'Airport &amp; private transfers',
     'transfersHero.title': 'Your ride is <em>already waiting</em>',
-    'transfersHero.lead': 'Private, door-to-door transfers anywhere in the Dominican Republic. Fixed price, no surprises. Calculate your fare below.',
+    'transfersHero.lead': 'Private, door-to-door transfers — your private taxi — anywhere in the Dominican Republic. Fixed price, no surprises. Calculate your fare below.',
     'transfersHero.cta': 'Calculate my fare',
 
     'excursionsHero.eyebrow': 'Signature private experiences',
@@ -471,7 +471,7 @@ const I18N = {
     'meta.home.title': 'SG Caribbean Transfers & Tours — Transfers Privados y Excursiones en República Dominicana',
     'meta.home.description': 'Transfers aeroportuarios privados, transporte y excursiones en Puerto Plata, Cabarete, Sosúa y la costa norte de República Dominicana. Seguro, cómodo y siempre puntual. Reserva tu transfer hoy.',
     'meta.transfers.title': 'Transfers Privados de Aeropuerto — SG Caribbean Transfers & Tours | República Dominicana',
-    'meta.transfers.description': 'Transfers privados puerta a puerta en toda República Dominicana. Precios fijos, recepción en el aeropuerto y siempre puntuales. Calcula tu tarifa y reserva por WhatsApp.',
+    'meta.transfers.description': 'Transfers privados y taxi privado puerta a puerta en toda República Dominicana. Precios fijos, recepción en el aeropuerto y siempre puntuales. Calcula tu tarifa y reserva por WhatsApp.',
     'meta.excursions.title': 'Excursiones Privadas y Tours de Día — SG Caribbean Transfers & Tours | Costa Norte RD',
     'meta.excursions.description': 'Excursiones privadas en la costa norte: Punta Rusia, 27 Charcos, avistamiento de ballenas, city tours y playas. Tu grupo, tu ritmo, transporte de ida y vuelta incluido.',
     'meta.cruises.title': 'Excursiones para Cruceros — SG Caribbean Transfers & Tours | Amber Cove y Taino Bay',
@@ -527,7 +527,7 @@ const I18N = {
 
     'transfersHero.eyebrow': 'Transfers privados y de aeropuerto',
     'transfersHero.title': 'Tu transporte <em>ya te espera</em>',
-    'transfersHero.lead': 'Transfers privados puerta a puerta en toda República Dominicana. Precio fijo, sin sorpresas. Calcula tu tarifa abajo.',
+    'transfersHero.lead': 'Transfers privados puerta a puerta — tu taxi privado — en toda República Dominicana. Precio fijo, sin sorpresas. Calcula tu tarifa abajo.',
     'transfersHero.cta': 'Calcular mi tarifa',
 
     'excursionsHero.eyebrow': 'Experiencias privadas exclusivas',
@@ -910,7 +910,7 @@ const I18N = {
     'meta.home.title': 'SG Caribbean Transfers & Tours — Transferts Privés et Excursions en République Dominicaine',
     'meta.home.description': "Transferts aéroportuaires privés, transport et excursions à Puerto Plata, Cabarete, Sosúa et sur la côte nord de la République Dominicaine. Sûr, confortable, toujours à l'heure. Réservez votre transfert dès aujourd'hui.",
     'meta.transfers.title': "Transferts Privés d'Aéroport — SG Caribbean Transfers & Tours | République Dominicaine",
-    'meta.transfers.description': "Transferts privés porte-à-porte partout en République Dominicaine. Prix fixes, accueil personnalisé, toujours à l'heure. Obtenez votre tarif instantané et réservez sur WhatsApp.",
+    'meta.transfers.description': "Transferts privés porte-à-porte et service de taxi privé partout en République Dominicaine. Prix fixes, accueil personnalisé, toujours à l'heure. Obtenez votre tarif instantané et réservez sur WhatsApp.",
     'meta.excursions.title': "Excursions Privées et Circuits d'une Journée — SG Caribbean Transfers & Tours | Côte Nord RD",
     'meta.excursions.description': 'Excursions privées sur la côte nord de la RD : Punta Rusia, 27 Charcos, observation des baleines, visites de la ville et plages. Votre groupe, votre rythme, transport aller-retour inclus.',
     'meta.cruises.title': 'Excursions pour Croisiéristes — SG Caribbean Transfers & Tours | Amber Cove et Taino Bay',
@@ -963,7 +963,7 @@ const I18N = {
 
     'transfersHero.eyebrow': 'Transferts privés et aéroportuaires',
     'transfersHero.title': 'Votre transport vous <em>attend déjà</em>',
-    'transfersHero.lead': 'Transferts privés porte-à-porte partout en République Dominicaine. Prix fixe, sans surprises. Calculez votre tarif ci-dessous.',
+    'transfersHero.lead': 'Transferts privés porte-à-porte — votre taxi privé — partout en République Dominicaine. Prix fixe, sans surprises. Calculez votre tarif ci-dessous.',
     'transfersHero.cta': 'Calculer mon tarif',
 
     'excursionsHero.eyebrow': 'Expériences privées exclusives',
