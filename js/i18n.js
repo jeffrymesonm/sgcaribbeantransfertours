@@ -192,7 +192,7 @@ const I18N = {
     'calc.fineprint': 'Free cancellation · Flight tracked',
     'calc.noDestHint': 'No fixed routes yet from this airport — request a custom quote.',
     'calc.noRoutesMessage': "We don't have a fixed route from this airport yet — message us for a custom quote.",
-    'calc.requestQuoteBtn': 'Request a Quote on WhatsApp',
+    'calc.requestQuoteBtn': 'Ask for a Quote',
     'calc.noRoutesQuoteMessage': "Hello SG Caribbean! I'd like a custom quote for a transfer from {pickup}.",
 
     'cart.title': 'Your Requests',
@@ -431,6 +431,16 @@ const I18N = {
     'contact.error': 'Something went wrong sending your message. Please try WhatsApp instead.',
     'contact.subject': 'New contact request — SG Caribbean Transfers & Tours',
 
+    'choice.title': 'How would you like to reach us?',
+    'choice.lead': 'Your request is ready — just pick a channel.',
+    'choice.close': 'Close',
+    'choice.whatsapp': 'WhatsApp',
+    'choice.whatsappDesc': 'Opens the chat with your request filled in',
+    'choice.email': 'Email',
+    'choice.emailDesc': "Leave us your details and we'll reply",
+    'choice.back': 'Back',
+    'choice.send': 'Send Request',
+
     'service.paradiseIsland': 'Paradise Island excursion',
     'service.charcos27': '27 Charcos excursion',
     'service.whaleWatching': 'Whale Watching excursion',
@@ -645,7 +655,7 @@ const I18N = {
     'calc.fineprint': 'Cancelación gratuita · Vuelo monitoreado',
     'calc.noDestHint': 'Aún no hay rutas fijas desde este aeropuerto — solicita una cotización personalizada.',
     'calc.noRoutesMessage': 'Todavía no tenemos una ruta fija desde este aeropuerto — escríbenos para una cotización personalizada.',
-    'calc.requestQuoteBtn': 'Solicitar Cotización por WhatsApp',
+    'calc.requestQuoteBtn': 'Solicitar Cotización',
     'calc.noRoutesQuoteMessage': 'Hola SG Caribbean! Me gustaría una cotización personalizada para un transfer desde {pickup}.',
 
     'cart.title': 'Tus Solicitudes',
@@ -870,6 +880,16 @@ const I18N = {
     'contact.error': 'Ocurrió un error al enviar tu mensaje. Por favor intenta por WhatsApp.',
     'contact.subject': 'Nueva solicitud de contacto — SG Caribbean Transfers & Tours',
 
+    'choice.title': '¿Cómo prefieres contactarnos?',
+    'choice.lead': 'Tu solicitud ya está lista — solo elige un canal.',
+    'choice.close': 'Cerrar',
+    'choice.whatsapp': 'WhatsApp',
+    'choice.whatsappDesc': 'Abre el chat con tu solicitud ya escrita',
+    'choice.email': 'Correo',
+    'choice.emailDesc': 'Déjanos tus datos y te respondemos',
+    'choice.back': 'Volver',
+    'choice.send': 'Enviar Solicitud',
+
     'service.paradiseIsland': 'Excursión Isla Paraíso',
     'service.charcos27': 'Excursión 27 Charcos',
     'service.whaleWatching': 'Excursión Avistamiento de Ballenas',
@@ -1081,7 +1101,7 @@ const I18N = {
     'calc.fineprint': 'Annulation gratuite · Vol suivi',
     'calc.noDestHint': "Pas encore d'itinéraires fixes depuis cet aéroport — demandez un devis personnalisé.",
     'calc.noRoutesMessage': "Nous n'avons pas encore d'itinéraire fixe depuis cet aéroport — écrivez-nous pour un devis personnalisé.",
-    'calc.requestQuoteBtn': 'Demander un Devis sur WhatsApp',
+    'calc.requestQuoteBtn': 'Demander un Devis',
     'calc.noRoutesQuoteMessage': 'Bonjour SG Caribbean ! Je souhaite un devis personnalisé pour un transfert depuis {pickup}.',
 
     'cart.title': 'Vos Demandes',
@@ -1306,6 +1326,16 @@ const I18N = {
     'contact.success': 'Merci ! Votre message a été envoyé — nous répondrons à votre email sous peu.',
     'contact.error': "Une erreur s'est produite lors de l'envoi. Veuillez essayer WhatsApp.",
     'contact.subject': 'Nouvelle demande de contact — SG Caribbean Transfers & Tours',
+
+    'choice.title': 'Comment préférez-vous nous contacter ?',
+    'choice.lead': 'Votre demande est prête — choisissez simplement un canal.',
+    'choice.close': 'Fermer',
+    'choice.whatsapp': 'WhatsApp',
+    'choice.whatsappDesc': 'Ouvre la discussion avec votre demande déjà écrite',
+    'choice.email': 'Email',
+    'choice.emailDesc': 'Laissez-nous vos coordonnées et nous répondrons',
+    'choice.back': 'Retour',
+    'choice.send': 'Envoyer la Demande',
 
     'service.paradiseIsland': 'Excursion Paradise Island',
     'service.charcos27': 'Excursion 27 Charcos',

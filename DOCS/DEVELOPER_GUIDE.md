@@ -22,6 +22,7 @@ css/styles.css      Design tokens + all styles (mobile-first)
 js/i18n.js           EN/ES/FR dictionary + t()/getLang()/setLang() + per-page meta (loads first)
 js/config.js         CONFIG (WhatsApp number) + AIRPORTS/PROVINCES/VEHICLES + pricing model
 js/core.js            Shared utilities: animatePrice, formatDuration, whatsappLink, prefersReducedMotion
+js/contact-choice.js   openContactChoice() — WhatsApp-or-email <dialog> for direct booking/quote buttons
 js/cart.js             Cart state/panel/checkout (versioned localStorage)
 js/shell.js              Header, mobile nav, reveals, parallax, counters, FAQ accordion, WhatsApp links
 js/calculator.js          Transfer calculator (transfers.html only)
@@ -71,7 +72,8 @@ are anchors on the home page itself, not a "Home" link).
 | `js/i18n.js` | `I18N` dictionary, `t()`/`getLang()`/`setLang()`, `applyStaticTranslations()` (resolves per-page `meta.<page>.title/description` from `data-page`) |
 | `js/config.js` | `CONFIG.whatsappNumber` (**edit before go-live**), `AIRPORTS`, `PROVINCES`, `VEHICLES`, pricing constants, `haversineKm()`, `estimateRoute()` |
 | `js/core.js` | `animatePrice()` (blur + count tween, concurrency-safe via `el._priceToken`), `formatDuration()`, `whatsappLink()`, `prefersReducedMotion` |
-| `js/cart.js` | Cart state (`cartItems`, versioned `localStorage`), `addToCart`/`removeFromCart`/`clearCart`/`cartTotal`/`describeCartItem`/`renderCart`/`openCart`/`closeCart`/`buildCartMessage`, drawer wiring (`initCart`) |
+| `js/contact-choice.js` | `openContactChoice(buildRequest)` + `initContactChoice` — the shared `#contactChoiceDialog` behind every "Book Directly"/"Ask for a Quote" button: step 1 picks WhatsApp or email, step 2 collects name + email and posts via `submitBookingEmail()`. Takes a **builder function**, not finished strings, so the pending request is rebuilt on `sariel:langchange` while the dialog is open. Falls back to opening WhatsApp directly when the dialog or `<dialog>` support is missing |
+| `js/cart.js` | Cart state (`cartItems`, versioned `localStorage`), `addToCart`/`removeFromCart`/`clearCart`/`cartTotal`/`describeCartItem`/`renderCart`/`openCart`/`closeCart`/`buildCartMessage`, `bookDirect` (delegates to `openContactChoice`), drawer wiring (`initCart`) |
 | `js/shell.js` | `initHeader` (solid-on-scroll + mobile nav), `initReveals`, `initParallax`, `initCounters`, `initFaq`, `initWhatsAppLinks` (FAB/footer/direct-chat CTA + year) |
 | `js/calculator.js` | `initCalculator` — quote logic, auto vehicle upgrade, route-ticket sync, "Add to Cart" wiring (transfers only) |
 | `js/tours.js` | `initTours` — guest-count pricing per `.exc` panel + "Add to Cart" wiring; reads optional `.cruise-ship`/`.cruise-departure` inputs when present (cruise cards reuse the excursion `.exc` markup) |
@@ -83,13 +85,17 @@ on earlier ones — see each module's header comment):
 
 | Page | Scripts |
 |------|---------|
-| `index.html` | i18n → config → core → cart → shell → **service-picker** |
-| `transfers.html` | i18n → config → core → cart → shell → **calculator** |
-| `excursions.html` | i18n → config → core → cart → shell → **tours** |
-| `cruises.html` | i18n → config → core → cart → shell → **tours** |
+| `index.html` | i18n → config → core → contact-choice → cart → shell → **service-picker** |
+| `transfers.html` | i18n → config → core → contact-choice → cart → shell → **calculator** |
+| `excursions.html` | i18n → config → core → contact-choice → cart → shell → **tours** |
+| `cruises.html` | i18n → config → core → contact-choice → cart → shell → **tours** |
+| `nosotros.html` | i18n → config → core → contact-choice → cart → shell |
 
-`i18n`, `config`, `core`, `cart` and `shell` are identical on every page —
-only the last script (the page's own feature module) changes.
+`i18n`, `config`, `core`, `contact-choice`, `cart` and `shell` are identical on
+every page — only the last script (the page's own feature module) changes.
+`contact-choice` and its `#contactChoiceDialog` markup are on all 5 pages —
+including `index.html`/`nosotros.html`, which have no booking buttons today —
+so the dialog behaves identically wherever such a button is added later.
 
 ## Trilingual content (EN/ES/FR)
 The site is fully trilingual via a client-side switcher — no separate URLs

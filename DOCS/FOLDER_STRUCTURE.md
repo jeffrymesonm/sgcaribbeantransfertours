@@ -45,6 +45,7 @@ sariel taxi/
 │   ├── i18n.js            EN/ES/FR dictionary + language switcher + per-page meta (loads first)
 │   ├── config.js           CONFIG (WhatsApp number) + AIRPORTS/PROVINCES/VEHICLES + pricing model
 │   ├── core.js              Shared utilities: animatePrice, formatDuration, whatsappLink
+│   ├── contact-choice.js     WhatsApp-or-email <dialog> for Book Directly / Ask for a Quote
 │   ├── cart.js               Cart state/panel/checkout (versioned localStorage)
 │   ├── shell.js                Header, mobile nav, reveals, parallax, counters, FAQ, WhatsApp links
 │   ├── calculator.js            Transfer calculator — transfers.html only

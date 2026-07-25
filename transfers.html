@@ -518,7 +518,7 @@
           </div>
           <div class="bp-quote-cta" id="bpQuoteCta" hidden>
             <p class="bp-quote-text" data-i18n="calc.noRoutesMessage">We don't have a fixed route from this airport yet — message us for a custom quote.</p>
-            <a class="btn btn-primary btn-block" id="bpQuoteWhatsapp" href="#" rel="noopener" data-i18n="calc.requestQuoteBtn">Request a Quote on WhatsApp</a>
+            <button type="button" class="btn btn-primary btn-block" id="bpQuoteRequest" data-i18n="calc.requestQuoteBtn">Ask for a Quote</button>
           </div>
         </div>
       </div>
@@ -670,9 +670,49 @@
     </div>
   </dialog>
 
+  <!-- Contact-choice dialog: every "Book Directly" / "Ask for a Quote" button
+       opens this first (js/contact-choice.js) so the visitor picks WhatsApp or
+       email instead of being dropped straight into WhatsApp. -->
+  <dialog class="contact-dialog" id="contactChoiceDialog" aria-labelledby="contactChoiceTitle">
+    <div class="contact-dialog-inner">
+      <button type="button" class="contact-dialog-close" id="contactChoiceClose" data-i18n-attr="aria-label:choice.close" aria-label="Close">×</button>
+      <h2 id="contactChoiceTitle" data-i18n="choice.title">How would you like to reach us?</h2>
+      <p class="contact-dialog-lead" data-i18n="choice.lead">Your request is ready — just pick a channel.</p>
+      <p class="contact-choice-summary" id="contactChoiceSummary" hidden></p>
+      <div class="contact-choice-channel-step" id="contactChoiceChannelStep">
+        <div class="contact-choice-options">
+          <button type="button" class="contact-choice-option" id="contactChoiceWhatsApp">
+            <span class="contact-choice-icon" aria-hidden="true">💬</span>
+            <span class="contact-choice-name" data-i18n="choice.whatsapp">WhatsApp</span>
+            <span class="contact-choice-desc" data-i18n="choice.whatsappDesc">Opens the chat with your request filled in</span>
+          </button>
+          <button type="button" class="contact-choice-option" id="contactChoiceEmail">
+            <span class="contact-choice-icon" aria-hidden="true">✉️</span>
+            <span class="contact-choice-name" data-i18n="choice.email">Email</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we&#39;ll reply</span>
+          </button>
+        </div>
+      </div>
+      <div class="contact-choice-details-step" id="contactChoiceDetailsStep" hidden>
+        <button type="button" class="contact-choice-back" id="contactChoiceBack" data-i18n="choice.back">Back</button>
+        <div class="field">
+          <label for="contactChoiceName" data-i18n="cart.nameLabel">Full name</label>
+          <input type="text" id="contactChoiceName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="contactChoiceEmailInput" data-i18n="contact.emailLabel">Email address</label>
+          <input type="email" id="contactChoiceEmailInput" autocomplete="email" required />
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="contactChoiceSend" data-i18n="choice.send">Send Request</button>
+        <p class="contact-choice-status" id="contactChoiceStatus" role="status" aria-live="polite" hidden></p>
+      </div>
+    </div>
+  </dialog>
+
   <script src="js/i18n.js" defer></script>
   <script src="js/config.js" defer></script>
   <script src="js/core.js" defer></script>
+  <script src="js/contact-choice.js" defer></script>
   <script src="js/cart.js" defer></script>
   <script src="js/shell.js" defer></script>
   <script src="js/calculator.js" defer></script>

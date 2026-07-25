@@ -1133,3 +1133,60 @@ removal — not a regression from this change).
 **Files modified:** `index.html`, `transfers.html`, `excursions.html`,
 `cruises.html`, `nosotros.html`, `sitemap.xml`, `robots.txt`,
 `PROJECT_INFO.md`, `DOCS/USER_MANUAL.md`, `DOCS/DEPLOYMENT.md`.
+
+## 2026-07-25 UTC — Channel choice (WhatsApp / email) on every direct-booking button
+
+**Requested:** every "Book Directly" and "Ask for a Quote" button should ask
+whether to continue by WhatsApp or by email — WhatsApp sends straight through,
+email collects an address first.
+
+**Problem:** those buttons opened `wa.me` immediately, so any visitor without
+WhatsApp (or on a desktop with no WhatsApp Web session) hit a dead tab. The
+email channel already existed and worked — Formspree via
+`submitBookingEmail()` — but was only reachable from the cart checkout and the
+footer "Email Us" CTA, never from these 19 buttons.
+
+**Delivered:**
+- New `js/contact-choice.js` exposing `openContactChoice(buildRequest)`, plus a
+  shared `#contactChoiceDialog` (native `<dialog>`) added to all 5 pages. Step 1
+  picks a channel; step 2 (email only) collects name + address and posts to the
+  same Formspree endpoint as the cart. Reuses `whatsappLink()`,
+  `submitBookingEmail()`, the `.contact-dialog` styling and the cart's
+  email-validation pattern rather than adding new mechanisms.
+- Rewired the 3 functions all 19 buttons funnel through: `bookDirect()`
+  (`js/cart.js`), `requestQuote()` (`js/tours.js`) and the calculator's
+  no-fixed-route quote CTA (`js/calculator.js`). The last one changed from an
+  `<a href>` built in `update()` to a `<button>` whose message is built on
+  click, which removed the mutable `bpQuoteWhatsapp.href` state entirely.
+- `openContactChoice` takes a *builder*, not finished strings, so the pending
+  request is rebuilt on `sariel:langchange` — the dialog stays open long enough
+  for a language switch, which the old click-and-go path never allowed.
+- 9 new `choice.*` keys in en/es/fr. Renamed `calc.requestQuoteBtn` from
+  "Request a Quote on WhatsApp" to "Ask for a Quote" (3 languages) since that
+  button is no longer WhatsApp-only.
+- Falls back to opening WhatsApp directly when the dialog is absent or
+  `<dialog>` is unsupported, so no button can become a dead end.
+
+**Bug found and fixed during QA:** the new `.contact-choice-*-step
+{ display: grid }` rules outranked the UA's `[hidden]` rule (equal specificity,
+later wins), so both steps rendered at once. Added the companion
+`.contact-choice-channel-step[hidden], .contact-choice-details-step[hidden]
+{ display: none; }` — the same pattern `.cart-channel-step` already uses.
+
+**Verification (live browser, Playwright, local server):** ticket Book Directly,
+excursion Book Directly, excursion Ask-for-a-Quote at a manual group size of 32,
+cruise card (ship name + departure time reach the message), and the calculator
+quote CTA for Barahona/La Romana. Confirmed for both channels: the `wa.me` URL
+and decoded message, and the exact Formspree JSON payload (`fetch` stubbed so no
+real mail was sent). Edge cases: empty name and malformed email both blocked
+with focus returned to the offending field; Escape and backdrop click close
+while a click inside the content does not; reopening after a successful send
+returns to step 1 with a cleared form and a fresh summary; switching language
+mid-dialog re-translates both the summary and the sent message. Regression:
+the cart's own 2-step checkout still sends correctly. Console clean (0 errors,
+0 warnings) on all 5 pages, desktop 1280×900 and mobile 390×844.
+
+**Files created:** `js/contact-choice.js`.
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`, `css/styles.css`, `js/i18n.js`, `js/cart.js`,
+`js/tours.js`, `js/calculator.js`.

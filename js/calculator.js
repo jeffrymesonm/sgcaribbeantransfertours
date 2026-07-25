@@ -7,8 +7,9 @@
    Depends on: config.js (AIRPORTS/PROVINCES/POP_FIXED_DESTINATIONS/
    POP_PROVINCE_FIXED_FARES/OTHER_AIRPORT_FIXED_FARES/FIXED_FARE_*,
    fixedFarePrice, luggageSurcharge),
-   core.js (animatePrice, formatMoney, whatsappLink),
-   cart.js (addToCart, openCart, bookDirect), i18n.js (t()).
+   core.js (animatePrice, formatMoney),
+   cart.js (addToCart, openCart, bookDirect), i18n.js (t()),
+   contact-choice.js (openContactChoice).
    ============================================================ */
 
 'use strict';
@@ -29,7 +30,7 @@
   const luggageField = document.getElementById('calcLuggageField');
   const bpContent = document.getElementById('bpContent');
   const bpQuoteCta = document.getElementById('bpQuoteCta');
-  const bpQuoteWhatsapp = document.getElementById('bpQuoteWhatsapp');
+  const bpQuoteRequest = document.getElementById('bpQuoteRequest');
 
   const out = {
     fromCode: document.getElementById('bpFromCode'),
@@ -124,10 +125,9 @@
     bpQuoteCta.hidden = hasDest;
 
     const pickup = AIRPORTS[pickupEl.value];
-    if (!hasDest) {
-      bpQuoteWhatsapp.href = whatsappLink(t('calc.noRoutesQuoteMessage', { pickup: t(pickup.nameKey) }));
-      return;
-    }
+    // No fixed routes from here: the boarding pass stays hidden and the quote
+    // CTA above takes over (its message is built on click, not here).
+    if (!hasDest) return;
 
     const paxMax = 15;
     const pax = Math.min(Math.max(parseInt(paxEl.value, 10) || 1, 1), paxMax);
@@ -235,6 +235,21 @@
   const bookDirectBtn = document.getElementById('bpBookDirect');
   if (bookDirectBtn) {
     bookDirectBtn.addEventListener('click', () => bookDirect(buildCalcItem()));
+  }
+
+  // Shown instead of the boarding pass when the picked airport has no fixed
+  // routes yet — the quote it sends is free-form, so it skips buildCalcItem().
+  if (bpQuoteRequest) {
+    bpQuoteRequest.addEventListener('click', () => {
+      openContactChoice(() => {
+        const pickupName = t(AIRPORTS[pickupEl.value].nameKey);
+        return {
+          message: t('calc.noRoutesQuoteMessage', { pickup: pickupName }),
+          subject: t('email.subject'),
+          summary: pickupName,
+        };
+      });
+    });
   }
 
   // Popular Routes ticket buttons carrying a literal fixed price (not

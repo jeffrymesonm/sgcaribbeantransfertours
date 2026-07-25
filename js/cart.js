@@ -342,17 +342,27 @@ function itemDetailLines(item) {
 }
 
 /**
- * Opens WhatsApp with a message for a single service, bypassing the cart —
- * the "Book Directly" action shown next to every "Add to Cart" button.
+ * Sends a request for a single service, bypassing the cart — the "Book
+ * Directly" action shown next to every "Add to Cart" button. Asks the visitor
+ * for a channel first (see js/contact-choice.js) rather than assuming
+ * WhatsApp, then routes the same message there or to email.
  * @param {Object} item Same shape accepted by addToCart().
  * @returns {void}
  */
 function bookDirect(item) {
-  const { title, price } = describeCartItem(item);
-  const lines = [t('whatsapp.greeting'), '', title];
-  itemDetailLines(item).forEach((l) => lines.push(l));
-  lines.push(`US$${formatMoney(price)}`);
-  window.open(whatsappLink(lines.join('\n')), '_blank', 'noopener');
+  // Built lazily so the dialog can re-render it if the language changes while
+  // it's open (see js/contact-choice.js).
+  openContactChoice(() => {
+    const { title, price } = describeCartItem(item);
+    const lines = [t('whatsapp.greeting'), '', title];
+    itemDetailLines(item).forEach((l) => lines.push(l));
+    lines.push(`US$${formatMoney(price)}`);
+    return {
+      message: lines.join('\n'),
+      subject: t('email.subject'),
+      summary: `${title} · US$${formatMoney(price)}`,
+    };
+  });
 }
 
 /** Opens the cart drawer. */

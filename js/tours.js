@@ -9,8 +9,9 @@
    manual count outside that set has no defined price, so the card falls
    back to a "request a quote" state instead of guessing one (see
    selectGuests() below).
-   Depends on: core.js (animatePrice, whatsappLink), i18n.js (t()),
-   cart.js (addToCart, openCart).
+   Depends on: core.js (animatePrice, formatMoney), i18n.js (t()),
+   cart.js (addToCart, openCart, bookDirect),
+   contact-choice.js (openContactChoice).
    ============================================================ */
 
 'use strict';
@@ -98,19 +99,22 @@
     document.addEventListener('sariel:langchange', renderAddBtnLabel);
 
     /**
-     * Opens a WhatsApp quote request for the current (unpriced) guest count
-     * — shared by both the Add-to-Cart and Book-Directly buttons, since
-     * neither can add a guessed price for a manual size beyond the presets.
+     * Sends a quote request for the current (unpriced) guest count — shared by
+     * both the Add-to-Cart and Book-Directly buttons, since neither can add a
+     * guessed price for a manual size beyond the presets. The visitor picks
+     * WhatsApp or email first (see js/contact-choice.js).
      * @returns {void}
      */
     function requestQuote() {
       const guests = parseInt(currentGuests, 10);
-      const title = t(addBtn.dataset.titleKey);
-      window.open(
-        whatsappLink(t('whatsapp.quoteRequest', { excursion: title, n: guests })),
-        '_blank',
-        'noopener'
-      );
+      openContactChoice(() => {
+        const title = t(addBtn.dataset.titleKey);
+        return {
+          message: t('whatsapp.quoteRequest', { excursion: title, n: guests }),
+          subject: t('email.subject'),
+          summary: `${title} · ${t('whatsapp.labelGuests')}: ${guests}`,
+        };
+      });
     }
 
     /**
