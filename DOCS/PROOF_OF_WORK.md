@@ -1326,3 +1326,72 @@ but is softer than the old landscape file was proportionally.
 Left in place pending the owner's call.
 
 **Files modified:** `cruises.html`.
+
+## 2026-07-25 UTC — Retired 11 more destinations + Boca Chica repriced
+
+**Requested:** remove Bahía Príncipe, Blue Moon, Sánchez, Bonao, Casa Linda,
+Gaspar Hernández, Valverde, La Vega, San Francisco, Nagua and La Unión from
+the calculator; set Boca Chica to US$260.
+
+**Delivered:**
+- Nine (Bahía Príncipe, Blue Moon, Sánchez, Bonao, Casa Linda, Gaspar
+  Hernández, San Francisco, Nagua, La Unión) dropped from
+  `POP_FIXED_DESTINATIONS` + their `<option value="fixed:…">`.
+- **Valverde and La Vega are provinces, not fixed destinations** — they live in
+  `POP_PROVINCE_FIXED_FARES` (the fare) *and* in `PROVINCES` (the master list
+  with coordinates, consumed by `estimateRoute()`). Only the fare entry and the
+  `<option>` were removed; the `PROVINCES` records are untouched, asserted
+  in-script after the edit. A blind slug match would have deleted both copies
+  and broken the distance-estimation data.
+- `POP_FIXED_DESTINATIONS['boca-chica'].price` 198.50 → 260. It has no ticket
+  on the Popular Routes rail, so `js/config.js` was the only place to change.
+
+**Verification (live browser, Playwright):** destination select down to 25
+options, every one of them visible for POP and none of the 11 present in the
+DOM — zero hidden-but-present options, i.e. `js/config.js` and `transfers.html`
+are exactly in sync. POP→Boca Chica returns 260 at 2 pax and 270 at 8 (the
++US$5-per-extra-passenger rule intact); POP→Sosúa (24) and the POP→Santiago
+province route (99) unchanged. All 7 pickups re-filter correctly (POP 25, STI 2,
+SDQ 1, PUJ 1, AZS 1; LRM/BRX still fall through to the quote CTA). Console
+clean, `node --check` passes.
+
+**Files modified:** `js/config.js`, `transfers.html`.
+
+## 2026-07-25 UTC — More price updates + "destination not listed" escape hatch
+
+**Requested:** Punta Cana 425, Santo Domingo 219; add a prompt so a visitor
+whose destination isn't listed can write in, choosing WhatsApp or email.
+
+**Delivered:**
+- `POP_FIXED_DESTINATIONS['punta-cana']` 398.50 → 425. Note
+  `OTHER_AIRPORT_FIXED_FARES.puj` was already 425 and is a different route
+  (PUJ airport → Sosúa) — untouched.
+- `POP_PROVINCE_FIXED_FARES['santo-domingo']` 198.50 → 219, i.e. POP → Santo
+  Domingo province. The other Santo Domingo fare (SDQ airport → Sosúa) was
+  already set to 219 earlier today and is unrelated.
+- New always-visible line under the Destination select in `transfers.html`:
+  "Don't see your destination? **Write to us**". The button reuses
+  `openContactChoice()` (`js/contact-choice.js`), so it opens the same
+  WhatsApp-or-email chooser every booking button uses — no new dialog, no new
+  email plumbing. Wired in `js/calculator.js` next to the existing quote CTA.
+  Message is built lazily and names the currently selected pickup airport, so
+  it re-renders on language change like every other request.
+- Added a generic `.link-btn` to `css/styles.css` (text-styled but a real
+  `<button>`, since it opens a dialog rather than navigating).
+- 3 new i18n keys (`calc.missingDest`, `calc.missingDestCta`,
+  `calc.missingDestMessage`) across en/es/fr.
+
+**Why an always-visible prompt:** the existing `#bpQuoteCta` only appears for
+airports with *zero* fixed routes (LRM/BRX). After today's removals the POP list
+is down to 25 destinations, so a visitor heading somewhere unlisted from a
+covered airport previously had no prompt at all.
+
+**Verification (static, per owner's request to stop using Playwright):**
+`node --check` passes on `js/config.js`, `js/calculator.js`, `js/i18n.js`; the
+3 new keys appear exactly 3× each (one per language); `#calcMissingDest`
+resolves 1:1 between `transfers.html` and `js/calculator.js`; `.link-btn` is
+defined in CSS; and `contact-choice.js` loads before `calculator.js` on that
+page, so `openContactChoice` is defined when the handler binds.
+
+**Files modified:** `js/config.js`, `js/calculator.js`, `js/i18n.js`,
+`transfers.html`, `css/styles.css`.

@@ -935,6 +935,20 @@ section { scroll-margin-top: var(--header-h); }
   margin: 0;
 }
 
+/* Text-styled button — reads as a link but stays a real <button> so it keeps
+   button semantics for assistive tech (it opens a dialog, it doesn't navigate). */
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--ocean);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.link-btn:hover { color: var(--lagoon); }
+
 .field select,
 .field input[type="text"],
 .field input[type="tel"],

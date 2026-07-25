@@ -403,45 +403,41 @@
               <optgroup label="Fixed destinations (Puerto Plata Airport)" data-i18n-attr="label:calc.fixedDestGroup">
                 <option value="fixed:sosua" data-i18n="place.sosua">Sosúa</option>
                 <option value="fixed:cabarete" data-i18n="place.cabarete">Cabarete</option>
-                <option value="fixed:bahia-principe">Bahía Príncipe</option>
                 <option value="fixed:blue-lagoon">Blue Lagoon</option>
-                <option value="fixed:blue-moon">Blue Moon</option>
                 <option value="fixed:boca-chica">Boca Chica</option>
-                <option value="fixed:bonao">Bonao</option>
                 <option value="fixed:cabrera">Cabrera</option>
-                <option value="fixed:casa-linda">Casa Linda</option>
                 <option value="fixed:castillo-la-isabela">Castillo La Isabela</option>
                 <option value="fixed:cofresi-costambar">Cofresí · Costambar</option>
                 <option value="fixed:damajagua">Damajagua</option>
-                <option value="fixed:gaspar-hernandez">Gaspar Hernández</option>
                 <option value="fixed:higuey">Higüey</option>
                 <option value="fixed:juan-dolio">Juan Dolio</option>
                 <option value="fixed:la-galera">La Galera</option>
                 <option value="fixed:las-terrenas">Las Terrenas</option>
-                <option value="fixed:la-union">La Unión</option>
                 <option value="fixed:luperon">Luperón</option>
-                <option value="fixed:nagua">Nagua</option>
                 <option value="fixed:playa-grande">Playa Grande</option>
                 <option value="fixed:punta-cana">Punta Cana</option>
                 <option value="fixed:punta-rusia">Punta Rusia</option>
                 <option value="fixed:rio-san-juan">Río San Juan</option>
-                <option value="fixed:san-francisco">San Francisco</option>
-                <option value="fixed:sanchez">Sánchez</option>
               </optgroup>
               <optgroup label="Provinces" data-i18n-attr="label:calc.provincesGroup">
                 <option value="puerto-plata" selected data-i18n="province.puertoPlata">Puerto Plata</option>
                 <option value="barahona" data-i18n="province.barahona">Barahona</option>
                 <option value="dajabon" data-i18n="province.dajabon">Dajabón</option>
-                <option value="la-vega" data-i18n="province.laVega">La Vega</option>
                 <option value="monte-cristi" data-i18n="province.monteCristi">Monte Cristi</option>
                 <option value="samana" data-i18n="province.samana">Samaná</option>
                 <option value="san-pedro-de-macoris" data-i18n="province.sanPedroDeMacoris">San Pedro de Macorís</option>
                 <option value="santiago" data-i18n="province.santiago">Santiago</option>
                 <option value="santo-domingo" data-i18n="province.santoDomingo">Santo Domingo</option>
-                <option value="valverde" data-i18n="province.valverde">Valverde</option>
               </optgroup>
             </select>
             <p class="field-hint" id="calcNoDestHint" data-i18n="calc.noDestHint" hidden>No fixed routes yet from this airport — request a custom quote.</p>
+            <!-- The list only holds owner-confirmed fixed fares, so anything
+                 else needs a personal quote. js/calculator.js wires this to the
+                 same WhatsApp-or-email chooser the booking buttons use. -->
+            <p class="field-hint">
+              <span data-i18n="calc.missingDest">Don't see your destination?</span>
+              <button type="button" class="link-btn" id="calcMissingDest" data-i18n="calc.missingDestCta">Write to us</button>
+            </p>
           </div>
 
           <div class="calc-form-row">

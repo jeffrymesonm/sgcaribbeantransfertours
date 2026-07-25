@@ -237,6 +237,23 @@
     bookDirectBtn.addEventListener('click', () => bookDirect(buildCalcItem()));
   }
 
+  // Always-visible escape hatch under the Destination select: the list only
+  // holds owner-confirmed fixed fares, so anyone going somewhere else needs a
+  // personal quote rather than a dead end.
+  const missingDestBtn = document.getElementById('calcMissingDest');
+  if (missingDestBtn) {
+    missingDestBtn.addEventListener('click', () => {
+      openContactChoice(() => {
+        const pickupName = t(AIRPORTS[pickupEl.value].nameKey);
+        return {
+          message: t('calc.missingDestMessage', { pickup: pickupName }),
+          subject: t('email.subject'),
+          summary: pickupName,
+        };
+      });
+    });
+  }
+
   // Shown instead of the boarding pass when the picked airport has no fixed
   // routes yet — the quote it sends is free-form, so it skips buildCalcItem().
   if (bpQuoteRequest) {
