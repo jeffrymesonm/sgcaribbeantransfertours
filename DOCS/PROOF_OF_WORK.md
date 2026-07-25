@@ -1234,3 +1234,95 @@ but the dead `<source>` tags need removing or repointing.
 
 **Files modified:** `js/config.js`, `transfers.html`, `js/i18n.js`,
 `excursions.html`, `cruises.html`.
+
+## 2026-07-25 UTC — Retired 13 calculator destinations + excursions hero swap
+
+**Requested:** remove Hacienda el Choco, Coconut Palms, Hide Away Beach, Sea
+Horse Ranch, Villa Caribick, Celuisma, Perla Marina, Playa Laguna, Playa
+Dorada, Río Merengue, Sabaneta, Jamao and La Cumbre (Moca) from the transfer
+calculator; use `img/hero-excursion.jpg` as the excursions hero.
+
+**Delivered:**
+- Dropped all 13 from `POP_FIXED_DESTINATIONS` (`js/config.js`) *and* their
+  `<option value="fixed:…">` in `transfers.html`. Both sides are required:
+  `filterDestinationOptions()` (`js/calculator.js`) only hides options missing
+  from the fare map, so removing the config entry alone would have left 13
+  permanently-hidden dead options in the markup. Destination count 49 → 36.
+- Existing carts are unaffected: `buildCalcItem()` stores the *resolved* place
+  name and `baseFare` on the item, never the config slug, so a saved
+  `fixedRoute` row for a retired destination still renders and re-prices.
+- `excursions.html` hero `img/hero-main.jpg` → `img/hero-excursion.jpg`, with
+  the `alt` rewritten (the old one described the previous photo) and
+  `og:image` pointed at the new hero to match the per-page convention
+  `cruises.html`/`nosotros.html` already follow.
+
+**Verification (live browser, Playwright):** destination select shows 36
+options with none of the 13 present in the DOM at all; all 7 pickup airports
+re-filter correctly (POP 36, STI 2, SDQ 1, PUJ 1, AZS 1) and LRM/BRX still
+fall through to the quote CTA; prices unchanged on survivors (POP→Puerto Plata
+39, STI→Sosúa 99, SDQ→Sosúa 219, PUJ→Sosúa 425, AZS→Sosúa 149). `js/config.js`
+passes `node --check` and both edited files still decode as valid UTF-8 with
+accented neighbours intact (Cofresí, Gaspar Hernández, Río San Juan). New
+excursions hero loads (2500×1666), console clean on that page.
+
+**Left deliberately:** "Playa Dorada" still appears in `index.html`'s
+`areaServed` JSON-LD and in the gallery caption `gallery.caption8` — a served
+area and a photo caption, not bookable destinations.
+
+**Known issue, still open:** `index.html:157-158` and `transfers.html:136-137`
+still reference the deleted `img/hero-main.mov`/`.mp4`, so both pages log a
+404. Hero renders via its poster; owner to decide whether to drop the
+`<video>` or supply new files.
+
+**Files modified:** `js/config.js`, `transfers.html`, `excursions.html`.
+
+## 2026-07-25 UTC — Fixed hero 404: <video> → <img> on index + transfers
+
+**Problem:** `img/hero-main.mov` and `img/hero-main.mp4` had been deleted and
+`img/hero-main.jpg` replaced with a 2880×2160 fleet photo, but the `<video>`
+elements in `index.html` and `transfers.html` still listed both files. Chrome
+skips the QuickTime source, requests the MP4, and gets a 404 — the only
+console error left on the site. The hero still rendered (it fell back to its
+`poster`), so the breakage was invisible except in devtools.
+
+**Delivered:**
+- Replaced both `<video>` blocks with a plain `<img src="img/hero-main.jpg"
+  fetchpriority="high">`, matching the markup `excursions.html`/`cruises.html`
+  already use. Wrote a real `alt` describing the actual photo (three white
+  fleet minivans) — the `<video>` had been `aria-hidden`, and the old hero
+  `alt` on other pages described a beach that is no longer the image.
+- Removed the now-dead `initHeroVideo()` IIFE from `js/shell.js` (it queried
+  `.hero-bg video` to pause autoplay under `prefers-reduced-motion`; zero
+  `<video>` elements remain site-wide) and dropped `.hero-bg video` from the
+  two `css/styles.css` rules that still targeted it.
+
+**Verification (live browser, Playwright):** console clean (0 errors, 0
+warnings) on all 5 pages — previously 1 error on index and transfers. Hero
+`<img>` loads at its full 2880×2160 on both pages and renders sharply at
+1280×900. On a 390×844 viewport the cover scale is 0.49× — the source is
+being downscaled, not stretched, so the earlier low-resolution hero complaint
+is resolved by the owner's new image. `js/shell.js` passes `node --check`.
+
+**Files modified:** `index.html`, `transfers.html`, `js/shell.js`,
+`css/styles.css`.
+
+## 2026-07-25 UTC — New cruises hero (img/hero-cruises.jpeg)
+
+**Requested:** point the cruises hero at the newly added `img/hero-cruises.jpeg`.
+
+**Delivered:** updated `src` and `og:image` in `cruises.html`, and rewrote the
+`alt` — the old one ("Cruise ship docked in a turquoise Caribbean port") no
+longer matched the photo, which shows a brightly painted hull at Taino Bay with
+colorful beach chairs in the foreground. Kept the `.jpeg` extension as the
+owner supplied it; the project already mixes `.jpg`/`.jpeg`.
+
+**Verification (live browser, Playwright):** loads at 900×1200, console clean.
+Cover-scale measured on both breakpoints — 390×844 mobile: **0.87× (downscaled,
+sharp)**; 1280×900 desktop: **1.41× (upscaled)**. The portrait source suits
+mobile well and is the weaker fit on desktop, where it still reads acceptably
+but is softer than the old landscape file was proportionally.
+
+**Orphaned:** `img/hero-cruises.jpg` (1024×576, 463 KB) is now unreferenced.
+Left in place pending the owner's call.
+
+**Files modified:** `cruises.html`.
