@@ -253,7 +253,7 @@ const I18N = {
 
     'exc2.eyebrow': '02 — Adventure',
     'exc2.title': 'Charcos de Damajagua',
-    'exc2.desc': "Climb, slide and jump through 27 natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.",
+    'exc2.desc': "Climb, slide and jump through natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.",
     'exc2.include1': 'Round-trip transportation',
     'exc2.include2': 'Park entrance &amp; safety gear',
     'exc2.include3': 'Certified canyoning guides',
@@ -308,7 +308,7 @@ const I18N = {
     'cruise.departsAt': 'departs',
 
     'cruise1.title': 'Charcos de Damajagua',
-    'cruise1.desc': "Climb, slide and jump through 27 natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.",
+    'cruise1.desc': "Climb, slide and jump through natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.",
     'cruise1.duration': 'Half day',
     'cruise2.title': 'Puerto Plata City Tour',
     'cruise2.desc': 'Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. US$65 per person, up to 6 guests.',
@@ -715,7 +715,7 @@ const I18N = {
 
     'exc2.eyebrow': '02 — Aventura',
     'exc2.title': 'Charcos de Damajagua',
-    'exc2.desc': 'Escala, desliza y salta a través de 27 cascadas naturales talladas en la selva — la aventura más emocionante de la costa norte.',
+    'exc2.desc': 'Escala, desliza y salta a través de cascadas naturales talladas en la selva — la aventura más emocionante de la costa norte.',
     'exc2.include1': 'Transporte ida y vuelta',
     'exc2.include2': 'Entrada al parque y equipo de seguridad',
     'exc2.include3': 'Guías certificados de canyoning',
@@ -770,7 +770,7 @@ const I18N = {
     'cruise.departsAt': 'zarpa',
 
     'cruise1.title': 'Charcos de Damajagua',
-    'cruise1.desc': 'Escala, desliza y salta a través de 27 cascadas naturales talladas en la selva — la aventura más emocionante de la costa norte.',
+    'cruise1.desc': 'Escala, desliza y salta a través de cascadas naturales talladas en la selva — la aventura más emocionante de la costa norte.',
     'cruise1.duration': 'Medio día',
     'cruise2.title': 'Tour por la Ciudad de Puerto Plata',
     'cruise2.desc': 'Casas victorianas, la fortaleza más antigua de América, vistas desde el teleférico del Monte Isabel de Torres y degustaciones de ámbar, ron y cacao. US$65 por persona, hasta 6 personas.',
@@ -1162,7 +1162,7 @@ const I18N = {
 
     'exc2.eyebrow': '02 — Aventure',
     'exc2.title': 'Charcos de Damajagua',
-    'exc2.desc': "Grimpez, glissez et sautez à travers 27 cascades naturelles sculptées dans la jungle — l'aventure la plus palpitante de la côte nord.",
+    'exc2.desc': "Grimpez, glissez et sautez à travers des cascades naturelles sculptées dans la jungle — l'aventure la plus palpitante de la côte nord.",
     'exc2.include1': 'Transport aller-retour',
     'exc2.include2': 'Entrée du parc et équipement de sécurité',
     'exc2.include3': 'Guides de canyoning certifiés',
@@ -1217,7 +1217,7 @@ const I18N = {
     'cruise.departsAt': 'départ',
 
     'cruise1.title': 'Charcos de Damajagua',
-    'cruise1.desc': "Grimpez, glissez et sautez à travers 27 cascades naturelles sculptées dans la jungle — l'aventure la plus palpitante de la côte nord.",
+    'cruise1.desc': "Grimpez, glissez et sautez à travers des cascades naturelles sculptées dans la jungle — l'aventure la plus palpitante de la côte nord.",
     'cruise1.duration': 'Demi-journée',
     'cruise2.title': 'Visite de la Ville de Puerto Plata',
     'cruise2.desc': "Maisons victoriennes, la plus ancienne forteresse des Amériques, vue depuis le téléphérique du Mont Isabel et dégustations d'ambre, de rhum et de cacao. 65 $US par personne, jusqu'à 6 personnes.",

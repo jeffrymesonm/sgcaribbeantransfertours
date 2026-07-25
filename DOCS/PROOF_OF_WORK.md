@@ -1190,3 +1190,47 @@ the cart's own 2-step checkout still sends correctly. Console clean (0 errors,
 **Files modified:** `index.html`, `transfers.html`, `excursions.html`,
 `cruises.html`, `nosotros.html`, `css/styles.css`, `js/i18n.js`, `js/cart.js`,
 `js/tours.js`, `js/calculator.js`.
+
+## 2026-07-25 UTC — Owner price corrections + waterfalls copy tweak
+
+**Requested:** POP→Cabarete 28.95 → 33.95; SDQ→Sosúa 198.50 → 219; drop the
+"27" from the Charcos de Damajagua blurb.
+
+**Delivered:**
+- POP→Cabarete: `POP_FIXED_DESTINATIONS.cabarete` (`js/config.js`) plus the
+  ticket's displayed price and both `data-fixed-price` attributes
+  (`transfers.html`). STI→Cabarete (98.95) deliberately untouched.
+- SDQ→Sosúa: `OTHER_AIRPORT_FIXED_FARES.sdq['fixed:sosua']` (`js/config.js`)
+  plus the same three spots in `transfers.html`. The five other `198.50`
+  entries (Dajabón, Santo Domingo province, Boca Chica, La Galera, Punta
+  Rusia) are different routes and were left alone.
+- Removed "27" from `exc2.desc` and `cruise1.desc` in all three languages
+  (`js/i18n.js`) and from the two matching HTML fallbacks
+  (`excursions.html`, `cruises.html`) — 8 strings total. Other "27 Charcos"
+  mentions were left as-is: they use it as the tour's proper name
+  (`service.charcos27`, the excursions meta description, the `charcos-27`
+  service key) or sit inside a customer testimonial (`reviews.quote4`).
+
+**Verification (live browser, Playwright):** ticket rail renders US$33.95 and
+US$219 with matching `data-fixed-price`; the calculator (which reads
+`js/config.js` independently of the rail) returns 34/44 for POP→Cabarete at
+2/8 pax and 219/229 for SDQ→Sosúa, with the +US$5-per-extra-passenger rule
+still applying; STI→Cabarete (99) and POP→Sosúa (24) unchanged. Cart carries
+the exact unrounded amounts (33.95 + 219 = 252.95) — the boarding pass's
+whole-dollar display is pre-existing `animatePrice` behaviour. Waterfalls
+copy verified in EN/ES/FR with no "27 natural"/"27 cascad" left anywhere.
+
+**Not done — already present:** the request also asked to add the Charcos tour
+to the excursions page. It is already there as `#exc2` in `excursions.html`
+(prices 235/270/324, includes list, guest picker, both CTAs) and has been
+since before this session. Flagged to the owner rather than duplicated.
+
+**Pre-existing issue found (not introduced here):** `img/hero-main.mov` and
+`img/hero-main.mp4` were deleted outside this session and `img/hero-main.jpg`
+replaced with a 2880×2160 version, but the `<video>` elements in
+`index.html:157-158` and `transfers.html:136-137` still list both files, so
+both pages log a 404. The hero still renders — it falls back to the poster —
+but the dead `<source>` tags need removing or repointing.
+
+**Files modified:** `js/config.js`, `transfers.html`, `js/i18n.js`,
+`excursions.html`, `cruises.html`.

@@ -159,7 +159,7 @@ const POP_PROVINCE_FIXED_FARES = {
 
 const POP_FIXED_DESTINATIONS = {
   'sosua': { nameKey: 'place.sosua', price: 23.95 },
-  'cabarete': { nameKey: 'place.cabarete', price: 28.95 },
+  'cabarete': { nameKey: 'place.cabarete', price: 33.95 },
   'bahia-principe': { name: 'Bahía Príncipe', price: 78.50 },
   'blue-lagoon': { name: 'Blue Lagoon', price: 118.50 },
   'blue-moon': { name: 'Blue Moon', price: 28.50 },
@@ -210,7 +210,7 @@ const POP_FIXED_DESTINATIONS = {
    state instead of guessing a price for them. */
 const OTHER_AIRPORT_FIXED_FARES = {
   sti: { 'fixed:sosua': 98.50, 'fixed:cabarete': 98.95 },
-  sdq: { 'fixed:sosua': 198.50 },
+  sdq: { 'fixed:sosua': 219 },
   azs: { 'fixed:sosua': 148.50 },
   puj: { 'fixed:sosua': 425 },
 };
