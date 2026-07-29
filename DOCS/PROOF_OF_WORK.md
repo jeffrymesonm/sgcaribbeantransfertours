@@ -1416,3 +1416,31 @@ datos se hace en GA4 → Informes en tiempo real tras el deploy.
 
 **Files modified:** `index.html`, `transfers.html`, `excursions.html`,
 `cruises.html`, `nosotros.html`.
+
+---
+
+## 2026-07-29T00:00:00.000Z — `<lastmod>` en sitemap.xml
+
+**Contexto:** Search Console reportó 3 URLs en "Descubierta: actualmente sin
+indexar" (`cruises.html`, `excursions.html`, `transfers.html`, último rastreo
+N/D) y 1 en "Página con redirección" (`http://www.` → 301 → apex https).
+
+**Diagnóstico:** ningún problema técnico. Se verificó en vivo: `robots.txt`
+permite todo, no hay meta `noindex`, las 5 canonicals son autorreferenciales y
+correctas, el sitemap devuelve 200 `application/xml`, las 3 páginas están
+enlazadas desde `index.html`, y el contenido está en el HTML (0 elementos
+`data-i18n` vacíos — el i18n reemplaza texto, no lo inyecta). El redirect
+`http://www` → `https://` apex es el comportamiento deseado, no un error.
+La causa es que el dominio se detectó el 25/7/26 y Google aún no ha asignado
+presupuesto de rastreo.
+
+**Hecho:** se añadió `<lastmod>2026-07-29</lastmod>` a las 5 entradas de
+`sitemap.xml` para dar a Google una señal de priorización de rastreo. Se
+documentó en un comentario del propio archivo que el campo es manual (sitio
+estático en GitHub Pages) y que no debe bumpearse por cambios cosméticos.
+
+**Verificación (estática, sin navegador):** el XML parsea correctamente con
+`xml.dom.minidom`; 5 `<url>` y 5 `<lastmod>`; `git diff --stat` = +13/-1 en un
+solo archivo.
+
+**Files modified:** `sitemap.xml`.

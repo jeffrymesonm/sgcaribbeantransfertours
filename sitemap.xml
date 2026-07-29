@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Sitemap for SG Caribbean Transfers & Tours. -->
+<!--
+  Sitemap for SG Caribbean Transfers & Tours.
+
+  <lastmod> must be updated by hand whenever a page's content changes
+  (this is a static GitHub Pages site, nothing generates it). Format: YYYY-MM-DD.
+  Google ignores lastmod dates it finds unreliable, so do not bump them
+  for cosmetic edits — only for real content changes.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://caribbeansgtransferstours.com/</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://caribbeansgtransferstours.com/transfers.html</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://caribbeansgtransferstours.com/excursions.html</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://caribbeansgtransferstours.com/cruises.html</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://caribbeansgtransferstours.com/nosotros.html</loc>
+    <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
