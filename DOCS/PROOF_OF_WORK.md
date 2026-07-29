@@ -1395,3 +1395,24 @@ page, so `openContactChoice` is defined when the handler binds.
 
 **Files modified:** `js/config.js`, `js/calculator.js`, `js/i18n.js`,
 `transfers.html`, `css/styles.css`.
+
+---
+
+## 2026-07-29T00:00:00.000Z — Google Analytics 4 (gtag.js) en todo el sitio
+
+**Solicitado:** implementar Google Analytics en la página (propiedad
+`G-P5B6J8Y75V`).
+
+**Hecho:** se insertó el snippet oficial de gtag.js en el `<head>` de las 5
+páginas HTML, inmediatamente después del `<meta name="viewport">` y antes del
+`<title>`, para que cargue lo más temprano posible sin bloquear el render
+(`async`). No se usó un archivo JS compartido porque el sitio es HTML estático
+sin sistema de plantillas y Google recomienda el tag inline al inicio del head.
+
+**Verificación (estática, sin navegador):** `G-P5B6J8Y75V` aparece 3× en cada
+uno de los 5 archivos (src del script + `config`), `git diff --stat` muestra
++10 líneas por archivo y ningún otro cambio. La validación real del flujo de
+datos se hace en GA4 → Informes en tiempo real tras el deploy.
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`.
