@@ -23,6 +23,15 @@ const CONFIG = {
   // email hardcoded — update those too if it ever changes, see
   // DOCS/USER_MANUAL.md.
   formspreeEndpoint: 'https://formspree.io/f/xbdnzrez',
+  // Google Business Profile: the public link where visitors read and leave
+  // reviews, and the live review count shown on the "read them on Google" CTA
+  // under the reviews section (js/shell.js, initGoogleReviewsLink).
+  // The count MUST match the profile — claiming more reviews than the profile
+  // shows reads as inflated social proof the moment a visitor clicks through.
+  // While googleReviewsUrl is empty the CTA stays hidden, so the section keeps
+  // working exactly as before.
+  googleReviewsUrl: '',
+  googleReviewCount: '',
 };
 
 /* Every DR international airport, keyed by <select> value. Coordinates are

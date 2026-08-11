@@ -487,7 +487,11 @@ section { scroll-margin-top: var(--header-h); }
 
 .hero-bg {
   position: absolute;
-  inset: -12% 0;               /* extra bleed for parallax travel */
+  /* Bleed only at the bottom: the parallax layer travels upward exclusively, so
+     a top bleed adds height the image must be upscaled to fill for no benefit.
+     Dropping it shrinks the cover box ~10% and sharpens low-resolution heroes.
+     Keep this value in sync with bleedBottom in js/shell.js initParallax(). */
+  inset: 0 0 -12%;
   will-change: transform;
 }
 
@@ -498,8 +502,10 @@ section { scroll-margin-top: var(--header-h); }
   animation: hero-zoom 18s var(--ease-out) forwards;
 }
 
+/* Softened from 1.12 so the opening seconds — when the visitor first looks —
+   do not add a further 12% of upscaling on top of object-fit: cover. */
 @keyframes hero-zoom {
-  from { transform: scale(1.12); }
+  from { transform: scale(1.04); }
   to   { transform: scale(1); }
 }
 
@@ -1640,6 +1646,16 @@ section { scroll-margin-top: var(--header-h); }
   gap: 1.25rem;
 }
 
+/* CTA under the grid linking to the Google Business Profile. Hidden until
+   CONFIG.googleReviewsUrl is set — see js/shell.js, initGoogleReviewsLink. */
+.reviews-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.2rem;
+}
+
+.reviews-cta [hidden] { display: none; }
+
 @media (min-width: 760px) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .review-card {
@@ -1863,6 +1879,20 @@ section { scroll-margin-top: var(--header-h); }
 }
 
 .footer-col p { font-size: 0.9rem; }
+
+/* Instagram link in the footer's Contact column: icon + handle on one line,
+   the handle wrapping on narrow screens without pushing the icon out. */
+.footer-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.footer-instagram svg {
+  width: 1.05em;
+  height: 1.05em;
+  flex-shrink: 0;
+}
 
 .footer-legal {
   display: flex;

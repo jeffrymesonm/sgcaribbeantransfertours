@@ -15,16 +15,16 @@
 
 const I18N = {
   en: {
-    'meta.home.title': 'SG Caribbean Transfers & Tours — Private Transfers & Excursions in the Dominican Republic',
-    'meta.home.description': 'Private airport transfers, transportation and excursions in Puerto Plata, Cabarete, Sosúa and the Dominican Republic north coast. Safe, comfortable, always on time. Book your transfer today.',
-    'meta.transfers.title': 'Private Airport Transfers — SG Caribbean Transfers & Tours | Dominican Republic',
-    'meta.transfers.description': 'Private, door-to-door airport transfers and private taxi service across the Dominican Republic. Fixed prices, meet & greet, always on time. Get your instant fare and book on WhatsApp.',
-    'meta.excursions.title': 'Private Excursions & Day Tours — SG Caribbean Transfers & Tours | North Coast DR',
-    'meta.excursions.description': 'Private excursions on the DR north coast: Punta Rusia, 27 Charcos, whale watching, city tours and beaches. Your group, your pace, round-trip transport included.',
-    'meta.cruises.title': 'Cruise Shore Excursions — SG Caribbean Transfers & Tours | Amber Cove & Taino Bay',
-    'meta.cruises.description': 'Private shore excursions for cruise passengers at Amber Cove and Taino Bay, Puerto Plata. Guaranteed return before departure. Reserve your tour on WhatsApp.',
-    'meta.nosotros.title': 'Meet the Team & Our Fleet — SG Caribbean Transfers & Tours | Puerto Plata',
-    'meta.nosotros.description': 'Meet the local drivers and modern fleet behind SG Caribbean Transfers & Tours — real photos, real people, serving Puerto Plata, Sosúa and Cabarete.',
+    'meta.home.title': 'Airport Transfers & Tours in Puerto Plata & Sosúa | SG Caribbean',
+    'meta.home.description': 'Private airport transfers and excursions in Puerto Plata, Sosúa and Cabarete. POP airport to Sosúa from $23.95. Fixed prices, meet & greet, always on time.',
+    'meta.transfers.title': 'Airport Transfers Puerto Plata & Sosúa | POP to Sosúa from $23.95',
+    'meta.transfers.description': 'Private door-to-door transfers from Puerto Plata airport (POP) to Sosúa, Cabarete and Playa Dorada. Fixed prices from $23.95, flight tracking, pay on arrival.',
+    'meta.excursions.title': 'Excursions & Day Tours from Sosúa & Puerto Plata | SG Caribbean',
+    'meta.excursions.description': 'Private day tours from Sosúa and Puerto Plata: Punta Rusia, 27 Charcos, whale watching, city tours and beaches. Your group, your pace, transport included.',
+    'meta.cruises.title': 'Amber Cove & Taino Bay Shore Excursions | Puerto Plata & Sosúa',
+    'meta.cruises.description': 'Private shore excursions from Amber Cove and Taino Bay to Sosúa, Puerto Plata and the north coast. Guaranteed return before departure. Book on WhatsApp.',
+    'meta.nosotros.title': 'Our Team & Fleet | Transfers in Puerto Plata, Sosúa & Cabarete',
+    'meta.nosotros.description': 'Meet the local drivers and modern fleet behind SG Caribbean Transfers & Tours — real people serving Puerto Plata, Sosúa, Cabarete and the north coast.',
 
     'skip.toContent': 'Skip to content',
 
@@ -44,7 +44,7 @@ const I18N = {
     'nav.openMenu': 'Open menu',
     'nav.closeMenu': 'Close menu',
 
-    'hero.eyebrow': 'Puerto Plata · North Coast · Dominican Republic',
+    'hero.eyebrow': 'Sosúa · Puerto Plata · Cabarete · North Coast DR',
     'hero.title1': 'Private Transfers',
     'hero.title2': '&amp; <em>Excursions</em> in the',
     'hero.title3': 'Dominican Republic',
@@ -72,20 +72,20 @@ const I18N = {
     'picker.browse': 'Browse everything',
     'picker.close': 'Close',
 
-    'transfersHero.eyebrow': 'Airport &amp; private transfers',
+    'transfersHero.eyebrow': 'Airport transfers in Puerto Plata &amp; Sosúa',
     'transfersHero.title': 'Your ride is <em>already waiting</em>',
     'transfersHero.lead': 'Private, door-to-door transfers — your private taxi — anywhere in the Dominican Republic. Fixed price, no surprises. Calculate your fare below.',
     'transfersHero.cta': 'Calculate my fare',
 
-    'excursionsHero.eyebrow': 'Signature private experiences',
+    'excursionsHero.eyebrow': 'Private tours from Sosúa &amp; Puerto Plata',
     'excursionsHero.title': 'Days you\'ll <em>never forget</em>',
-    'excursionsHero.lead': 'Every excursion is private: your group, your pace, your own guide. Round-trip transport always included.',
+    'excursionsHero.lead': 'Every excursion is private: your group, your pace, your own guide. Hotel pickup in Sosúa, Puerto Plata and Cabarete, round-trip transport always included.',
 
-    'cruisesHero.eyebrow': 'Cruise shore excursions',
+    'cruisesHero.eyebrow': 'Shore excursions to Sosúa &amp; Puerto Plata',
     'cruisesHero.title': 'Off the ship, <em>into paradise</em>',
-    'cruisesHero.lead': 'Private tours for cruise passengers docking at Amber Cove and Taino Bay.',
+    'cruisesHero.lead': 'Private tours for cruise passengers docking at Amber Cove and Taino Bay — Sosúa, Puerto Plata and the north coast, back on board in time.',
 
-    'nosotrosHero.eyebrow': 'Meet the team',
+    'nosotrosHero.eyebrow': 'Meet the team · Puerto Plata &amp; Sosúa',
     'nosotrosHero.title': 'The people <em>behind SG Caribbean</em>',
     'nosotrosHero.lead': 'Four local drivers, a modern fleet and a family business that has called the north coast home for years.',
 
@@ -392,6 +392,8 @@ const I18N = {
     'reviews.quote2': '"The Beach Experiences tour was the highlight of our honeymoon. Just the two of us, hidden coves, and the clearest water I\'ve ever seen. Worth every dollar."',
     'reviews.quote3': '"We traveled with 9 family members and two car seats. Everything was arranged over WhatsApp in minutes. Fair fixed price, beautiful van, kind driver."',
     'reviews.quote4': '"27 Charcos with Sariel was pure adrenaline — the guides made us feel safe the whole way. Then fresh fish on the beach. Perfect day."',
+    'reviews.readOnGoogle': 'Read our reviews on Google',
+    'reviews.readOnGoogleCount': 'Read all {count} reviews on Google',
 
     'faq.eyebrow': 'Good to know',
     'faq.heading': 'Questions, <em>answered</em>',
@@ -481,16 +483,16 @@ const I18N = {
   },
 
   es: {
-    'meta.home.title': 'SG Caribbean Transfers & Tours — Transfers Privados y Excursiones en República Dominicana',
-    'meta.home.description': 'Transfers aeroportuarios privados, transporte y excursiones en Puerto Plata, Cabarete, Sosúa y la costa norte de República Dominicana. Seguro, cómodo y siempre puntual. Reserva tu transfer hoy.',
-    'meta.transfers.title': 'Transfers Privados de Aeropuerto — SG Caribbean Transfers & Tours | República Dominicana',
-    'meta.transfers.description': 'Transfers privados y taxi privado puerta a puerta en toda República Dominicana. Precios fijos, recepción en el aeropuerto y siempre puntuales. Calcula tu tarifa y reserva por WhatsApp.',
-    'meta.excursions.title': 'Excursiones Privadas y Tours de Día — SG Caribbean Transfers & Tours | Costa Norte RD',
-    'meta.excursions.description': 'Excursiones privadas en la costa norte: Punta Rusia, 27 Charcos, avistamiento de ballenas, city tours y playas. Tu grupo, tu ritmo, transporte de ida y vuelta incluido.',
-    'meta.cruises.title': 'Excursiones para Cruceros — SG Caribbean Transfers & Tours | Amber Cove y Taino Bay',
-    'meta.cruises.description': 'Excursiones privadas para pasajeros de crucero en Amber Cove y Taino Bay, Puerto Plata. Regreso garantizado antes del zarpe. Reserva tu tour por WhatsApp.',
-    'meta.nosotros.title': 'Conoce al Equipo y Nuestra Flota — SG Caribbean Transfers & Tours | Puerto Plata',
-    'meta.nosotros.description': 'Conoce a los choferes locales y la flota moderna detrás de SG Caribbean Transfers & Tours — fotos reales, personas reales, sirviendo a Puerto Plata, Sosúa y Cabarete.',
+    'meta.home.title': 'Transfers y Tours en Puerto Plata y Sosúa | SG Caribbean',
+    'meta.home.description': 'Transfers privados de aeropuerto y excursiones en Puerto Plata, Sosúa y Cabarete. Aeropuerto POP a Sosúa desde $23.95. Precios fijos y siempre puntuales.',
+    'meta.transfers.title': 'Transfers Aeropuerto Puerto Plata y Sosúa | POP desde $23.95',
+    'meta.transfers.description': 'Transfers privados puerta a puerta desde el aeropuerto de Puerto Plata (POP) a Sosúa, Cabarete y Playa Dorada. Precios fijos desde $23.95, pago al llegar.',
+    'meta.excursions.title': 'Excursiones y Tours desde Sosúa y Puerto Plata | SG Caribbean',
+    'meta.excursions.description': 'Excursiones privadas desde Sosúa y Puerto Plata: Punta Rusia, 27 Charcos, ballenas, city tours y playas. Tu grupo, tu ritmo, transporte incluido.',
+    'meta.cruises.title': 'Excursiones Amber Cove y Taino Bay | Puerto Plata y Sosúa',
+    'meta.cruises.description': 'Excursiones privadas para cruceros desde Amber Cove y Taino Bay a Sosúa, Puerto Plata y la costa norte. Regreso garantizado antes del zarpe.',
+    'meta.nosotros.title': 'Nuestro Equipo y Flota | Transfers en Puerto Plata y Sosúa',
+    'meta.nosotros.description': 'Conoce a los choferes locales y la flota moderna de SG Caribbean — personas reales sirviendo Puerto Plata, Sosúa, Cabarete y la costa norte.',
 
     'skip.toContent': 'Saltar al contenido',
 
@@ -510,7 +512,7 @@ const I18N = {
     'nav.openMenu': 'Abrir menú',
     'nav.closeMenu': 'Cerrar menú',
 
-    'hero.eyebrow': 'Puerto Plata · Costa Norte · República Dominicana',
+    'hero.eyebrow': 'Sosúa · Puerto Plata · Cabarete · Costa Norte RD',
     'hero.title1': 'Transfers Privados',
     'hero.title2': 'y <em>Excursiones</em> en la',
     'hero.title3': 'República Dominicana',
@@ -538,20 +540,20 @@ const I18N = {
     'picker.browse': 'Ver todo',
     'picker.close': 'Cerrar',
 
-    'transfersHero.eyebrow': 'Transfers privados y de aeropuerto',
+    'transfersHero.eyebrow': 'Transfers de aeropuerto en Puerto Plata y Sosúa',
     'transfersHero.title': 'Tu transporte <em>ya te espera</em>',
     'transfersHero.lead': 'Transfers privados puerta a puerta — tu taxi privado — en toda República Dominicana. Precio fijo, sin sorpresas. Calcula tu tarifa abajo.',
     'transfersHero.cta': 'Calcular mi tarifa',
 
-    'excursionsHero.eyebrow': 'Experiencias privadas exclusivas',
+    'excursionsHero.eyebrow': 'Tours privados desde Sosúa y Puerto Plata',
     'excursionsHero.title': 'Días que <em>nunca olvidarás</em>',
-    'excursionsHero.lead': 'Cada excursión es privada: tu grupo, tu ritmo, tu propio guía. Transporte de ida y vuelta siempre incluido.',
+    'excursionsHero.lead': 'Cada excursión es privada: tu grupo, tu ritmo, tu propio guía. Recogida en hoteles de Sosúa, Puerto Plata y Cabarete, transporte de ida y vuelta siempre incluido.',
 
-    'cruisesHero.eyebrow': 'Excursiones para cruceros',
+    'cruisesHero.eyebrow': 'Excursiones a Sosúa y Puerto Plata',
     'cruisesHero.title': 'Del barco <em>al paraíso</em>',
-    'cruisesHero.lead': 'Tours privados para pasajeros de crucero que llegan a Amber Cove y Taino Bay.',
+    'cruisesHero.lead': 'Tours privados para pasajeros de crucero que llegan a Amber Cove y Taino Bay — Sosúa, Puerto Plata y la costa norte, de vuelta a bordo a tiempo.',
 
-    'nosotrosHero.eyebrow': 'Conoce al equipo',
+    'nosotrosHero.eyebrow': 'Conoce al equipo · Puerto Plata y Sosúa',
     'nosotrosHero.title': 'Las personas <em>detrás de SG Caribbean</em>',
     'nosotrosHero.lead': 'Cuatro choferes locales, una flota moderna y un negocio familiar que ha sido parte de la costa norte por años.',
 
@@ -844,6 +846,8 @@ const I18N = {
     'reviews.quote2': '"El tour de Experiencias de Playa fue lo más destacado de nuestra luna de miel. Solo nosotros dos, calas escondidas, y el agua más clara que he visto. Vale cada dólar."',
     'reviews.quote3': '"Viajamos con 9 familiares y dos sillas para niños. Todo se organizó por WhatsApp en minutos. Precio fijo justo, van hermosa, chofer amable."',
     'reviews.quote4': '"27 Charcos con Sariel fue pura adrenalina — los guías nos hicieron sentir seguros todo el camino. Luego pescado fresco en la playa. Día perfecto."',
+    'reviews.readOnGoogle': 'Lee nuestras reseñas en Google',
+    'reviews.readOnGoogleCount': 'Lee las {count} reseñas en Google',
 
     'faq.eyebrow': 'Información útil',
     'faq.heading': 'Preguntas <em>respondidas</em>',
@@ -933,16 +937,16 @@ const I18N = {
   },
 
   fr: {
-    'meta.home.title': 'SG Caribbean Transfers & Tours — Transferts Privés et Excursions en République Dominicaine',
-    'meta.home.description': "Transferts aéroportuaires privés, transport et excursions à Puerto Plata, Cabarete, Sosúa et sur la côte nord de la République Dominicaine. Sûr, confortable, toujours à l'heure. Réservez votre transfert dès aujourd'hui.",
-    'meta.transfers.title': "Transferts Privés d'Aéroport — SG Caribbean Transfers & Tours | République Dominicaine",
-    'meta.transfers.description': "Transferts privés porte-à-porte et service de taxi privé partout en République Dominicaine. Prix fixes, accueil personnalisé, toujours à l'heure. Obtenez votre tarif instantané et réservez sur WhatsApp.",
-    'meta.excursions.title': "Excursions Privées et Circuits d'une Journée — SG Caribbean Transfers & Tours | Côte Nord RD",
-    'meta.excursions.description': 'Excursions privées sur la côte nord de la RD : Punta Rusia, 27 Charcos, observation des baleines, visites de la ville et plages. Votre groupe, votre rythme, transport aller-retour inclus.',
-    'meta.cruises.title': 'Excursions pour Croisiéristes — SG Caribbean Transfers & Tours | Amber Cove et Taino Bay',
-    'meta.cruises.description': 'Excursions privées pour les passagers de croisière à Amber Cove et Taino Bay, Puerto Plata. Retour garanti avant le départ. Réservez votre excursion sur WhatsApp.',
-    'meta.nosotros.title': "Rencontrez l'Équipe et Notre Flotte — SG Caribbean Transfers & Tours | Puerto Plata",
-    'meta.nosotros.description': "Découvrez les chauffeurs locaux et la flotte moderne de SG Caribbean Transfers & Tours — vraies photos, vraies personnes, au service de Puerto Plata, Sosúa et Cabarete.",
+    'meta.home.title': 'Transferts et Excursions à Puerto Plata et Sosúa | SG Caribbean',
+    'meta.home.description': "Transferts privés d'aéroport et excursions à Puerto Plata, Sosúa et Cabarete. Aéroport POP vers Sosúa dès 23,95 $. Prix fixes, toujours à l'heure.",
+    'meta.transfers.title': 'Transferts Aéroport Puerto Plata et Sosúa | POP dès 23,95 $',
+    'meta.transfers.description': "Transferts privés porte-à-porte depuis l'aéroport de Puerto Plata (POP) vers Sosúa, Cabarete et Playa Dorada. Prix fixes dès 23,95 $, paiement à l'arrivée.",
+    'meta.excursions.title': 'Excursions depuis Sosúa et Puerto Plata | SG Caribbean',
+    'meta.excursions.description': 'Excursions privées depuis Sosúa et Puerto Plata : Punta Rusia, 27 Charcos, baleines, visites de ville et plages. Votre groupe, votre rythme, transport inclus.',
+    'meta.cruises.title': 'Excursions Amber Cove et Taino Bay | Puerto Plata et Sosúa',
+    'meta.cruises.description': 'Excursions privées pour croisiéristes depuis Amber Cove et Taino Bay vers Sosúa, Puerto Plata et la côte nord. Retour garanti avant le départ.',
+    'meta.nosotros.title': 'Notre Équipe et Notre Flotte | Transferts Puerto Plata et Sosúa',
+    'meta.nosotros.description': 'Découvrez les chauffeurs locaux et la flotte moderne de SG Caribbean — au service de Puerto Plata, Sosúa, Cabarete et la côte nord.',
 
     'skip.toContent': 'Aller au contenu',
 
@@ -962,7 +966,7 @@ const I18N = {
     'nav.openMenu': 'Ouvrir le menu',
     'nav.closeMenu': 'Fermer le menu',
 
-    'hero.eyebrow': 'Puerto Plata · Côte Nord · République Dominicaine',
+    'hero.eyebrow': 'Sosúa · Puerto Plata · Cabarete · Côte Nord RD',
     'hero.title1': 'Transferts Privés',
     'hero.title2': 'et <em>Excursions</em> en',
     'hero.title3': 'République Dominicaine',
@@ -987,20 +991,20 @@ const I18N = {
     'picker.browse': 'Tout parcourir',
     'picker.close': 'Fermer',
 
-    'transfersHero.eyebrow': 'Transferts privés et aéroportuaires',
+    'transfersHero.eyebrow': 'Transferts aéroport à Puerto Plata et Sosúa',
     'transfersHero.title': 'Votre transport vous <em>attend déjà</em>',
     'transfersHero.lead': 'Transferts privés porte-à-porte — votre taxi privé — partout en République Dominicaine. Prix fixe, sans surprises. Calculez votre tarif ci-dessous.',
     'transfersHero.cta': 'Calculer mon tarif',
 
-    'excursionsHero.eyebrow': 'Expériences privées exclusives',
+    'excursionsHero.eyebrow': 'Circuits privés depuis Sosúa et Puerto Plata',
     'excursionsHero.title': "Des journées que vous <em>n'oublierez jamais</em>",
-    'excursionsHero.lead': 'Chaque excursion est privée : votre groupe, votre rythme, votre propre guide. Transport aller-retour toujours inclus.',
+    'excursionsHero.lead': 'Chaque excursion est privée : votre groupe, votre rythme, votre propre guide. Prise en charge à Sosúa, Puerto Plata et Cabarete, transport aller-retour toujours inclus.',
 
-    'cruisesHero.eyebrow': 'Excursions pour croisiéristes',
+    'cruisesHero.eyebrow': 'Excursions vers Sosúa et Puerto Plata',
     'cruisesHero.title': 'Du bateau <em>au paradis</em>',
-    'cruisesHero.lead': 'Circuits privés pour les passagers de croisière accostant à Amber Cove et Taino Bay.',
+    'cruisesHero.lead': 'Circuits privés pour les passagers de croisière accostant à Amber Cove et Taino Bay — Sosúa, Puerto Plata et la côte nord, de retour à bord à temps.',
 
-    'nosotrosHero.eyebrow': "Rencontrez l'équipe",
+    'nosotrosHero.eyebrow': "Rencontrez l'équipe · Puerto Plata et Sosúa",
     'nosotrosHero.title': 'Les personnes <em>derrière SG Caribbean</em>',
     'nosotrosHero.lead': "Quatre chauffeurs locaux, une flotte moderne et une entreprise familiale qui fait partie de la côte nord depuis des années.",
 
@@ -1294,6 +1298,8 @@ const I18N = {
     'reviews.quote2': "« L'excursion Expériences de Plage a été le point fort de notre lune de miel. Juste nous deux, des criques cachées, et l'eau la plus claire que j'aie jamais vue. Chaque dollar en valait la peine. »",
     'reviews.quote3': '« Nous avons voyagé avec 9 membres de la famille et deux sièges auto. Tout a été organisé sur WhatsApp en quelques minutes. Prix fixe honnête, belle van, chauffeur aimable. »',
     'reviews.quote4': "« Les 27 Charcos avec Sariel, c'était de l'adrénaline pure — les guides nous ont fait sentir en sécurité tout du long. Puis du poisson frais sur la plage. Journée parfaite. »",
+    'reviews.readOnGoogle': 'Lire nos avis sur Google',
+    'reviews.readOnGoogleCount': 'Lire les {count} avis sur Google',
 
     'faq.eyebrow': 'Bon à savoir',
     'faq.heading': 'Questions <em>répondues</em>',

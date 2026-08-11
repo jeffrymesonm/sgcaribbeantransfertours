@@ -1444,3 +1444,200 @@ estático en GitHub Pages) y que no debe bumpearse por cambios cosméticos.
 solo archivo.
 
 **Files modified:** `sitemap.xml`.
+
+---
+
+## 2026-08-11T17:51:20.000Z — Nitidez de las fotos de los heroes
+
+**Contexto:** se reportó que las fotos de los heroes se ven pixeladas y se pidió
+reducirlas un 20%.
+
+**Diagnóstico:** el pixelado es real pero solo en 2 de las 5 páginas, y la causa
+no es el tamaño de visualización sino la resolución de origen. El hero mide
+`100svh` y `.hero-bg` tenía `inset: -12% 0`, así que la caja que `object-fit:
+cover` debe llenar era 124% del alto del viewport (1920×1339 en 1080p). Escalas
+medidas: `hero-main.jpg` 2880×2160 → 0.667× (reduce, nítida), `hero-excursion.jpg`
+2500×1666 → 0.804× (reduce, nítida), `hero-cruises.jpeg` 900×1200 → **2.133×**
+(amplía), `banner nosotros.jpeg` 1161×574 → **2.333×** (amplía). El "-20%"
+literal no era viable: `cover` redimensiona para llenar la caja, así que un
+`scale(0.8)` destapa el fondo en los 4 bordes, y 2.333× → 1.866× seguiría siendo
+ampliación. No hay ninguna otra imagen en `img/` con ancho suficiente para
+reemplazar las dos malas (solo `hero-main` y `hero-excursion` superan 1800px).
+
+**Hecho:** se atacó la ampliación por el lado de la caja, sin tocar `cover`.
+1. `.hero-bg`: `inset: -12% 0` → `inset: 0 0 -12%`. El parallax del hero solo se
+   desplaza hacia arriba, por lo que el sangrado superior era altura muerta que
+   la imagen tenía que ampliarse para llenar sin beneficio alguno. La caja pasa
+   de 124% a 112% del alto.
+2. `@keyframes hero-zoom`: `scale(1.12)` → `scale(1.04)`, para no sumar un 12%
+   extra de ampliación durante los segundos de apertura.
+3. `js/shell.js` `initParallax()`: se añadió `bleedTop`/`bleedBottom` por capa y
+   un clamp del desplazamiento a esos límites. Necesario porque quitar el
+   sangrado superior dejaba expuesto el borde de arriba, y además corrige una
+   fuga preexistente: el recorrido era 18% del alto contra un sangrado de 12%,
+   de modo que al hacer scroll profundo se destapaban hasta 64.8px de fondo
+   oscuro bajo el hero.
+
+**Verificación (estática, sin navegador):** script de cálculo sobre las
+dimensiones reales de los archivos. Escala de `cover` antes → después:
+nosotros 2.333 → 2.107 (**−9.7%**), excursions 0.804 → 0.768 (−4.5%),
+index/transfers 0.667 → 0.667 (sin regresión), cruises 2.133 → 2.133 (**sin
+cambio**: su límite es el ancho, no el alto). Simulación del parallax en todo el
+rango de scroll (0→1080px): hueco máximo 0.0px arriba y 0.0px abajo, contra
+64.8px abajo antes del fix. `node --check js/shell.js` OK; llaves de
+`styles.css` balanceadas (573/573).
+
+**Pendiente (no resuelto por este cambio):** `cruises.html` sigue amplificando
+2.13× y `nosotros.html` 2.11×. Ningún ajuste de CSS lo arregla — hacen falta
+fotos horizontales de ≥2400px de ancho para `img/hero-cruises.jpeg` (hoy 900×1200,
+vertical) y `img/banner nosotros.jpeg` (hoy 1161×574).
+
+**Files modified:** `css/styles.css`, `js/shell.js`.
+
+---
+
+## 2026-08-11T18:06:15.000Z — SEO: orientar el sitio a Sosúa + Puerto Plata
+
+**Contexto:** auditoría de SEO con el objetivo de captar turistas que visitan
+Sosúa. Se acordó ejecutar solo los "quick wins" (sin página nueva de Sosúa y sin
+URLs por idioma), apuntando a Sosúa **y** Puerto Plata a la vez.
+
+**Diagnóstico:** el SEO técnico estaba sano (canonicals, sitemap, robots, JSON-LD,
+HTML semántico) pero el sitio apuntaba a "Puerto Plata" y "Dominican Republic",
+no a Sosúa. Menciones antes del cambio: index 3 (meta description, `areaServed`
+y un pie de foto), excursions **0**, cruises **0**, nosotros 4. Ningún `<title>`
+ni ningún `<h1>` contenía "Sosúa". Las 24 menciones de transfers.html eran casi
+todas atributos (`data-fixed-to="place.sosua"`), no texto indexable.
+
+**Hallazgo crítico de implementación:** `applyStaticTranslations()` corre en cada
+carga (js/i18n.js:1469) y sobrescribe `document.title`, `meta[name=description]`,
+`og:title` y `og:description` desde las claves `meta.{page}.{title,description}`,
+además del `innerHTML` de todo `[data-i18n]`. Como Googlebot renderiza JS, **las
+cadenas de i18n.js son el SEO real**; editar solo el HTML no habría tenido ningún
+efecto. Se actualizaron ambos y se verificó la sincronía para evitar parpadeo.
+
+**Hecho:**
+1. `js/i18n.js`: reescritos los 10 pares `meta.*.title` / `meta.*.description` en
+   los 3 idiomas (30 cadenas), con Sosúa y Puerto Plata al frente y el precio
+   real POP→Sosúa ($23.95, tomado de `data-fixed-price` en transfers.html).
+2. `js/i18n.js` + los 5 HTML: reescritos 7 textos de hero (eyebrows y leads de
+   excursions/cruises) en los 3 idiomas (21 cadenas) para meter geografía en el
+   texto visible bajo el H1.
+3. Los 5 HTML: `<title>`, description, `og:title` y `og:description` sincronizados
+   con las cadenas EN de i18n.js por construcción (el script las lee del propio
+   i18n.js, no las duplica).
+4. **Bug corregido:** `og:image` era una ruta relativa en las 5 páginas, lo que
+   rompe la vista previa al compartir por WhatsApp — el canal de reserva del
+   negocio. Ahora es URL absoluta. Añadidos también `og:url`, `og:site_name` y
+   `twitter:card` (antes 0 en las 5 páginas).
+5. Schema: `areaServed` de index.html ampliado con Sosúa al frente + POP, Amber
+   Cove y Taino Bay; añadidos `telephone` (+1-829-627-7733, tomado de
+   `js/config.js`) e `image` absoluta. En transfers.html el `Service` pasó de
+   `areaServed: "Dominican Republic"` a la lista de localidades y se le añadió un
+   `Offer` con el precio real de POP→Sosúa.
+6. `sitemap.xml`: los 5 `<lastmod>` a 2026-08-11 (cambio real de contenido).
+
+**No se hizo, deliberadamente:**
+- **`aggregateRating`**: se había ofrecido, pero es incorrecto aquí. Google ignora
+  el `aggregateRating` autoasignado en `LocalBusiness`/`TravelAgency` (reseñas
+  self-serving no son elegibles para rich results) y marcar valoraciones no
+  verificables es riesgo de acción manual. Las estrellas de un negocio local
+  salen del Google Business Profile, que el cliente ya tiene.
+- **`geo`, `openingHours`, `streetAddress`**: no constan en el código y no se
+  inventaron. Deben copiarse del Google Business Profile para que el NAP coincida.
+- **Reescritura de los `<h1>`**: siguen siendo copy de marca sin palabras clave
+  ("Your ride is already waiting"). Cambiarlos es una decisión de diseño, no un
+  quick win.
+
+**Verificación (estática, sin navegador):** script `verify-seo.js`, 0 fallos.
+Menciones de Sosúa por página después: index 10, transfers 34, excursions 6,
+cruises 6, nosotros 7 (antes: 3 / 24 / 0 / 0 / 4). Longitud de títulos 62-65 y de
+descriptions 150-158 caracteres. Los 10 bloques JSON-LD parsean con `JSON.parse`.
+`og:image` absoluta y `twitter:card` presentes en las 5. HTML idéntico a las
+cadenas EN de i18n.js en las 5 páginas (sin parpadeo). `node --check js/i18n.js`
+OK. `sitemap.xml` parsea con `xml.dom.minidom`: 5 `<url>`, 5 `<lastmod>`.
+
+**Files modified:** `js/i18n.js`, `index.html`, `transfers.html`,
+`excursions.html`, `cruises.html`, `nosotros.html`, `sitemap.xml`.
+
+---
+
+## 2026-08-11T18:14:06.000Z — CTA a las reseñas de Google Business Profile (andamiaje)
+
+**Contexto:** se pidió mostrar las reseñas del Google Business Profile en el
+sitio. Se evaluaron tres vías: la API oficial de Places (máximo 5 reseñas, key
+pública en un sitio estático, requiere facturación y prohíbe cachear el texto
+más de 30 días), un widget de terceros (script externo, no se traduce a ES/FR y
+rompe el lenguaje visual) y curaduría manual con enlace a la ficha. Se eligió la
+tercera: el clic hacia el perfil aporta más al posicionamiento local que
+incrustar el texto, y encaja con el sistema i18n y el diseño existentes.
+
+**Hecho (parte que no depende de datos del cliente):**
+1. `js/config.js`: nuevas claves `googleReviewsUrl` y `googleReviewCount`,
+   documentadas junto a `whatsappNumber`. Mientras la URL esté vacía el CTA no
+   se renderiza, así que la sección sigue comportándose como antes.
+2. `index.html`: contenedor `.reviews-cta` con un `<a id="googleReviewsLink">`
+   bajo `.review-grid`. Sin `data-i18n` a propósito: la etiqueta interpola el
+   contador, y `applyStaticTranslations()` la sobrescribiría con la plantilla
+   sin sustituir.
+3. `css/styles.css`: estilos de `.reviews-cta` en la sección 12 (Reviews).
+4. `js/i18n.js`: `reviews.readOnGoogle` y `reviews.readOnGoogleCount` en los 3
+   idiomas (6 cadenas). La segunda usa el token `{count}` que ya soporta `t()`.
+5. `js/shell.js`: `initGoogleReviewsLink()`, siguiendo el patrón de
+   `initWhatsAppLinks()` — se re-renderiza con el evento `sariel:langchange`.
+
+**Pendiente (requiere datos del cliente, no se inventan):** el texto de las
+reseñas reales y sus autores, la URL de la ficha, y la calificación y el conteo
+verdaderos. Los 4 testimonios actuales (`reviews.quote1-4`) siguen en su sitio.
+
+**Riesgo señalado al cliente:** el hero declara "4.9 · 350+ reviews"
+(`hero.trustReviews`, js/i18n.js) sin que esa cifra esté respaldada por ninguna
+fuente en el código. Al enlazar la ficha real, ambos números quedan a un clic de
+ser contrastados: si no coinciden, el efecto es el contrario al buscado. Debe
+verificarse contra el perfil antes de publicar el CTA.
+
+**Verificación (estática, sin navegador):** `node --check` OK en i18n.js,
+config.js y shell.js. Script `verify-reviews.js`, 0 fallos: 2 claves nuevas × 3
+idiomas; `{count}` interpola correctamente en en/es/fr; y la lógica del CTA
+simulada en 3 escenarios — config vacía → oculto, solo URL → visible con
+etiqueta sin contador, URL + contador → visible con "Read all 350 reviews on
+Google". Ningún caso produce un enlace visible con href muerto.
+
+**Files modified:** `js/config.js`, `js/i18n.js`, `js/shell.js`, `index.html`,
+`css/styles.css`.
+
+---
+
+## 2026-08-11T18:18:58.000Z — Instagram en el footer y en el schema
+
+**Contexto:** se pidió publicar el Instagram del negocio en la página. La URL
+entregada traía el parámetro de rastreo de compartición
+(`?igsh=MTZrcnNnMXd1OW53Yw==`), que es un token por-compartición y no forma parte
+de la dirección del perfil; se guardó la URL limpia.
+
+**Hecho:**
+1. Los 5 HTML: enlace en la columna "Contact" del footer, justo tras el
+   `mailto:`, con icono SVG en el mismo estilo de trazo que el resto de iconos
+   del sitio (`fill="none" stroke="currentColor" stroke-width="1.8"`) y el handle
+   `@sg.caribbean_transfers_tours`. Lleva `target="_blank" rel="noopener"`.
+2. `css/styles.css`: `.footer-instagram` en la sección del footer — `inline-flex`
+   para que el icono y el handle queden alineados y el texto pueda partirse en
+   pantallas estrechas sin desplazar el icono.
+3. Schema `sameAs` — la pieza que había quedado pendiente en la auditoría de SEO
+   del 2026-08-11. Añadida al `TravelAgency` de index.html, al `provider` del
+   `Service` de transfers.html y al `about` del `AboutPage` de nosotros.html.
+   `sameAs` es la señal con la que Google vincula el sitio con los perfiles
+   sociales de la misma entidad. En nosotros.html se añadió también `telephone`.
+
+**Nota:** excursions.html y cruises.html no llevan `sameAs` porque sus bloques
+JSON-LD son `ItemList` + `BreadcrumbList` y no declaran la entidad del negocio.
+Marcarla ahí sería duplicar la entidad sin aportar señal.
+
+**Verificación (estática, sin navegador):** script `verify-instagram.js`, 0
+fallos. 1 sola instancia del enlace por página en las 5, URL correcta, sin
+rastro de `igsh=`, y `target`/`rel` presentes. Los 10 bloques JSON-LD siguen
+parseando con `JSON.parse` y 3 contienen el `sameAs`. Llaves de `styles.css`
+balanceadas (577/577).
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`, `css/styles.css`.

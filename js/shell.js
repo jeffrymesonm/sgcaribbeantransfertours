@@ -105,9 +105,13 @@
 (function initParallax() {
   if (prefersReducedMotion) return;
 
+  /* bleedTop / bleedBottom mirror each layer's CSS inset as a fraction of the
+     section height (.hero-bg and .book-bg in css/styles.css). Travel is clamped
+     to them so the image edge can never pull away from its section and expose
+     the dark background behind it. */
   const layers = [
-    { el: document.getElementById('heroBg'), speed: 0.18 },
-    { el: document.getElementById('bookBg'), speed: 0.12 },
+    { el: document.getElementById('heroBg'), speed: 0.18, bleedTop: 0, bleedBottom: 0.12 },
+    { el: document.getElementById('bookBg'), speed: 0.12, bleedTop: 0.1, bleedBottom: 0.1 },
   ].filter((l) => l.el);
   if (!layers.length) return;
 
@@ -115,10 +119,14 @@
 
   /** Repositions each background layer relative to its section's scroll offset. */
   function update() {
-    layers.forEach(({ el, speed }) => {
+    layers.forEach(({ el, speed, bleedTop, bleedBottom }) => {
       const rect = el.parentElement.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
+      const drift = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
+      const offset = Math.min(
+        bleedTop * rect.height,
+        Math.max(drift, -bleedBottom * rect.height)
+      );
       el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
     });
     ticking = false;
@@ -217,6 +225,32 @@
 /* ============================================================
    WhatsApp floating button + footer link + direct-chat CTA + year
    ============================================================ */
+/* ============================================================
+   Google Business Profile: "read our reviews on Google" CTA
+   ============================================================ */
+(function initGoogleReviewsLink() {
+  const link = document.getElementById('googleReviewsLink');
+  if (!link) return;
+
+  const url = CONFIG.googleReviewsUrl;
+  // No profile URL configured yet — leave the CTA hidden rather than shipping
+  // a dead link. See CONFIG.googleReviewsUrl in js/config.js.
+  if (!url) return;
+
+  link.href = url;
+
+  /** Re-renders the label in the active language, with the count when known. */
+  function updateLabel() {
+    const count = CONFIG.googleReviewCount;
+    link.textContent = count
+      ? t('reviews.readOnGoogleCount', { count })
+      : t('reviews.readOnGoogle');
+  }
+  updateLabel();
+  link.hidden = false;
+  document.addEventListener('sariel:langchange', updateLabel);
+})();
+
 (function initWhatsAppLinks() {
   const fab = document.getElementById('whatsappFab');
   const footerLink = document.getElementById('footerWhatsApp');
