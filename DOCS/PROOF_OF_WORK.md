@@ -1866,3 +1866,85 @@ en las 6 páginas; 1 solo `<h1>` por página.
 `sitemap.xml`, `DOCS/PROOF_OF_WORK.md`, `DOCS/DEVELOPER_GUIDE.md`,
 `DOCS/USER_MANUAL.md`, `DOCS/DEPLOYMENT.md`.
 **Files created / deleted:** none.
+
+---
+
+## 2026-08-13 12:15 UTC — sosua.html: distancias, tiempos e idiomas corregidos por el operador
+
+**Lo que se pidió (datos reales del operador, no estimaciones):**
+
+1. Muelles de crucero → Sosúa: **Taino Bay ~50 min**, **Amber Cove ~60 min**
+   (antes 35 / 40–45).
+2. Los choferes hablan **solo inglés y español** — se retira el francés como
+   idioma de conducción (la interfaz del sitio sigue siendo trilingüe EN/ES/FR).
+3. POP → Sosúa: **~9 km, 10 a 15 min** (antes 19 km / 20–30 min).
+4. Excursión **Charcos de Damajagua**: se quita el "27" del nombre y la duración
+   pasa a **~1 h 30** (antes ~45 min).
+
+**Cambios en `sosua.html`** — el dato viejo estaba repetido en 14 sitios, incluida
+la capa que leen los motores de respuesta:
+
+- `<meta name="description">` y `og:description` (19 km / 25 min → 9 km / 15 min).
+- JSON-LD `TouristDestination.description` (19 km → 9 km).
+- JSON-LD `FAQPage`: respuestas 1, 3 y 5 reescritas para que sigan coincidiendo
+  palabra por palabra con el FAQ visible — si divergen, Google descarta el bloque.
+- Hero, párrafo de respuesta rápida, ficha "Nearest airport", ficha "Nearest
+  cruise piers", ficha "Driver languages", tabla POP (km y tiempo), tarjetas de
+  Taino Bay y Amber Cove, nota de la sección comparativa y tarjeta de Charcos.
+- Dos frases derivadas que quedaban falsas con los tiempos nuevos:
+  `cruise.lead` ("within an hour" → "about an hour", porque Amber Cove ahora es
+  exactamente una hora) y `cruise.timingBody` (ida y vuelta 1 h 15 → **2 horas**;
+  con 8–9 h de escala sigue dejando seis horas o más en tierra).
+
+**Cambios en `js/i18n.js`** — 16 claves `sosua.*` × 3 idiomas (48 strings). Sin
+esto, la página se veía corregida en inglés y volvía a los datos viejos al
+cambiar a español o francés, porque `applyStaticTranslations()` reescribe todo
+`[data-i18n]` al cargar.
+
+**Verificación (estática, sin navegador):**
+- `node --check js/i18n.js` → OK.
+- Los **5 bloques JSON-LD** de `sosua.html` parsean.
+- 0 apariciones residuales de `19 km`, `25 min`, `~35 min`, `~40`, `40 to 45`,
+  `20 to 30`, `Français`, `and French`, `27 Charcos` ni `~45 min` en `sosua.html`.
+- 0 residuos equivalentes (EN/ES/FR) en las claves `sosua.*` de `i18n.js`.
+- Valores nuevos presentes en las tres tandas de idioma del diccionario.
+
+### Segunda pasada (mismo día) — alineado el resto del sitio
+
+El usuario confirmó propagar el dato a las demás páginas, porque la misma
+afirmación operativa se contradecía entre páginas:
+
+- **`cruisesFaq.a4`** (`cruises.html` visible + su `FAQPage` JSON-LD + `i18n.js`
+  ×3): "About 35 minutes from Taino Bay and 40 to 45 minutes from Amber Cove" →
+  **50 / 60 min**, igual que `sosua.html`.
+- **`cruise1.desc`** (`cruises.html` + ×3): Damajagua "around 40 minutes from
+  either pier" → **"about an hour from either pier"**. ⚠️ **Número derivado, no
+  dado por el operador:** sale de sus propios datos (Sosúa→Damajagua 1 h 30,
+  Sosúa→Puerto Plata 30 min ⇒ muelle→Damajagua ≈ 1 h). **Confirmar.** La frase
+  "sits comfortably inside a normal port call" sigue siendo cierta a 1 h por
+  trayecto dentro de una escala de 8–9 h.
+- **"27 Charcos" → "Charcos de Damajagua"** en `meta.excursions.description`
+  (×3 + las dos metas de `excursions.html`), `excursionsFaq.a5` (×3 + visible +
+  JSON-LD) y `service.charcos27` (×3). Los títulos de tarjeta (`exc2.title`,
+  `cruise1.title`) y el `ItemList` JSON-LD ya venían sin el "27".
+- **No se tocó** el `data-service-key="charcos-27"` de
+  [excursions.html:294](excursions.html#L294) — es el id interno del carrito, no
+  texto visible; renombrarlo rompería el mapeo de servicios.
+- **No se tocó** `reviews.quote4` ("27 Charcos with Sariel…") en las 3 páginas
+  que lo muestran: es la cita literal de un cliente.
+
+**Verificación de la segunda pasada (estática, sin navegador):**
+- `node --check js/i18n.js` → OK; los **22 bloques JSON-LD** del sitio parsean.
+- **Paridad de fallback estático: 1046 elementos `[data-i18n]` comparados contra
+  el diccionario `en`, 0 divergencias reales** (38 diferencias son artefacto del
+  regex en headings con `<em>` interno).
+- Diff del diccionario perfectamente simétrico: **22 claves × 3 idiomas**, 66
+  líneas fuera y 66 dentro — no se añadió ni se borró ninguna clave.
+- Sin residuos de `35 minut` / `40 to 45` / `40 à 45` / `Around 40 minutes` /
+  `27 Charcos` en ninguna página salvo `reviews.quote4` (intencional).
+- Nota preexistente, ajena a este cambio: `es` (640) y `fr` (641) tienen menos
+  claves que `en` (654) — faltan `cart.luggageCount` y el bloque `about.point*`.
+
+**Files modified:** `sosua.html`, `cruises.html`, `excursions.html`,
+`js/i18n.js`, `DOCS/PROOF_OF_WORK.md`, `DOCS/USER_MANUAL.md`.
+**Files created / deleted:** none.

@@ -348,9 +348,12 @@ behind.** Its whole value is that a search engine trusts it. Specifically:
   Google reads the invisible copy. **If you edit a question or an answer,
   edit both copies so they match word for word** — if they disagree, Google
   may ignore the block entirely.
-- **Distances and drive times are approximations** (19 km / ~25 min from
-  POP, and so on). They are labelled as approximate on the page. If you know
-  a figure is wrong, correct it — a wrong number here is worse than no page.
+- **Distances and drive times are approximations** (9 km / ~10–15 min from
+  POP, ~50 min from Taino Bay, ~60 min from Amber Cove — corrected by the
+  operator on 2026-08-13). They are labelled as approximate on the page. If
+  you know a figure is wrong, correct it — a wrong number here is worse than
+  no page. `cruises.html` (`cruisesFaq.a4`) now quotes the same 50 / 60 min,
+  so if you change one, change the other.
 - **The cruise section quotes no price on purpose**, because the cruise
   cards on `cruises.html` still have placeholder prices. Once those are
   real, a price can be added here too.
