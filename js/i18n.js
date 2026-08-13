@@ -139,7 +139,7 @@ const I18N = {
     'excursionsFaq.q4': 'What if we are more than six people?',
     'excursionsFaq.a4': 'Type your group size into the field on any tour card. If that number is priced, it shows instantly; if not, the card switches to "Ask for a Quote" and we price it for you on WhatsApp rather than guessing.',
     'excursionsFaq.q5': 'Which tour do most people book?',
-    'excursionsFaq.a5': '27 Charcos de Damajagua — twenty-seven limestone pools you climb up, then jump and slide back down. Punta Rusia and the Puerto Plata City Tour come next.',
+    'excursionsFaq.a5': '27 Charcos de Damajagua — limestone pools you climb up, then jump and slide back down. Punta Rusia and the Puerto Plata City Tour come next.',
     'excursionsFaq.q6': 'Can you pick us up from a cruise ship instead?',
     'excursionsFaq.a6': 'Yes. Pickups from Amber Cove and Taino Bay are planned around your ship\'s all-aboard time — see our cruise shore excursions page.',
 
@@ -397,7 +397,7 @@ const I18N = {
     'cruise.departsAt': 'departs',
 
     'cruise1.title': 'Charcos de Damajagua',
-    'cruise1.desc': "Twenty-seven limestone pools you climb up, then jump and slide back down. Around 40 minutes from either pier, so it sits comfortably inside a normal port call. Bring swimwear and shoes you don't mind soaking.",
+    'cruise1.desc': "Limestone pools you climb up, then jump and slide back down. Around 40 minutes from either pier, so it sits comfortably inside a normal port call. Bring swimwear and shoes you don't mind soaking.",
     'cruise1.duration': 'Half day',
     'cruise2.title': 'Puerto Plata City Tour',
     'cruise2.desc': 'The shortest run from either pier — Taino Bay is inside the city itself. Fort San Felipe, the Victorian old town, the cable car up Pico Isabel de Torres, and amber, rum and cacao tastings. The one to pick when your ship has a short call. US$65 per person, up to 6 guests.',
@@ -630,7 +630,7 @@ const I18N = {
     'sosua.spots.s5Body': 'The teleférico climbs Pico Isabel de Torres for the view over the whole bay. Add Fort San Felipe, the Amber Museum and the Victorian houses of the old centre and it is a comfortable half day.',
     'sosua.spots.s6Name': '27 Charcos de Damajagua',
     'sosua.spots.s6Meta': '~45 min',
-    'sosua.spots.s6Body': 'Twenty-seven limestone pools you climb up and then jump and slide back down. The single most requested excursion from Sosúa, and the one people talk about for years afterwards.',
+    'sosua.spots.s6Body': 'Limestone pools you climb up and then jump and slide back down. The single most requested excursion from Sosúa, and the one people talk about for years afterwards.',
     'sosua.spots.cta': 'Browse private excursions',
 
     'sosua.faq.heading': 'Sosúa questions, <em>answered</em>',
@@ -858,7 +858,7 @@ const I18N = {
     'excursionsFaq.q4': '¿Y si somos más de seis personas?',
     'excursionsFaq.a4': 'Escribe el tamaño de tu grupo en el campo de cualquier tarjeta. Si ese número tiene precio, aparece al instante; si no, la tarjeta cambia a "Pedir cotización" y te lo cotizamos por WhatsApp en vez de adivinar.',
     'excursionsFaq.q5': '¿Cuál es la excursión más reservada?',
-    'excursionsFaq.a5': 'Los 27 Charcos de Damajagua — veintisiete pozas de piedra caliza que subes para luego bajarlas saltando y deslizándote. Punta Rusia y el City Tour de Puerto Plata vienen después.',
+    'excursionsFaq.a5': 'Los 27 Charcos de Damajagua — pozas de piedra caliza que subes para luego bajarlas saltando y deslizándote. Punta Rusia y el City Tour de Puerto Plata vienen después.',
     'excursionsFaq.q6': '¿Pueden recogernos desde un crucero?',
     'excursionsFaq.a6': 'Sí. Las recogidas en Amber Cove y Taino Bay se planifican alrededor de la hora de embarque de tu barco — mira nuestra página de excursiones para cruceros.',
 
@@ -1115,7 +1115,7 @@ const I18N = {
     'cruise.departsAt': 'zarpa',
 
     'cruise1.title': 'Charcos de Damajagua',
-    'cruise1.desc': 'Veintisiete pozas de piedra caliza que subes para luego bajarlas saltando y deslizándote. A unos 40 minutos de cualquiera de los dos muelles, así que entra cómodo en una escala normal. Trae traje de baño y zapatos que no te importe mojar.',
+    'cruise1.desc': 'Pozas de piedra caliza que subes para luego bajarlas saltando y deslizándote. A unos 40 minutos de cualquiera de los dos muelles, así que entra cómodo en una escala normal. Trae traje de baño y zapatos que no te importe mojar.',
     'cruise1.duration': 'Medio día',
     'cruise2.title': 'Tour por la Ciudad de Puerto Plata',
     'cruise2.desc': 'El trayecto más corto desde cualquiera de los dos muelles — Taino Bay está dentro de la propia ciudad. Fortaleza San Felipe, casco antiguo victoriano, teleférico al Pico Isabel de Torres y degustaciones de ámbar, ron y cacao. La opción cuando tu barco hace escala corta. US$65 por persona, hasta 6 personas.',
@@ -1333,7 +1333,7 @@ const I18N = {
     'sosua.spots.s5Body': 'El teleférico sube al Pico Isabel de Torres para ver toda la bahía. Súmale la Fortaleza San Felipe, el Museo del Ámbar y las casas victorianas del casco antiguo y tienes medio día cómodo.',
     'sosua.spots.s6Name': '27 Charcos de Damajagua',
     'sosua.spots.s6Meta': '~45 min',
-    'sosua.spots.s6Body': 'Veintisiete pozas de piedra caliza que subes para luego bajarlas saltando y deslizándote. La excursión más pedida desde Sosúa, y de la que la gente sigue hablando años después.',
+    'sosua.spots.s6Body': 'Pozas de piedra caliza que subes para luego bajarlas saltando y deslizándote. La excursión más pedida desde Sosúa, y de la que la gente sigue hablando años después.',
     'sosua.spots.cta': 'Ver excursiones privadas',
 
     'sosua.faq.heading': 'Preguntas sobre Sosúa, <em>respondidas</em>',
@@ -1558,7 +1558,7 @@ const I18N = {
     'excursionsFaq.q4': 'Et si nous sommes plus de six ?',
     'excursionsFaq.a4': "Saisissez la taille de votre groupe dans le champ prévu sur n'importe quelle carte. Si ce nombre est tarifé, le prix s'affiche aussitôt ; sinon, la carte passe à « Demander un devis » et nous le chiffrons sur WhatsApp plutôt que de deviner.",
     'excursionsFaq.q5': "Quelle est l'excursion la plus réservée ?",
-    'excursionsFaq.a5': "Les 27 Charcos de Damajagua — vingt-sept vasques calcaires que l'on remonte avant de les redescendre en sautant et en glissant. Punta Rusia et le City Tour de Puerto Plata suivent.",
+    'excursionsFaq.a5': "Les 27 Charcos de Damajagua — des vasques calcaires que l'on remonte avant de les redescendre en sautant et en glissant. Punta Rusia et le City Tour de Puerto Plata suivent.",
     'excursionsFaq.q6': "Pouvez-vous venir nous chercher depuis un bateau de croisière ?",
     'excursionsFaq.a6': "Oui. Les prises en charge à Amber Cove et Taino Bay sont calées sur l'heure d'embarquement de votre navire — voyez notre page d'excursions pour croisiéristes.",
 
@@ -1816,7 +1816,7 @@ const I18N = {
     'cruise.departsAt': 'départ',
 
     'cruise1.title': 'Charcos de Damajagua',
-    'cruise1.desc': "Vingt-sept vasques calcaires que l'on remonte avant de les redescendre en sautant et en glissant. À environ 40 minutes de l'un ou l'autre quai, ce qui tient confortablement dans une escale normale. Prévoyez maillot et chaussures que vous pouvez mouiller.",
+    'cruise1.desc': "Des vasques calcaires que l'on remonte avant de les redescendre en sautant et en glissant. À environ 40 minutes de l'un ou l'autre quai, ce qui tient confortablement dans une escale normale. Prévoyez maillot et chaussures que vous pouvez mouiller.",
     'cruise1.duration': 'Demi-journée',
     'cruise2.title': 'Visite de la Ville de Puerto Plata',
     'cruise2.desc': "Le trajet le plus court depuis les deux quais — Taino Bay se trouve dans la ville même. Forteresse San Felipe, vieille ville victorienne, téléphérique du Pico Isabel de Torres, et dégustations d'ambre, de rhum et de cacao. Le choix quand votre navire fait une escale courte. 65 $US par personne, jusqu'à 6 personnes.",
@@ -2034,7 +2034,7 @@ const I18N = {
     'sosua.spots.s5Body': "Le téléphérique monte au Pico Isabel de Torres pour la vue sur toute la baie. Ajoutez la forteresse San Felipe, le musée de l'Ambre et les maisons victoriennes du vieux centre : voilà une demi-journée confortable.",
     'sosua.spots.s6Name': '27 Charcos de Damajagua',
     'sosua.spots.s6Meta': '~45 min',
-    'sosua.spots.s6Body': "Vingt-sept vasques calcaires que l'on remonte avant de les redescendre en sautant et en glissant. L'excursion la plus demandée depuis Sosúa, et celle dont on parle encore des années après.",
+    'sosua.spots.s6Body': "Des vasques calcaires que l'on remonte avant de les redescendre en sautant et en glissant. L'excursion la plus demandée depuis Sosúa, et celle dont on parle encore des années après.",
     'sosua.spots.cta': 'Voir les excursions privées',
 
     'sosua.faq.heading': 'Questions sur Sosúa, <em>répondues</em>',

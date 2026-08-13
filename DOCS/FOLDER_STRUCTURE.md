@@ -44,6 +44,13 @@ sariel taxi/
 │   ├── banner nosotros.jpeg                               nosotros.html hero banner (owner-provided, 2026-07-20)
 │   ├── favicon-32.png / favicon-180.png                   Browser tab icon + apple-touch-icon, generated from logo.jpg
 │   ├── hero-main.jpg / hero-cruises.jpg / cta-band.jpg   Shared hero + CTA backgrounds
+│   ├── sosuabeach.jpg                                     sosua.html hero — real aerial of Playa Sosúa.
+│   │                                                      1532x784, 208 KB, EXIF stripped. Top 78 px of sky
+│   │                                                      were cropped off on 2026-08-12 to remove a
+│   │                                                      "sosuabeachdr.com" watermark — provenance is
+│   │                                                      unconfirmed, so replace with an owned or licensed
+│   │                                                      photo when one is available. If you swap the file,
+│   │                                                      update width/height in sosua.html's hero <img>
 │   ├── gallery-1..8-*.jpg                                 Home masonry gallery
 │   ├── transfer-trust-airport/resort/beach.jpg            transfers.html trust strip
 │   └── exc-punta-rusia/waterfalls/whale-watching/city-tour/beach-day/atv/buggies.jpg
