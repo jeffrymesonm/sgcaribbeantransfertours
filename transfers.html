@@ -51,11 +51,20 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Structured data: Service + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <!-- Business entity, identical on every page under one stable @id so search
+       engines resolve all six pages to the same organisation. sameAs/hasMap
+       link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Service","serviceType":"Airport transfer","provider":{"@type":"TravelAgency","name":"SG Caribbean Transfers & Tours","telephone":"+1-829-627-7733","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Dominican Republic"]},"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Dominican Republic"],"url":"https://caribbeansgtransferstours.com/transfers.html","offers":{"@type":"Offer","priceCurrency":"USD","price":"23.95","description":"Puerto Plata Airport (POP) to Sosúa, private one-way transfer"}}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Service","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Dominican Republic"],"url":"https://caribbeansgtransferstours.com/transfers.html","offers":{"@type":"Offer","priceCurrency":"USD","price":"23.95","description":"Puerto Plata Airport (POP) to Sosúa, private one-way transfer"}}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Transfers","item":"https://caribbeansgtransferstours.com/transfers.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much is a transfer from Puerto Plata airport to Sosúa?","acceptedAnswer":{"@type":"Answer","text":"US$23.95 one way for 1 to 6 guests in a private vehicle, plus US$5 for each extra passenger above six. The price is fixed before you travel."}},{"@type":"Question","name":"Which airports do you cover?","acceptedAnswer":{"@type":"Answer","text":"We run fixed-price transfers from Puerto Plata (POP), Santiago (STI), Santo Domingo (SDQ), Punta Cana (PUJ) and Samaná El Catey (AZS). La Romana (LRM) and Barahona (BRX) are quoted on request."}},{"@type":"Question","name":"Do I have to pay in advance?","acceptedAnswer":{"@type":"Answer","text":"No. Your reservation is confirmed on WhatsApp with nothing charged up front — you settle with the driver in cash, US dollars or Dominican pesos, at the end of the ride. Ask us if you would rather pay by card."}},{"@type":"Question","name":"What happens if my flight is delayed?","acceptedAnswer":{"@type":"Answer","text":"You do not need to tell us. The flight number you send when booking is tracked in real time, and the pickup slides with it — two hours late means your driver shows up two hours later, and the price does not move."}},{"@type":"Question","name":"How many passengers fit in the vehicle?","acceptedAnswer":{"@type":"Answer","text":"Four vehicle sizes, picked from your group: 3 guests in a car, 6 in a minivan, 10 in a van, 15 in a minibus. The calculator on this page upgrades you automatically once your passenger count outgrows the smaller option."}},{"@type":"Question","name":"Is there an extra charge for luggage?","acceptedAnswer":{"@type":"Answer","text":"Up to 10 suitcases travel free. Above that a flat US$15 is added to that vehicle, because a trailer is needed. Surfboards or oversized bags — tell us and we plan for it."}}]}
   </script>
 </head>
 <body data-page="transfers">
@@ -74,7 +83,7 @@
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
         <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
-        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
       </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
@@ -97,7 +106,7 @@
       <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
       <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
       <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
-      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
     </nav>
   </header>
@@ -153,11 +162,11 @@
     <div class="hero-scrim" aria-hidden="true"></div>
 
     <div class="hero-content">
-      <p class="hero-eyebrow reveal-line"><span data-i18n="transfersHero.eyebrow">Airport transfers in Puerto Plata &amp; Sosúa</span></p>
+      <p class="hero-eyebrow reveal-line"><span data-i18n="transfersHero.eyebrow">Your ride is already waiting</span></p>
       <h1 class="hero-title">
-        <span class="reveal-line"><span data-i18n="transfersHero.title">Your ride is <em>already waiting</em></span></span>
+        <span class="reveal-line"><span data-i18n="transfersHero.title">Airport transfers in <em>Puerto Plata &amp; Sosúa</em></span></span>
       </h1>
-      <p class="hero-sub reveal-line"><span data-i18n="transfersHero.lead">Private, door-to-door transfers anywhere in the Dominican Republic. Fixed price, no surprises. Calculate your fare below.</span></p>
+      <p class="hero-sub reveal-line"><span data-i18n="transfersHero.lead">Private, door-to-door transfers — your private taxi — anywhere in the Dominican Republic. Fixed price, no surprises. Calculate your fare below.</span></p>
       <div class="hero-cta reveal-line">
         <span>
           <a class="btn btn-primary btn-lg" href="#calculator" data-i18n="transfersHero.cta">Calculate my fare</a>
@@ -168,6 +177,45 @@
     <a class="hero-scroll" href="#transfers" aria-label="Scroll to services" data-i18n-attr="aria-label:hero.scrollAria">
       <span class="hero-scroll-dot" aria-hidden="true"></span>
     </a>
+  </section>
+
+  <!-- ============ QUICK ANSWER (AEO) ============
+       Factual summary placed directly after the hero: one plain paragraph plus
+       a definition list of hard facts. This is what answer engines quote, so it
+       must stay factual — never let it drift into marketing prose. Every figure
+       here is also stated elsewhere on the site (js/config.js, the home FAQ). -->
+  <section class="section dest-answer" id="quick-answer">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="transfersAeo.eyebrow">The short version</p>
+        <h2 data-i18n="transfersAeo.heading">Airport transfers to Sosúa and Puerto Plata, <em>at a glance</em></h2>
+      </header>
+
+      <p class="dest-answer-lead reveal" data-i18n="transfersAeo.lead">Private door-to-door transfers from every international airport in the Dominican Republic to Sosúa, Cabarete, Puerto Plata and Playa Dorada. Prices are fixed before you fly and paid in cash on arrival — Puerto Plata airport (POP) to Sosúa is US$23.95 for 1 to 6 guests.</p>
+
+      <dl class="dest-facts reveal">
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f1Label">Most booked route</dt>
+          <dd data-i18n="transfersAeo.f1Value">POP → Sosúa · US$23.95 (1–6 guests)</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f2Label">Airports with fixed prices</dt>
+          <dd data-i18n="transfersAeo.f2Value">POP · STI · SDQ · PUJ · AZS</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f3Label">Always included</dt>
+          <dd data-i18n="transfersAeo.f3Value">Meet &amp; greet, flight tracking, child seats</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f4Label">Payment</dt>
+          <dd data-i18n="transfersAeo.f4Value">Cash on arrival, USD or DOP — no prepayment</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f5Label">Vehicles</dt>
+          <dd data-i18n="transfersAeo.f5Value">Car (3) · Minivan (6) · Van (10) · Minibus (15)</dd>
+        </div>
+      </dl>
+    </div>
   </section>
 
   <!-- ============ 2. SERVICES / FLOTA ============ -->
@@ -185,7 +233,7 @@
           <div class="service-body">
             <h3 data-i18n="services.transferTitle">Airport Transfers</h3>
             <p data-i18n="services.transferDesc">Your driver waits at arrivals with your name — flight tracked, cold water ready, no lines and no haggling.</p>
-            <p class="service-meta"><span class="mono">POP · STI</span> <span data-i18n="services.transferMeta">From <strong>US$25</strong> · Up to 15 guests</span></p>
+            <p class="service-meta"><span class="mono">POP · STI</span> <span data-i18n="services.transferMeta">From <strong>US$23.95</strong> · Up to 15 guests</span></p>
             <a class="text-link" href="#calculator" data-i18n="services.transferLink">Calculate your price</a>
           </div>
         </article>
@@ -209,7 +257,7 @@
           <div class="service-body">
             <h3 data-i18n="services.excursionsTitle">Excursions</h3>
             <p data-i18n="services.excursionsDesc">Private tours to waterfalls, hidden beaches and whale sanctuaries — guided by locals who grew up here.</p>
-            <p class="service-meta" data-i18n="services.excursionsMeta">5 signature experiences · 100% private</p>
+            <p class="service-meta" data-i18n="services.excursionsMeta">6 signature experiences · 100% private</p>
             <a class="text-link" href="excursions.html" data-i18n="services.excursionsLink">See all excursions</a>
           </div>
         </article>
@@ -560,6 +608,51 @@
           <footer><strong>Miriam G.</strong><span>New Jersey, USA 🇺🇸</span></footer>
         </blockquote>
       </div>
+      <!-- Google Business Profile CTA: populated and revealed by js/shell.js
+           once CONFIG.googleReviewsUrl is set. Real social proof, one click
+           away from the placeholder quotes above. -->
+      <div class="reviews-cta reveal">
+        <a class="btn btn-outline" id="googleReviewsLink" href="#" target="_blank" rel="noopener" hidden></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ (AEO) ============
+       Every question here is mirrored, word for word, in this page's FAQPage
+       JSON-LD in <head>. Edit one, edit the other — if they disagree, Google
+       may ignore the block entirely. -->
+  <section class="section faq" id="faq">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <h2 data-i18n="transfersFaq.heading">Transfer questions, <em>answered</em></h2>
+      </header>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="trfQ1" aria-expanded="false" aria-controls="trfA1"><span data-i18n="transfersFaq.q1">How much is a transfer from Puerto Plata airport to Sosúa?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="trfA1" role="region" aria-labelledby="trfQ1"><div class="faq-panel-inner"><p data-i18n="transfersFaq.a1">US$23.95 one way for 1 to 6 guests in a private vehicle, plus US$5 for each extra passenger above six. The price is fixed before you travel.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="trfQ2" aria-expanded="false" aria-controls="trfA2"><span data-i18n="transfersFaq.q2">Which airports do you cover?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="trfA2" role="region" aria-labelledby="trfQ2"><div class="faq-panel-inner"><p data-i18n="transfersFaq.a2">We run fixed-price transfers from Puerto Plata (POP), Santiago (STI), Santo Domingo (SDQ), Punta Cana (PUJ) and Samaná El Catey (AZS). La Romana (LRM) and Barahona (BRX) are quoted on request.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="trfQ3" aria-expanded="false" aria-controls="trfA3"><span data-i18n="transfersFaq.q3">Do I have to pay in advance?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="trfA3" role="region" aria-labelledby="trfQ3"><div class="faq-panel-inner"><p data-i18n="transfersFaq.a3">No. Your reservation is confirmed on WhatsApp with nothing charged up front — you settle with the driver in cash, US dollars or Dominican pesos, at the end of the ride. Ask us if you would rather pay by card.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="trfQ4" aria-expanded="false" aria-controls="trfA4"><span data-i18n="transfersFaq.q4">What happens if my flight is delayed?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="trfA4" role="region" aria-labelledby="trfQ4"><div class="faq-panel-inner"><p data-i18n="transfersFaq.a4">You do not need to tell us. The flight number you send when booking is tracked in real time, and the pickup slides with it — two hours late means your driver shows up two hours later, and the price does not move.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="trfQ5" aria-expanded="false" aria-controls="trfA5"><span data-i18n="transfersFaq.q5">How many passengers fit in the vehicle?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="trfA5" role="region" aria-labelledby="trfQ5"><div class="faq-panel-inner"><p data-i18n="transfersFaq.a5">Four vehicle sizes, picked from your group: 3 guests in a car, 6 in a minivan, 10 in a van, 15 in a minibus. The calculator on this page upgrades you automatically once your passenger count outgrows the smaller option.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="trfQ6" aria-expanded="false" aria-controls="trfA6"><span data-i18n="transfersFaq.q6">Is there an extra charge for luggage?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="trfA6" role="region" aria-labelledby="trfQ6"><div class="faq-panel-inner"><p data-i18n="transfersFaq.a6">Up to 10 suitcases travel free. Above that a flat US$15 is added to that vehicle, because a trailer is needed. Surfboards or oversized bags — tell us and we plan for it.</p></div></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -603,6 +696,7 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
@@ -610,7 +704,7 @@
         <a href="#why" data-i18n="why.eyebrow">Why choose us?</a>
         <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
         <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
-        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a href="index.html#gallery" data-i18n="footer.companyGallery">Gallery</a>
       </nav>
       <div class="footer-col">
@@ -689,7 +783,7 @@
           <button type="button" class="contact-choice-option" id="contactChoiceEmail">
             <span class="contact-choice-icon" aria-hidden="true">✉️</span>
             <span class="contact-choice-name" data-i18n="choice.email">Email</span>
-            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we&#39;ll reply</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we'll reply</span>
           </button>
         </div>
       </div>

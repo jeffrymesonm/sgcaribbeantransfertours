@@ -2427,3 +2427,267 @@ section { scroll-margin-top: var(--header-h); }
 }
 @media (max-width: 720px) { .picker-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .picker-card { transition: none; } }
+
+/* ---------- Destination pages (sosua.html) ----------
+   Self-contained block: every selector is prefixed .dest- and used only by
+   the destination hub page, so nothing here can regress the five original
+   pages. Reuses the existing tokens, .section/.container wrappers and
+   .reveal animations rather than introducing a parallel design language. */
+
+/* Quick-answer block — the AEO payload. Deliberately plain and readable:
+   its job is to be quoted, not to look clever. */
+.dest-answer-lead {
+  margin: 0 0 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  font-weight: 340;
+  line-height: 1.6;
+  color: var(--abyss);
+}
+
+.dest-facts {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  background: rgba(11, 93, 107, 0.16);
+  border: 1px solid rgba(11, 93, 107, 0.16);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+@media (min-width: 700px) { .dest-facts { grid-template-columns: 1fr 1fr; } }
+
+.dest-fact { padding: 1.1rem 1.35rem; background: #fff; }
+.dest-fact dt {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.dest-fact dd {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--abyss);
+}
+
+/* Data tables (fares + comparison). Both scroll inside their own wrapper so
+   a narrow phone never makes the page itself scroll sideways. */
+.dest-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+  border: 1px solid rgba(11, 93, 107, 0.16);
+  background: #fff;
+}
+.dest-table-wrap-dark {
+  border-color: rgba(252, 250, 245, 0.18);
+  background: rgba(252, 250, 245, 0.04);
+}
+
+.dest-table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+  text-align: left;
+}
+.dest-table-caption {
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink-soft);
+  border-bottom: 1px solid rgba(11, 93, 107, 0.12);
+}
+.dest-table th,
+.dest-table td {
+  padding: 0.85rem 1.1rem;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(11, 93, 107, 0.1);
+}
+.dest-table thead th {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ocean);
+  white-space: nowrap;
+}
+.dest-table tbody th {
+  font-weight: 600;
+  color: var(--abyss);
+}
+.dest-table tbody tr:last-child th,
+.dest-table tbody tr:last-child td { border-bottom: 0; }
+.dest-table-price {
+  font-weight: 600;
+  color: var(--ocean);
+  white-space: nowrap;
+}
+/* Our own column, highlighted so the comparison reads at a glance. */
+.dest-table-us { background: rgba(23, 163, 152, 0.07); }
+.dest-table thead .dest-table-us { color: var(--lagoon); }
+/* Visually hidden header for the comparison table's row-label column, kept
+   in the DOM so screen readers and parsers still get a labelled column. */
+.dest-th-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.dest-table-dark { color: rgba(252, 250, 245, 0.82); }
+.dest-table-dark .dest-table-caption {
+  color: rgba(252, 250, 245, 0.55);
+  border-bottom-color: rgba(252, 250, 245, 0.14);
+}
+.dest-table-dark th,
+.dest-table-dark td { border-bottom-color: rgba(252, 250, 245, 0.12); }
+.dest-table-dark thead th { color: var(--gold); }
+.dest-table-dark tbody th { color: var(--shell); }
+.dest-table-dark .dest-table-us { background: rgba(23, 163, 152, 0.14); }
+.dest-table-dark thead .dest-table-us { color: var(--lagoon); }
+
+.dest-note {
+  max-width: 46rem;
+  margin: 1.1rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.dest-note-light { color: rgba(252, 250, 245, 0.72); }
+
+/* Numbered "what happens on the day" steps. */
+.dest-subhead {
+  margin: 3rem 0 1.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 420;
+  color: var(--abyss);
+}
+.dest-steps {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: dest-step;
+}
+@media (min-width: 860px) { .dest-steps { grid-template-columns: repeat(3, 1fr); } }
+
+.dest-step {
+  position: relative;
+  padding: 1.5rem 1.4rem 1.4rem;
+  background: #fff;
+  border: 1px solid rgba(11, 93, 107, 0.14);
+  border-radius: var(--radius);
+  counter-increment: dest-step;
+}
+.dest-step::before {
+  content: counter(dest-step);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.9rem;
+  border-radius: 50%;
+  background: var(--ocean);
+  color: var(--shell);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.dest-step h4 {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 560;
+  color: var(--abyss);
+}
+.dest-step p { margin: 0; font-size: 0.94rem; line-height: 1.6; color: var(--ink); }
+
+/* Cruise ports + the all-aboard callout. */
+.dest-ports { display: grid; gap: 1.1rem; }
+@media (min-width: 760px) { .dest-ports { grid-template-columns: 1fr 1fr; } }
+
+.dest-port {
+  padding: 1.6rem 1.5rem;
+  background: var(--sand);
+  border-radius: var(--radius);
+}
+.dest-port h3 {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 560;
+  color: var(--abyss);
+}
+.dest-port-meta {
+  margin: 0 0 0.7rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ocean);
+}
+.dest-port p:last-child { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
+
+.dest-callout {
+  margin-top: 1.6rem;
+  padding: 1.7rem 1.6rem;
+  background: var(--abyss);
+  border-radius: var(--radius);
+  color: rgba(252, 250, 245, 0.85);
+}
+.dest-callout h3 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 560;
+  color: var(--shell);
+}
+.dest-callout p { margin: 0; font-size: 0.98rem; line-height: 1.65; }
+
+/* "What's around Sosúa" cards. */
+.dest-spot-grid { display: grid; gap: 1.1rem; }
+@media (min-width: 680px) { .dest-spot-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .dest-spot-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.dest-spot {
+  padding: 1.6rem 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(11, 93, 107, 0.14);
+  border-radius: var(--radius);
+}
+.dest-spot h3 {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 560;
+  color: var(--abyss);
+}
+.dest-spot-meta {
+  margin: 0 0 0.75rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.dest-spot p:last-child { margin: 0; font-size: 0.94rem; line-height: 1.6; color: var(--ink); }
+
+/* Shared CTA row: primary button plus an optional secondary text link. */
+.dest-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.6rem;
+  margin-top: 2.2rem;
+}

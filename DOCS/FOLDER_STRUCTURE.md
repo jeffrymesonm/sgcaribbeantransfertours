@@ -1,6 +1,6 @@
 # FOLDER_STRUCTURE
 
-> Last updated: 2026-07-20 UTC ("Meet the team" split into nosotros.html, full destination price list, luggage fee)
+> Last updated: 2026-08-12 UTC (sosua.html destination hub added — SEO/AEO/GEO page)
 
 ```
 sariel taxi/
@@ -16,12 +16,21 @@ sariel taxi/
 ├── cruises.html          Hero + guaranteed-return band + 3 template cruise cards + trust strip
 ├── nosotros.html         "Meet the team" page (2026-07-20): hero banner + company
 │                         intro (logo + story) + team grid + fleet grid + book CTA
-├── sitemap.xml           5 URLs (home + 4 service/company pages)
+├── sosua.html            Sosúa destination hub (2026-08-12) — the SEO/AEO/GEO
+│                         page: hero + quick-answer fact block + airport fare
+│                         table + arrival steps + cruise-port section + honest
+│                         4-way comparison table + "what's around Sosúa" + 10-item
+│                         FAQ + book CTA. 4 JSON-LD blocks (TouristDestination,
+│                         Service/OfferCatalog, FAQPage, BreadcrumbList).
+│                         Reached from every page's footer Services column.
+├── sitemap.xml           6 URLs (home + 4 service/company pages + sosua.html)
 ├── robots.txt            Allow-all crawlers + sitemap pointer
 ├── PROJECT_INFO.md       Stack, config, how to run/deploy (static fields)
 ├── skills-lock.json      Lockfile from `npx skills add emilkowalski/skill`
 ├── css/
-│   └── styles.css        Full stylesheet: tokens, sections, animations (shared by all 4 pages)
+│   └── styles.css        Full stylesheet: tokens, sections, animations (shared by all 6 pages).
+│                         Last block, "Destination pages (sosua.html)", is fully
+│                         self-contained: every selector is prefixed .dest-
 ├── img/                  ALL site photos, local (no more Unsplash hotlinks). Real
 │   │                     team/fleet/logo photos from the owner + stock placeholders
 │   │                     for the rest (descriptive filenames — drop a same-named

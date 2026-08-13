@@ -1641,3 +1641,228 @@ balanceadas (577/577).
 
 **Files modified:** `index.html`, `transfers.html`, `excursions.html`,
 `cruises.html`, `nosotros.html`, `css/styles.css`.
+
+---
+
+## 2026-08-12 UTC — Página de destino Sosúa (SEO / AEO / GEO)
+
+**Requested:** una página de Sosúa optimizada para SEO, AEO y GEO que explique
+por qué quien piensa venir a Sosúa —en avión o en crucero— debe elegirnos, con
+libertad para crear páginas adicionales si ayudaban.
+
+**Decisión de alcance (confirmada con el usuario antes de implementar):** una
+sola página, `sosua.html`, hecha a fondo, en vez de tres o cuatro páginas de
+destino más finas. Los motores generativos citan páginas densas, no muchas
+páginas superficiales, y tres páginas de destino gemelas sin diferenciación
+real se canibalizan entre sí. Enlace de navegación **solo en el footer** (no en
+el header): el nav de escritorio ya lleva 5 ítems y un sexto lo aprieta en
+anchos de tablet.
+
+**Delivered:**
+- **`sosua.html` (nueva, 6.ª página)** — shell idéntico al de las otras cinco
+  (header, cart drawer, footer, FAB, ambos `<dialog>`), `data-page="sosua"`,
+  mismos 6 scripts que `nosotros.html`. `<main>` en 8 secciones, cada una con
+  una función concreta:
+  1. Hero propio (`img/gallery-4-aerial-coast.jpg`).
+  2. **Bloque de respuesta rápida** (`#quick-answer`) — un párrafo factual de
+     ~70 palabras más un `<dl>` de 6 datos duros, justo debajo del hero. Es el
+     bloque que los motores de respuesta levantan literal, así que se mantiene
+     factual a propósito y no debe convertirse en copy de marketing.
+  3. **Llegada en avión** (`#by-air`) — `<table>` con los 5 aeropuertos hacia
+     Sosúa: distancia, duración y **el precio fijo real** (POP $23.95, STI
+     $98.50, AZS $148.50, SDQ $219, PUJ $425), más 3 pasos de "qué pasa el día
+     que aterrizas".
+  4. **Llegada en crucero** (`#by-cruise`) — Taino Bay (~35 min) y Amber Cove
+     (~40–45 min) más la cuenta del all-aboard. **Sin precio, a propósito**:
+     las tarjetas de `cruises.html` siguen con `data-prices="0"` placeholder,
+     así que citar una cifra sería inventarla.
+  5. **Comparativa** (`#why-us`) — `<table>` de 6 filas × 4 columnas contra
+     taxi de aeropuerto, shuttle compartido y carro de alquiler. Redactada de
+     forma neutral y matizada ("normalmente", "rara vez"): una tabla injusta es
+     deshonesta y además el visitante la desmiente al llegar.
+  6. **Qué hay alrededor** (`#around`) — 6 tarjetas con distancias reales, una
+     de ellas el Museo Judío y el asentamiento de refugiados de 1940, dato
+     distintivo que ninguna página competidora repite.
+  7. **FAQ** de 10 preguntas, reutilizando el acordeón existente
+     (`.faq-item` → `initFaq` en `js/shell.js`, ya genérico — sin tocar JS).
+  8. CTA de reserva con copy propio (`sosua.book.*`).
+- **4 bloques JSON-LD**: `TouristDestination` (resuelve Sosúa como entidad, con
+  `geo` e `includesAttraction`), `Service` + `hasOfferCatalog` con las 5 tarifas
+  como `Offer`, `FAQPage` con las 10 preguntas y `BreadcrumbList`.
+- **`js/i18n.js`** — **151 claves `sosua.*` nuevas en cada uno de `en`, `es` y
+  `fr`** (453 en total), más `meta.sosua.title`/`.description` y
+  `footer.serviceSosua` en los tres idiomas.
+- **`css/styles.css`** — bloque nuevo "Destination pages (sosua.html)" al final
+  del archivo. **Todos los selectores llevan prefijo `.dest-`**, así que la
+  página nueva no puede provocar regresiones en las otras cinco. Nada de lo ya
+  existente se modificó.
+- **Las 5 páginas anteriores** — una sola línea añadida a la columna Services
+  del footer (`sosua.html` / `footer.serviceSosua`), entre "Cruises" y "Request
+  booking". Sin tocar el header nav ni el grid del footer (añadir una 5.ª
+  columna habría roto el layout entre 760 y 1039 px, donde la columna Contact
+  ya va justa con el email largo).
+- **`sitemap.xml`** — 6.ª URL, `priority` 0.9, `lastmod` 2026-08-12.
+
+**Verificación (estática, sin navegador):**
+- `node --check js/i18n.js` — sintaxis válida.
+- Paridad de claves: las 151 `sosua.*` existen en `en`, `es` y `fr`; 0 claves
+  sobrantes. (Quedan 13–14 huecos **preexistentes** ajenos a este cambio:
+  `about.point1..6Title/Desc`, `about.pointsHeading` en es/fr y
+  `cart.luggageCount` en es — caen a inglés por el fallback de `t()`.)
+- Las 218 claves `data-i18n` / `data-i18n-attr` de `sosua.html` resuelven, y
+  también las de las otras 5 páginas (0 claves rotas en todo el sitio).
+- Los 151 elementos `sosua.*` tienen un fallback estático **idéntico** al valor
+  del diccionario inglés, así que el HTML servido al crawler coincide con el
+  render post-JS.
+- Los 4 bloques JSON-LD parsean con `JSON.parse`, y las 10 preguntas/respuestas
+  del `FAQPage` coinciden **palabra por palabra** con `sosua.faq.q1..q10` /
+  `a1..a10` del diccionario.
+- Enlaces internos: 0 rotos en las 6 páginas (archivo + ancla verificados). Dos
+  se corrigieron durante la implementación: `transfers.html#routes` no existe
+  (→ `#transfers`) e `index.html#about` ya no existe (→ `#why-us`, ancla local,
+  como hacen transfers/excursions/cruises).
+- Balance de etiquetas HTML: las 6 páginas cierran correctamente.
+- `css/styles.css`: llaves balanceadas (633/633).
+
+**Pendiente de confirmar por el dueño antes de publicar:** las distancias y
+duraciones (POP ~19 km/~25 min, STI ~85 km/~1 h 30, AZS ~155 km/~2 h 30, SDQ
+~245 km/~4 h, PUJ ~300 km/~4 h 45, Amber Cove ~32 km, Taino Bay ~27 km) son
+cifras aproximadas de carretera, etiquetadas como tales en la página. Los
+precios sí salen de `js/config.js` / `transfers.html`.
+
+**Files created:** `sosua.html`.
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`, `js/i18n.js`, `css/styles.css`, `sitemap.xml`,
+`PROJECT_INFO.md`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/FOLDER_STRUCTURE.md`,
+`DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`.
+**Files deleted:** none.
+
+---
+
+## 2026-08-12 UTC — Diagnóstico de indexación + optimización SEO/AEO/GEO del sitio
+
+**Requested:** optimizar todo el sitio para SEO, AEO y GEO, y averiguar por qué
+`transfers.html`, `excursions.html` y `cruises.html` aparecen en Search Console
+como **"Descubierta: actualmente sin indexar"** con **Último rastreo: N/D**.
+
+### Diagnóstico (evidencia, no suposiciones)
+
+**No existe ningún bloqueo técnico.** Comprobado contra el sitio en vivo:
+
+| Comprobación | Resultado |
+|---|---|
+| HTTP de las 3 páginas | `200`, 0.18–0.30 s |
+| Googlebot (User-Agent real) | `200`, 50 KB completos, 0.18 s |
+| `noindex` / `nofollow` | ninguno en todo el repo |
+| Canonicals | correctos, auto-referenciados |
+| `robots.txt` | allow-all + puntero al sitemap |
+| `www` → apex / `http` → `https` | `301` correctos |
+| Dominio viejo mal escrito `caribbeansgtransfertours.com` (commit `d146f7d`) | no resuelve — sin contenido duplicado |
+
+**"Último rastreo: N/D" significa que Google nunca descargó esas URLs**, así que
+ningún factor on-page pudo causarlo — Google no las ha visto. La causa es la
+edad del dominio: el `CNAME` se creó el **2026-07-23** (commit `51ab3e7`, con el
+dominio mal escrito; corregido el mismo día en `ee4ba47`), y la gráfica de GSC
+muestra las 3 páginas apareciendo entre el 19 y el 30 de julio. Un dominio de
+días sin backlinks consigue que se rastree la home y se **encolen** las
+subpáginas. Es el comportamiento esperado, no una avería. Se corrige con tiempo,
+señales de autoridad y solicitud manual de indexación (acción del dueño en GSC).
+
+**Lo que sí era un problema real, medido:** solapamiento de 5-gramas del `<main>`
+entre páginas. `cruises.html` era prácticamente un duplicado de
+`excursions.html` — sus 4 tarjetas eran copia **palabra por palabra** de
+`exc2`/`exc4`/`exc6`/`exc7`. Cuando Google por fin rastreara, era candidata
+directa a caer como duplicada.
+
+| Par | Antes | Después |
+|---|---|---|
+| excursions ↔ cruises | **73%** | **24%** |
+| transfers ↔ cruises | 40% | 16% |
+| index ↔ transfers | 22% | 23% |
+
+Segundo hallazgo: los H1 de esas 3 páginas no contenían ninguna palabra clave
+(*"Your ride is already waiting"*, *"Days you'll never forget"*, *"Off the ship,
+into paradise"*), mientras la palabra clave estaba desperdiciada en el eyebrow.
+
+### Delivered
+
+- **Google Business Profile conectado** (`js/config.js`). El enlace que aportó el
+  dueño (`g.page/r/CTyfgd3ZE2wPEBM/review`) es el de **escribir** reseña: rebota
+  a un login de Google, así que es incorrecto para un CTA de "leer reseñas". Se
+  guarda como `googleWriteReviewUrl` y el CTA usa la ficha real. Resueltos por
+  redirección: **Place ID `ChIJV_SML-x-iykRPJ-B3dkTbA8`**, CID `1111285034498760508`.
+  `search.google.com/local/reviews?placeid=…` **da 404** — no usar.
+  `googleReviewCount` se deja vacío a propósito: nadie ha verificado el número real.
+- **H1 con palabra clave** en las 3 páginas, sin perder la voz de marca: el
+  eyebrow y el H1 **intercambian contenido**. Cero copy nuevo, cero cambio de
+  maquetación, y el H1 pasa a decir "Airport transfers in Puerto Plata & Sosúa" /
+  "Private day tours from Sosúa & Puerto Plata" / "Amber Cove & Taino Bay shore
+  excursions".
+- **`cruises.html` de-duplicada**: las 4 descripciones reescritas desde el punto
+  de vista del crucerista (distancia desde cada muelle, cómo encaja en la escala,
+  planificación hacia atrás desde el all-aboard) en los 3 idiomas.
+- **Bloques AEO en las 3 páginas**: bloque de respuesta rápida (párrafo factual +
+  `<dl>` de 5 datos duros) justo tras el hero, y **FAQ propia de 6 preguntas** con
+  su `FAQPage` JSON-LD. **El JSON-LD se genera desde el diccionario**, así que la
+  copia invisible que lee Google no puede desincronizarse de la visible.
+  Reutiliza los componentes `.dest-*` de `sosua.html` y `.faq-*` — **sin CSS nuevo**.
+  Contenido de `<main>`: transfers 647→987 palabras, excursions 724→1014,
+  cruises 483→857.
+- **Entidad de negocio unificada**: antes el negocio se describía de 3 formas
+  distintas y `excursions.html`/`cruises.html` no lo declaraban. Ahora las 6
+  páginas llevan el mismo bloque `TravelAgency` bajo un `@id` estable
+  (`…/#organization`), con `geo` (coords de `PROVINCES['puerto-plata']`),
+  `hasMap`, `email`, `currenciesAccepted`, `paymentAccepted` y el perfil de
+  Google en `sameAs`; `provider`/`about` ahora referencian ese `@id`.
+  **No se declaran horarios**: no están indicados en ninguna parte del sitio e
+  inventarlos sería adivinar.
+- **Rese\u00f1as distintas por p\u00e1gina** (antes las mismas 2 citas en 3 p\u00e1ginas):
+  transfers `[1,3]`, excursions `[2,4]`, cruises `[4,1]`. **No se inventó ningún
+  testimonio** — solo se redistribuyeron los 4 existentes. Añadido el CTA de
+  reseñas de Google bajo la sección de reseñas de las 3 páginas.
+- **Claims obsoletos corregidos** en los 3 idiomas: `services.transferMeta` decía
+  "From US$25" cuando la tarifa real más barata es **US$23.95** (POP→Sosúa en
+  `js/config.js`), y `services.excursionsMeta` decía "5 signature experiences"
+  cuando hay **6**. Un precio que contradice el ticket rail es exactamente lo que
+  un motor de respuesta le devolvería al visitante.
+- **Fallback estático sincronizado con el diccionario en las 6 páginas.**
+  `applyStaticTranslations()` reescribe el `innerHTML` de todo `[data-i18n]` al
+  cargar, así que el visitante siempre ve el diccionario; el texto literal del
+  HTML es lo que indexa un crawler sin JS. Había **4 divergencias reales
+  preexistentes** — `transfersHero.lead`, `exc4.desc` (¡diferencia de precio!),
+  `about.introHeading`, `about.introBody` — donde Google indexaba texto que
+  ningún humano llegaba a ver. Los 1046 elementos `[data-i18n]` del sitio
+  coinciden ahora exactamente con el diccionario.
+- **Enlace de FAQ del nav** repuntado al `#faq` local en las páginas que ahora
+  tienen uno propio (transfers, excursions, cruises, sosua), igual que `#reviews`.
+- **`sitemap.xml`**: `lastmod` 2026-08-12 en las 6 URLs.
+- **`js/i18n.js`**: 78 claves nuevas × 3 idiomas (234 strings).
+
+**Verificación (estática, sin navegador):** `node --check` en `i18n.js` y
+`config.js`; paridad de las 78 claves nuevas en `en`/`es`/`fr`; las 1046 claves
+`data-i18n` del sitio resuelven; **fallback estático == diccionario en los 1046
+elementos**; los 22 bloques JSON-LD parsean; los 3 `FAQPage` coinciden palabra
+por palabra con el diccionario; 0 enlaces internos rotos; etiquetas balanceadas
+en las 6 páginas; 1 solo `<h1>` por página.
+
+### Pendiente — acciones que no puedo hacer yo
+
+1. **Desplegar** (nada de esto está en producción todavía) y **reenviar el
+   sitemap** en Search Console.
+2. **Solicitar indexación** a mano para las 3 URLs (Inspección de URLs →
+   Solicitar indexación). Es lo único que salta la cola de rastreo.
+3. **Testimonios reales.** Los 4 actuales siguen siendo placeholders
+   (`DOCS/DEPLOYMENT.md` línea 49 sin marcar) y ahora están en un sitio indexado.
+   Con la ficha de Google ya conectada, sustituirlos por reseñas reales es la
+   mejora de credibilidad más barata que queda. **No se ha añadido `Review` ni
+   `aggregateRating` a JSON-LD** — marcar reseñas inventadas es spam de datos
+   estructurados y expone a una acción manual.
+4. **Verificar `googleReviewCount`** en la ficha y rellenarlo en `js/config.js`.
+5. **Confirmar tiempos/distancias** de las tarjetas de crucero (hedgeados como
+   aproximados, mismo criterio que `sosua.html`).
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`, `sosua.html`, `js/i18n.js`, `js/config.js`,
+`sitemap.xml`, `DOCS/PROOF_OF_WORK.md`, `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/USER_MANUAL.md`, `DOCS/DEPLOYMENT.md`.
+**Files created / deleted:** none.

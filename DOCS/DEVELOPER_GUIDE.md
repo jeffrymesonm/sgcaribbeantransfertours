@@ -1,9 +1,49 @@
 # DEVELOPER_GUIDE — SG Caribbean Transfers & Tours site
 
-> Last updated: 2026-07-19 UTC (manual/custom group size + quote-request fallback on excursion cards)
+> Last updated: 2026-08-12 UTC (sosua.html destination hub + site-wide SEO/AEO pass)
+
+## SEO / AEO invariants — read before editing content
+Four rules the whole site now depends on. Breaking any of them silently
+degrades indexing; none of them is enforced by a build step, because there
+isn't one.
+
+1. **The static HTML must equal the dictionary.** `applyStaticTranslations()`
+   overwrites `innerHTML` for every `[data-i18n]` on load, so a visitor always
+   sees `js/i18n.js`. The literal text left in the markup is what a non-JS
+   crawler indexes. When they disagree, Google indexes copy no human ever
+   sees — this was real on four keys before 2026-08-12. **Change a string in
+   `js/i18n.js` and change the fallback in the HTML to match.**
+2. **FAQ answers exist twice.** The visible accordion (`js/i18n.js`) and the
+   `FAQPage` JSON-LD in that page's `<head>`. They must match **word for
+   word**; if they disagree Google may discard the block. Pages with a FAQ:
+   `index`, `transfers`, `excursions`, `cruises`, `sosua`.
+3. **One business entity.** Every page carries the same `TravelAgency` block
+   under `@id` = `https://caribbeansgtransferstours.com/#organization`.
+   `provider` / `about` elsewhere reference that `@id` rather than restating
+   the business. Edit the entity on all six pages together, or search engines
+   stop resolving them to one organisation.
+4. **Prices are duplicated as literal text.** `js/config.js` is the source of
+   truth, but the same numbers appear in `transfers.html`'s ticket rail, in
+   `sosua.html`'s fare table, in `services.transferMeta`, and inside JSON-LD
+   `Offer`s. Grep the old number across `*.html` and `js/i18n.js` when a fare
+   changes.
+
+**Never add `Review` or `aggregateRating` JSON-LD while the testimonials in
+`js/i18n.js` are placeholders** (`DOCS/DEPLOYMENT.md` go-live checklist).
+Marking up invented reviews is structured-data spam and risks a manual action.
+
+### Page-level content duplication
+`cruises.html` reuses the `.exc` card markup from `excursions.html`, which
+makes it easy to also reuse the *copy* — that happened, and drove a 73%
+5-gram overlap between the two `<main>`s until 2026-08-12. Cruise cards now
+describe the same activity **from the pier** (distance from Amber Cove /
+Taino Bay, how it fits a port call). Keep it that way; measure with a 5-gram
+overlap check if you add cards. Anything above ~50% is near-duplicate.
+Each service page also shows a **different pair** of testimonials for the
+same reason.
 
 ## Architecture
-Static **five-page** site, no dependencies, no build step. Every page shares
+Static **six-page** site, no dependencies, no build step. Every page shares
 one header/cart-drawer/footer shell and one JS/i18n core; only the `<main>`
 content and the per-page script list differ.
 
@@ -18,6 +58,9 @@ cruises.html          Hero + guaranteed-return band + 3 template cruise cards + 
 nosotros.html          "Meet the team" (2026-07-20, split out of index.html's
                         old #about): hero banner + company intro + team grid +
                         fleet grid (real photos from img/) + book CTA
+sosua.html              Sosúa destination hub (2026-08-12) — hero + quick-answer
+                         block + airport fare table + arrival steps + cruise ports +
+                         comparison table + nearby spots + 10-item FAQ + book CTA
 css/styles.css      Design tokens + all styles (mobile-first)
 js/i18n.js           EN/ES/FR dictionary + t()/getLang()/setLang() + per-page meta (loads first)
 js/config.js         CONFIG (WhatsApp number) + AIRPORTS/PROVINCES/VEHICLES + pricing model
@@ -34,22 +77,22 @@ js/service-picker.js      Home-only first-visit service <dialog> (index.html onl
 responsibilities split across the 8 modules above — see "JS modules" and
 "Per-page script loading" below.
 
-### Site structure: 5 pages, 1 shared shell
+### Site structure: 6 pages, 1 shared shell
 Every page's `<body>` starts with the same header (brand, `site-nav`,
 language switch, cart button, mobile-nav toggle), the same cart drawer
 (`#cartScrim` / `#cartPanel`), and ends with the same footer + floating
 WhatsApp button. Only `<main>` differs. This means:
 - Cart state (`localStorage['sariel-cart']`) and language choice
-  (`localStorage['sariel-lang']`) are shared across all 5 pages — add a
+  (`localStorage['sariel-lang']`) are shared across all 6 pages — add a
   transfer on `transfers.html`, then open the cart on `cruises.html`, and
   the item is still there.
 - Any shell change (header markup, cart drawer markup, footer) must be
-  applied to **all five** HTML files by hand — there's no templating/include
+  applied to **all six** HTML files by hand — there's no templating/include
   mechanism. Keep them byte-for-byte identical outside the per-page bits
   (`data-page`, `aria-current`, JSON-LD, `<main>` content).
 
 ### Navigation + aria-current
-`site-nav` (desktop) and `mobile-nav` (mobile) on all 5 pages link:
+`site-nav` (desktop) and `mobile-nav` (mobile) on all 6 pages link:
 Transfers → `transfers.html`, Excursions → `excursions.html`,
 Cruises → `cruises.html`, Meet the team → `nosotros.html`,
 FAQ → `index.html#faq`. The old single-page "Prices" link is gone (prices
@@ -58,13 +101,43 @@ the header "Reviews" link was replaced by "Meet the team" on 2026-07-17 —
 reviews remain reachable via each page's footer (`#reviews` is a per-page
 section, so the footer link stays local). **"Meet the team" pointed at
 `index.html#about` until 2026-07-20**, when the team/fleet content moved to
-its own page (`nosotros.html`) — the link now goes there directly on all 5
+its own page (`nosotros.html`) — the link now goes there directly on all 6
 pages (including a self-referencing `aria-current="page"` link from
 `nosotros.html` itself).
 Each service page marks its own nav link `aria-current="page"` in both the
 desktop and mobile nav (`transfers.html`/`excursions.html`/`cruises.html`/
 `nosotros.html`); `index.html`'s nav has no self-link to mark (Reviews/FAQ
 are anchors on the home page itself, not a "Home" link).
+**`sosua.html` is deliberately absent from the header nav** (2026-08-12): the
+desktop nav already carries five items and a sixth crowds it at tablet
+widths. It is linked instead from the **footer Services column on all six
+pages** (`footer.serviceSosua`, with `aria-current="page"` on `sosua.html`
+itself), which is enough for crawl discovery, plus contextual in-body links.
+
+### Destination pages (`sosua.html`)
+`sosua.html` is the first of a possible family of destination hubs — pages
+built to be *quoted* by search and answer engines rather than merely ranked.
+The pattern, if a second one is ever added (Cabarete, Puerto Plata, the
+cruise ports):
+- **Quick-answer block first.** One factual paragraph plus a `<dl>` of hard
+  numbers, directly under the hero. This is what AI Overviews and chat
+  assistants lift verbatim, so it must stay factual — never let it drift
+  into marketing prose.
+- **Real numbers in real `<table>`s.** The fare table mirrors
+  `js/config.js` (`OTHER_AIRPORT_FIXED_FARES`, `POP_FIXED_DESTINATIONS`) and
+  the Popular Routes rail in `transfers.html`. **Prices are duplicated as
+  literal text** — change a fare in `config.js` and you must change it here
+  and in the page's `Service`/`OfferCatalog` JSON-LD too.
+- **Four JSON-LD blocks**: `TouristDestination` (resolves the place as an
+  entity), `Service` + `hasOfferCatalog` (the fares), `FAQPage` (mirrors the
+  on-page FAQ **word for word** — edit one, edit the other), `BreadcrumbList`.
+  All English-only, matching the served HTML, exactly as on the other pages.
+- **No invented figures.** The cruise section quotes no price on purpose:
+  `cruises.html`'s cards still carry placeholder `data-prices="0"`.
+- **Styles are namespaced `.dest-*`** in the last block of
+  `css/styles.css`, so a destination page cannot regress the other five.
+- Distances and drive times are approximate road figures, flagged as such in
+  the page copy and in the `sosua.air.note` string.
 
 ### JS modules
 | Module | Responsibility |
@@ -90,17 +163,18 @@ on earlier ones — see each module's header comment):
 | `excursions.html` | i18n → config → core → contact-choice → cart → shell → **tours** |
 | `cruises.html` | i18n → config → core → contact-choice → cart → shell → **tours** |
 | `nosotros.html` | i18n → config → core → contact-choice → cart → shell |
+| `sosua.html` | i18n → config → core → contact-choice → cart → shell |
 
 `i18n`, `config`, `core`, `contact-choice`, `cart` and `shell` are identical on
 every page — only the last script (the page's own feature module) changes.
-`contact-choice` and its `#contactChoiceDialog` markup are on all 5 pages —
+`contact-choice` and its `#contactChoiceDialog` markup are on all 6 pages —
 including `index.html`/`nosotros.html`, which have no booking buttons today —
 so the dialog behaves identically wherever such a button is added later.
 
 ## Trilingual content (EN/ES/FR)
 The site is fully trilingual via a client-side switcher — no separate URLs
 per language (see "Known limitation" below), one dictionary file
-(`js/i18n.js`) shared by all four HTML documents. `SUPPORTED_LANGS = ['en',
+(`js/i18n.js`) shared by all six HTML documents. `SUPPORTED_LANGS = ['en',
 'es', 'fr']` at the top of `js/i18n.js` is the single source of truth for
 which languages exist — `setLang()` validates against it and `t()`'s
 fallback chain (`I18N[currentLang][key] ?? I18N.en[key] ?? key`) means a
@@ -120,12 +194,12 @@ string" below).
   must use literal `&`, never `&amp;`. Values that go through `innerHTML`
   are the only place `&amp;` is correct.
 - **Per-page meta**: each page declares `<body data-page="home|transfers|
-  excursions|cruises">`. `applyStaticTranslations()` reads that attribute
-  (falling back to `"home"` if absent) and resolves `meta.<page>.title` /
-  `meta.<page>.description` for `document.title`, `<meta name="description">`
-  and the `og:title`/`og:description` tags. Adding a 5th page means adding a
-  new `meta.<newpage>.title`/`.description` pair to **all three** of `en`,
-  `es` and `fr`.
+  excursions|cruises|nosotros|sosua">`. `applyStaticTranslations()` reads that
+  attribute (falling back to `"home"` if absent) and resolves
+  `meta.<page>.title` / `meta.<page>.description` for `document.title`,
+  `<meta name="description">` and the `og:title`/`og:description` tags.
+  Adding another page means adding a new `meta.<newpage>.title`/`.description`
+  pair to **all three** of `en`, `es` and `fr`.
 - **JS-generated content** (calculator, cart, WhatsApp messages): any module
   calls the global `t(key, vars)` — `vars` interpolates `{token}` placeholders,
   e.g. `t('calc.upgradeNote', { pax, vehicle })`. `AIRPORTS`/`PROVINCES` store

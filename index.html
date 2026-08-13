@@ -49,37 +49,14 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Structured data: business + FAQ for rich results (English-only, matches default page language) -->
+  <!-- Business entity, identical on every page under one stable @id so search
+       engines resolve all six pages to the same organisation. sameAs/hasMap
+       link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TravelAgency",
-    "name": "SG Caribbean Transfers & Tours",
-    "description": "Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.",
-    "areaServed": ["Sosúa", "Puerto Plata", "Cabarete", "Playa Dorada", "Puerto Plata Airport (POP)", "Amber Cove", "Taino Bay", "Samaná", "Dominican Republic"],
-    "url": "https://caribbeansgtransferstours.com/",
-    "telephone": "+1-829-627-7733",
-    "image": "https://caribbeansgtransferstours.com/img/hero-main.jpg",
-    "sameAs": ["https://www.instagram.com/sg.caribbean_transfers_tours/"],
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Puerto Plata",
-      "addressCountry": "DO"
-    }
-  }
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
   </script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "Do you provide child seats?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Child and booster seats are available free of charge — just tell us the age of your little ones when booking." } },
-      { "@type": "Question", "name": "Can I pay on arrival?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can pay your driver in cash (USD or DOP) on arrival. No prepayment is required to confirm your reservation." } },
-      { "@type": "Question", "name": "How many passengers fit in the vehicle?", "acceptedAnswer": { "@type": "Answer", "text": "Private cars seat up to 3 guests, minivans up to 6, vans up to 10 and minibuses up to 15 — all with room for standard luggage." } },
-      { "@type": "Question", "name": "What happens if my flight is delayed?", "acceptedAnswer": { "@type": "Answer", "text": "We track your flight in real time and adjust your pickup automatically. Your driver waits for you at no extra cost." } },
-      { "@type": "Question", "name": "Are excursions private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every excursion is 100% private — your group, your vehicle, your own pace. No strangers, no fixed bus schedules." } }
-    ]
-  }
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you provide child seats?","acceptedAnswer":{"@type":"Answer","text":"Yes. Child and booster seats are available free of charge — just tell us the age of your little ones when booking."}},{"@type":"Question","name":"Can I pay on arrival?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can pay your driver in cash (USD or DOP) on arrival. No prepayment is required to confirm your reservation."}},{"@type":"Question","name":"How many passengers fit in the vehicle?","acceptedAnswer":{"@type":"Answer","text":"Private cars seat up to 3 guests, minivans up to 6, vans up to 10 and minibuses up to 15 — all with room for standard luggage."}},{"@type":"Question","name":"What happens if my flight is delayed?","acceptedAnswer":{"@type":"Answer","text":"We track your flight in real time and adjust your pickup automatically. Your driver waits for you at no extra cost."}},{"@type":"Question","name":"Are excursions private?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every excursion is 100% private — your group, your vehicle, your own pace. No strangers, no fixed bus schedules."}}]}
   </script>
 </head>
 <body data-page="home">
@@ -378,6 +355,7 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
@@ -492,7 +470,7 @@
           <button type="button" class="contact-choice-option" id="contactChoiceEmail">
             <span class="contact-choice-icon" aria-hidden="true">✉️</span>
             <span class="contact-choice-name" data-i18n="choice.email">Email</span>
-            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we&#39;ll reply</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we'll reply</span>
           </button>
         </div>
       </div>

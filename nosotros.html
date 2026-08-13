@@ -50,8 +50,14 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Structured data: AboutPage + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <!-- Business entity, identical on every page under one stable @id so search
+       engines resolve all six pages to the same organisation. sameAs/hasMap
+       link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"AboutPage","name":"Meet the Team & Our Fleet — SG Caribbean Transfers & Tours","url":"https://caribbeansgtransferstours.com/nosotros.html","about":{"@type":"TravelAgency","name":"SG Caribbean Transfers & Tours","telephone":"+1-829-627-7733","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/"]}}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"AboutPage","name":"Meet the Team & Our Fleet — SG Caribbean Transfers & Tours","url":"https://caribbeansgtransferstours.com/nosotros.html","about":{"@id":"https://caribbeansgtransferstours.com/#organization"}}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Meet the team","item":"https://caribbeansgtransferstours.com/nosotros.html"}]}
@@ -170,8 +176,8 @@
     <div class="container">
       <header class="section-head reveal about-intro">
         <img class="about-logo" src="img/logo.jpg" alt="SG Caribbean Transfers & Tours logo" width="120" height="120" loading="lazy" />
-        <h2 data-i18n="about.introHeading">A family business on <em>the north coast</em></h2>
-        <p class="section-lead" data-i18n="about.introBody">SG Caribbean Transfers &amp; Tours was born on the north coast of the Dominican Republic, out of a simple idea: every visitor deserves a safe, comfortable ride and a driver who treats them like family. Today our team moves thousands of travelers a year between the airports, Sosúa, Cabarete and Puerto Plata — always on time, always private.</p>
+        <h2 data-i18n="about.introHeading">Why <em>choose us</em></h2>
+        <p class="section-lead" data-i18n="about.introBody">At SG Caribbean Transfers & Tours we believe a tour is much more than transporting people from one place to another. Our mission is to make every visitor live a safe, comfortable and authentic experience, from the first contact to the end of their adventure.</p>
         <dl class="stats stats-light reveal">
           <div class="stat"><dt data-i18n="why.stat1">Years on the road</dt><dd><span class="counter" data-target="20" data-suffix="+">0</span></dd></div>
           <div class="stat"><dt data-i18n="why.stat2">Happy travelers</dt><dd><span class="counter" data-target="10000" data-suffix="+">0</span></dd></div>
@@ -287,6 +293,7 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
@@ -373,7 +380,7 @@
           <button type="button" class="contact-choice-option" id="contactChoiceEmail">
             <span class="contact-choice-icon" aria-hidden="true">✉️</span>
             <span class="contact-choice-name" data-i18n="choice.email">Email</span>
-            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we&#39;ll reply</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we'll reply</span>
           </button>
         </div>
       </div>

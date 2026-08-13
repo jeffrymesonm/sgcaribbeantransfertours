@@ -50,17 +50,20 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <!-- Business entity, identical on every page under one stable @id so search
+       engines resolve all six pages to the same organisation. sameAs/hasMap
+       link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"ItemList","itemListElement":[
-  {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Punta Rusia","url":"https://caribbeansgtransferstours.com/excursions.html#exc1"}},
-  {"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://caribbeansgtransferstours.com/excursions.html#exc2"}},
-  {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"City Tour","url":"https://caribbeansgtransferstours.com/excursions.html#exc4"}},
-  {"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Beach Experience","url":"https://caribbeansgtransferstours.com/excursions.html#exc5"}},
-  {"@type":"ListItem","position":5,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://caribbeansgtransferstours.com/excursions.html#exc6"}},
-  {"@type":"ListItem","position":6,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://caribbeansgtransferstours.com/excursions.html#exc7"}}]}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Punta Rusia","url":"https://caribbeansgtransferstours.com/excursions.html#exc1"}},{"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://caribbeansgtransferstours.com/excursions.html#exc2"}},{"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"City Tour","url":"https://caribbeansgtransferstours.com/excursions.html#exc4"}},{"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Beach Experience","url":"https://caribbeansgtransferstours.com/excursions.html#exc5"}},{"@type":"ListItem","position":5,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://caribbeansgtransferstours.com/excursions.html#exc6"}},{"@type":"ListItem","position":6,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://caribbeansgtransferstours.com/excursions.html#exc7"}}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Excursions","item":"https://caribbeansgtransferstours.com/excursions.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are the excursions private?","acceptedAnswer":{"@type":"Answer","text":"Always. There is no shared option — you book the whole vehicle and the whole guide. That is why departure times are yours to set and why a tour can be cut short or stretched out on the day without asking anyone else."}},{"@type":"Question","name":"What is the minimum group size?","acceptedAnswer":{"@type":"Answer","text":"Four guests on every tour. Below that we can still quote you privately on WhatsApp, but the listed prices start at four."}},{"@type":"Question","name":"Is transport included?","acceptedAnswer":{"@type":"Answer","text":"Yes. Round-trip private transport from your hotel, villa or Airbnb in Sosúa, Puerto Plata or Cabarete is included in every excursion price."}},{"@type":"Question","name":"What if we are more than six people?","acceptedAnswer":{"@type":"Answer","text":"Type your group size into the field on any tour card. If that number is priced, it shows instantly; if not, the card switches to \"Ask for a Quote\" and we price it for you on WhatsApp rather than guessing."}},{"@type":"Question","name":"Which tour do most people book?","acceptedAnswer":{"@type":"Answer","text":"27 Charcos de Damajagua — twenty-seven limestone pools you climb up, then jump and slide back down. Punta Rusia and the Puerto Plata City Tour come next."}},{"@type":"Question","name":"Can you pick us up from a cruise ship instead?","acceptedAnswer":{"@type":"Answer","text":"Yes. Pickups from Amber Cove and Taino Bay are planned around your ship's all-aboard time — see our cruise shore excursions page."}}]}
   </script>
 </head>
 <body data-page="excursions">
@@ -79,7 +82,7 @@
         <a href="excursions.html" aria-current="page" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
         <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
-        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
       </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
@@ -102,7 +105,7 @@
       <a href="excursions.html" aria-current="page" data-i18n="nav.excursions">Excursions</a>
       <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
       <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
-      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
     </nav>
   </header>
@@ -158,9 +161,9 @@
     <div class="hero-scrim" aria-hidden="true"></div>
 
     <div class="hero-content">
-      <p class="hero-eyebrow reveal-line"><span data-i18n="excursionsHero.eyebrow">Private tours from Sosúa &amp; Puerto Plata</span></p>
+      <p class="hero-eyebrow reveal-line"><span data-i18n="excursionsHero.eyebrow">Days you'll never forget</span></p>
       <h1 class="hero-title">
-        <span class="reveal-line"><span data-i18n="excursionsHero.title">Days you'll <em>never forget</em></span></span>
+        <span class="reveal-line"><span data-i18n="excursionsHero.title">Private day tours from <em>Sosúa &amp; Puerto Plata</em></span></span>
       </h1>
       <p class="hero-sub reveal-line"><span data-i18n="excursionsHero.lead">Every excursion is private: your group, your pace, your own guide. Hotel pickup in Sosúa, Puerto Plata and Cabarete, round-trip transport always included.</span></p>
     </div>
@@ -168,6 +171,45 @@
     <a class="hero-scroll" href="#excursions" aria-label="Scroll to excursions" data-i18n-attr="aria-label:hero.scrollAria">
       <span class="hero-scroll-dot" aria-hidden="true"></span>
     </a>
+  </section>
+
+  <!-- ============ QUICK ANSWER (AEO) ============
+       Factual summary placed directly after the hero: one plain paragraph plus
+       a definition list of hard facts. This is what answer engines quote, so it
+       must stay factual — never let it drift into marketing prose. Every figure
+       here is also stated elsewhere on the site (js/config.js, the home FAQ). -->
+  <section class="section dest-answer" id="quick-answer">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="excursionsAeo.eyebrow">The short version</p>
+        <h2 data-i18n="excursionsAeo.heading">Private day tours from Sosúa, <em>at a glance</em></h2>
+      </header>
+
+      <p class="dest-answer-lead reveal" data-i18n="excursionsAeo.lead">Six private day tours across the north coast of the Dominican Republic, with hotel pickup in Sosúa, Puerto Plata and Cabarete and round-trip transport always included. Every excursion is your group only — no strangers, no bus waiting to fill up. Minimum group size is 4 guests.</p>
+
+      <dl class="dest-facts reveal">
+        <div class="dest-fact">
+          <dt data-i18n="excursionsAeo.f1Label">Tours available</dt>
+          <dd data-i18n="excursionsAeo.f1Value">6 private day tours</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="excursionsAeo.f2Label">Minimum group</dt>
+          <dd data-i18n="excursionsAeo.f2Value">4 guests on every tour</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="excursionsAeo.f3Label">Hotel pickup</dt>
+          <dd data-i18n="excursionsAeo.f3Value">Sosúa · Puerto Plata · Cabarete</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="excursionsAeo.f4Label">Transport</dt>
+          <dd data-i18n="excursionsAeo.f4Value">Round-trip private transport included</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="excursionsAeo.f5Label">Payment</dt>
+          <dd data-i18n="excursionsAeo.f5Value">Cash on the day — no prepayment</dd>
+        </div>
+      </dl>
+    </div>
   </section>
 
   <!-- ============ 2. EXCURSIONS SHOWCASE (copied verbatim from index.html #excursions) ============ -->
@@ -263,7 +305,7 @@
       <div class="exc-body reveal">
         <p class="eyebrow" data-i18n="exc4.eyebrow">03 — Culture</p>
         <h3 data-i18n="exc4.title">Puerto Plata City Tour</h3>
-        <p class="exc-desc" data-i18n="exc4.desc">Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. Flat price for your whole group, up to 6 guests.</p>
+        <p class="exc-desc" data-i18n="exc4.desc">Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. US$65 per person, up to 6 guests.</p>
         <ul class="exc-includes">
           <li data-i18n="exc4.include1">Private transportation</li>
           <li data-i18n="exc4.include2">Cable car tickets</li>
@@ -442,14 +484,59 @@
       <div class="review-grid">
         <blockquote class="review-card reveal">
           <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
-          <p data-i18n="reviews.quote1">"Our driver was waiting with a sign even though our flight landed 2 hours late. Cold water, spotless van, zero stress. This is how every vacation should start."</p>
-          <footer><strong>Sarah M.</strong><span>Toronto, Canada 🇨🇦</span></footer>
+          <p data-i18n="reviews.quote2">"The Beach Experiences tour was the highlight of our honeymoon. Just the two of us, hidden coves, and the clearest water I've ever seen. Worth every dollar."</p>
+          <footer><strong>James &amp; Emily R.</strong><span>London, UK 🇬🇧</span></footer>
         </blockquote>
         <blockquote class="review-card reveal">
           <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
-          <p data-i18n="reviews.quote3">"We traveled with 9 family members and two car seats. Everything was arranged over WhatsApp in minutes. Fair fixed price, beautiful van, kind driver."</p>
-          <footer><strong>Miriam G.</strong><span>New Jersey, USA 🇺🇸</span></footer>
+          <p data-i18n="reviews.quote4">"27 Charcos with Sariel was pure adrenaline — the guides made us feel safe the whole way. Then fresh fish on the beach. Perfect day."</p>
+          <footer><strong>Lukas B.</strong><span>Munich, Germany 🇩🇪</span></footer>
         </blockquote>
+      </div>
+      <!-- Google Business Profile CTA: populated and revealed by js/shell.js
+           once CONFIG.googleReviewsUrl is set. Real social proof, one click
+           away from the placeholder quotes above. -->
+      <div class="reviews-cta reveal">
+        <a class="btn btn-outline" id="googleReviewsLink" href="#" target="_blank" rel="noopener" hidden></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ (AEO) ============
+       Every question here is mirrored, word for word, in this page's FAQPage
+       JSON-LD in <head>. Edit one, edit the other — if they disagree, Google
+       may ignore the block entirely. -->
+  <section class="section faq" id="faq">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <h2 data-i18n="excursionsFaq.heading">Excursion questions, <em>answered</em></h2>
+      </header>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="exqQ1" aria-expanded="false" aria-controls="exqA1"><span data-i18n="excursionsFaq.q1">Are the excursions private?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="exqA1" role="region" aria-labelledby="exqQ1"><div class="faq-panel-inner"><p data-i18n="excursionsFaq.a1">Always. There is no shared option — you book the whole vehicle and the whole guide. That is why departure times are yours to set and why a tour can be cut short or stretched out on the day without asking anyone else.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="exqQ2" aria-expanded="false" aria-controls="exqA2"><span data-i18n="excursionsFaq.q2">What is the minimum group size?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="exqA2" role="region" aria-labelledby="exqQ2"><div class="faq-panel-inner"><p data-i18n="excursionsFaq.a2">Four guests on every tour. Below that we can still quote you privately on WhatsApp, but the listed prices start at four.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="exqQ3" aria-expanded="false" aria-controls="exqA3"><span data-i18n="excursionsFaq.q3">Is transport included?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="exqA3" role="region" aria-labelledby="exqQ3"><div class="faq-panel-inner"><p data-i18n="excursionsFaq.a3">Yes. Round-trip private transport from your hotel, villa or Airbnb in Sosúa, Puerto Plata or Cabarete is included in every excursion price.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="exqQ4" aria-expanded="false" aria-controls="exqA4"><span data-i18n="excursionsFaq.q4">What if we are more than six people?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="exqA4" role="region" aria-labelledby="exqQ4"><div class="faq-panel-inner"><p data-i18n="excursionsFaq.a4">Type your group size into the field on any tour card. If that number is priced, it shows instantly; if not, the card switches to "Ask for a Quote" and we price it for you on WhatsApp rather than guessing.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="exqQ5" aria-expanded="false" aria-controls="exqA5"><span data-i18n="excursionsFaq.q5">Which tour do most people book?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="exqA5" role="region" aria-labelledby="exqQ5"><div class="faq-panel-inner"><p data-i18n="excursionsFaq.a5">27 Charcos de Damajagua — twenty-seven limestone pools you climb up, then jump and slide back down. Punta Rusia and the Puerto Plata City Tour come next.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="exqQ6" aria-expanded="false" aria-controls="exqA6"><span data-i18n="excursionsFaq.q6">Can you pick us up from a cruise ship instead?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="exqA6" role="region" aria-labelledby="exqQ6"><div class="faq-panel-inner"><p data-i18n="excursionsFaq.a6">Yes. Pickups from Amber Cove and Taino Bay are planned around your ship's all-aboard time — see our cruise shore excursions page.</p></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -494,6 +581,7 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
@@ -501,7 +589,7 @@
         <a href="#why" data-i18n="why.eyebrow">Why choose us?</a>
         <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
         <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
-        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a href="index.html#gallery" data-i18n="footer.companyGallery">Gallery</a>
       </nav>
       <div class="footer-col">
@@ -580,7 +668,7 @@
           <button type="button" class="contact-choice-option" id="contactChoiceEmail">
             <span class="contact-choice-icon" aria-hidden="true">✉️</span>
             <span class="contact-choice-name" data-i18n="choice.email">Email</span>
-            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we&#39;ll reply</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we'll reply</span>
           </button>
         </div>
       </div>

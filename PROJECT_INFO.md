@@ -1,9 +1,9 @@
 # PROJECT_INFO — SG Caribbean Transfers & Tours
 
-> Last updated: 2026-07-20 UTC
+> Last updated: 2026-08-12 UTC
 
 ## What it is
-A small conversion-focused marketing **site** (five static pages, one shared
+A small conversion-focused marketing **site** (six static pages, one shared
 shell) for **SG Caribbean Transfers & Tours**, a private transfers & tours
 company in Puerto Plata, Dominican Republic (north coast). Target audience:
 international tourists arriving at POP/STI/SDQ/PUJ/AZS airports, plus cruise
@@ -22,7 +22,10 @@ private day-tour panels: Punta Rusia, 27 Charcos, Whale Watching, City Tour,
 Beach Experiences, ATV Adventure, Dune Buggy Adventure), `cruises.html` (3
 shore-excursion cards for cruise passengers), `nosotros.html` ("Meet the
 team": company story, driver team, fleet — split out of `index.html` on
-2026-07-20).
+2026-07-20), `sosua.html` (Sosúa destination hub, added 2026-08-12 — the
+site's SEO / answer-engine page: quick-answer fact block, airport-to-Sosúa
+fare table, arrival steps, cruise-port section, 4-way comparison table,
+nearby attractions, 10-item FAQ).
 
 ## Stack
 - Static site: HTML5 + CSS3 + vanilla JavaScript (ES2020). No framework, no build step.
@@ -38,17 +41,18 @@ team": company story, driver team, fleet — split out of `index.html` on
 | `excursions.html` | Hero + 7 excursion cards (Punta Rusia, 27 Charcos, Whale Watching, City Tour, Beach Experiences, ATV Adventure, Dune Buggy Adventure) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `cruises.html` | Hero + guaranteed-return promise band + 3 template cruise cards (optional ship name + departure time) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `nosotros.html` | Hero banner + company-story intro (logo + copy) + driver team grid + fleet grid + book CTA. JSON-LD (BreadcrumbList) |
+| `sosua.html` | Sosúa destination hub (SEO/AEO/GEO): hero + quick-answer fact block + 5-airport fare table + 3 arrival steps + Amber Cove/Taino Bay section + 4-way comparison table + 6 nearby attractions + 10-item FAQ + book CTA. JSON-LD (TouristDestination + Service/OfferCatalog + FAQPage + BreadcrumbList). **Fares are literal text — keep in sync with `js/config.js` and `transfers.html`** |
 | `css/styles.css` | All styles — mobile-first, design tokens, animations |
 | `img/` | All site photos: real team/fleet/logo/banner photos from the owner, plus stock photos for hero/gallery/cards still pending owner replacement (descriptive filenames — see DEPLOYMENT.md) |
 | `js/i18n.js` | EN/ES/FR dictionary + language switcher, per-page meta (`meta.<page>.*` via `data-page`) — see DEVELOPER_GUIDE.md |
 | `js/config.js` | Business config: `CONFIG.whatsappNumber`, `AIRPORTS`, `PROVINCES`, `VEHICLES`, pricing constants, `LUGGAGE_FREE_LIMIT`/`LUGGAGE_EXTRA_FEE_USD`, `haversineKm`/`estimateRoute` — **the single file to edit for numbers** |
 | `js/core.js` | Shared utilities: `animatePrice`, `formatDuration`, `whatsappLink`, `prefersReducedMotion` |
 | `js/cart.js` | Cart state/panel/checkout — versioned `localStorage` (`sariel-cart`, v3), per-item trip details (flight/date/luggage per transfer, date per excursion) + per-item quantity/luggage editing, `describeCartItem`, `buildCartMessage` |
-| `js/shell.js` | Header, mobile nav, scroll reveals, parallax, counters, FAQ accordion, WhatsApp links — loaded on all 5 pages |
+| `js/shell.js` | Header, mobile nav, scroll reveals, parallax, counters, FAQ accordion, WhatsApp links — loaded on all 6 pages |
 | `js/calculator.js` | Transfer price calculator — `transfers.html` only |
 | `js/tours.js` | Guest-count pricing + Add to Cart for excursion/cruise cards — `excursions.html` and `cruises.html` |
 | `js/service-picker.js` | Home-only first-visit service-picker `<dialog>` |
-| `sitemap.xml` | 5 URLs (home + 4 service/company pages) |
+| `sitemap.xml` | 6 URLs (home + 4 service/company pages + `sosua.html`) |
 | `robots.txt` | Allow-all + sitemap pointer |
 
 `js/main.js` no longer exists — it was split into the 8 modules above.
@@ -60,7 +64,7 @@ See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
   updates the WhatsApp link everywhere (FAB, footer, cart checkout,
   direct-chat CTA). Contact email `sg.caribbeantransferstours@gmail.com` is
   `CONFIG.contactEmail` (feeds the generic "Email Us" CTA) and also
-  hardcoded in each page's footer (`mailto:` link) — update in all 5 HTML
+  hardcoded in each page's footer (`mailto:` link) — update in all 6 HTML
   files if it ever changes.
 - `js/config.js` → `CONFIG.formspreeEndpoint`: `https://formspree.io/f/xbdnzrez`
   — where the cart's "Send via Email" checkout button posts (see
@@ -109,7 +113,7 @@ See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
 - Per-page SEO meta: `js/i18n.js` keys `meta.<page>.title` / `meta.<page>.description`,
   resolved from each page's `<body data-page="home|transfers|excursions|cruises|nosotros">`.
 - Canonical/OG URL (real domain, set 2026-07-20): `https://caribbeansgtransferstours.com/`
-  (appears on all five pages, plus `sitemap.xml` and `robots.txt`).
+  (appears on all six pages, plus `sitemap.xml` and `robots.txt`).
 - `js/i18n.js` → all page text (`en`/`es`/`fr` dictionaries) — see
   `DOCS/USER_MANUAL.md` for how to edit copy in any language.
 

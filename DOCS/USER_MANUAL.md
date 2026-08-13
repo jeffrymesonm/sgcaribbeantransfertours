@@ -1,13 +1,14 @@
 # USER_MANUAL — SG Caribbean Transfers & Tours site
 
-> Last updated: 2026-07-20 UTC (competitor-based price list, luggage fee, "Meet the team" moved to its own page)
+> Last updated: 2026-08-12 UTC (sosua.html destination page added — SEO / AI-answer page)
 > Audience: the business owner / content editor. No coding experience assumed
 > beyond opening a file in a text editor.
 
 ## What the site does
-The site is now **five pages**: a home page (`index.html`), one page per
-service — `transfers.html`, `excursions.html`, `cruises.html` — and a
-"Meet the team" page (`nosotros.html`). Visitors land
+The site is now **six pages**: a home page (`index.html`), one page per
+service — `transfers.html`, `excursions.html`, `cruises.html` — a
+"Meet the team" page (`nosotros.html`), and a Sosúa destination page
+(`sosua.html`, see "The Sosúa page" below). Visitors land
 on whichever page fits them (a first-time visitor to the home page is asked
 which service they want — see "The service-picker popup" below), browse that
 service, add whatever they want to a **cart** (top-right of the header — the
@@ -286,6 +287,80 @@ To fill one in with a real tour:
    cart and the final WhatsApp message; if left blank, they're simply
    omitted — no broken message either way.
 
+## Tu ficha de Google (conectada 2026-08-12)
+El botón **"Lee nuestras reseñas en Google"** ya aparece bajo las reseñas de la
+home y de las páginas de Transfers, Excursions y Cruises. Sale de
+`js/config.js`, donde ahora hay **tres enlaces distintos de la misma ficha —
+no los intercambies**:
+
+- `googleReviewsUrl` → adonde lleva el botón "Lee nuestras reseñas". Es la
+  **ficha**, para que se puedan leer sin iniciar sesión.
+- `googleWriteReviewUrl` → el enlace para **escribir** reseña. Este es el que
+  debes mandar por WhatsApp a un cliente satisfecho. Si lo pusieras en el botón
+  de "leer", el visitante caería en una pantalla de login de Google.
+- `googlePlaceId` → identifica el negocio ante Google. Aparece también dentro
+  de los datos estructurados de las 6 páginas.
+
+`googleReviewCount` está **vacío a propósito**: el botón dice "Lee nuestras
+reseñas en Google" sin número, que siempre es cierto. Si quieres que diga
+"Lee las 47 reseñas", mira el número real en tu ficha y escríbelo ahí — pero
+tiene que coincidir, porque el visitante lo comprueba de un clic.
+
+**Los testimonios del sitio siguen siendo de ejemplo.** Ahora que la ficha está
+conectada, cambiarlos por reseñas reales de tus clientes es la mejora de
+credibilidad más barata que te queda. No hemos marcado las reseñas en los datos
+estructurados justamente porque son inventadas: hacerlo con reseñas falsas es
+spam ante Google y puede costar una penalización manual.
+
+## Dos reglas nuevas al editar textos
+1. **Si cambias una frase en `js/i18n.js`, cámbiala también en el HTML.** La
+   página muestra siempre lo que dice `js/i18n.js`, pero Google lee el texto
+   que está escrito dentro del archivo `.html`. Si los dos no dicen lo mismo,
+   Google indexa una frase que ningún cliente llega a ver. (Había 4 casos así;
+   ya están arreglados.)
+2. **Las preguntas frecuentes están escritas dos veces**: la lista visible y una
+   copia invisible arriba del archivo que es la que lee Google. Si editas una
+   pregunta o una respuesta, edita las dos para que digan exactamente lo mismo.
+
+## The Sosúa page (`sosua.html`) — added 2026-08-12
+This one is different from the other five: it exists to be **found**, and to
+be **quoted** by Google and by AI assistants like ChatGPT when someone asks
+"how do I get from Puerto Plata airport to Sosúa". Everything on it is
+arranged so a machine can lift a clean, correct answer out of it.
+
+It is reached from the **Services column of the footer on every page**
+("Transfers to Sosúa"), not from the top menu — the top menu was already
+full.
+
+**The one rule for this page: never put a number on it you can't stand
+behind.** Its whole value is that a search engine trusts it. Specifically:
+
+- **Prices are written out as plain text on this page**, in the airport
+  table, in the "in 30 seconds" box, in the FAQ, and inside the invisible
+  data block at the top of the file. They are *not* pulled from
+  `js/config.js` automatically. So **when you change a fare, you must change
+  it on `transfers.html`, in `js/config.js`, AND on this page.** Search for
+  the old number (e.g. `23.95`) in `sosua.html` and `js/i18n.js` and fix
+  every hit.
+- **The FAQ is written twice**: once as the visible accordion (in
+  `js/i18n.js`, keys `sosua.faq.q1`–`q10` / `sosua.faq.a1`–`a10`) and once
+  inside `sosua.html`'s invisible `FAQPage` block near the top of the file.
+  Google reads the invisible copy. **If you edit a question or an answer,
+  edit both copies so they match word for word** — if they disagree, Google
+  may ignore the block entirely.
+- **Distances and drive times are approximations** (19 km / ~25 min from
+  POP, and so on). They are labelled as approximate on the page. If you know
+  a figure is wrong, correct it — a wrong number here is worse than no page.
+- **The cruise section quotes no price on purpose**, because the cruise
+  cards on `cruises.html` still have placeholder prices. Once those are
+  real, a price can be added here too.
+- **All the text is translated** like every other page: keys starting with
+  `sosua.` in `js/i18n.js`, in all three of `en`, `es` and `fr`.
+
+If you ever want the same kind of page for **Cabarete** or **Puerto Plata**,
+the recipe is in `DOCS/DEVELOPER_GUIDE.md` under "Destination pages" — copy
+`sosua.html` and swap the place, the distances and the fares.
+
 ## Adding a new airport or province to the calculator
 1. In `transfers.html`, add an `<option>` to the Pickup or Destination select
    (give it a `data-i18n="..."` key and a plain-text fallback).
@@ -296,7 +371,7 @@ To fill one in with a real tour:
 
 ## Editing FAQ / texts
 The site is trilingual (English, Spanish and French) via a switcher in the
-top-right of the header, present on all four pages. **The site always opens
+top-right of the header, present on all six pages. **The site always opens
 in English** for a new visit — a visitor's language choice is only kept
 while they're actively browsing (moving between pages in the same tab); it
 resets to English the next time they open the site. Every piece of text
@@ -304,12 +379,12 @@ lives in **`js/i18n.js`**, in three matching blocks — `en: { ... }`,
 `es: { ... }` and `fr: { ... }` — as `'key': 'text'` pairs. Find the key you
 want to change (the English text is usually recognizable) and edit its
 value in **all three** blocks. Do not rename keys or remove the
-`data-i18n="..."` attributes in any of the four HTML pages — those are what
+`data-i18n="..."` attributes in any of the six HTML pages — those are what
 connect each key to its spot on the page.
 
 If you add a brand-new sentence that doesn't exist yet, add a matching entry
 to **all three** of `en`, `es` and `fr` in `js/i18n.js`, or it will silently
 fall back to English wherever the other language is missing it. Each page's
 browser-tab title and meta description are also translated text — they live
-under `meta.home.*`, `meta.transfers.*`, `meta.excursions.*` and
-`meta.cruises.*` in the same file.
+under `meta.home.*`, `meta.transfers.*`, `meta.excursions.*`,
+`meta.cruises.*`, `meta.nosotros.*` and `meta.sosua.*` in the same file.

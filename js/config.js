@@ -23,14 +23,28 @@ const CONFIG = {
   // email hardcoded — update those too if it ever changes, see
   // DOCS/USER_MANUAL.md.
   formspreeEndpoint: 'https://formspree.io/f/xbdnzrez',
-  // Google Business Profile: the public link where visitors read and leave
-  // reviews, and the live review count shown on the "read them on Google" CTA
-  // under the reviews section (js/shell.js, initGoogleReviewsLink).
-  // The count MUST match the profile — claiming more reviews than the profile
-  // shows reads as inflated social proof the moment a visitor clicks through.
-  // While googleReviewsUrl is empty the CTA stays hidden, so the section keeps
-  // working exactly as before.
-  googleReviewsUrl: '',
+  // Google Business Profile (connected 2026-08-12). Three different links come
+  // off the same listing — do not swap them, they do different jobs:
+  //  - googleReviewsUrl → where "Read our reviews on Google" sends visitors.
+  //    Must be the PROFILE, so reviews are readable without signing in. The
+  //    owner-supplied https://g.page/r/CTyfgd3ZE2wPEBM/review link is the
+  //    *write a review* deep link: it bounces through a Google sign-in, so it
+  //    is wrong for a "read" CTA — it is kept below as googleWriteReviewUrl,
+  //    for asking past customers for a review.
+  //  - googleWriteReviewUrl → paste into WhatsApp/email follow-ups.
+  //  - googlePlaceId → identifies the business to Google. Feeds the `sameAs`
+  //    and `hasMap` values in each page's JSON-LD (hardcoded there, since the
+  //    structured data is static HTML — update both if the listing ever moves).
+  // search.google.com/local/reviews?placeid=… is NOT usable: it 404s.
+  googleReviewsUrl: 'https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8',
+  googleWriteReviewUrl: 'https://g.page/r/CTyfgd3ZE2wPEBM/review',
+  googlePlaceId: 'ChIJV_SML-x-iykRPJ-B3dkTbA8',
+  // Live review count shown on the "read them on Google" CTA (js/shell.js,
+  // initGoogleReviewsLink). MUST match what the profile actually shows —
+  // claiming more reviews than the listing has reads as inflated social proof
+  // the moment a visitor clicks through. Left empty on purpose: the CTA then
+  // reads "Read our reviews on Google" with no number, which is always true.
+  // Fill it in once you have checked the real count on the profile.
   googleReviewCount: '',
 };
 

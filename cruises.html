@@ -57,15 +57,20 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <!-- Business entity, identical on every page under one stable @id so search
+       engines resolve all six pages to the same organisation. sameAs/hasMap
+       link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"ItemList","itemListElement":[
-  {"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://caribbeansgtransferstours.com/cruises.html#cruise1"}},
-  {"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Puerto Plata City Tour","url":"https://caribbeansgtransferstours.com/cruises.html#cruise2"}},
-  {"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://caribbeansgtransferstours.com/cruises.html#cruise4"}},
-  {"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://caribbeansgtransferstours.com/cruises.html#cruise5"}}]}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://caribbeansgtransferstours.com/cruises.html#cruise1"}},{"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Puerto Plata City Tour","url":"https://caribbeansgtransferstours.com/cruises.html#cruise2"}},{"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://caribbeansgtransferstours.com/cruises.html#cruise4"}},{"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://caribbeansgtransferstours.com/cruises.html#cruise5"}}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Cruises","item":"https://caribbeansgtransferstours.com/cruises.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which cruise ports do you pick up from?","acceptedAnswer":{"@type":"Answer","text":"Both of Puerto Plata's terminals: Amber Cove in Maimón and Taino Bay in Puerto Plata city. We meet you outside the terminal gate with a name sign."}},{"@type":"Question","name":"Will I be back before my ship leaves?","acceptedAnswer":{"@type":"Answer","text":"Yes. We track your ship's departure and plan every tour backwards from its all-aboard time, returning you to the pier with a margin rather than on the dot."}},{"@type":"Question","name":"How long is a typical Puerto Plata port call?","acceptedAnswer":{"@type":"Answer","text":"Usually 8 to 9 hours. Our shore excursions are half-day trips, which leaves several hours of margin even after the drive each way."}},{"@type":"Question","name":"How far is Sosúa from the cruise piers?","acceptedAnswer":{"@type":"Answer","text":"About 35 minutes from Taino Bay and 40 to 45 minutes from Amber Cove."}},{"@type":"Question","name":"Are cruise excursions private?","acceptedAnswer":{"@type":"Answer","text":"Yes — your group only, in your own vehicle, at your own pace. You are never grouped with passengers from other ships."}},{"@type":"Question","name":"Can we build our own itinerary for the day?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tell us your ship, your port and what you want to see, and we plan a custom day around your all-aboard time instead of a fixed package."}}]}
   </script>
 </head>
 <body data-page="cruises">
@@ -84,7 +89,7 @@
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" aria-current="page" data-i18n="nav.cruises">Cruises</a>
         <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
-        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
       </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
@@ -107,7 +112,7 @@
       <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
       <a href="cruises.html" aria-current="page" data-i18n="nav.cruises">Cruises</a>
       <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
-      <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
     </nav>
   </header>
@@ -163,9 +168,9 @@
     <div class="hero-scrim" aria-hidden="true"></div>
 
     <div class="hero-content">
-      <p class="hero-eyebrow reveal-line"><span data-i18n="cruisesHero.eyebrow">Shore excursions to Sosúa &amp; Puerto Plata</span></p>
+      <p class="hero-eyebrow reveal-line"><span data-i18n="cruisesHero.eyebrow">Off the ship, into paradise</span></p>
       <h1 class="hero-title">
-        <span class="reveal-line"><span data-i18n="cruisesHero.title">Off the ship, <em>into paradise</em></span></span>
+        <span class="reveal-line"><span data-i18n="cruisesHero.title">Amber Cove &amp; Taino Bay <em>shore excursions</em></span></span>
       </h1>
       <p class="hero-sub reveal-line"><span data-i18n="cruisesHero.lead">Private tours for cruise passengers docking at Amber Cove and Taino Bay — Sosúa, Puerto Plata and the north coast, back on board in time.</span></p>
     </div>
@@ -173,6 +178,45 @@
     <a class="hero-scroll" href="#guarantee" aria-label="Scroll to cruise excursions" data-i18n-attr="aria-label:hero.scrollAria">
       <span class="hero-scroll-dot" aria-hidden="true"></span>
     </a>
+  </section>
+
+  <!-- ============ QUICK ANSWER (AEO) ============
+       Factual summary placed directly after the hero: one plain paragraph plus
+       a definition list of hard facts. This is what answer engines quote, so it
+       must stay factual — never let it drift into marketing prose. Every figure
+       here is also stated elsewhere on the site (js/config.js, the home FAQ). -->
+  <section class="section dest-answer" id="quick-answer">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="cruisesAeo.eyebrow">The short version</p>
+        <h2 data-i18n="cruisesAeo.heading">Amber Cove and Taino Bay shore excursions, <em>at a glance</em></h2>
+      </header>
+
+      <p class="dest-answer-lead reveal" data-i18n="cruisesAeo.lead">Private shore excursions for cruise passengers docking at Amber Cove (Maimón) and Taino Bay (Puerto Plata). We meet you outside the terminal gate, build the day backwards from your ship's all-aboard time, and return you to the pier with a margin. A typical Puerto Plata port call runs 8 to 9 hours.</p>
+
+      <dl class="dest-facts reveal">
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f1Label">Piers served</dt>
+          <dd data-i18n="cruisesAeo.f1Value">Amber Cove (Maimón) · Taino Bay (Puerto Plata)</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f2Label">Meeting point</dt>
+          <dd data-i18n="cruisesAeo.f2Value">Outside the terminal gate, with a name sign</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f3Label">Typical port call</dt>
+          <dd data-i18n="cruisesAeo.f3Value">8–9 hours — tours are built to fit it</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f4Label">Return to ship</dt>
+          <dd data-i18n="cruisesAeo.f4Value">Guaranteed before all-aboard</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f5Label">Group</dt>
+          <dd data-i18n="cruisesAeo.f5Value">100% private · from 4 guests</dd>
+        </div>
+      </dl>
+    </div>
   </section>
 
   <!-- ============ 2. GUARANTEED-RETURN PROMISE BAND ============ -->
@@ -198,7 +242,7 @@
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise1.title">Charcos de Damajagua</h3>
-        <p class="exc-desc" data-i18n="cruise1.desc">Climb, slide and jump through natural waterfalls carved into the jungle — the north coast's most exhilarating adventure.</p>
+        <p class="exc-desc" data-i18n="cruise1.desc">Twenty-seven limestone pools you climb up, then jump and slide back down. Around 40 minutes from either pier, so it sits comfortably inside a normal port call. Bring swimwear and shoes you don't mind soaking.</p>
         <p class="exc-duration mono" data-i18n="cruise1.duration">Half day</p>
         <div class="exc-booking">
           <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
@@ -239,7 +283,7 @@
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise2.title">Puerto Plata City Tour</h3>
-        <p class="exc-desc" data-i18n="cruise2.desc">Victorian houses, the oldest fortress in the Americas, cable car views from Mount Isabel and amber, rum and cacao tastings. Flat price for your whole group, up to 6 guests.</p>
+        <p class="exc-desc" data-i18n="cruise2.desc">The shortest run from either pier — Taino Bay is inside the city itself. Fort San Felipe, the Victorian old town, the cable car up Pico Isabel de Torres, and amber, rum and cacao tastings. The one to pick when your ship has a short call. US$65 per person, up to 6 guests.</p>
         <p class="exc-duration mono" data-i18n="cruise2.duration">Half day</p>
         <div class="exc-booking">
           <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
@@ -280,7 +324,7 @@
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise4.title">ATV Adventure</h3>
-        <p class="exc-desc" data-i18n="cruise4.desc">Ride through trails, rivers and countryside on your own quad bike — an adrenaline-packed adventure through the Dominican backcountry.</p>
+        <p class="exc-desc" data-i18n="cruise4.desc">Your own quad on country trails, river crossings and back roads behind Puerto Plata. Roughly half an hour from Amber Cove or Taino Bay — dusty, loud, and done in half a day with the afternoon still yours.</p>
         <p class="exc-duration mono" data-i18n="cruise4.duration">Half day</p>
         <div class="exc-booking">
           <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
@@ -321,7 +365,7 @@
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise5.title">Dune Buggy Adventure</h3>
-        <p class="exc-desc" data-i18n="cruise5.desc">Take the wheel of your own dune buggy and explore trails, rivers and rural roads — a thrilling ride for the whole group.</p>
+        <p class="exc-desc" data-i18n="cruise5.desc">The same backcountry as the quads, but side by side under a roll cage — easier if you would rather share the driving. About half an hour from either pier, and planned backwards from your all-aboard time.</p>
         <p class="exc-duration mono" data-i18n="cruise5.duration">Half day</p>
         <div class="exc-booking">
           <div class="guest-picker" role="group" aria-label="Number of guests" data-i18n-attr="aria-label:exc.guestsAria">
@@ -387,14 +431,59 @@
       <div class="review-grid">
         <blockquote class="review-card reveal">
           <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
-          <p data-i18n="reviews.quote1">"Our driver was waiting with a sign even though our flight landed 2 hours late. Cold water, spotless van, zero stress. This is how every vacation should start."</p>
-          <footer><strong>Sarah M.</strong><span>Toronto, Canada 🇨🇦</span></footer>
+          <p data-i18n="reviews.quote4">"27 Charcos with Sariel was pure adrenaline — the guides made us feel safe the whole way. Then fresh fish on the beach. Perfect day."</p>
+          <footer><strong>Lukas B.</strong><span>Munich, Germany 🇩🇪</span></footer>
         </blockquote>
         <blockquote class="review-card reveal">
           <div class="review-stars" role="img" aria-label="5 out of 5 stars" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
-          <p data-i18n="reviews.quote3">"We traveled with 9 family members and two car seats. Everything was arranged over WhatsApp in minutes. Fair fixed price, beautiful van, kind driver."</p>
-          <footer><strong>Miriam G.</strong><span>New Jersey, USA 🇺🇸</span></footer>
+          <p data-i18n="reviews.quote1">"Our driver was waiting with a sign even though our flight landed 2 hours late. Cold water, spotless van, zero stress. This is how every vacation should start."</p>
+          <footer><strong>Sarah M.</strong><span>Toronto, Canada 🇨🇦</span></footer>
         </blockquote>
+      </div>
+      <!-- Google Business Profile CTA: populated and revealed by js/shell.js
+           once CONFIG.googleReviewsUrl is set. Real social proof, one click
+           away from the placeholder quotes above. -->
+      <div class="reviews-cta reveal">
+        <a class="btn btn-outline" id="googleReviewsLink" href="#" target="_blank" rel="noopener" hidden></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ (AEO) ============
+       Every question here is mirrored, word for word, in this page's FAQPage
+       JSON-LD in <head>. Edit one, edit the other — if they disagree, Google
+       may ignore the block entirely. -->
+  <section class="section faq" id="faq">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <h2 data-i18n="cruisesFaq.heading">Cruise questions, <em>answered</em></h2>
+      </header>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ1" aria-expanded="false" aria-controls="crqA1"><span data-i18n="cruisesFaq.q1">Which cruise ports do you pick up from?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA1" role="region" aria-labelledby="crqQ1"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a1">Both of Puerto Plata's terminals: Amber Cove in Maimón and Taino Bay in Puerto Plata city. We meet you outside the terminal gate with a name sign.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ2" aria-expanded="false" aria-controls="crqA2"><span data-i18n="cruisesFaq.q2">Will I be back before my ship leaves?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA2" role="region" aria-labelledby="crqQ2"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a2">Yes. We track your ship's departure and plan every tour backwards from its all-aboard time, returning you to the pier with a margin rather than on the dot.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ3" aria-expanded="false" aria-controls="crqA3"><span data-i18n="cruisesFaq.q3">How long is a typical Puerto Plata port call?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA3" role="region" aria-labelledby="crqQ3"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a3">Usually 8 to 9 hours. Our shore excursions are half-day trips, which leaves several hours of margin even after the drive each way.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ4" aria-expanded="false" aria-controls="crqA4"><span data-i18n="cruisesFaq.q4">How far is Sosúa from the cruise piers?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA4" role="region" aria-labelledby="crqQ4"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a4">About 35 minutes from Taino Bay and 40 to 45 minutes from Amber Cove.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ5" aria-expanded="false" aria-controls="crqA5"><span data-i18n="cruisesFaq.q5">Are cruise excursions private?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA5" role="region" aria-labelledby="crqQ5"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a5">Yes — your group only, in your own vehicle, at your own pace. You are never grouped with passengers from other ships.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ6" aria-expanded="false" aria-controls="crqA6"><span data-i18n="cruisesFaq.q6">Can we build our own itinerary for the day?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA6" role="region" aria-labelledby="crqQ6"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a6">Yes. Tell us your ship, your port and what you want to see, and we plan a custom day around your all-aboard time instead of a fixed package.</p></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -439,6 +528,7 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
@@ -446,7 +536,7 @@
         <a href="#why" data-i18n="why.eyebrow">Why choose us?</a>
         <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
         <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
-        <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a href="index.html#gallery" data-i18n="footer.companyGallery">Gallery</a>
       </nav>
       <div class="footer-col">
@@ -525,7 +615,7 @@
           <button type="button" class="contact-choice-option" id="contactChoiceEmail">
             <span class="contact-choice-icon" aria-hidden="true">✉️</span>
             <span class="contact-choice-name" data-i18n="choice.email">Email</span>
-            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we&#39;ll reply</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we'll reply</span>
           </button>
         </div>
       </div>
