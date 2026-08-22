@@ -1,6 +1,6 @@
 # FOLDER_STRUCTURE
 
-> Last updated: 2026-08-12 UTC (sosua.html destination hub added — SEO/AEO/GEO page)
+> Last updated: 2026-08-22 UTC (/es/ and /fr/ language builds + tools/ added)
 
 ```
 sariel taxi/
@@ -23,8 +23,27 @@ sariel taxi/
 │                         FAQ + book CTA. 4 JSON-LD blocks (TouristDestination,
 │                         Service/OfferCatalog, FAQPage, BreadcrumbList).
 │                         Reached from every page's footer Services column.
+├── cabarete.html          Cabarete destination hub — the no-distance hub TEMPLATE
+├── puerto-plata.html      Puerto Plata / Playa Dorada hub
+├── cofresi.html           Cofresí / Costambar hub (Ocean World)
+├── rio-san-juan.html      Río San Juan / Playa Grande hub
+├── las-terrenas.html      Las Terrenas / Samaná hub
 ├── sitemap.xml           6 URLs (home + 4 service/company pages + sosua.html)
-├── robots.txt            Allow-all crawlers + sitemap pointer
+├── robots.txt            Allow-all + explicit AI-crawler blocks + sitemap pointer
+├── llms.txt              Plain-text brief for generative engines (fares, tours, distances)
+├── 404.html              Branded not-found page, self-contained, noindex
+├── es/                   GENERATED — the 11 pages in Spanish, one per English
+│                         page, same filenames. Never hand-edit: rendered by
+│                         tools/build-langs.py and overwritten on every run.
+├── fr/                   GENERATED — the same 11 pages in French.
+├── tools/                Build and verification scripts (not served)
+│   ├── build-langs.py    Renders es/ and fr/ from the English pages + the
+│                         dictionary; also writes the hreflang cluster into
+│                         the English pages and regenerates sitemap.xml.
+│   ├── verify.py         30+ static checks: the four invariants across all
+│                         three languages, JSON-LD, paths, prices, hreflang.
+│   ├── _html.py          Shared tag-walking helpers for both of the above.
+│   └── dump-dict.js      Emits the three dictionaries as JSON for Python.
 ├── PROJECT_INFO.md       Stack, config, how to run/deploy (static fields)
 ├── skills-lock.json      Lockfile from `npx skills add emilkowalski/skill`
 ├── css/

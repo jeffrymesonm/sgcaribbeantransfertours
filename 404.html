@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+  SG Caribbean Transfers & Tours — 404 page.
+  Purpose: replace GitHub Pages' unbranded default 404 with a page that keeps
+  the visitor on the site and routes them to the four pages that convert.
+  Deliberately self-contained: no i18n/cart/shell scripts, so a broken URL can
+  never fail twice. Trilingual copy is inlined (EN/ES/FR) instead of loaded,
+  because js/i18n.js is not available here.
+  Served automatically by GitHub Pages for any unmatched path.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found | SG Caribbean Transfers &amp; Tours</title>
+  <meta name="robots" content="noindex, follow" />
+  <meta name="description" content="This page does not exist. Find airport transfers, excursions and cruise pickups in Puerto Plata and Sosúa." />
+  <meta name="theme-color" content="#062A31" />
+  <link rel="icon" href="img/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="img/favicon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,340;1,9..144,420&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Scoped to this page only — the 404 has no section shell to inherit from. */
+    .nf { min-height: 100svh; display: grid; place-items: center; padding: 3rem 1.25rem; background: var(--abyss); color: var(--shell); text-align: center; }
+    .nf-inner { max-width: 34rem; }
+    .nf-code { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin: 0 0 1rem; }
+    .nf h1 { font-family: var(--font-display); font-size: clamp(1.9rem, 5vw, 2.9rem); line-height: 1.1; margin: 0 0 .85rem; }
+    .nf p { color: #C7D6D9; margin: 0 0 1.75rem; }
+    .nf-links { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin-bottom: 2rem; }
+    .nf-links a { display: inline-block; padding: .6rem 1.05rem; border: 1px solid rgba(252,250,245,.28); border-radius: 999px; color: var(--shell); text-decoration: none; font-size: .95rem; transition: background .25s var(--ease-out), border-color .25s var(--ease-out); }
+    .nf-links a:hover { background: rgba(23,163,152,.18); border-color: var(--lagoon); }
+    .nf-home { font-family: var(--font-mono); font-size: .8rem; color: #8FA7AC; }
+    .nf-home a { color: var(--lagoon); }
+  </style>
+</head>
+<body>
+  <main class="nf">
+    <div class="nf-inner">
+      <p class="nf-code">Error 404</p>
+      <h1>This page took a wrong turn.</h1>
+      <p>
+        The link you followed does not exist — but your ride still does.
+        <span lang="es">La página que buscas no existe.</span>
+        <span lang="fr">Cette page n’existe pas.</span>
+      </p>
+      <nav class="nf-links" aria-label="Main pages">
+        <a href="/">Home</a>
+        <a href="/transfers.html">Airport transfers</a>
+        <a href="/excursions.html">Excursions</a>
+        <a href="/cruises.html">Cruise excursions</a>
+        <a href="/sosua.html">Sosúa guide</a>
+        <a href="/nosotros.html">Meet the team</a>
+      </nav>
+      <p class="nf-home">
+        Need a price right now?
+        <a href="https://wa.me/18296277733" rel="noopener">WhatsApp us at +1 829-627-7733</a>
+      </p>
+    </div>
+  </main>
+</body>
+</html>

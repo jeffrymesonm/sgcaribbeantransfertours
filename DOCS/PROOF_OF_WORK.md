@@ -1948,3 +1948,1061 @@ afirmación operativa se contradecía entre páginas:
 **Files modified:** `sosua.html`, `cruises.html`, `excursions.html`,
 `js/i18n.js`, `DOCS/PROOF_OF_WORK.md`, `DOCS/USER_MANUAL.md`.
 **Files created / deleted:** none.
+
+---
+
+## 2026-08-21 — Auditoría SEO / AEO / GEO + tanda rápida de correcciones
+
+**Pedido:** "revisa las paginas y busca oportunidad para mejorar el seo aeo y geo".
+Tras la auditoría el usuario confirmó dos cosas:
+
+1. **Los testimonios de la home NO son reales.** Por tanto **se descartó** añadir
+   `aggregateRating` / `review` al JSON-LD: marcar reseñas inventadas viola las
+   guidelines de datos estructurados de Google y expone el dominio a una acción
+   manual. La sección `#reviews` y el "4.9" del hero **no se tocaron**.
+2. Ejecutar la tanda que no cambia arquitectura ni URLs.
+
+### 1. Tarifas fijas ahora rastreables — `transfers.html#fares`
+
+`js/config.js` definía 25 tarifas fijas desde POP (`POP_FIXED_DESTINATIONS` +
+`POP_PROVINCE_FIXED_FARES`) y 5 desde otros aeropuertos
+(`OTHER_AIRPORT_FIXED_FARES`), pero en HTML solo existían las 8 del ticket rail:
+**todo lo demás solo aparecía si el visitante usaba la calculadora**. Los
+crawlers de respuesta (GPTBot, ClaudeBot, PerplexityBot) no ejecutan JS, así que
+~25 rutas de intención comercial alta ("how much is a taxi from POP to Las
+Terrenas") no tenían respuesta indexable.
+
+- Nueva sección 4 `#fares`: dos tablas estáticas (25 filas POP + 5 de otros
+  aeropuertos), reutilizando las clases `.dest-table*` ya creadas para
+  `sosua.html`. Solo los encabezados llevan `data-i18n`; los nombres de destino
+  son nombres propios y quedan sin traducir.
+- **11 claves `fares.*` × 3 idiomas** en `js/i18n.js`.
+- CSS: `.fares-subhead` y `.fares-note` al final de `css/styles.css`.
+- El JSON-LD `Service` pasó de 1 oferta suelta a **`hasOfferCatalog` con 30
+  `Offer`** + `AggregateOffer` (lowPrice 23.95 / highPrice 425), más `@id`,
+  `name`, `description`, `availableLanguage` y `areaServed` ampliado.
+- ⚠️ **Esto revierte deliberadamente la decisión del 2026-07-20** ("una sola
+  fuente visible por ruta"). `js/config.js` sigue siendo la única fuente de
+  verdad; la tabla es un **espejo rastreable**, no una segunda fuente. El
+  comentario de la sección 3 documenta el porqué. **Al cambiar una tarifa hay
+  que tocar `js/config.js`, `transfers.html#fares` y `llms.txt`.**
+
+### 2. Entidad enriquecida para el knowledge graph (las 6 páginas)
+
+El nodo `TravelAgency` (idéntico en las 6 páginas) pasó de 1.213 a 2.471 bytes:
+`alternateName`, `knowsLanguage` (`en`, `es` — lo que el propio sitio afirma en
+`nosotros.html` y en la FAQ de Sosúa), `contactPoint` con el enlace de WhatsApp,
+y `hasOfferCatalog` con las tres líneas de servicio y su URL.
+**No se añadió** `openingHoursSpecification`, `foundingDate` ni `founder`: no hay
+dato confirmado y no se inventan.
+
+### 3. `TouristTrip` con precio real (`excursions.html`, `cruises.html`)
+
+Los `ItemList` solo llevaban `name` + `url`. Ahora cada viaje lleva
+`description`, `image`, `provider`, `duration` (solo donde la tarjeta declara
+horas exactas) y **`offers` como `AggregateOffer`** con el rango 4→6 huéspedes
+copiado de su `data-prices`. Nombres alineados con los de la tarjeta
+("Beach Experience" → "Beach Experiences", "City Tour" → "Puerto Plata City Tour").
+
+### 4. Rendimiento
+
+- **58 `<img>`: los 44 que no lo tenían ya declaran `width`/`height`** leídos del
+  archivo real → elimina el CLS. Se añadió `height: auto` a la regla base `img`
+  de `css/styles.css` para que los atributos actúen como pista de ratio y no como
+  tamaño fijo (las reglas específicas con `height:100%` ganan por especificidad y
+  no cambian).
+- **36 JPEG recomprimidos** (lado largo ≤1800 px, calidad 82 progresivo, EXIF
+  fuera, y solo se conserva si pesa menos): **`img/` 10.820 KB → 7.746 KB (−28 %)**.
+  Los peores: `exc-city-tour.jpg` 1.054→280 KB, `exc-atv.jpg` 960→268 KB,
+  `hero-cruises.jpg` 462→120 KB, `exc-punta-rusia.jpg` y `hero-excursion.jpg`
+  749→387 KB (2500→1800 px). Originales recuperables desde git.
+- **GA4 movido al final de `<head>`** en las 6 páginas. Estaba por encima de
+  `<title>`, abriendo conexión a googletagmanager antes de descubrir el CSS y las
+  fuentes. Sigue siendo `async`: la medición no cambia.
+
+### 5. Menores
+
+- **`404.html` creado.** GitHub Pages servía su 404 genérico. Autocontenido (sin
+  i18n/cart/shell: una URL rota no puede fallar dos veces), `noindex, follow`.
+- **`llms.txt` creado** — brief en texto plano para motores generativos: datos de
+  la entidad, las 30 tarifas fijas, precios de los 6 tours, distancias e índice
+  de páginas.
+- **`robots.txt`**: bloques `Allow` explícitos para GPTBot, OAI-SearchBot,
+  ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot,
+  Perplexity-User, **Google-Extended** (controla si Gemini / AI Overviews pueden
+  fundamentar respuestas en este contenido), Applebot-Extended y Bingbot.
+- **`og:image:alt` + `og:image:width/height`** en las 6 páginas.
+- **`cruises.html`: `og:image` cambiado** de `hero-cruises.jpeg` (900×1200,
+  vertical — se recortaba mal en `summary_large_image`) a `hero-cruises.jpg`
+  (1024×576, ya en el repo pero sin usar): aérea de Puerto Plata con el crucero
+  atracado en Taino Bay, la Fortaleza San Felipe y el Pico Isabel de Torres.
+- **`nosotros.html`**: nodo `TravelAgency` parcial que comparte el `@id` del sitio
+  y adjunta los 4 choferes como `employee` (`Person` con nombre, foto, `jobTitle`
+  e idiomas) — la señal E-E-A-T que la página ya se ganaba visualmente.
+- **`sosua.html`**: nodo `WebPage` con `datePublished` 2026-08-12 /
+  `dateModified` 2026-08-21, `inLanguage`, `isPartOf` → `WebSite`,
+  `primaryImageOfPage` y `about` → el `TouristDestination` (al que se le añadió su
+  `@id`). La frescura es señal directa para una guía "how to get to X".
+- **`sitemap.xml`**: los 6 `lastmod` a 2026-08-21 (cambio de contenido real).
+
+### 6. Bug de contenido corregido de paso
+
+`meta.excursions.description` (×3 idiomas + las dos metas de `excursions.html`)
+prometía **"whale watching"**, un tour que **ya no está en la página** (no existe
+tarjeta `exc3`; `img/exc-whale-watching.jpg` quedó huérfana). Un snippet que
+promete más de lo que la página entrega lo reescribe Google y rebota al
+visitante. Sustituido por los dos que sí existen: ATV y buggies.
+
+**Verificación (estática, sin navegador):**
+
+- `node --check` sobre los 9 archivos de `js/` → OK.
+- **Los 26 bloques JSON-LD de las 7 páginas parsean** y las **50 referencias
+  `@id` resuelven** a un nodo definido.
+- **Balance de etiquetas correcto en las 7 páginas** (`html.parser`).
+- **542 claves `data-i18n` usadas, 0 ausentes en `en` / `es` / `fr`.**
+- **Todas las rutas locales (`href` / `src`) existen**; los **58 `<img>` tienen
+  `width`, `height` y `alt`**.
+- **Paridad de tarifas: los 30 precios de `js/config.js` aparecen en
+  `transfers.html#fares` (30 filas) y en `llms.txt`, y ninguna de las dos inventa
+  un precio que no esté en `config.js`.**
+- `sitemap.xml` valida contra el esquema de sitemaps.
+
+**Pendiente / requiere dato del dueño:**
+
+- `exc4` se contradice consigo mismo: la descripción dice **"US$65 per person, up
+  to 6 guests"** (×3 idiomas) mientras su propio widget cobra
+  **100/125/150 = US$25 por persona**. No se tocó porque no sé cuál es el precio
+  bueno. Un motor de respuesta citará uno de los dos.
+- ¿La operación es **24/7**? Si se confirma, toca añadir
+  `openingHoursSpecification` al `TravelAgency`.
+- Faltan perfiles para `sameAs` (Facebook, TripAdvisor): solo hay Instagram y
+  Google Maps.
+- 4 imágenes huérfanas en el repo (`hero-cruiser.png` 924 KB,
+  `exc-whale-watching.jpg`, `hero-cruises.jpeg`, `logo favicon.jpeg`). No afectan
+  al SEO (no se sirven), pero inflan el repo.
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`, `sosua.html`, `css/styles.css`, `js/i18n.js`,
+`robots.txt`, `sitemap.xml`, 36 archivos de `img/`, `PROJECT_INFO.md`,
+`DOCS/FOLDER_STRUCTURE.md`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/USER_MANUAL.md`,
+`DOCS/PROOF_OF_WORK.md`, `tasks/todo.md`.
+**Files created:** `404.html`, `llms.txt`.
+**Files deleted:** none.
+
+### Segunda pasada (mismo día) — 24/7 confirmado y precio del City Tour corregido
+
+El dueño respondió las dos preguntas abiertas de la entrada anterior:
+
+**1. La operación es 24/7.** Añadido `openingHoursSpecification` al nodo
+`TravelAgency` de las 6 páginas, en la forma que Google documenta para
+operación continua: los 7 días, `opens` `00:00`, `closes` `23:59`. Es la señal
+detrás del "abierto ahora" en resultados locales y detrás de que un motor de
+respuesta conteste que sí a "can they pick me up at 2 AM".
+⚠️ **Pendiente de contenido:** el 24/7 ahora está en el schema pero **no se
+afirma en ninguna parte visible del sitio**. Conviene que aparezca en la FAQ o
+en la franja de confianza, porque el dato marcado debe reflejar lo que la
+página dice.
+
+**2. El Puerto Plata City Tour cuesta US$65 por persona**, no los US$25 que
+implicaba su widget. La descripción (`exc4.desc`, ×3 idiomas) siempre dijo lo
+correcto; el que estaba mal era el mapa de precios. Corregido
+**100/125/150 → 260/325/390** en:
+
+- `excursions.html` `#exc4`: `data-prices`, el fallback visible estático
+  (`exc-amount` 100→260, `exc-per-person-amount` 25→65) y el `AggregateOffer`
+  de su `TouristTrip` (lowPrice/highPrice → 260.00/390.00).
+- `cruises.html` `#cruise2`: el mismo tour vendido como shore excursion —
+  idénticos tres cambios.
+- `llms.txt`: la fila de la tabla de tours.
+
+No se tocó `exc4.desc` en `js/i18n.js`: ya decía US$65 por persona y ahora es
+verdad. Tampoco hubo que tocar `js/config.js` (los precios de excursión viven
+en los `data-prices` del HTML, no ahí).
+
+⚠️ **Nota para el dueño:** con este cambio el City Tour cuesta **exactamente lo
+mismo que el ATV Adventure** (`exc6`, también 260/325/390 = US$65/persona). Fue
+justo esa coincidencia la que hizo sospechar que la frase "US$65 per person"
+estaba copiada de la tarjeta del ATV. El dueño confirmó los US$65, así que se
+aplicó — pero si el número correcto era otro, este es el punto a revisar.
+
+**Verificación:**
+- Coherencia total/por-persona comprobada en las **10 tarjetas** de las dos
+  páginas: el fallback estático visible coincide con el `data-prices` del
+  tamaño de grupo activo por defecto en cada tarjeta (`exc1` arranca en 5
+  huéspedes, el resto en 4).
+- 0 apariciones residuales de `"4":100` o `US$100` como precio del City Tour.
+- Los **26 bloques JSON-LD** siguen parseando y las **50 referencias `@id`**
+  resolviendo; 542 claves i18n sin ausencias; paridad de tarifas de transfer
+  intacta.
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`, `sosua.html`, `llms.txt`,
+`DOCS/PROOF_OF_WORK.md`.
+**Files created / deleted:** none.
+
+**Sigue pendiente (no se hizo, por alcance):**
+- **Hubs de destino** (Cabarete, Puerto Plata/Playa Dorada, Las Terrenas/Samaná,
+  Cofresí/Ocean World, Río San Juan/Playa Grande) replicando la plantilla de
+  `sosua.html`. Es la mayor oportunidad de tráfico que queda.
+- **Breadcrumbs visibles en la UI** — existen en el `BreadcrumbList` JSON-LD de
+  5 páginas pero no se muestran al visitante.
+- **Multiidioma real** (`/es/`, `/fr/` + `hreflang`): hoy el i18n es client-side
+  sobre una sola URL, así que ES y FR no se indexan.
+- Perfiles para `sameAs` (Facebook, TripAdvisor).
+
+### Tercera pasada (mismo día) — pendientes: FAQ 24/7, breadcrumbs visibles y el hub de Cabarete
+
+#### 1. `index.html`: las 5 respuestas del `FAQPage` no coincidían con las visibles
+
+Auditando antes de tocar nada apareció que **la home violaba la invariante #2**
+del DEVELOPER_GUIDE: las cinco respuestas del JSON-LD eran un borrador anterior,
+más corto, que el que lee el visitante. `transfers`, `excursions`, `cruises` y
+`sosua` sí coincidían — la home era la excepción, probablemente por ser la más
+antigua. Google puede descartar un bloque `FAQPage` que no refleja la página.
+
+Corregido regenerando el bloque **desde el HTML visible**, no copiándolo a mano,
+de modo que en esta pasada no pueden divergir.
+
+#### 2. FAQ del 24/7 (visible + JSON-LD + 3 idiomas)
+
+El `openingHoursSpecification` de la pasada anterior afirmaba 24/7 en el schema
+sin que la página lo dijera en ninguna parte. Añadida `faq.q6` / `faq.a6`
+("Do you operate at night and on weekends?") a la home: acordeón visible,
+`FAQPage` JSON-LD y las tres tandas del diccionario. Ahora el dato marcado
+tiene respaldo visible, que es lo que Google espera.
+
+#### 3. Breadcrumbs visibles
+
+Las 5 páginas con `BreadcrumbList` declaraban una ruta que ningún visitante
+podía ver. Añadido un `<nav class="crumbs">` justo debajo del hero en
+`transfers`, `excursions`, `cruises`, `nosotros` y `sosua` (el `<h1>` vive
+dentro del hero a sangre, así que una barra encima quedaría sobre la foto).
+Las etiquetas reutilizan las claves `nav.*` existentes para que ninguna página
+se invente un segundo nombre para sí misma. Nuevas claves `crumbs.*` ×3 y un
+bloque CSS `.crumbs` al final de `css/styles.css`.
+
+#### 4. `cabarete.html` — segundo hub de destino
+
+Generado desde `sosua.html` con un script de un solo uso (no se versiona: el
+sitio no tiene build step y la página se mantiene a mano de aquí en adelante).
+Misma cáscara, mismo orden de secciones, mismas clases `.dest-*`, y un espejo
+`cabarete.*` del árbol de 151 claves de `sosua.*` — **456 entradas nuevas en
+`js/i18n.js`, 152 claves × 3 idiomas**, más `meta.cabarete.*`,
+`crumbs.cabarete` y `footer.serviceCabarete`.
+
+Contenido propio de Cabarete, no traducido de Sosúa: tabla de aeropuertos,
+sección de cruceros, tabla comparativa a 4 columnas, 6 lugares cercanos
+(Kite Beach, Playa Encuentro, Cabarete Bay, El Choco y las cuevas, Sosúa,
+Damajagua) y **10 preguntas frecuentes**, dos de ellas específicas del público
+objetivo: *"Can you carry kiteboards, surfboards and windsurf gear?"* y
+*"Do you drive late at night or very early?"*.
+
+**5 bloques JSON-LD**: `TouristDestination` (con `includesAttraction` y
+`touristType`), `Service` + `hasOfferCatalog` con las 2 tarifas confirmadas,
+`FAQPage` (10 preguntas, espejo literal de las visibles), `BreadcrumbList` y
+`WebPage` con `dateModified`. El nodo `TravelAgency` se copia byte a byte de las
+otras páginas para no romper la invariante #3.
+
+Registrada en `sitemap.xml` (7 URLs), en `llms.txt` (sección de distancias y
+tarifas propias) y en el footer de las 7 páginas. Además, **enlace recíproco
+entre los dos hubs** dentro de la tarjeta que cada uno dedica al otro pueblo.
+
+⚠️ **Tres límites deliberados de esta página, todos documentados en su
+comentario de cabecera:**
+
+1. **Solo 2 tarifas confirmadas.** POP US$33.95 y STI US$98.95 salen de
+   `js/config.js`. **AZS, SDQ y PUJ no tienen tarifa confirmada a Cabarete**, así
+   que la tabla dice "On request" en vez de inventar un número. La nota de la
+   tabla y la FAQ 4 lo explican como política ("solo publicamos precios que
+   hemos confirmado"), que además empuja al contacto por WhatsApp.
+2. **Solo una distancia es del dueño.** Cabarete↔Sosúa (~8 km / ~15 min) está
+   confirmada en `sosua.html`. **Todas las demás distancias y duraciones de la
+   página son aritmética sobre las cifras de Sosúa que el dueño ya confirmó**
+   (POP ~17 km/~25 min, STI ~93 km/~1 h 45, AZS ~147 km/~2 h 20, SDQ ~253 km/
+   ~4 h 15, PUJ ~308 km/~5 h, Taino Bay ~65 min, Amber Cove ~75 min) y están
+   **pendientes de confirmación**. Ojo con AZS: Cabarete queda *más cerca* de
+   Samaná que Sosúa, no más lejos — la resta va en sentido contrario que en el
+   resto de rutas.
+3. **La foto del hero no es de Cabarete.** `img/cta-band.jpg` es una playa
+   caribeña genérica; su `alt` no afirma ningún lugar, precisamente para no
+   mentir. Reemplazar por una foto real de Kite Beach en cuanto el dueño la dé.
+
+#### 5. Suite de verificación estática ampliada
+
+La verificación anterior no comprobaba la invariante #1 (HTML estático ==
+diccionario). Al añadirla saltaron **8 fallbacks corruptos en `cabarete.html`**:
+el regex del generador paraba en la primera etiqueta interna, así que los
+valores con `<em>` o `<br />` conservaban medio texto de Sosúa — incluido un CTA
+de reserva que aún decía *"Let's get you to Sosúa"* en la página de Cabarete.
+Corregido con un extractor de `innerHTML` que sigue el anidamiento de verdad.
+
+**Verificación final — 37 comprobaciones, 0 fallos:**
+- `node --check` sobre los 9 archivos de `js/`.
+- **30 bloques JSON-LD en 8 páginas parsean; 55 referencias `@id` resuelven.**
+- Etiquetas balanceadas en las 8 páginas.
+- Diccionarios evaluados en Node: en=826, es=812, fr=813 claves.
+  **701 claves usadas en el HTML, 0 ausentes en ninguno de los tres idiomas.**
+- **Invariante #1: 701 fallbacks comparados contra el diccionario EN,
+  0 divergencias** (antes ni se medía).
+- **Invariante #2: las 6 páginas con FAQ coinciden pregunta por pregunta y
+  respuesta por respuesta con su `FAQPage`.**
+- **Invariante #3: el nodo `TravelAgency` es idéntico en las 7 páginas.**
+- **Invariante #4: las 30 tarifas de `config.js` están en `transfers.html#fares`
+  y en `llms.txt`, sin precios inventados; los precios de las 10 tarjetas de
+  tour coinciden con `llms.txt`.**
+- Todas las rutas locales existen; los 62 `<img>` llevan `width`, `height` y `alt`.
+- `sitemap.xml` valida y coincide exactamente con las páginas indexables
+  (`404.html` queda fuera por su `noindex`).
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`,
+`cruises.html`, `nosotros.html`, `sosua.html`, `css/styles.css`, `js/i18n.js`,
+`sitemap.xml`, `llms.txt`, `PROJECT_INFO.md`, `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/FOLDER_STRUCTURE.md`, `DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`,
+`tasks/todo.md`.
+**Files created:** `cabarete.html`.
+**Files deleted:** none.
+
+**Sigue pendiente:**
+- **4 hubs más** (Puerto Plata/Playa Dorada, Las Terrenas/Samaná,
+  Cofresí/Ocean World, Río San Juan/Playa Grande). La plantilla ya está probada
+  dos veces; el freno real es que **hacen falta distancias y tarifas
+  confirmadas** para cada destino, igual que en Cabarete.
+- **Multiidioma real** (`/es/`, `/fr/` + `hreflang`). Sigue siendo el mayor
+  techo de tráfico sin explotar y el único cambio que altera la estructura de
+  URLs — decisión del dueño antes de empezar.
+- `sameAs`: faltan las URLs de Facebook y TripAdvisor.
+- Foto real de Cabarete para el hero.
+
+### Cuarta pasada (mismo día) — Cabarete sin distancias
+
+**Instrucción del dueño:** *"no uses distancia, solo informacion sobre los
+lugares"*, en respuesta a la petición de confirmar las distancias derivadas de
+`cabarete.html`.
+
+Decisión correcta: de los datos geográficos de esa página solo Cabarete↔Sosúa
+estaba confirmado; el resto era aritmética sobre las cifras de Sosúa. Publicar
+un cálculo como si fuera un hecho es exactamente lo que un motor de respuesta
+citaría y lo que un cliente comprobaría en el carro. **`cabarete.html` ya no
+publica ninguna distancia ni duración de trayecto.**
+
+En su lugar la página sitúa cada lugar por posición y carácter — "sobre la
+carretera costera justo al este de Sosúa", "Taino Bay está dentro de la ciudad
+de Puerto Plata", "Amber Cove está en Maimón, al oeste" — y manda a WhatsApp a
+quien quiera un tiempo real de trayecto.
+
+Cambios:
+- **36 claves reescritas × 3 idiomas** y **36 eliminadas** (`air.thDistance`,
+  `air.thTime` y los 10 pares `xxxKm`/`xxxTime`).
+- **La tabla de aeropuertos pasó de 5 a 3 columnas**: Aeropuerto · Código ·
+  Precio fijo. Sin columnas de distancia ni de duración.
+- Las 6 tarjetas de lugares cambiaron su línea `mono` de "~3 km · ~5 min" a una
+  etiqueta descriptiva: *Kitesurfing*, *Surf break*, *In town*,
+  *Nature reserve*, *Neighbouring town*, *Full-day excursion*.
+- Las tarjetas de muelle igual: "Inside Puerto Plata city" y
+  "In Maimón, west of Puerto Plata".
+- **Dos preguntas de la FAQ reformuladas** porque pedían un número por
+  definición: *"How far is Cabarete from POP?"* → **"Where exactly is
+  Cabarete?"**, y *"How far is Sosúa from Cabarete?"* → **"What is the
+  difference between Cabarete and Sosúa?"** — esta última es mejor pregunta:
+  responde a la duda real (mar abierto y viento frente a bahía protegida y
+  agua calma) y no a una métrica.
+- Reescritos también `hero.lead`, `answer.lead`, `air.lead`, `air.note`,
+  `cruise.lead`, `cruise.timingBody`, `compare.lead` y `spots.s3Body`
+  (se le escapaba un "in about one kilometre").
+- `meta description`, `og:description` y tres bloques JSON-LD
+  (`TouristDestination`, `FAQPage`, `WebPage`) regenerados en consecuencia.
+- Sección de Cabarete en `llms.txt` reescrita sin cifras de distancia.
+
+**`sosua.html` no se tocó:** sus distancias las confirmó el dueño el
+2026-08-12 (corrigiendo 19 km→9 km y 25 min→15 min), así que ahí los números
+son un activo, no un riesgo.
+
+**Verificación: 37 comprobaciones, 0 fallos.** Diccionarios en=814, es=800,
+fr=801; **689 fallbacks comparados contra el diccionario EN, 0 divergencias**;
+las 10 preguntas visibles de Cabarete siguen coincidiendo literalmente con su
+`FAQPage`; barrido de patrones (`km`, `kilomet`, `mile`, `min`, `minute`,
+`\d+ h`) sobre el texto visible: **ninguna distancia ni duración de trayecto**
+—solo la escala de crucero de 8–9 h, el 24/7 y la cancelación gratuita hasta
+24 h antes, que no son distancias.
+
+**Files modified:** `cabarete.html`, `js/i18n.js`, `llms.txt`,
+`PROJECT_INFO.md`, `DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`.
+**Files created / deleted:** none.
+
+### Quinta pasada (mismo día) — los 4 hubs de destino restantes
+
+El dueño dio luz verde a continuar. Se crearon **`puerto-plata.html`,
+`cofresi.html`, `rio-san-juan.html` y `las-terrenas.html`**, con lo que el sitio
+pasa de 7 a 11 páginas indexables y de 2 a **6 hubs de destino**.
+
+#### Cómo se generaron
+
+Plantilla: **`cabarete.html`**, no `sosua.html` — ya lleva el diseño sin
+distancias (tabla de 3 columnas, etiquetas descriptivas en las tarjetas). El
+generador (`gen_hub.py`, herramienta de un solo uso, no se versiona) toma una
+especificación por destino y produce la página + su bloque i18n.
+
+El diccionario se partió en tres capas para no repetir texto ni voz:
+- **SHARED** (~55 claves): idénticas en todos los hubs — encabezados de tabla,
+  CTAs, la rejilla comparativa entera, los pasos de llegada.
+- **TEMPLATE** (~20 claves): la misma frase con `{town}` y `{price}`
+  sustituidos.
+- **BESPOKE** (~45 claves): todo lo que dice algo concreto de un lugar — hero,
+  respuesta rápida, sección de cruceros, las 6 tarjetas de lugares y 6 de las
+  10 preguntas frecuentes.
+
+Total: **~140 claves × 3 idiomas × 4 páginas = 1.680 cadenas nuevas.**
+
+#### Decisiones de contenido
+
+- **Solo se publica la tarifa confirmada.** Cada hub imprime su única tarifa POP
+  de `js/config.js` (38.95 / 48.50 / 98.50 / 178.50) y pone **"On request"** en
+  los otros cuatro aeropuertos. La nota de la tabla lo convierte en política
+  declarada — "solo publicamos precios que hemos confirmado" — lo que es honesto
+  y empuja al WhatsApp.
+- **Cero distancias**, siguiendo la instrucción del dueño. Los lugares se
+  describen por posición y carácter. Barrido final de patrones sobre las 5
+  páginas: **ninguna métrica de trayecto**.
+- **La sección de cruceros puede decir que no.** `las-terrenas.html` afirma sin
+  rodeos que **no cabe en una escala de Puerto Plata**, y explica que si una
+  naviera vende Samaná es porque el barco atraca en la bahía de Samaná, que es
+  otro puerto. Es el párrafo más valioso de esa página: responde a una confusión
+  real y evita una venta que acabaría en queja.
+- `rio-san-juan.html` hace lo mismo en tono más suave: desde los muelles es un
+  día entero, no medio.
+- **`puerto-plata.html` es el único con foto real del lugar**
+  (`img/hero-cruises.jpg`, aérea de la ciudad con la fortaleza y el Pico Isabel
+  de Torres). Los otros tres usan playas genéricas cuyo `alt` no afirma ningún
+  lugar, igual que Cabarete.
+
+#### Dos errores propios detectados y corregidos en verificación
+
+1. **Provincia falsa en el hero.** La plantilla fijaba
+   `{town} · Puerto Plata · Dominican Republic`, correcto para Cabarete y
+   Cofresí pero **falso para Río San Juan** (María Trinidad Sánchez) y
+   **Las Terrenas** (Samaná), y absurdo para Puerto Plata ("Puerto Plata ·
+   Puerto Plata"). Corregido en los tres, en los tres idiomas.
+2. **Dos frases con métrica** que sobrevivieron: *"the airport is minutes from
+   the city"* en Puerto Plata y *"kilometres of sand"* en Las Terrenas.
+   Reescritas.
+
+#### Footer reorganizado
+
+Con seis hubs, dejarlos en la columna Services la habría convertido en una lista
+de diez ítems. Se creó una **columna "Destinations"** con los seis, etiquetados
+solo con el nombre del pueblo, y con `aria-current="page"` en el propio. Cada
+hub enlaza ahora a los otros cinco desde todas las páginas — un clúster temático
+limpio. `css/styles.css`: el footer pasa de 4 a 5 columnas con dos escalones
+intermedios (560 px → 2 columnas, 900 px → 3, 1120 px → 5) para que ninguna
+quede más estrecha que un nombre de pueblo.
+
+`sitemap.xml` pasa a **11 URLs**; `llms.txt` gana una sección "Destinations
+covered in detail" con los seis y sus tarifas.
+
+**Verificación: 47 comprobaciones, 0 fallos.**
+- `node --check` sobre los 9 archivos de `js/`.
+- **54 bloques JSON-LD en 12 páginas parsean**; todas las referencias `@id`
+  resuelven.
+- Etiquetas balanceadas en las 12 páginas.
+- **1.258 claves comparadas contra el diccionario EN, 0 divergencias**
+  (invariante #1).
+- Las **6 páginas con FAQ** coinciden literalmente con su `FAQPage`
+  (invariante #2) — 4 hubs nuevos × 10 preguntas incluidas.
+- El nodo `TravelAgency` sigue idéntico en las 11 páginas (invariante #3).
+- Las 30 tarifas de `config.js` siguen en `transfers.html#fares` y `llms.txt`
+  sin inventos (invariante #4).
+- Todas las rutas locales existen; todos los `<img>` con `width`/`height`/`alt`.
+- `sitemap.xml` valida y coincide exactamente con las páginas indexables.
+
+**Files created:** `puerto-plata.html`, `cofresi.html`, `rio-san-juan.html`,
+`las-terrenas.html`.
+**Files modified:** las 7 páginas anteriores (footer), `css/styles.css`,
+`js/i18n.js`, `sitemap.xml`, `llms.txt`, `PROJECT_INFO.md`,
+`DOCS/DEVELOPER_GUIDE.md`, `DOCS/FOLDER_STRUCTURE.md`, `DOCS/USER_MANUAL.md`,
+`DOCS/PROOF_OF_WORK.md`, `tasks/todo.md`.
+**Files deleted:** none.
+
+**Sigue pendiente:**
+- **Tarifas confirmadas desde STI / AZS / SDQ / PUJ** a los cinco destinos que
+  no son Sosúa. Hoy son 20 celdas "On request" que podrían ser 20 precios.
+  Especialmente **AZS → Las Terrenas**, que es la ruta natural de ese destino.
+- **Fotos reales** de Cabarete, Cofresí, Río San Juan y Las Terrenas.
+- **Multiidioma real** (`/es/`, `/fr/` + `hreflang`) — el mayor techo que queda,
+  y ahora con 11 páginas × 3 idiomas el coste de no tenerlo es mayor.
+- `sameAs`: URLs de Facebook y TripAdvisor.
+
+## 2026-08-22 — Fotos reales en los heroes de cuatro hubs
+
+**Pedido:** *"te guarde foto nuevos para los head"*. El dueño dejó cuatro fotos en
+`img/`, cada una del lugar que ilustra de verdad.
+
+| Origen | Destino | Qué muestra |
+|---|---|---|
+| `puerto plata.jpg` | `img/puerto-plata.jpg` | El Cristo Redentor del Pico Isabel de Torres sobre la ciudad, la bahía y un crucero al fondo |
+| `cabarete.webp` | `img/cabarete.jpg` | Kitesurfistas con el cielo lleno de cometas, palmeras y edificios de playa detrás |
+| `rio san juan.webp` | `img/rio-san-juan.jpg` | Cala turquesa entre promontorios boscosos |
+| `las terrenas.webp` | `img/las-terrenas.jpg` | El letrero de colores LAS TERRENAS en el malecón |
+
+**Normalizadas al pipeline del sitio** en vez de usarse tal cual:
+- **Nombres con guiones.** Los originales tenían espacios, que se convierten en
+  `%20` en cada URL que los referencia — `<img src>`, `og:image` y dos nodos
+  JSON-LD por página. Ya hubo un caso así en el repo (`banner nosotros.jpeg`).
+- **Convertidas a JPEG.** Tres venían en WebP. El resto del sitio es JPEG, y
+  sobre todo: `og:image` lo leen scrapers cuyo soporte de WebP sigue siendo
+  desigual — una tarjeta de WhatsApp o Facebook sin imagen es pérdida directa de
+  conversión. El ahorro de WebP sobre estos tamaños no compensa ese riesgo.
+- Lado largo ≤1800 px, calidad 82 progresivo, metadatos fuera.
+
+Por página se actualizaron cinco referencias: el `<img>` del hero (con
+`width`/`height` reales), `og:image`, `og:image:alt`, `og:image:width/height`, y
+las dos del JSON-LD (`TouristDestination.image` y `WebPage.primaryImageOfPage`).
+El comentario de cabecera de cada página deja de decir "placeholder".
+
+**Textos alternativos reescritos** para describir lo que hay en cuadro. Las
+anteriores no afirmaban lugar porque las fotos eran genéricas; estas sí pueden
+nombrarlo porque ahora es cierto.
+
+**`cofresi.html` no recibió foto** y conserva `transfer-trust-resort.jpg`, un
+resort genérico cuyo `alt` sigue sin afirmar ningún lugar. Es ahora el único hub
+sin foto real.
+
+**Verificación: 49 comprobaciones, 0 fallos.** JSON-LD parsea y resuelve, las
+cuatro invariantes en verde, todas las rutas locales existen, todos los `<img>`
+con `width`/`height`/`alt`.
+
+⚠️ **Dos observaciones sobre el encuadre** (el hero es `min-height: 100svh` con
+`object-fit: cover`, es decir una caja **alta**):
+- **`cabarete.jpg` es un panorama de 1800×562 (ratio 3.2).** En escritorio queda
+  bien: se escala a la altura y muestra la franja central, que es donde está el
+  kitesurfista. **En móvil el recorte es fuerte** — se ve una banda vertical
+  estrecha del centro. Sigue siendo un kitesurfista sobre agua turquesa, pero se
+  pierde el cielo lleno de cometas, que es lo mejor de la foto. Si el dueño tiene
+  un encuadre más alto de la misma escena, mejora bastante.
+- **`puerto-plata.jpg` es vertical (1080×1225)** y solo 1080 px de ancho: en
+  escritorio se sube de escala y pierde algo de nitidez bajo el scrim. Aceptable,
+  pero una versión más ancha sería mejor.
+
+**Nota aparte:** quedan **4 imágenes huérfanas** en el repo (1.45 MB):
+`hero-cruiser.png` (924 KB), `exc-whale-watching.jpg`, `logo favicon.jpeg` y
+`hiking.jpg`. No se sirven, así que no afectan al SEO — pero engordan el
+repositorio. No se borran porque son archivos del dueño.
+
+**Files created:** `img/puerto-plata.jpg`, `img/cabarete.jpg`,
+`img/rio-san-juan.jpg`, `img/las-terrenas.jpg`.
+**Files deleted:** `img/puerto plata.jpg`, `img/cabarete.webp`,
+`img/rio san juan.webp`, `img/las terrenas.webp` (renombradas/convertidas).
+**Files modified:** `puerto-plata.html`, `cabarete.html`, `rio-san-juan.html`,
+`las-terrenas.html`, `PROJECT_INFO.md`, `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`, `tasks/todo.md`.
+
+## 2026-08-22 — Foto de Cofresí y altura del hero acotada
+
+**Lo pedido:** *"en telefono las fotos son muy grandes y se pierde parte del
+nombre y de la vista, arreglalo; tambien en la web hazla un poco mas pequeña
+para que no pierdan tanta calidad"* y, a mitad de la tarea, *"ya agregue la foto
+de cofresi"*.
+
+### 1. `img/cofresi.jpg` — el último hub deja el placeholder
+
+Aérea de Ocean World: las lagunas del parque sobre la punta rocosa, la ensenada
+y la franja de resorts detrás, y el Pico Isabel de Torres al fondo. 1600×1200,
+q82 progresivo, EXIF eliminado, 490 KB.
+
+**Venía espejada.** El rótulo del parque se leía `blroW naecO` y la costa estaba
+invertida con él. Se volteó horizontalmente antes de procesarla, con lo que el
+letrero se lee y la geografía queda en su orientación real. Verificado
+recortando el rótulo a 5x antes y después.
+
+Actualizado en `cofresi.html`: hero `<img>` (src/width/height/alt), `og:image`,
+`og:image:alt`, `og:image:width|height`, `TouristDestination.image`,
+`WebPage.primaryImageOfPage`, `dateModified` → 2026-08-22 y el comentario
+`HERO IMAGE:` de cabecera. **Los seis hubs tienen ya foto real de su lugar.**
+
+`transfer-trust-resort.jpg` sigue en uso en `transfers.html`, así que no se
+queda huérfana.
+
+### 2. La causa real del recorte en móvil: la altura del hero
+
+`.hero` era `min-height: 100svh` y el fondo es `object-fit: cover`. Cuanto más
+alta y estrecha es la caja respecto a la foto, **más ancho se tira y más se
+amplía lo que queda**. En un teléfono de 390×844 la caja era de 390×945 (con el
+sangrado del parallax): una foto apaisada de 1024×577 se escalaba a 1459 px de
+ancho para llenarla, de los que se veían 390. De ahí que del letrero de Las
+Terrenas solo se viera una letra.
+
+```css
+.hero { min-height: min(100svh, 50rem); }
+
+@media (max-width: 599.98px) {
+  .hero { min-height: 34rem; }
+  .hero-content { padding-block: 5.5rem 4rem; }
+}
+```
+
+En móvil la altura la marca ahora el texto del hero (34rem es solo suelo), y el
+`padding` baja para que el bloque siga cabiendo. Medido, ancho visible de la
+foto y factor de escala, antes → después:
+
+| Foto | Móvil 390×844 | Escala | Desktop 1920×990 | 27" 2560×1350 |
+|---|---|---|---|---|
+| `las-terrenas.jpg` | 23% → **36%** | 1.64x → **1.06x** | 98% → 100% | 95% → 100% |
+| `cofresi.jpg` | 31% → **48%** | 0.79x → **0.51x** | 100% | 100% |
+| `puerto-plata.jpg` | 47% → **73%** | 0.77x → **0.50x** | 100% | 100% |
+| `rio-san-juan.jpg` | 28% → **43%** | 0.95x → **0.61x** | 100% | 100% |
+| `cabarete.jpg` | 13% → **20%** | 1.68x → **1.08x** | 54% → **67%** | 53% → **89%** |
+| `hero-main.jpg` | 31% → **48%** | 0.70x → **0.45x** | 100% | 100% |
+
+Lecturas honestas de esa tabla:
+
+- **En móvil el ampliado desaparece.** Todas pasan a escala ≤1.08x, es decir
+  tamaño nativo o menos. Eso es nitidez real, no percibida.
+- **En portátil 1440×820 el cambio es casi nulo** (el tope de 50rem = 800 px
+  apenas recorta 20 px). El efecto se nota en pantallas altas: en un 27" el
+  hero pasa de 1350 a 800 px y `cabarete.jpg` deja de ampliarse 2.69x.
+- **`cabarete.jpg` sigue siendo el caso malo en móvil.** Es un panorama de ratio
+  3.2 dentro de una pantalla vertical; ninguna altura de caja arregla eso. Se
+  necesita otro encuadre de la misma escena.
+- Las dos fotos de 1024 px de ancho (`las-terrenas.jpg`, `hero-cruises.jpg`)
+  siguen ampliándose ~2.5x en un 27". Es límite de resolución del original, no
+  de CSS, y los originales ya no existen (se convirtieron y se borraron).
+
+**Un error propio, detectado y corregido antes de terminar:** el bloque
+`@media` se escribió inicialmente **encima** de la regla base `.hero-content`.
+Misma especificidad y una media query no añade ninguna, así que el
+`padding-block` móvil habría perdido por orden de origen. Reubicado debajo.
+
+### Verificación
+
+**49 comprobaciones, 0 fallos.** JSON-LD parsea y las 75 referencias `@id`
+resuelven; las cuatro invariantes en verde; 1258 claves i18n sin divergencia;
+todas las rutas locales existen; todos los `<img>` con `width`/`height`/`alt`.
+`node --check` sobre los 9 archivos de `js/`. Llaves de `css/styles.css`
+balanceadas (648/648).
+
+**Files created:** `img/cofresi.jpg`.
+**Files modified:** `cofresi.html`, `css/styles.css`,
+`DOCS/DEVELOPER_GUIDE.md`, `DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`,
+`tasks/todo.md`.
+**Files deleted:** ninguno.
+
+**Sigue pendiente:**
+- **20 casillas "On request"**: tarifas desde STI / AZS / SDQ / PUJ a los cinco
+  destinos que no son Sosúa. La más importante, **AZS → Las Terrenas**.
+- **Un encuadre más vertical de Cabarete** (único punto débil de encuadre que
+  queda).
+- **Multiidioma real** (`/es/`, `/fr/` + `hreflang`) — decisión del dueño.
+- **`sameAs`**: URLs de Facebook y TripAdvisor.
+- Corrección de un dato anterior: las imágenes huérfanas son **3 (1.417 KB)** —
+  `hero-cruiser.png` (924 KB), `exc-whale-watching.jpg` (283 KB) y
+  `logo favicon.jpeg` (210 KB). `hiking.jpg` sí se usa. No se borran porque son
+  archivos del dueño.
+
+## 2026-08-22 — Las Terrenas sin AZS, y el sitio realmente en tres idiomas
+
+**Lo pedido:** *"no ponga vuelos desde las terenas, repara lo de multidioma y
+las url queda pendiente"* — las URLs de Facebook/TripAdvisor (`sameAs`) siguen
+en espera a propósito.
+
+### 1. Samaná El Catey (AZS) deja de ser una vía de entrada a Las Terrenas
+
+**El alcance se limitó a `las-terrenas.html` deliberadamente.** `js/config.js`
+tiene una tarifa **confirmada AZS → Sosúa de US$148.50**, así que AZS es un
+origen real que la empresa sirve: quitarlo del sitio entero habría borrado una
+ruta con precio confirmado. Lo que se quita es el relato de que se puede volar
+a la península para llegar a Las Terrenas.
+
+Cambiado en esa página: la fila AZS de la tabla de aeropuertos, el dato
+"aeropuerto más cercano" del bloque de respuesta rápida (ahora *"aeropuerto por
+el que llegar"* → POP), la entradilla de la sección aérea, la nota de la tabla,
+la descripción del nodo `Service`, el comentario de cabecera y el párrafo de
+`llms.txt`.
+
+Dos preguntas del FAQ se vuelven una: *"¿Cuál es el aeropuerto más cercano?"*
+pasa a *"¿Por qué aeropuerto conviene llegar?"* y se responde con POP/SDQ; la de
+recogida en AZS desaparece. La página baja de 10 a **9 preguntas**, renumeradas,
+y el `FAQPage` JSON-LD se regeneró **desde el HTML visible** (invariante #2).
+
+Siete claves reescritas en los tres idiomas, tres borradas, dos renombradas.
+
+### 2. Multiidioma real: 11 páginas → 33
+
+**El problema.** El sitio *parecía* trilingüe pero no lo era para un buscador:
+existía una sola URL por página y el HTML servido en ella era **siempre
+inglés**. `js/i18n.js` cambiaba los textos después de cargar. El visitante veía
+tres idiomas; Google veía uno. El español y el francés no podían posicionar —
+en un país hispanohablante y con Las Terrenas llena de francófonos.
+
+**La solución.** `/es/` y `/fr/` como páginas reales pre-renderizadas:
+
+| Idioma | URL | Origen |
+|---|---|---|
+| Inglés | `/transfers.html` | escrita a mano, la original |
+| Español | `/es/transfers.html` | generada |
+| Francés | `/fr/transfers.html` | generada |
+
+**Las páginas inglesas no se movieron de dirección**, así que ningún enlace ni
+posicionamiento existente se ve afectado.
+
+#### Herramientas nuevas, versionadas en `tools/`
+
+Se decidió **versionar el generador** en vez de dejarlo como script de un solo
+uso: 33 páginas mantenidas a mano se desincronizan sin remedio. Es el único paso
+generado del proyecto, y está documentado como tal en `PROJECT_INFO.md`.
+
+- **`tools/build-langs.py`** — renderiza `/es/` y `/fr/` desde la página inglesa
+  más el diccionario de `js/i18n.js` (**el mismo que usa el runtime, así que
+  ninguna cadena se traduce dos veces**). Por página fija: `<html lang>`, cada
+  innerHTML `[data-i18n]` y cada atributo `[data-i18n-attr]`, el `<title>` y la
+  meta description (de `meta.<page>.title`/`.description`), el canonical, la URL
+  y el locale de Open Graph, el bloque `hreflang`, el selector de idioma y el
+  prefijo `../` de los assets. También escribe el `hreflang` en las páginas
+  inglesas y regenera `sitemap.xml`.
+- **`tools/verify.py`** — sustituye al suite de scratchpad: **24 comprobaciones**
+  sobre las 34 páginas, comparando cada una contra el diccionario de **su**
+  idioma.
+- **`tools/_html.py`** — el recorredor de etiquetas que ambos comparten (el
+  regex ingenuo `data-i18n="k">(.*?)<` se detiene en la primera etiqueta
+  interna; ya causó fallbacks a medio escribir en agosto).
+- **`tools/dump-dict.js`** — evalúa el literal del diccionario para Python.
+
+#### Qué JSON-LD sigue al idioma y qué no
+
+- **`WebPage` y `BreadcrumbList` describen *esta URL***: reciben `@id`, `url`,
+  `name`, `description` e `inLanguage` traducidos, y las etiquetas de miga de
+  pan salen **del rastro visible** — una página en español cuyo HTML dice
+  "Inicio" no puede entregarle a Google un JSON-LD que diga "Home".
+- **`TravelAgency`, `TouristDestination`, `Service` y los `ItemList` de tours
+  describen cosas del mundo real**, que no cambian porque cambie el idioma de la
+  página. Conservan un `@id` estable y contenido **idéntico** en los tres
+  idiomas, para que las tres versiones resuelvan a **un** negocio y **una**
+  Sosúa, no a tres de cada. Es la invariante #3 extendida: el nodo es ahora
+  idéntico en 33 páginas, no en 11.
+- **`FAQPage` se regenera por idioma** desde el acordeón visible de ese idioma.
+
+#### El selector de idioma pasa a ser enlaces
+
+`.lang-btn` era un `<button>` que llamaba a `setLang()`. Ahora es un `<a>` con
+`href` real: un rastreador puede seguirlo y un visitante puede abrirlo en otra
+pestaña. En consecuencia `js/i18n.js` toma el idioma de
+`document.documentElement.lang` — **manda el documento servido**, no
+`sessionStorage`, que se eliminó. Quedarse dentro de un idioma no necesita
+estado: todos los enlaces internos son relativos, así que desde `/es/index.html`
+se llega a `/es/transfers.html`.
+
+`setLang()` se conserva como vía programática: es lo que dispara
+`sariel:langchange`, el contrato que escuchan `calculator.js`, `cart.js`,
+`tours.js`, `shell.js` y `contact-choice.js` para re-renderizar su contenido
+generado por JS. Eliminarlo habría dejado seis listeners muertos en cinco
+archivos.
+
+#### Errores propios detectados y corregidos durante la construcción
+
+1. **El bloque `hreflang` se acumulaba.** El generador borraba los `<link>`
+   anteriores pero no su comentario, así que cada pasada añadía otra copia.
+   Detectado al inspeccionar la salida, no por un test. Corregido y **verificada
+   la idempotencia**: tres pasadas seguidas producen archivos byte a byte
+   idénticos.
+2. **`og:locale` con doble indentación.**
+3. **Los nombres de las migas de pan seguían en inglés** en el JSON-LD de las
+   páginas traducidas.
+4. **`verify.py` mezclaba separadores de ruta** en Windows (`es\\transfers.html`
+   frente a `es/transfers.html`) y trataba `404.html` como parte del clúster de
+   idiomas, cuando no lo es: GitHub Pages la sirve en la raíz para cualquier
+   ruta y no tiene canonical ni traducciones.
+
+Efecto secundario útil: el generador también corrigió atributos que llevaban
+tiempo desviados del diccionario — el `aria-label` del carrito decía *"Your
+cart"* cuando el diccionario dice *"Your Requests"*, y varios `aria-label` con
+un `&` sin escapar. `sync_fallbacks` nunca cubrió los atributos.
+
+### Verificación
+
+**24 comprobaciones, 0 fallos** (`python tools/verify.py`):
+- 34 páginas, **162 bloques JSON-LD** parsean; todas las referencias `@id`
+  resuelven.
+- Etiquetas balanceadas en las 34.
+- **1.255 claves × 3 idiomas, 0 faltantes.**
+- **Invariante #1 por idioma**: 34 páginas comparadas contra el diccionario de
+  la suya, **0 divergencias**.
+- **Invariante #2**: 30 páginas con FAQ (10 × 3 idiomas), todas coinciden.
+- **Invariante #3**: el nodo `TravelAgency` idéntico en las 33.
+- **Invariante #4**: las 30 filas y los 17 precios de `config.js` presentes en
+  `transfers.html#fares` **en los tres idiomas**.
+- `<html lang>` coincide con la carpeta en las 33; cada canonical apunta a su
+  propia URL; las 3 alternates + `x-default` son **recíprocas** en todas.
+- Todas las rutas locales existen (resolviendo `../` desde cada carpeta).
+- `sitemap.xml`: **33 URLs**, sin duplicados, exactamente las páginas
+  indexables.
+- `node --check` sobre los 9 archivos de `js/`.
+
+**Files created:** `tools/build-langs.py`, `tools/verify.py`, `tools/_html.py`,
+`tools/dump-dict.js`, `es/` (11 páginas), `fr/` (11 páginas).
+**Files modified:** las 11 páginas inglesas (hreflang, selector, comentarios de
+cabecera, atributos), `las-terrenas.html` (AZS), `js/i18n.js`, `css/styles.css`,
+`sitemap.xml`, `llms.txt`, `PROJECT_INFO.md`, `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/FOLDER_STRUCTURE.md`, `DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`,
+`tasks/todo.md`.
+**Files deleted:** ninguno.
+
+**Sigue pendiente:**
+- **`sameAs`: URLs de Facebook y TripAdvisor** — en espera por decisión del
+  dueño.
+- **`alt` de las imágenes y `og:image:alt` siguen en inglés en los tres
+  idiomas.** Son atributos planos sin clave de diccionario, así que el generador
+  no tiene de dónde traducirlos; el conmutador de idioma anterior tampoco los
+  traducía nunca. Son ~80 claves × 3 idiomas: trabajo de redacción, no de
+  código.
+- **18 casillas "On request"** (antes 20; Las Terrenas perdió AZS y Cabarete ya
+  tenía una menos).
+- **Un encuadre más vertical de Cabarete.**
+
+## 2026-08-22 — Textos alternativos de imagen en los tres idiomas
+
+**Lo pedido:** *"repara los textos alternativos se puede poner que aparesca en
+los 3 idiomas"*. Era el hueco que quedó documentado en la pasada anterior.
+
+### El problema
+
+Los `alt` de las imágenes y los `og:image:alt` eran atributos planos escritos a
+mano en el HTML, sin clave de diccionario. Ni el conmutador de idioma antiguo ni
+el generador de `/es/` y `/fr/` tenían de dónde traducirlos, así que una página
+en español servía descripciones en inglés — que son justo lo que lee un lector
+de pantalla y lo que indexa Google cuando no puede interpretar la imagen.
+
+### La solución: el mecanismo que ya existía
+
+No hizo falta inventar nada. `data-i18n-attr` ya traducía atributos, tanto en el
+runtime (`applyStaticTranslations`) como en el generador (`translate_attrs`), y
+funciona igual sobre un `<img>` que sobre un `<meta>`:
+
+```html
+<img src="img/hero-main.jpg" alt="Three white minivans…"
+     data-i18n-attr="alt:alt.heroMain" />
+<meta property="og:image:alt" content="Three white minivans…"
+      data-i18n-attr="content:alt.heroMain" />
+```
+
+**Una clave por imagen, no por etiqueta.** La misma foto aparece en varias
+páginas y se describe una sola vez: **78 etiquetas `<img>` se reducen a 41
+cadenas**. El `og:image:alt` de cada página reutiliza la clave de la imagen a la
+que apunta.
+
+Total: **41 claves × 3 idiomas = 123 cadenas**, de las que 82 son nuevas. El
+español y el francés se escribieron para esta pasada; no había nada que
+reutilizar.
+
+### Dos correcciones que salieron al hacerlo
+
+1. **La tarjeta social y la imagen de la página se describían distinto.** En
+   `nosotros.html` y en `sosua.html`, el `og:image:alt` tenía una redacción más
+   rica que el `alt` de la misma foto. Al unificarlos bajo una clave se adoptó
+   la mejor de las dos en ambos sitios.
+2. **`cruises.html` usa dos imágenes distintas** — `hero-cruises.jpeg` como
+   hero (el crucero atracado en Taino Bay) y `hero-cruises.jpg` como imagen
+   social (la aérea de la ciudad). Son fotos diferentes y conservan claves
+   diferentes; no se forzó una sola descripción para las dos.
+
+### Las decorativas siguen mudas, a propósito
+
+El logo de la cabecera (22 apariciones) y la banda del cierre (11) llevan
+`alt=""` y **no reciben clave**. Son presentación: un lector de pantalla debe
+saltárselas. Rellenarlas con texto habría empeorado la accesibilidad, no
+mejorado el SEO. 78 imágenes − 33 decorativas = 45 etiquetas marcadas.
+
+### La invariante #1 ahora cubre atributos
+
+Hasta hoy `verify.py` comparaba contra el diccionario **solo el texto** de los
+elementos, nunca los atributos. Eso es exactamente por lo que el `aria-label`
+del panel del carrito llevaba tiempo diciendo *"Your cart"* mientras el
+diccionario decía *"Your Requests"*: no había nada comprobándolo. Se añadieron
+dos comprobaciones:
+
+- cada atributo con `data-i18n-attr` debe igualar su valor de diccionario **en
+  el idioma de su página** — 669 atributos comparados;
+- ningún `alt` no vacío puede quedarse sin clave, para que un `alt` nuevo escrito
+  a mano no se cuele en inglés en las tres versiones.
+
+### Verificación
+
+**26 comprobaciones, 0 fallos** (`python tools/verify.py`):
+- 34 páginas, 162 bloques JSON-LD parsean; todas las referencias `@id` resuelven.
+- **Invariante #1**: 0 divergencias de texto, **0 de las 669 divergencias de
+  atributo**, ningún `alt` fuera del diccionario.
+- Invariantes #2, #3 y #4 en verde en los tres idiomas.
+- 1.296 claves × 3 idiomas, 0 faltantes.
+- `<html lang>`, canonical y hreflang recíprocos en las 33.
+- `node --check` sobre los 9 archivos de `js/`.
+
+**Files modified:** las 11 páginas inglesas, `js/i18n.js` (+123 cadenas),
+`tools/verify.py`, `es/` y `fr/` (regeneradas), `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`, `tasks/todo.md`.
+**Files created / deleted:** ninguno.
+
+**Sigue pendiente:**
+- **`sameAs`: URLs de Facebook y TripAdvisor** — en espera del dueño.
+- **18 casillas "On request"** (tarifas desde STI / SDQ / PUJ).
+- **Un encuadre más vertical de Cabarete.**
+
+### Nota de correccion (2026-08-22)
+
+Las dos entradas anteriores decian "30" y "32 comprobaciones". El numero real es
+el de lineas que imprime `tools/verify.py`: **24** antes de esta pasada y **26**
+despues (se anadieron dos: atributos y alt sin clave). Varios `check()` viven
+dentro de bucles, asi que contar las llamadas en el fuente da menos que las
+comprobaciones ejecutadas; el numero correcto es el de la salida.
+
+## 2026-08-22 — Tarifas desde Santiago, Santo Domingo y Punta Cana
+
+**Lo pedido:** *"18 casillas las tarfias desde santigo santo domigno y punta
+cana usa las misma que hacia sosua"*.
+
+### Lo que se aplicó
+
+Las tarifas confirmadas a Sosúa desde esos tres aeropuertos —**STI US$98.50,
+SDQ US$219, PUJ US$425**— se extienden a los otros cinco hubs. **12 de las 18
+casillas** pasan de "On request" a precio.
+
+### Dos rutas excluidas, con el visto bueno del dueño
+
+**Santiago → Río San Juan** y **Santiago → Las Terrenas** se quedan en "On
+request". Santiago está más lejos de ambos que Puerto Plata, así que el precio
+de Sosúa habría publicado **un viaje más largo por menos dinero que la tarifa
+desde POP impresa dos líneas más arriba en la misma tabla**: Las Terrenas
+mostraría POP US$178.50 y STI US$98.50.
+
+El argumento decisivo no es la distancia estimada sino el propio precio del
+dueño: **STI → Cabarete cuesta US$98.95 frente a US$98.50 de Sosúa**. Esos 45
+centavos demuestran que sí escala por distancia desde Santiago, luego una tarifa
+plana en los tramos largos habría sido un descuido, no una política. Se consultó
+antes de tocar nada y el dueño eligió dejarlas pendientes.
+
+**AZS no se tocó**: el dueño nombró tres aeropuertos. Las cuatro celdas de
+Samaná conservan su "On request".
+
+**Balance: 12 publicadas, 6 pendientes** (2 × STI + 4 × AZS).
+
+### Dónde entró cada precio
+
+Un precio nuevo tiene que aparecer en cuatro sitios o la invariante #4 se rompe:
+
+1. **`js/config.js`** — `OTHER_AIRPORT_FIXED_FARES` pasa de 5 a **17 tarifas**.
+   Verificado evaluando el literal en Node: las 12 rutas nuevas devuelven precio
+   y las 6 excluidas caen al flujo de "pedir cotización", que es justo el
+   comportamiento correcto de la calculadora.
+2. **`transfers.html#fares`** — la segunda tabla se regeneró entera desde
+   `config.js`: de 5 a **17 filas**, y la página pasa de 30 a **42 filas** en
+   total.
+3. **Las cinco páginas de destino** — la celda de cada aeropuerto, el nodo
+   `Service` (descripción de aeropuertos servidos + una `Offer` nueva por
+   tarifa) y la nota al pie de la tabla.
+4. **`llms.txt`** — la tabla de otros aeropuertos y los párrafos de Cabarete y
+   Las Terrenas.
+
+Las cinco notas al pie se reescribieron **en los tres idiomas** (15 cadenas).
+Antes decían que las demás tarifas no se publicaban "porque solo publicamos
+precios confirmados"; sigue siendo la política, pero ahora cada nota **nombra
+exactamente cuáles quedan** en vez de generalizar.
+
+### Una comprobación que dejó de ser frágil
+
+`tools/verify.py` exigía `rows == 30` a fuego. Con eso, publicar una tarifa sin
+añadirla a la tabla habría hecho fallar la comprobación por el motivo
+equivocado, o peor, alguien habría subido el número a mano. Ahora **deriva el
+total esperado de `config.js`** (destinos POP + provincias POP + tarifas no-POP
+= 42) y compara. Además, la extracción de precios ya no busca solo claves
+`'fixed:…'`: `OTHER_AIRPORT_FIXED_FARES` mezcla esas con slugs de provincia
+sueltos como `'puerto-plata'`, que antes se le escapaban.
+
+### Un desliz propio, corregido
+
+El generador escribió `98.5` y `148.5` en `config.js` en lugar de `98.50` y
+`148.50` — mismo valor en JavaScript, pero rompía el estilo del archivo.
+Corregido antes de seguir.
+
+### Verificación
+
+**26 comprobaciones, 0 fallos** (`python tools/verify.py`):
+- **Invariante #4 en los tres idiomas**: `transfers.html`, `es/transfers.html` y
+  `fr/transfers.html` con **42/42 filas y los 17 precios de `config.js`**, sin
+  inventar ninguno.
+- `llms.txt` cubre todas las tarifas de `config.js`.
+- Invariantes #1, #2 y #3 en verde; 669 atributos comparados.
+- 34 páginas, 162 bloques JSON-LD parsean; `@id` resuelven.
+- `node --check` sobre los 9 archivos de `js/`.
+
+**Files modified:** `js/config.js`, `js/i18n.js`, `transfers.html`,
+`cabarete.html`, `puerto-plata.html`, `cofresi.html`, `rio-san-juan.html`,
+`las-terrenas.html`, `es/` y `fr/` (regeneradas), `llms.txt`,
+`tools/verify.py`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/USER_MANUAL.md`,
+`DOCS/PROOF_OF_WORK.md`, `tasks/todo.md`.
+**Files created / deleted:** ninguno.
+
+**Sigue pendiente:**
+- **STI → Río San Juan** y **STI → Las Terrenas**: dos números del dueño.
+- **Las cuatro tarifas desde Samaná (AZS)** a Cabarete, Puerto Plata, Cofresí y
+  Río San Juan.
+- **`sameAs`: URLs de Facebook y TripAdvisor.**
+- **Un encuadre más vertical de Cabarete.**
+
+## 2026-08-22 — Las seis tarifas restantes son politica, y Cabarete reencuadrado
+
+**Lo pedido:** *"eso precios ponlos en on request y encuadra cabarete"*, en
+respuesta punto por punto a la lista de pendientes de la pasada anterior.
+
+### 1. Las seis celdas dejan de ser un hueco
+
+STI → Rio San Juan, STI → Las Terrenas y las cuatro de Samana (AZS) **se quedan
+en "On request" como respuesta definitiva**, no como algo a la espera de un
+numero. No cambia nada en las paginas —ya estaban asi— pero si en la
+documentacion: dejan de figurar como deuda del dueno y pasan a ser politica
+declarada, con una nota explicita de **no rellenarlas por patron**.
+
+Las notas al pie de las tablas ya lo decian bien ("no vamos a poner una
+suposicion en una pagina publica"), asi que el texto visible no se toco.
+
+### 2. El encuadre de Cabarete: el problema no era el tamano
+
+`cabarete.jpg` mide 1800x562. La caja del hero es alta, asi que `object-fit:
+cover` conserva una columna estrecha del fotograma y tira el resto. El
+kitesurfista —el sujeto de la foto— esta en **x=517, el 29% desde la
+izquierda**. Con el recorte centrado, la ventana visible en un telefono era
+**x 725–1075**: agua abierta, sin jinete. La foto perdia justo aquello de lo
+que trata.
+
+```css
+[data-page="cabarete"] .hero-bg img { object-position: 24% 50%; }
+```
+
+Medido, la ventana visible antes y despues:
+
+| Pantalla | Centrado | Rider | Al 24% | Rider |
+|---|---|---|---|---|
+| Movil 390 | x 725–1075 | **NO** | x 348–698 | **SI**, centrado |
+| Portatil 1440 | x 448–1352 | si | x 215–1118 | si, al tercio |
+| Escritorio 1920 | x 298–1502 | si | x 143–1347 | si, al tercio |
+
+Solo importa la componente horizontal: la caja es proporcionalmente mas alta
+que la imagen, asi que la escala la manda la altura y no hay desbordamiento
+vertical.
+
+**`las-terrenas.jpg` no se puede arreglar asi** y conviene dejarlo escrito: su
+letrero ocupa el ancho completo del fotograma, de modo que ninguna columna
+estrecha muestra el nombre entero. Ahi la unica palanca era bajar la altura del
+hero, y ya se bajo.
+
+La regla queda documentada como excepcion por foto: se anade una linea **solo**
+para un hero cuyo sujeto este descentrado. Las otras cinco fotos de destino
+estan compuestas alrededor de su centro y no necesitan nada.
+
+### Verificacion
+
+**26 comprobaciones, 0 fallos.** Llaves de `css/styles.css` balanceadas
+(649/649). Las ventanas de recorte se calcularon con la formula de `cover` en
+vez de a ojo, y se genero una comparacion visual del recorte movil antes/despues
+para el dueno.
+
+**Files modified:** `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`, `tasks/todo.md`.
+**Files created / deleted:** ninguno.
+
+**Sigue pendiente:** solo **`sameAs`: las URLs de Facebook y TripAdvisor.**

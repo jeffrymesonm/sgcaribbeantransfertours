@@ -3,10 +3,10 @@
   SG Caribbean Transfers & Tours — Cruise Shore Excursions (Dominican Republic)
   Purpose: dedicated landing page for cruise-ship passengers docking at
   Amber Cove / Taino Bay (split out of index.html, sibling of
-  excursions.html). Static HTML/CSS/JS, no build step. Bilingual EN/ES:
+  excursions.html). Static HTML/CSS/JS; the only generated files are /es/ and /fr/. Trilingual EN/ES/FR:
   text lives in js/i18n.js and is applied via [data-i18n] / [data-i18n-attr]
-  attributes below (see DOCS/DEVELOPER_GUIDE.md). Structured data (JSON-LD)
-  stays English-only to match the default rendered language.
+  attributes below (see DOCS/DEVELOPER_GUIDE.md). The Spanish and French builds of this page are
+  rendered into /es/ and /fr/ by tools/build-langs.py — edit this file, not those.
   Structure: header/cart → hero → guaranteed-return promise band →
              3 cruise excursion template cards (0-priced until the owner
              fills real rates) with optional ship/departure-time capture →
@@ -21,26 +21,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-P5B6J8Y75V');
-  </script>
 
   <title>Amber Cove &amp; Taino Bay Shore Excursions | Puerto Plata &amp; Sosúa</title>
   <meta name="description" content="Private shore excursions from Amber Cove and Taino Bay to Sosúa, Puerto Plata and the north coast. Guaranteed return before departure. Book on WhatsApp." />
   <meta name="theme-color" content="#062A31" />
   <link rel="canonical" href="https://caribbeansgtransferstours.com/cruises.html" />
 
+  <!-- One page, three addresses. x-default is English. -->
+  <link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/cruises.html" />
+  <link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/cruises.html" />
+  <link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/cruises.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/cruises.html" />
+
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Amber Cove &amp; Taino Bay Shore Excursions | Puerto Plata &amp; Sosúa" />
   <meta property="og:description" content="Private shore excursions from Amber Cove and Taino Bay to Sosúa, Puerto Plata and the north coast. Guaranteed return before departure. Book on WhatsApp." />
-  <meta property="og:image" content="https://caribbeansgtransferstours.com/img/hero-cruises.jpeg" />
+  <meta property="og:image" content="https://caribbeansgtransferstours.com/img/hero-cruises.jpg" />
+  <meta property="og:image:alt" content="Aerial view of Puerto Plata with a cruise ship berthed at Taino Bay, Fortaleza San Felipe on the headland and Pico Isabel de Torres behind" data-i18n-attr="content:alt.puertoPlataAerial" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="576" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_DO" />
+  <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:url" content="https://caribbeansgtransferstours.com/cruises.html" />
   <meta property="og:site_name" content="SG Caribbean Transfers &amp; Tours" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -56,21 +59,30 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (WebPage and BreadcrumbList follow the page language; the entity nodes keep one @id across all three) -->
   <!-- Business entity, identical on every page under one stable @id so search
        engines resolve all six pages to the same organisation. sameAs/hasMap
        link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","alternateName":"SG Caribbean","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","knowsLanguage":["en","es"],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","contactPoint":[{"@type":"ContactPoint","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","contactType":"customer service","availableLanguage":["English","Spanish"],"areaServed":"DO","url":"https://wa.me/18296277733"}],"sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"OfferCatalog","name":"Private airport transfers","url":"https://caribbeansgtransferstours.com/transfers.html","description":"Door-to-door private transfers from POP, STI, SDQ, AZS and PUJ airports. Fixed price per vehicle for 1 to 6 guests, flight tracking, meet & greet, pay on arrival."},{"@type":"OfferCatalog","name":"Private day excursions","url":"https://caribbeansgtransferstours.com/excursions.html","description":"Private day tours on the north coast: Punta Rusia and Cayo Arena, Charcos de Damajagua, Puerto Plata city tour, beach experiences, ATV and dune buggy adventures."},{"@type":"OfferCatalog","name":"Cruise shore excursions","url":"https://caribbeansgtransferstours.com/cruises.html","description":"Shore excursions with pickup at the Amber Cove and Taino Bay cruise piers in Puerto Plata, with a guaranteed return before all-aboard time."}]}}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua","url":"https://caribbeansgtransferstours.com/cruises.html#cruise1"}},{"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Puerto Plata City Tour","url":"https://caribbeansgtransferstours.com/cruises.html#cruise2"}},{"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"ATV Adventure","url":"https://caribbeansgtransferstours.com/cruises.html#cruise4"}},{"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure","url":"https://caribbeansgtransferstours.com/cruises.html#cruise5"}}]}
+  {"@context":"https://schema.org","@type":"ItemList","name":"Private shore excursions from Amber Cove and Taino Bay","itemListOrder":"https://schema.org/ItemListUnordered","numberOfItems":4,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua — shore excursion","description":"Limestone pools you climb up, then jump and slide back down. About an hour from either cruise pier, comfortably inside a normal port call, with a guaranteed return before all-aboard.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise1","image":"https://caribbeansgtransferstours.com/img/exc-waterfalls.jpeg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"235.00","highPrice":"324.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}},{"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Puerto Plata City Tour — shore excursion","description":"The shortest run from either pier: Fort San Felipe, the Victorian old town and the cable car up Pico Isabel de Torres, back at the ship before all-aboard.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise2","image":"https://caribbeansgtransferstours.com/img/exc-city-tour.jpg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"260.00","highPrice":"390.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}},{"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"ATV Adventure — shore excursion","description":"Your own quad on country trails, river crossings and back roads behind Puerto Plata, roughly half an hour from Amber Cove or Taino Bay.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise4","image":"https://caribbeansgtransferstours.com/img/exc-atv.jpg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"260.00","highPrice":"390.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}},{"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure — shore excursion","description":"The same backcountry as the quads, side by side under a roll cage, about half an hour from either cruise pier.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise5","image":"https://caribbeansgtransferstours.com/img/exc-buggies.jpg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"400.00","highPrice":"600.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Cruises","item":"https://caribbeansgtransferstours.com/cruises.html"}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Which cruise ports do you pick up from?","acceptedAnswer":{"@type":"Answer","text":"Both of Puerto Plata's terminals: Amber Cove in Maimón and Taino Bay in Puerto Plata city. We meet you outside the terminal gate with a name sign."}},{"@type":"Question","name":"Will I be back before my ship leaves?","acceptedAnswer":{"@type":"Answer","text":"Yes. We track your ship's departure and plan every tour backwards from its all-aboard time, returning you to the pier with a margin rather than on the dot."}},{"@type":"Question","name":"How long is a typical Puerto Plata port call?","acceptedAnswer":{"@type":"Answer","text":"Usually 8 to 9 hours. Our shore excursions are half-day trips, which leaves several hours of margin even after the drive each way."}},{"@type":"Question","name":"How far is Sosúa from the cruise piers?","acceptedAnswer":{"@type":"Answer","text":"About 50 minutes from Taino Bay and 60 minutes from Amber Cove."}},{"@type":"Question","name":"Are cruise excursions private?","acceptedAnswer":{"@type":"Answer","text":"Yes — your group only, in your own vehicle, at your own pace. You are never grouped with passengers from other ships."}},{"@type":"Question","name":"Can we build our own itinerary for the day?","acceptedAnswer":{"@type":"Answer","text":"Yes. Tell us your ship, your port and what you want to see, and we plan a custom day around your all-aboard time instead of a fixed package."}}]}
+  </script>
+
+  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P5B6J8Y75V');
   </script>
 </head>
 <body data-page="cruises">
@@ -80,8 +92,8 @@
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
-      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers & Tours — home">
-        <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers &amp; Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
         <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
       </a>
       <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
@@ -93,9 +105,9 @@
       </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
-          <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
-          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a español">ES</button>
-          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" aria-label="Passer au français">FR</button>
+          <a class="lang-btn is-active" href="cruises.html" hreflang="en" aria-current="page" aria-label="Switch to English">EN</a>
+          <a class="lang-btn" href="es/cruises.html" hreflang="es" aria-label="Cambiar a español">ES</a>
+          <a class="lang-btn" href="fr/cruises.html" hreflang="fr" aria-label="Passer au français">FR</a>
         </div>
         <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -120,7 +132,7 @@
   <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
        buttons; checkout sends one consolidated WhatsApp message. -->
   <div class="cart-scrim" id="cartScrim"></div>
-  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your cart" data-i18n-attr="aria-label:cart.title">
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your Requests" data-i18n-attr="aria-label:cart.title">
     <div class="cart-panel-inner">
       <header class="cart-panel-header">
         <h3 data-i18n="cart.title">Your Requests</h3>
@@ -161,9 +173,9 @@
   <section class="hero" id="top">
     <div class="hero-bg" id="heroBg">
       <img
-        src="img/hero-cruises.jpeg"
+        src="img/hero-cruises.jpeg" width="900" height="1200"
         alt="Cruise ship with a brightly painted hull docked at Taino Bay in Puerto Plata, with colorful beach chairs on the sand"
-        fetchpriority="high" />
+        fetchpriority="high" data-i18n-attr="alt:alt.cruiseShip" />
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
 
@@ -175,10 +187,22 @@
       <p class="hero-sub reveal-line"><span data-i18n="cruisesHero.lead">Private tours for cruise passengers docking at Amber Cove and Taino Bay — Sosúa, Puerto Plata and the north coast, back on board in time.</span></p>
     </div>
 
-    <a class="hero-scroll" href="#guarantee" aria-label="Scroll to cruise excursions" data-i18n-attr="aria-label:hero.scrollAria">
+    <a class="hero-scroll" href="#guarantee" aria-label="Scroll to services" data-i18n-attr="aria-label:hero.scrollAria">
       <span class="hero-scroll-dot" aria-hidden="true"></span>
     </a>
   </section>
+
+  <!-- ============ BREADCRUMBS ============
+       Visible counterpart of this page's BreadcrumbList JSON-LD. Keep the two
+       in step: same steps, same order, same labels. -->
+  <nav class="crumbs" aria-label="Breadcrumb" data-i18n-attr="aria-label:crumbs.aria">
+    <div class="container">
+      <ol class="crumbs-list">
+        <li><a href="index.html" data-i18n="crumbs.home">Home</a></li>
+        <li aria-current="page"><span data-i18n="nav.cruises">Cruises</span></li>
+      </ol>
+    </div>
+  </nav>
 
   <!-- ============ QUICK ANSWER (AEO) ============
        Factual summary placed directly after the hero: one plain paragraph plus
@@ -238,7 +262,7 @@
          once cruise-line rates are confirmed (see DOCS/USER_MANUAL.md). -->
     <article class="exc" id="cruise1" data-prices='{"4":235,"5":270,"6":324}'>
       <figure class="exc-media reveal-img">
-        <img src="img/exc-waterfalls.jpeg" alt="Waterfalls cascading into a natural pool surrounded by tropical forest" loading="lazy" />
+        <img src="img/exc-waterfalls.jpeg" width="768" height="1024" alt="Waterfalls cascading into a natural pool surrounded by tropical forest" loading="lazy" data-i18n-attr="alt:alt.excWaterfalls" />
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise1.title">Charcos de Damajagua</h3>
@@ -277,9 +301,9 @@
       </div>
     </article>
 
-    <article class="exc exc-flip" id="cruise2" data-prices='{"4":100,"5":125,"6":150}'>
+    <article class="exc exc-flip" id="cruise2" data-prices='{"4":260,"5":325,"6":390}'>
       <figure class="exc-media reveal-img">
-        <img src="img/exc-city-tour.jpg" alt="Historic colonial architecture decorated with colorful festival flags" loading="lazy" />
+        <img src="img/exc-city-tour.jpg" width="1338" height="892" alt="Historic colonial architecture decorated with colorful festival flags" loading="lazy" data-i18n-attr="alt:alt.excCityTour" />
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise2.title">Puerto Plata City Tour</h3>
@@ -296,10 +320,10 @@
             <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
           </label>
           <p class="exc-price" aria-live="polite">
-            <span class="exc-price-amount">US$<span class="exc-amount">100</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
+            <span class="exc-price-amount">US$<span class="exc-amount">260</span> <span class="exc-per" data-i18n="exc.perLabel">total · private</span></span>
             <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contact us for a quote</span>
           </p>
-          <p class="exc-per-person">US$<span class="exc-per-person-amount">25</span> <span data-i18n="exc.perPersonSuffix">per person</span></p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">65</span> <span data-i18n="exc.perPersonSuffix">per person</span></p>
           <div class="cruise-fields">
             <label class="field">
               <span data-i18n="cruise.shipLabel">Cruise ship (optional)</span>
@@ -320,7 +344,7 @@
 
     <article class="exc" id="cruise4" data-prices='{"4":260,"5":325,"6":390}'>
       <figure class="exc-media reveal-img">
-        <img src="img/exc-atv.jpg" alt="Rider on an ATV quad bike kicking up dust on a dirt trail" loading="lazy" />
+        <img src="img/exc-atv.jpg" width="1000" height="750" alt="Rider on an ATV quad bike kicking up dust on a dirt trail" loading="lazy" data-i18n-attr="alt:alt.excAtv" />
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise4.title">ATV Adventure</h3>
@@ -361,7 +385,7 @@
 
     <article class="exc exc-flip" id="cruise5" data-prices='{"4":400,"5":500,"6":600}'>
       <figure class="exc-media reveal-img">
-        <img src="img/exc-buggies.jpg" alt="Dune buggy parked in the desert with a safety flag mounted on the roll cage" loading="lazy" />
+        <img src="img/exc-buggies.jpg" width="678" height="452" alt="Dune buggy parked in the desert with a safety flag mounted on the roll cage" loading="lazy" data-i18n-attr="alt:alt.excBuggies" />
       </figure>
       <div class="exc-body reveal">
         <h3 data-i18n="cruise5.title">Dune Buggy Adventure</h3>
@@ -491,7 +515,7 @@
   <!-- ============ 5. FINAL BOOKING CTA ============ -->
   <section class="book" id="book">
     <div class="book-bg" id="bookBg">
-      <img src="img/cta-band.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="img/cta-band.jpg" width="1800" height="1197" alt="" loading="lazy" aria-hidden="true" />
     </div>
     <div class="book-scrim" aria-hidden="true"></div>
     <div class="container book-inner book-inner-solo">
@@ -517,8 +541,8 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="#top" aria-label="SG Caribbean Transfers & Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
-          <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers &amp; Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
           <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
         </a>
         <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
@@ -528,8 +552,16 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
-        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Destinations" data-i18n-attr="aria-label:footer.destinationsHeading">
+        <h4 class="mono" data-i18n="footer.destinationsHeading">Destinations</h4>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Sosúa</a>
+        <a href="cabarete.html" data-i18n="footer.serviceCabarete">Cabarete</a>
+        <a href="puerto-plata.html" data-i18n="footer.servicePuertoplata">Puerto Plata</a>
+        <a href="cofresi.html" data-i18n="footer.serviceCofresi">Cofresí</a>
+        <a href="rio-san-juan.html" data-i18n="footer.serviceRiosanjuan">Río San Juan</a>
+        <a href="las-terrenas.html" data-i18n="footer.serviceLasterrenas">Las Terrenas</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
         <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>

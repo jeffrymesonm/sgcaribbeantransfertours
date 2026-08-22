@@ -2,4 +2,42 @@
 User-agent: *
 Allow: /
 
+# Answer / generative engines — allowed explicitly so the fares, coverage and
+# FAQs on this site can be quoted as answers. `User-agent: *` above already
+# permits them; these blocks make the decision documented rather than implied.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google-Extended controls whether Gemini and AI Overviews may ground answers
+# in this content. Allowing it is the point of the AEO/GEO work on this site.
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://caribbeansgtransferstours.com/sitemap.xml

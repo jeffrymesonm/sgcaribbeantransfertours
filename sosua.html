@@ -7,7 +7,7 @@
   passengers, so search engines AND answer engines (AI Overviews, ChatGPT,
   Perplexity) can quote concrete facts — distances, drive times and the real
   fixed fares from js/config.js — instead of paraphrasing marketing copy.
-  Static HTML/CSS/JS, no build step. Trilingual EN/ES/FR: text lives in
+  Static HTML/CSS/JS; the only generated files are /es/ and /fr/. Trilingual EN/ES/FR: text lives in
   js/i18n.js under the `sosua.*` namespace and is applied via [data-i18n] /
   [data-i18n-attr] attributes (see DOCS/DEVELOPER_GUIDE.md).
   Structure: header/cart → hero → quick-answer fact block → arriving by air
@@ -22,26 +22,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-P5B6J8Y75V');
-  </script>
 
   <title>Sosúa Transfers &amp; Travel Guide | POP Airport to Sosúa from $23.95</title>
-  <meta name="description" content="How to get to Sosúa, Dominican Republic: Puerto Plata airport (POP) is 9 km away, about 15 minutes. Private transfers from $23.95, cruise pickups from Amber Cove and Taino Bay." />
+  <meta name="description" content="How to get to Sosúa, Dominican Republic: Puerto Plata airport (POP) is 19 km away, about 25 minutes. Private transfers from $23.95, cruise pickups from Amber Cove and Taino Bay." />
   <meta name="theme-color" content="#062A31" />
   <link rel="canonical" href="https://caribbeansgtransferstours.com/sosua.html" />
+
+  <!-- One page, three addresses. x-default is English. -->
+  <link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/sosua.html" />
+  <link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/sosua.html" />
+  <link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/sosua.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/sosua.html" />
 
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Sosúa Transfers &amp; Travel Guide | POP Airport to Sosúa from $23.95" />
-  <meta property="og:description" content="How to get to Sosúa, Dominican Republic: Puerto Plata airport (POP) is 9 km away, about 15 minutes. Private transfers from $23.95, cruise pickups from Amber Cove and Taino Bay." />
+  <meta property="og:description" content="How to get to Sosúa, Dominican Republic: Puerto Plata airport (POP) is 19 km away, about 25 minutes. Private transfers from $23.95, cruise pickups from Amber Cove and Taino Bay." />
   <meta property="og:image" content="https://caribbeansgtransferstours.com/img/sosuabeach.jpg" />
+  <meta property="og:image:alt" content="Aerial view of Playa Sosúa: the turquoise bay, rows of beach umbrellas along the sand and the town's hotels on the headland above" data-i18n-attr="content:alt.sosuaBeach" />
+  <meta property="og:image:width" content="1532" />
+  <meta property="og:image:height" content="784" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_DO" />
+  <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:url" content="https://caribbeansgtransferstours.com/sosua.html" />
   <meta property="og:site_name" content="SG Caribbean Transfers &amp; Tours" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -57,7 +60,7 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Structured data (English-only, matches the served page language):
+  <!-- Structured data (entity nodes are language-neutral, page nodes are not):
        TouristDestination describes Sosúa itself so answer engines can resolve
        the entity; Service carries the real one-way fares as Offers; FAQPage
        mirrors the on-page FAQ question for question. -->
@@ -65,10 +68,10 @@
        engines resolve all six pages to the same organisation. sameAs/hasMap
        link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","alternateName":"SG Caribbean","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","knowsLanguage":["en","es"],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","contactPoint":[{"@type":"ContactPoint","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","contactType":"customer service","availableLanguage":["English","Spanish"],"areaServed":"DO","url":"https://wa.me/18296277733"}],"sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"OfferCatalog","name":"Private airport transfers","url":"https://caribbeansgtransferstours.com/transfers.html","description":"Door-to-door private transfers from POP, STI, SDQ, AZS and PUJ airports. Fixed price per vehicle for 1 to 6 guests, flight tracking, meet & greet, pay on arrival."},{"@type":"OfferCatalog","name":"Private day excursions","url":"https://caribbeansgtransferstours.com/excursions.html","description":"Private day tours on the north coast: Punta Rusia and Cayo Arena, Charcos de Damajagua, Puerto Plata city tour, beach experiences, ATV and dune buggy adventures."},{"@type":"OfferCatalog","name":"Cruise shore excursions","url":"https://caribbeansgtransferstours.com/cruises.html","description":"Shore excursions with pickup at the Amber Cove and Taino Bay cruise piers in Puerto Plata, with a guaranteed return before all-aboard time."}]}}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TouristDestination","name":"Sosúa","description":"Beach town on the north coast of the Dominican Republic, in Puerto Plata province, about 9 km from Gregorio Luperón International Airport (POP).","url":"https://caribbeansgtransferstours.com/sosua.html","image":"https://caribbeansgtransferstours.com/img/sosuabeach.jpg","geo":{"@type":"GeoCoordinates","latitude":19.7536,"longitude":-70.5186},"address":{"@type":"PostalAddress","addressLocality":"Sosúa","addressRegion":"Puerto Plata","addressCountry":"DO"},"touristType":["Beach travelers","Cruise passengers","Divers","Families"],"includesAttraction":[{"@type":"TouristAttraction","name":"Playa Sosúa"},{"@type":"TouristAttraction","name":"Playa Alicia"},{"@type":"TouristAttraction","name":"Sosúa Jewish Museum"}]}
+  {"@context":"https://schema.org","@type":"TouristDestination","@id":"https://caribbeansgtransferstours.com/sosua.html#destination","name":"Sosúa","description":"Beach town on the north coast of the Dominican Republic, in Puerto Plata province, about 9 km from Gregorio Luperón International Airport (POP).","url":"https://caribbeansgtransferstours.com/sosua.html","image":"https://caribbeansgtransferstours.com/img/sosuabeach.jpg","geo":{"@type":"GeoCoordinates","latitude":19.7536,"longitude":-70.5186},"address":{"@type":"PostalAddress","addressLocality":"Sosúa","addressRegion":"Puerto Plata","addressCountry":"DO"},"touristType":["Beach travelers","Cruise passengers","Divers","Families"],"includesAttraction":[{"@type":"TouristAttraction","name":"Playa Sosúa"},{"@type":"TouristAttraction","name":"Playa Alicia"},{"@type":"TouristAttraction","name":"Sosúa Jewish Museum"}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Service","serviceType":"Private airport transfer to Sosúa","name":"Private transfers to Sosúa, Dominican Republic","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"areaServed":{"@type":"City","name":"Sosúa","address":{"@type":"PostalAddress","addressRegion":"Puerto Plata","addressCountry":"DO"}},"hasOfferCatalog":{"@type":"OfferCatalog","name":"One-way private transfers to Sosúa (1–6 guests)","itemListElement":[{"@type":"Offer","name":"Puerto Plata Airport (POP) to Sosúa","price":"23.95","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Santiago Airport (STI) to Sosúa","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Samaná El Catey Airport (AZS) to Sosúa","price":"148.50","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Santo Domingo Airport (SDQ) to Sosúa","price":"219.00","priceCurrency":"USD","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Punta Cana Airport (PUJ) to Sosúa","price":"425.00","priceCurrency":"USD","availability":"https://schema.org/InStock"}]}}
@@ -79,6 +82,18 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Sosúa","item":"https://caribbeansgtransferstours.com/sosua.html"}]}
   </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebPage","@id":"https://caribbeansgtransferstours.com/sosua.html#webpage","name":"Sosúa Transfers & Travel Guide | POP Airport to Sosúa from $23.95","url":"https://caribbeansgtransferstours.com/sosua.html","description":"How to get to Sosúa, Dominican Republic: Puerto Plata airport (POP) is 19 km away, about 25 minutes. Private transfers from $23.95, cruise pickups from Amber Cove and Taino Bay.","inLanguage":"en","datePublished":"2026-08-12","dateModified":"2026-08-21","primaryImageOfPage":"https://caribbeansgtransferstours.com/img/sosuabeach.jpg","about":{"@id":"https://caribbeansgtransferstours.com/sosua.html#destination"},"publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"},"isPartOf":{"@type":"WebSite","@id":"https://caribbeansgtransferstours.com/#website","name":"SG Caribbean Transfers & Tours","url":"https://caribbeansgtransferstours.com/","publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"}}}
+  </script>
+
+  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P5B6J8Y75V');
+  </script>
 </head>
 <body data-page="sosua">
 
@@ -87,8 +102,8 @@
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
-      <a class="brand" href="index.html" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers & Tours — home">
-        <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+      <a class="brand" href="index.html" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers &amp; Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
         <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
       </a>
       <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
@@ -100,9 +115,9 @@
       </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
-          <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
-          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a español">ES</button>
-          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" aria-label="Passer au français">FR</button>
+          <a class="lang-btn is-active" href="sosua.html" hreflang="en" aria-current="page" aria-label="Switch to English">EN</a>
+          <a class="lang-btn" href="es/sosua.html" hreflang="es" aria-label="Cambiar a español">ES</a>
+          <a class="lang-btn" href="fr/sosua.html" hreflang="fr" aria-label="Passer au français">FR</a>
         </div>
         <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -127,7 +142,7 @@
   <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
        buttons; checkout sends one consolidated WhatsApp message. -->
   <div class="cart-scrim" id="cartScrim"></div>
-  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your cart" data-i18n-attr="aria-label:cart.title">
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your Requests" data-i18n-attr="aria-label:cart.title">
     <div class="cart-panel-inner">
       <header class="cart-panel-header">
         <h3 data-i18n="cart.title">Your Requests</h3>
@@ -171,7 +186,7 @@
         src="img/sosuabeach.jpg"
         width="1532" height="784"
         alt="Aerial view of Playa Sosúa: the turquoise bay, rows of beach umbrellas along the sand and the town's hotels on the headland above"
-        fetchpriority="high" />
+        fetchpriority="high" data-i18n-attr="alt:alt.sosuaBeach" />
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
 
@@ -183,6 +198,18 @@
       <p class="hero-sub reveal-line"><span data-i18n="sosua.hero.lead">Puerto Plata airport is 15 minutes away. The cruise piers are 50. Whichever way you arrive, a local driver is already waiting — at a price agreed before you leave home.</span></p>
     </div>
   </section>
+
+  <!-- ============ BREADCRUMBS ============
+       Visible counterpart of this page's BreadcrumbList JSON-LD. Keep the two
+       in step: same steps, same order, same labels. -->
+  <nav class="crumbs" aria-label="Breadcrumb" data-i18n-attr="aria-label:crumbs.aria">
+    <div class="container">
+      <ol class="crumbs-list">
+        <li><a href="index.html" data-i18n="crumbs.home">Home</a></li>
+        <li aria-current="page"><span data-i18n="crumbs.sosua">Sosúa</span></li>
+      </ol>
+    </div>
+  </nav>
 
   <!-- ============ 2. QUICK ANSWER (AEO) ============
        Deliberately the first thing after the hero: one short, factual
@@ -462,7 +489,7 @@
         <article class="dest-spot reveal">
           <h3 data-i18n="sosua.spots.s4Name">Cabarete</h3>
           <p class="dest-spot-meta mono" data-i18n="sosua.spots.s4Meta">~8 km · ~15 min</p>
-          <p data-i18n="sosua.spots.s4Body">The kitesurfing capital of the Caribbean, and the closest place to go out at night. Kite Beach in the afternoon wind is worth the drive even if you never leave the sand.</p>
+          <p data-i18n="sosua.spots.s4Body">The kitesurfing capital of the Caribbean, and the closest place to go out at night. Kite Beach in the afternoon wind is worth the drive even if you never leave the sand. <a href="cabarete.html">See the full Cabarete guide</a>.</p>
         </article>
         <article class="dest-spot reveal">
           <h3 data-i18n="sosua.spots.s5Name">Puerto Plata &amp; the cable car</h3>
@@ -539,7 +566,7 @@
   <!-- ============ 8. FINAL BOOKING CTA ============ -->
   <section class="book" id="book">
     <div class="book-bg" id="bookBg">
-      <img src="img/cta-band.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="img/cta-band.jpg" width="1800" height="1197" alt="" loading="lazy" aria-hidden="true" />
     </div>
     <div class="book-scrim" aria-hidden="true"></div>
     <div class="container book-inner book-inner-solo">
@@ -565,8 +592,8 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="#top" aria-label="SG Caribbean Transfers & Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
-          <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers &amp; Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
           <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
         </a>
         <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
@@ -576,8 +603,16 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
-        <a href="sosua.html" aria-current="page" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Destinations" data-i18n-attr="aria-label:footer.destinationsHeading">
+        <h4 class="mono" data-i18n="footer.destinationsHeading">Destinations</h4>
+        <a href="sosua.html" aria-current="page" data-i18n="footer.serviceSosua">Sosúa</a>
+        <a href="cabarete.html" data-i18n="footer.serviceCabarete">Cabarete</a>
+        <a href="puerto-plata.html" data-i18n="footer.servicePuertoplata">Puerto Plata</a>
+        <a href="cofresi.html" data-i18n="footer.serviceCofresi">Cofresí</a>
+        <a href="rio-san-juan.html" data-i18n="footer.serviceRiosanjuan">Río San Juan</a>
+        <a href="las-terrenas.html" data-i18n="footer.serviceLasterrenas">Las Terrenas</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
         <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>

@@ -1,6 +1,6 @@
 # PROJECT_INFO — SG Caribbean Transfers & Tours
 
-> Last updated: 2026-08-12 UTC
+> Last updated: 2026-08-21 UTC
 
 ## What it is
 A small conversion-focused marketing **site** (six static pages, one shared
@@ -28,7 +28,8 @@ fare table, arrival steps, cruise-port section, 4-way comparison table,
 nearby attractions, 10-item FAQ).
 
 ## Stack
-- Static site: HTML5 + CSS3 + vanilla JavaScript (ES2020). No framework, no build step.
+- Static site: HTML5 + CSS3 + vanilla JavaScript (ES2020). No framework.
+- **One generated step:** `python tools/build-langs.py` renders `/es/` and `/fr/` from the English pages plus the dictionary in `js/i18n.js`, and rewrites `sitemap.xml`. Nothing else is generated; the English pages stay hand-written.
 - Fonts: Google Fonts — Fraunces (display), Archivo (body), IBM Plex Mono (ticket data).
 - Images: all photos are local files in `img/` (team/fleet photos from the owner + stock photos for the remaining sections — see `DOCS/DEPLOYMENT.md` go-live checklist for which are still placeholders).
 - No backend. Conversion channel is **WhatsApp deep links** (`wa.me`), number `+1 829-627-7733`.
@@ -37,10 +38,15 @@ nearby attractions, 10-item FAQ).
 | Path | Purpose |
 |------|---------|
 | `index.html` | Home page: hero, services-picker section, why-us, gallery, reviews, FAQ, book CTA, service-picker `<dialog>` popup (backdrop shows the logo as a watermark). SEO meta + JSON-LD (TravelAgency + FAQPage) |
-| `transfers.html` | Hero + services + fixed-price Popular Routes ticket rail (9 tickets) + boarding-pass price calculator (also covers ~50 fixed fares from Puerto Plata Airport, via a "Fixed destinations" optgroup) + trust strip. JSON-LD (Service + BreadcrumbList) |
+| `transfers.html` | Hero + services + fixed-price Popular Routes ticket rail (9 tickets) + boarding-pass price calculator (also covers ~50 fixed fares from Puerto Plata Airport, via a "Fixed destinations" optgroup) + **static "Every fixed fare" tables (`#fares`, 25 POP rows + 5 other-airport rows)** + trust strip. JSON-LD (Service with a 30-offer OfferCatalog + BreadcrumbList + FAQPage). **The `#fares` tables are literal text — keep in sync with `js/config.js`** |
 | `excursions.html` | Hero + 7 excursion cards (Punta Rusia, 27 Charcos, Whale Watching, City Tour, Beach Experiences, ATV Adventure, Dune Buggy Adventure) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `cruises.html` | Hero + guaranteed-return promise band + 3 template cruise cards (optional ship name + departure time) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `nosotros.html` | Hero banner + company-story intro (logo + copy) + driver team grid + fleet grid + book CTA. JSON-LD (BreadcrumbList) |
+| `puerto-plata.html` | Puerto Plata / Playa Dorada hub — the airport city and cruise city. POP US$38.95 confirmed; other airports "On request". Hero: `img/puerto-plata.jpg`, the Christ statue on Pico Isabel de Torres over the city |
+| `cofresi.html` | Cofresí / Costambar hub — Ocean World, resort strip west of the city. POP US$48.50 confirmed. **The only hub without a real photo of its place** — hero is a generic resort shot |
+| `rio-san-juan.html` | Río San Juan / Playa Grande hub — Gri-Gri lagoon, Atlantic beaches. POP US$98.50 confirmed |
+| `las-terrenas.html` | Las Terrenas / Samaná hub — nearest airport is AZS but only the POP fare (US$178.50) is confirmed; page says so. States plainly that it does **not** fit a Puerto Plata port call |
+| `cabarete.html` | Cabarete destination hub (SEO/AEO/GEO), added 2026-08-21 — same structure as `sosua.html`, generated from it. Fares: POP US$33.95 and STI US$98.95 confirmed; AZS/SDQ/PUJ shown as "On request" because no fare is confirmed. **Publishes no distances or drive times** (owner decision 2026-08-21) — places are described by position and character instead. Hero image is a placeholder, not a photo of Cabarete |
 | `sosua.html` | Sosúa destination hub (SEO/AEO/GEO): hero + quick-answer fact block + 5-airport fare table + 3 arrival steps + Amber Cove/Taino Bay section + 4-way comparison table + 6 nearby attractions + 10-item FAQ + book CTA. JSON-LD (TouristDestination + Service/OfferCatalog + FAQPage + BreadcrumbList). **Fares are literal text — keep in sync with `js/config.js` and `transfers.html`** |
 | `css/styles.css` | All styles — mobile-first, design tokens, animations |
 | `img/` | All site photos: real team/fleet/logo/banner photos from the owner, plus stock photos for hero/gallery/cards still pending owner replacement (descriptive filenames — see DEPLOYMENT.md) |
@@ -53,7 +59,9 @@ nearby attractions, 10-item FAQ).
 | `js/tours.js` | Guest-count pricing + Add to Cart for excursion/cruise cards — `excursions.html` and `cruises.html` |
 | `js/service-picker.js` | Home-only first-visit service-picker `<dialog>` |
 | `sitemap.xml` | 6 URLs (home + 4 service/company pages + `sosua.html`) |
-| `robots.txt` | Allow-all + sitemap pointer |
+| `robots.txt` | Allow-all + explicit allow blocks for the answer-engine crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended…) + sitemap pointer |
+| `llms.txt` | Plain-text brief for generative engines: entity facts, every fixed fare, tour prices, distances, page index. **Keep in sync with `js/config.js`** |
+| `404.html` | Branded not-found page (GitHub Pages serves it automatically). Self-contained — no i18n/cart/shell scripts, `noindex, follow` |
 
 `js/main.js` no longer exists — it was split into the 8 modules above.
 See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
@@ -118,10 +126,17 @@ See `DOCS/DEVELOPER_GUIDE.md` for the per-page script-loading table.
   `DOCS/USER_MANUAL.md` for how to edit copy in any language.
 
 ## Scripts / How to run
-No build. Open `index.html` directly, or serve locally:
+Open `index.html` directly, or serve locally:
 ```
 python -m http.server 8734
 ```
+
+After editing any English page or any string in `js/i18n.js`:
+```
+python tools/build-langs.py     # re-render /es/ and /fr/ + sitemap.xml
+python tools/verify.py          # 30+ static checks across all three languages
+```
+`build-langs.py` needs Node on PATH (it evaluates the dictionary literal). Both are safe to re-run: the output is identical if nothing changed.
 
 ## Deploy
 Any static host (Netlify, Vercel, GitHub Pages, cPanel). See `DOCS/DEPLOYMENT.md`.

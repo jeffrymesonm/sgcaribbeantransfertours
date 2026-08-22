@@ -226,3 +226,114 @@ mostrar "Contáctanos para cotizar" en vez de inventar un número.
       sección final de las 4 páginas.
 - [x] Verificación estática completa (344/344/344 en los 3 idiomas).
 - [x] DOCS/ actualizados.
+
+## Plan (fase 6 — SEO / AEO / GEO, tanda rápida)
+Auditoría 2026-08-21. Se descarta `aggregateRating`/`review` en JSON-LD:
+el dueño confirma que los testimonios de la home NO son reales, así que
+marcarlos violaría las guidelines de Google (riesgo de acción manual).
+
+- [x] 1. Tabla completa de tarifas fijas POP + otros aeropuertos (transfers.html)
+       — 25 rutas que hoy solo existen en js/config.js (invisibles al crawler)
+- [x] 2. Enriquecer TravelAgency en las 6 páginas (knowsLanguage, contactPoint,
+       hasOfferCatalog, slogan) — entidad para knowledge graph / GEO
+- [x] 3. TouristTrip con offers/image/description/duración (excursions + cruises)
+- [x] 4. Rendimiento: width/height en las 52 imágenes + recomprimir >300 KB
+       + mover GA4 debajo de title/meta
+- [x] 5. Menores: 404.html, llms.txt, robots.txt con AI crawlers,
+       og:image:alt, dateModified en sosua, sitemap lastmod, Person schema
+- [x] 6. Verificación estática (JSON-LD parseable, i18n completo, sin enlaces rotos)
+- [x] 7. Actualizar DOCS/ + PROJECT_INFO.md
+
+## Plan (fase 7 — pendientes de la auditoría SEO)
+- [x] 1. FAQ 24/7 visible en index.html (acordeón + FAQPage + 3 idiomas)
+       — el schema afirmaba 24/7 sin que la página lo dijera
+- [x] 2. Resincronizar el FAQPage de index.html con las respuestas visibles
+       (invariante #2 rota: 5 de 5 respuestas divergían)
+- [x] 3. Breadcrumbs visibles en las 5 páginas que ya tenían BreadcrumbList
+- [x] 4. cabarete.html — segundo hub de destino, generado desde sosua.html
+       (152 claves × 3 idiomas, 5 bloques JSON-LD, sitemap, llms.txt, footer)
+- [x] 5. Suite de verificación ampliada: ahora cubre las 4 invariantes
+       del DEVELOPER_GUIDE (37 checks, 0 fallos)
+- [x] 6. Cabarete sin distancias (decisión del dueño 2026-08-21): 36 claves
+       reescritas ×3, 36 eliminadas, tabla de 5 a 3 columnas, 2 FAQs reformuladas
+- [ ] 7. 4 hubs restantes — YA NO BLOQUEADO por distancias: el patrón
+       "describir el lugar, no medirlo" quita esa dependencia. Solo hacen falta
+       tarifas, y las que falten van como "On request"
+- [ ] 8. Multiidioma real (/es/, /fr/ + hreflang) — decisión del dueño
+- [ ] 9. sameAs: URLs de Facebook y TripAdvisor
+- [ ] 10. Foto real de Cabarete para el hero
+
+## Plan (fase 8 — los 4 hubs restantes)
+- [x] 1. puerto-plata.html (POP US$38.95) — ciudad del aeropuerto y de los muelles
+- [x] 2. cofresi.html (POP US$48.50) — Ocean World, Costambar
+- [x] 3. rio-san-juan.html (POP US$98.50) — laguna Gri-Gri, Playa Grande
+- [x] 4. las-terrenas.html (POP US$178.50) — dice abiertamente que NO cabe
+       en una escala de crucero de Puerto Plata
+- [x] 5. Footer: columna "Destinations" con los 6 hubs en las 11 páginas + CSS a 5 columnas
+- [x] 6. sitemap.xml a 11 URLs, llms.txt con sección de destinos
+- [x] 7. Verificación: 47 checks, 0 fallos (las 4 invariantes cubiertas)
+- [ ] 8. Tarifas STI/AZS/SDQ/PUJ a los 5 destinos — 20 celdas "On request"
+       esperando números del dueño. Prioridad: AZS → Las Terrenas
+- [ ] 9. Fotos reales de Cabarete, Cofresí, Río San Juan y Las Terrenas
+- [x] 10. Multiidioma real (/es/, /fr/ + hreflang) — hecho el 2026-08-22
+- [ ] 11. sameAs: URLs de Facebook y TripAdvisor
+
+## Plan (fase 9 — fotos reales de los heroes, 2026-08-22)
+- [x] 1. 4 fotos del dueño instaladas: puerto-plata, cabarete, rio-san-juan, las-terrenas
+- [x] 2. Normalizadas: nombres con guiones (sin %20) + JPEG (og:image seguro) + ≤1800px q82
+- [x] 3. Por página: hero <img>, og:image/alt/width/height y 2 nodos JSON-LD
+- [x] 4. Alt reescritos: ahora sí pueden nombrar el lugar porque es cierto
+- [x] 5. Foto de Cofresí instalada el 2026-08-22 (venía espejada, se volteó)
+- [ ] 6. Encuadre: cabarete.jpg es 3.2 de ratio (recorte fuerte en móvil);
+       puerto-plata.jpg es vertical y solo 1080px de ancho
+
+## Plan (fase 10 — foto de Cofresí + altura del hero, 2026-08-22)
+- [x] 1. img/cofresi.jpg: aérea de Ocean World, des-espejada, 1600x1200 q82
+- [x] 2. cofresi.html: hero, og:image x4, 2 nodos JSON-LD, dateModified, comentario
+- [x] 3. .hero acotado a min(100svh, 50rem) — menos ampliado en pantallas altas
+- [x] 4. Paso móvil (<600px): altura la marca el texto, padding reducido
+- [x] 5. Bug propio corregido: el @media iba encima de .hero-content y perdía
+- [x] 6. Medido: en móvil escala <=1.08x en todas (antes hasta 1.68x)
+- [x] 7. Cabarete reencuadrada con object-position 24% (el rider entra en movil)
+
+## Plan (fase 11 — AZS fuera de Las Terrenas + multiidioma real, 2026-08-22)
+- [x] 1. las-terrenas.html: fila AZS, dato de aeropuerto, entradilla, nota y Service
+- [x] 2. FAQ 10 -> 9 preguntas, renumeradas; FAQPage regenerado desde el HTML visible
+- [x] 3. AZS intacto en el resto del sitio (config.js confirma AZS -> Sosua 148.50)
+- [x] 4. tools/build-langs.py: renderiza /es/ y /fr/ desde el diccionario existente
+- [x] 5. hreflang reciproco + canonical propio + og:locale en las 33 paginas
+- [x] 6. JSON-LD: WebPage y Breadcrumb siguen al idioma; las entidades no
+- [x] 7. Selector de idioma = enlaces reales; el idioma lo decide <html lang>
+- [x] 8. tools/verify.py: 24 comprobaciones sobre 34 paginas, 3 idiomas
+- [x] 9. Idempotencia verificada: tres pasadas, archivos identicos
+- [x] 10. alt de imagenes y og:image:alt traducidos (41 claves x 3 idiomas)
+- [ ] 11. sameAs: URLs de Facebook y TripAdvisor (pendiente del dueno)
+
+## Plan (fase 12 — alt de imagenes en tres idiomas, 2026-08-22)
+- [x] 1. 41 claves alt.* x 3 idiomas en js/i18n.js (82 cadenas nuevas)
+- [x] 2. 45 <img> y 11 og:image:alt marcados con data-i18n-attr
+- [x] 3. Una clave por imagen: 78 etiquetas -> 41 cadenas
+- [x] 4. og:image:alt reutiliza la clave de la imagen a la que apunta
+- [x] 5. Decorativas (logo, cta-band) siguen con alt="" y sin clave
+- [x] 6. verify.py: invariante #1 cubre atributos (669) y alt sin clave
+- [x] 7. es/ y fr/ regeneradas; 26 comprobaciones, 0 fallos
+
+## Plan (fase 13 — tarifas STI/SDQ/PUJ a los cinco hubs, 2026-08-22)
+- [x] 1. config.js: OTHER_AIRPORT_FIXED_FARES de 5 a 17 tarifas
+- [x] 2. transfers.html#fares: tabla de otros aeropuertos regenerada (5 -> 17 filas)
+- [x] 3. 12 celdas "On request" pasan a precio en los 5 hubs
+- [x] 4. Service JSON-LD: descripcion + una Offer por tarifa nueva
+- [x] 5. Las 5 notas al pie reescritas x 3 idiomas (nombran las que quedan)
+- [x] 6. llms.txt: tabla + parrafos de Cabarete y Las Terrenas
+- [x] 7. verify.py: filas esperadas derivadas de config.js, no fijas en 30
+- [x] 8. Calculadora verificada en Node: 12 dan precio, 6 caen a cotizacion
+- [x] 9. STI -> Rio San Juan y STI -> Las Terrenas: on request definitivo (dueno, 2026-08-22)
+- [x] 10. Las 4 tarifas desde Samana (AZS): on request definitivo (dueno, 2026-08-22)
+
+## Plan (fase 14 — cierre de tarifas y encuadre, 2026-08-22)
+- [x] 1. Las 6 celdas restantes pasan a politica declarada, no a deuda
+- [x] 2. Documentado: no rellenarlas por patron, solo con precio del dueno
+- [x] 3. cabarete.jpg: object-position 24% — el kitesurfista entra en movil
+- [x] 4. Medido antes/despues en movil, portatil y escritorio
+- [x] 5. Documentado que las-terrenas.jpg no se arregla por encuadre
+- [ ] 6. sameAs: URLs de Facebook y TripAdvisor (unico pendiente del dueno)

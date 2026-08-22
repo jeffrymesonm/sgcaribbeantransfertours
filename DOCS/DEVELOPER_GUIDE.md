@@ -3,7 +3,7 @@
 > Last updated: 2026-08-12 UTC (sosua.html destination hub + site-wide SEO/AEO pass)
 
 ## SEO / AEO invariants — read before editing content
-Four rules the whole site now depends on. Breaking any of them silently
+Five rules the whole site now depends on. Breaking any of them silently
 degrades indexing; none of them is enforced by a build step, because there
 isn't one.
 
@@ -24,9 +24,21 @@ isn't one.
    stop resolving them to one organisation.
 4. **Prices are duplicated as literal text.** `js/config.js` is the source of
    truth, but the same numbers appear in `transfers.html`'s ticket rail, in
-   `sosua.html`'s fare table, in `services.transferMeta`, and inside JSON-LD
-   `Offer`s. Grep the old number across `*.html` and `js/i18n.js` when a fare
-   changes.
+   the `transfers.html#fares` tables (25 POP rows + 5 other-airport rows,
+   added 2026-08-21), in `sosua.html`'s fare table, in `services.transferMeta`,
+   in `llms.txt`, and inside JSON-LD `Offer`s. Grep the old number across
+   `*.html`, `llms.txt` and `js/i18n.js` when a fare changes.
+
+   The `#fares` tables deliberately restate what the calculator already
+   computes. That is not redundancy to clean up: crawlers and answer engines
+   do not run the calculator, so before this section existed ~25 fixed routes
+   were unreachable to them. It supersedes the 2026-07-20 "exactly one place
+   per route" decision. Keep it a mirror, never a second source.
+5. **`llms.txt` is a published contract.** It repeats the entity facts, all 30
+   fixed fares, the six tour prices and the key distances in plain text for
+   generative engines. A stale `llms.txt` makes an answer engine quote a price
+   the site no longer charges. Update it in the same commit as any fare, tour
+   or contact change.
 
 **Never add `Review` or `aggregateRating` JSON-LD while the testimonials in
 `js/i18n.js` are placeholders** (`DOCS/DEPLOYMENT.md` go-live checklist).
@@ -108,17 +120,26 @@ Each service page marks its own nav link `aria-current="page"` in both the
 desktop and mobile nav (`transfers.html`/`excursions.html`/`cruises.html`/
 `nosotros.html`); `index.html`'s nav has no self-link to mark (Reviews/FAQ
 are anchors on the home page itself, not a "Home" link).
-**`sosua.html` is deliberately absent from the header nav** (2026-08-12): the
-desktop nav already carries five items and a sixth crowds it at tablet
-widths. It is linked instead from the **footer Services column on all six
-pages** (`footer.serviceSosua`, with `aria-current="page"` on `sosua.html`
-itself), which is enough for crawl discovery, plus contextual in-body links.
+**The destination hubs are deliberately absent from the header nav**
+(2026-08-12, reaffirmed 2026-08-21): the desktop nav already carries five
+items and more crowd it at tablet widths. `sosua.html` and `cabarete.html`
+are linked instead from the **footer Services column on every page**
+(`footer.serviceSosua` / `footer.serviceCabarete`, each with
+`aria-current="page"` on its own page), which is enough for crawl discovery,
+plus contextual in-body links — including a reciprocal link between the two
+hubs inside each one’s "what’s nearby" card for the other town.
 
-### Destination pages (`sosua.html`)
-`sosua.html` is the first of a possible family of destination hubs — pages
-built to be *quoted* by search and answer engines rather than merely ranked.
-The pattern, if a second one is ever added (Cabarete, Puerto Plata, the
-cruise ports):
+### Destination pages (six hubs)
+`sosua.html` established the pattern. `cabarete.html` was generated from it,
+then rebuilt without distances; **`cabarete.html` is now the template** and
+`puerto-plata.html`, `cofresi.html`, `rio-san-juan.html` and
+`las-terrenas.html` (all 2026-08-21) were generated from that. All six share
+the shell, the section order and the `.dest-*` styles; each owns a namespace
+in `js/i18n.js` (`sosua.*`, `cabarete.*`, `puertoplata.*`, `cofresi.*`,
+`riosanjuan.*`, `lasterrenas.*`) of ~140 keys × 3 languages.
+
+They are built to be *quoted* by search and answer engines rather than merely
+ranked. The rules for adding a seventh:
 - **Quick-answer block first.** One factual paragraph plus a `<dl>` of hard
   numbers, directly under the hero. This is what AI Overviews and chat
   assistants lift verbatim, so it must stay factual — never let it drift
@@ -132,8 +153,46 @@ cruise ports):
   entity), `Service` + `hasOfferCatalog` (the fares), `FAQPage` (mirrors the
   on-page FAQ **word for word** — edit one, edit the other), `BreadcrumbList`.
   All English-only, matching the served HTML, exactly as on the other pages.
-- **No invented figures.** The cruise section quotes no price on purpose:
-  `cruises.html`'s cards still carry placeholder `data-prices="0"`.
+- **No invented figures — and since 2026-08-21, no distances at all.** Only
+  `sosua.html` publishes kilometres and drive times, because the owner
+  confirmed those. Every other hub describes where a place is ("just east of
+  Sosúa", "in the next bay") and sends the visitor to WhatsApp for a real
+  journey time. The air table on those pages has no Distance or Drive column.
+  Do not add either without a number from the owner.
+- **Only confirmed fares are published.** Each hub prints the one POP fare
+  that exists in `js/config.js` and shows **"On request"** for the other four
+  airports rather than guessing. The copy turns that into a policy ("we only
+  publish prices we have confirmed"), which is honest and routes to WhatsApp.
+- **The cruise section is allowed to say no.** `las-terrenas.html` states
+  outright that it does not fit a Puerto Plata port call. That is the most
+  valuable paragraph on the page.
+- **STI / SDQ / PUJ now carry the Sosúa fare on the other hubs** (owner
+  decision, 2026-08-22): US$98.50 from Santiago, US$219 from Santo Domingo,
+  US$425 from Punta Cana. **Two runs were deliberately excluded** —
+  Santiago → Río San Juan and Santiago → Las Terrenas. Santiago is further from
+  both than Puerto Plata is, so the Sosúa price would have printed a longer
+  journey for less than the POP fare sitting beside it in the same table; the
+  owner's own STI pricing already scales with distance (Cabarete US$98.95
+  against Sosúa US$98.50). Those two, and the four AZS cells, stay "On request"
+  — confirmed by the owner on 2026-08-22 as the settled answer, not a gap
+  waiting on a number. **12 fares published, 6 quoted on request by policy.**
+  Do not fill them from a pattern; only a fare the owner states goes in.
+- **Las Terrenas does not offer Samaná El Catey (AZS) as a way in**
+  (owner instruction, 2026-08-22). The airport row, the "nearest airport"
+  fact and the AZS pickup FAQ were removed from that page; the page routes
+  arrivals through Puerto Plata (POP) and Santo Domingo (SDQ). **AZS stays
+  everywhere else** — `js/config.js` carries a confirmed AZS → Sosúa fare of
+  US$148.50, so it is a real origin the business serves.
+- **All six heroes are now real photos of their place** (owner-supplied,
+  2026-08-22): `sosuabeach.jpg`, `cabarete.jpg`, `puerto-plata.jpg`,
+  `rio-san-juan.jpg`, `las-terrenas.jpg`, `cofresi.jpg`. Their `alt` text names
+  the place because it is true. If a hub ever falls back to stock, keep the old
+  rule: describe what is in frame, never where it is.
+- **Check supplied photos for a horizontal flip before installing them.** The
+  Cofresi original arrived mirrored — the Ocean World sign on the point read
+  `blroW naecO`, and the coastline was reversed with it. Any frame containing
+  legible signage is worth a glance at 4x before it goes in; a mirrored aerial
+  of a real place is a factual error, not a stylistic one.
 - **Styles are namespaced `.dest-*`** in the last block of
   `css/styles.css`, so a destination page cannot regress the other five.
 - Distances and drive times are approximate road figures, flagged as such in
@@ -261,6 +320,128 @@ Type: **Fraunces** (display, weights 340/420/560 + italic), **Archivo** (body),
 
 Signature element: **boarding-pass motif** — route tickets (`.ticket`) and the
 calculator result (`.boarding-pass`) with dashed perforation + edge notches.
+
+### Hero height and the cover crop
+`.hero` backgrounds are `object-fit: cover`, so **the box's proportions decide
+how much of the photo survives**: filling a tall, narrow box means discarding
+width and enlarging what is left. A flat `100svh` made that box as tall as the
+viewport, which on a phone kept roughly a quarter of a landscape photo's width
+and upscaled it ~1.6x past native. `.hero` is therefore capped at
+`min(100svh, 50rem)`, with a `max-width: 599.98px` step that lets the hero text
+set the height instead (`min-height: 34rem` floor, reduced `.hero-content`
+padding). On a 390px phone that roughly doubles how much of the frame is
+visible and puts the smaller sources back inside their native resolution.
+
+Two consequences worth knowing before editing this:
+- **The phone override must stay below `.hero-content` in the file.** Same
+  specificity, and a media query adds none, so source order is what makes it
+  win.
+- **Very wide sources still crop hard on phones.** `cabarete.jpg` is 1800x562
+  (ratio 3.2); no box height fixes a panorama in a portrait viewport. The fix
+  there is a taller crop of the same scene, not more CSS.
+
+### Three languages, three sets of URLs
+
+Until 2026-08-22 the site was multilingual only in the browser: one set of
+English pages whose text `js/i18n.js` swapped after load. Visitors got three
+languages; search engines got one, because there was a single URL per page and
+the HTML served at it was always English. A crawler cannot index a language it
+is never served.
+
+Now every page exists three times:
+
+| Language | URL | Source |
+|---|---|---|
+| English | `/transfers.html` | hand-written, the original |
+| Spanish | `/es/transfers.html` | generated |
+| French | `/fr/transfers.html` | generated |
+
+**The English pages did not move.** Every existing link, share and ranking
+still resolves.
+
+`python tools/build-langs.py` renders `/es/` and `/fr/` from the English page
+plus the matching dictionary in `js/i18n.js` — the same dictionary the runtime
+uses, so no string is ever translated twice. Per page it sets `<html lang>`,
+every `[data-i18n]` innerHTML and `[data-i18n-attr]` attribute, the title and
+description (from `meta.<page>.title` / `.description`), the canonical, the
+Open Graph URL/locale, the hreflang cluster, the language switcher, and the
+`../` prefix that shared assets need one directory down.
+
+**Invariant #1 covers attributes too**, as of 2026-08-22: `aria-label`,
+`placeholder` and image `alt` are compared against the dictionary just like
+element text. Only text was ever checked before, which is how the cart panel's
+`aria-label` sat on *"Your cart"* while the dictionary said *"Your Requests"*.
+
+**Invariant #5 — the translated pages are build output.** Editing anything in
+`es/` or `fr/` is lost on the next run. Change the English page, or change the
+dictionary, then re-run. Each generated file opens with a banner saying so.
+
+#### Which JSON-LD follows the language and which does not
+
+- **`WebPage` and `BreadcrumbList` describe *this URL*.** They get the
+  translated `@id`, `url`, `name`, `description`, `inLanguage`, and breadcrumb
+  labels read out of the visible trail — a Spanish page whose markup says
+  "Inicio" must not hand Google a JSON-LD that says "Home".
+- **`TravelAgency`, `TouristDestination`, `Service` and the tour `ItemList`s
+  describe real-world things**, which do not change when the page language
+  does. They keep one stable `@id` and identical content across all three, so
+  the three versions resolve to *one* business and *one* Sosúa rather than
+  three of each. This is invariant #3 extended: the node is now byte-identical
+  on 33 pages, not 11.
+- **`FAQPage` is regenerated per language** from that language's visible
+  accordion, because invariant #2 applies to each page independently.
+
+#### The language switcher is links now
+
+`.lang-btn` used to be a `<button>` calling `setLang()`. It is an `<a>` with a
+real `href`, so a crawler can follow it and a visitor can open it in a new tab.
+`js/i18n.js` therefore takes the active language from `document.documentElement
+.lang` — the served document is the authority, not `sessionStorage`, which is
+gone. Staying inside a language needs no state at all: every internal link is
+relative, so a link on `/es/index.html` lands on `/es/transfers.html`.
+
+`setLang()` survives as the programmatic path. It is what dispatches
+`sariel:langchange`, the contract `calculator.js`, `cart.js`, `tours.js`,
+`shell.js` and `contact-choice.js` all listen on to re-render JS-built content.
+
+#### Hero framing is per photo
+
+`object-fit: cover` keeps a column of the frame whose width the hero's
+proportions decide, and `center` is only the right column when the subject is
+centred. `cabarete.jpg` is a 3.2:1 panorama whose kitesurfer sits at 29% from
+the left; centred, a phone showed **open water and no rider at all** — the
+visible window was x 725–1075 of 1800 and the subject is at 517.
+
+`[data-page="cabarete"] .hero-bg img { object-position: 24% 50%; }` puts him
+mid-frame on a phone and a third in from the left on a desktop. Only the
+horizontal component matters here: the box is proportionally taller than the
+image, so the scale is driven by height and nothing overflows vertically.
+
+Add a line for any hero whose subject is off-centre, and only then — the other
+five destination photos are composed around their middle and need nothing.
+`las-terrenas.jpg` cannot be helped this way: its sign spans the full width, so
+no narrow column shows the whole name. Reducing the hero height was the only
+lever there, and it has been pulled.
+
+#### Image alt text
+
+Closed 2026-08-22. Every image that says something says it from the dictionary,
+under an `alt.*` key: `data-i18n-attr="alt:alt.heroMain"` on the `<img>`, and
+`data-i18n-attr="content:alt.heroMain"` on that page's `og:image:alt`. The
+generator and the runtime both already understood `data-i18n-attr`, so no new
+mechanism was needed.
+
+**One key per image, not per tag.** The same photo appears on several pages and
+is described once — 78 `<img>` tags across the site reduce to 41 strings. A
+page's `og:image:alt` reuses the key of the image it points at, which also
+removed two places where the social card and the on-page image had drifted into
+describing the same photo differently.
+
+**Decorative images keep `alt=""` and get no key.** The logo lockup in the
+header (22 occurrences) and the CTA band (11) are presentational; a screen
+reader should skip them, not read invented text. `tools/verify.py` enforces
+both halves: every non-empty `alt` must carry a key, and every keyed attribute
+must equal its dictionary value.
 
 ### Local images (img/)
 The home `#about` section is the first to use **real photos** instead of

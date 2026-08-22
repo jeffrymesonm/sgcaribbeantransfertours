@@ -183,6 +183,12 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
    with real guest quotes.
 
 ## Changing prices
+> **Puerto Plata City Tour, 2026-08-21:** su precio pasó de 100/125/150 a
+> **260/325/390 (US$65 por persona)**, confirmado por ti. Vive en tres sitios y
+> los tres ya están al día: el `data-prices` de `#exc4` en `excursions.html`,
+> el de `#cruise2` en `cruises.html` (es el mismo tour para cruceristas) y la
+> fila de `llms.txt`. Si vuelve a cambiar, los tres juntos.
+
 - **Transfers — Popular Routes (fixed prices):** near the top of
   `transfers.html`, the "Popular routes" ticket rail shows your 9 real,
   hand-typed prices (Puerto Plata/Santiago/Santo Domingo/Punta Cana/Samaná
@@ -219,8 +225,25 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
   prices) — see `memory/decisions.md` for that reasoning if you ever want
   to redo the comparison. **This used to be a separate list on the page**
   (below the ticket rail) but was merged directly into the calculator on
-  2026-07-20 so there's only ever one place a price is shown for a given
-  trip.
+  2026-07-20. As of 2026-08-21 a static table is back, for the reason in the
+  next bullet.
+- **⚠️ Transfers — the new price table on the page (`#fares`, added
+  2026-08-21):** below the calculator, `transfers.html` now shows **"Every
+  fixed fare from Puerto Plata Airport"** — two plain tables listing all 25
+  POP fares and the 5 fares from the other airports. This is a **third place
+  the same numbers appear**, and it is on purpose: Google and the AI
+  assistants (ChatGPT, Gemini, Perplexity) never click your calculator, so
+  before this table existed they could not see — and could not quote — any
+  of those 25 prices. It is a copy for machines to read, not a second price
+  list you manage separately.
+
+  **So when you change a fare, change it in three places, always together:**
+  1. `js/config.js` (the real number that gets charged),
+  2. the matching row in the `#fares` tables in `transfers.html`,
+  3. the same row in `llms.txt` at the root of the project.
+
+  If they disagree, the site charges one price and an AI assistant quotes
+  another to your customer.
 - **Transfers — everything else (calculator):** any route *not* in the
   Popular Routes list is priced by the calculator further down
   `transfers.html`, which estimates price and duration from real distance
@@ -321,6 +344,155 @@ spam ante Google y puede costar una penalización manual.
 2. **Las preguntas frecuentes están escritas dos veces**: la lista visible y una
    copia invisible arriba del archivo que es la que lee Google. Si editas una
    pregunta o una respuesta, edita las dos para que digan exactamente lo mismo.
+
+## Las páginas de destino (6 en total) — completadas 2026-08-21
+
+Ahora hay una página por destino, todas con la misma estructura:
+
+| Página | Destino | Tarifa publicada desde POP |
+|---|---|---|
+| `sosua.html` | Sosúa | US$23.95 |
+| `cabarete.html` | Cabarete | US$33.95 |
+| `puerto-plata.html` | Puerto Plata y Playa Dorada | US$38.95 |
+| `cofresi.html` | Cofresí y Costambar (Ocean World) | US$48.50 |
+| `rio-san-juan.html` | Río San Juan y Playa Grande | US$98.50 |
+| `las-terrenas.html` | Las Terrenas y Samaná | US$178.50 |
+
+Todas están enlazadas desde la nueva columna **Destinations** del pie de página,
+en las 11 páginas del sitio.
+
+**Dos cosas que necesito de ti para sacarles todo el partido:**
+
+1. ~~Tarifas desde Santiago, Santo Domingo y Punta Cana~~ **✅ Puestas el
+   2026-08-22.** Me dijiste que usara las mismas que ya cobras a Sosúa, así que
+   ahora se publican **US$98.50 desde Santiago, US$219 desde Santo Domingo y
+   US$425 desde Punta Cana** a Cabarete, Puerto Plata, Cofresí, Río San Juan y
+   Las Terrenas. De 18 casillas vacías quedaron **12 con precio**.
+
+   **Las 6 que siguen en "On request", y por qué:**
+
+   - **Santiago → Río San Juan** y **Santiago → Las Terrenas.** Aquí paramos a
+     propósito. Santiago está **más lejos** de esos dos sitios que Puerto Plata,
+     así que ponerles el precio de Sosúa habría publicado un viaje más largo por
+     menos dinero que el de Puerto Plata, en la misma tabla y a dos líneas de
+     distancia. Tu propio precio de Cabarete ($98.95 frente a $98.50 de Sosúa)
+     dice que sí subes por distancia desde Santiago.
+   - **Las cuatro de Samaná (AZS)**, en Cabarete, Puerto Plata, Cofresí y Río
+     San Juan.
+
+   **Me confirmaste el 2026-08-22 que esas seis se quedan en "On request".** No
+   son un hueco pendiente: son la respuesta. El cliente que las pida recibe un
+   precio por WhatsApp el mismo día, y la página se lo dice claramente. Si algún
+   día quieres publicarlas, solo tienes que pasarme el número.
+
+   Los precios entraron en los cuatro sitios a la vez: la calculadora, la tabla
+   grande de `transfers.html`, la tabla de cada destino y el `llms.txt` que leen
+   ChatGPT y compañía. No hay que tocarlos por separado.
+2. ~~Fotos reales~~ **✅ Hecho el 2026-08-22.** Los seis destinos tienen ya su
+   foto de verdad: Sosúa, Puerto Plata (el Cristo del Pico Isabel de Torres),
+   Cabarete (los kitesurfistas), Río San Juan (la cala), Las Terrenas (el
+   letrero) y Cofresí (la aérea de Ocean World con la bahía y el pico detrás).
+   Las renombré sin espacios y las pasé a JPEG para que las tarjetas de WhatsApp
+   y Facebook no fallen.
+
+   **La de Cofresí venía espejada**: el rótulo del parque se leía al revés
+   (`blroW naecO`) y la costa estaba invertida con él. La volteé antes de
+   ponerla, así que el letrero ahora se lee bien. Si alguna vez me mandas una
+   aérea con letreros, échale un ojo a eso — pasa fácil al exportar.
+
+   **Y bajé la altura del hero** (2026-08-22), que era lo que hacía que en el
+   móvil se comieran media foto: la caja era tan alta como la pantalla, y la
+   foto se ampliaba hasta llenarla dejando solo una franja del centro. Ahora en
+   el teléfono se ve **casi el doble de la foto** y sin ampliarla, y en
+   escritorio la caja también es algo más baja, así que se ve más nítida.
+
+   Queda una sola pega de encuadre: la de **Cabarete es muy panorámica**
+   (mucho más ancha que alta), así que en móvil sigue viéndose una franja. Ha
+   mejorado, pero si tienes una versión más vertical de esa misma escena, con
+   el cielo lleno de cometas, esa página gana bastante.
+
+## El sitio ahora está de verdad en tres idiomas — 2026-08-22
+
+Antes el sitio **parecía** trilingüe pero no lo era del todo. Existía una sola
+página por sección, en inglés, y al pulsar ES o FR el navegador cambiaba los
+textos al vuelo. Para el visitante funcionaba. Para Google no: solo había **una
+dirección** por página y lo que se servía en ella era siempre inglés, así que
+**el español y el francés no se podían posicionar**. Alguien buscando en español
+"transfer aeropuerto Puerto Plata a Sosúa" no tenía nada tuyo que encontrar.
+
+Ahora cada página existe **tres veces, en tres direcciones**:
+
+| Idioma | Dirección |
+|---|---|
+| Inglés | `caribbeansgtransferstours.com/transfers.html` |
+| Español | `caribbeansgtransferstours.com/**es**/transfers.html` |
+| Francés | `caribbeansgtransferstours.com/**fr**/transfers.html` |
+
+Son **33 páginas** en total. Las inglesas **no cambiaron de dirección**, así que
+ningún enlace que hayas compartido se rompe y no pierdes nada de lo que ya
+tenías posicionado.
+
+Cada versión le dice a Google que las otras dos existen y que son la misma
+página en otro idioma (eso se llama `hreflang`). Así no compiten entre ellas ni
+cuentan como contenido duplicado: Google le sirve la española a quien busca en
+español y la francesa a quien busca en francés.
+
+**El botón EN/ES/FR ahora es un enlace de verdad**, no un cambio en la misma
+página. Si estás en la española y pulsas FR, vas a la francesa. Y mientras
+navegas dentro de `/es/`, todo el sitio se queda en español solo.
+
+### Lo único que tienes que saber para no romperlo
+
+**Las carpetas `es/` y `fr/` se generan solas.** No las edites nunca: se
+reescriben enteras cada vez que se corre el generador y cualquier cambio a mano
+se pierde. Si hay que cambiar un texto, se cambia en la página inglesa o en el
+diccionario `js/i18n.js`, y luego se vuelve a generar. Cada archivo generado
+lleva un aviso arriba diciendo justo esto.
+
+Las traducciones no se escribieron dos veces: salen del mismo diccionario que ya
+usaba el sitio para el cambio de idioma, así que todo el español y el francés
+que ya estaba escrito es lo que se publica.
+
+**Los textos de las fotos también están traducidos** (2026-08-22). Son los que
+lee un lector de pantalla, y los que lee Google cuando no puede ver la imagen —
+cuentan para posicionar. Cada foto se describe **una sola vez** y esa
+descripción se reutiliza en todas las páginas donde aparece, así que las 78
+imágenes del sitio son 41 textos, no 78. La descripción que se usa al compartir
+en WhatsApp o Facebook es ahora la misma que la de la foto en la página; antes
+había dos fotos donde no coincidían.
+
+Las imágenes decorativas —el logo de la cabecera y la banda de fondo del cierre—
+**se quedan a propósito sin texto**: un lector de pantalla debe saltárselas, no
+leer un relleno inventado.
+
+**Una decisión que verás en Las Terrenas:** la página dice abiertamente que **no
+se puede visitar en una escala de crucero en Puerto Plata**, y explica que si
+una naviera te vende Samaná es porque el barco atraca en la bahía de Samaná, que
+es otro puerto. Está puesto a propósito: es mejor perder una reserva imposible
+que tener un cliente enfadado en el muelle.
+
+## The Cabarete page (`cabarete.html`) — added 2026-08-21
+
+Es la hermana de la página de Sosúa: misma estructura, mismas secciones, mismo
+funcionamiento. Se hizo para que la gente que busca "how to get to Cabarete"
+o "POP airport to Cabarete" encuentre tu sitio y no el de otro.
+
+**Esta página no publica distancias ni duraciones de trayecto** (decisión tuya,
+2026-08-21). Solo Cabarete–Sosúa estaba confirmada, así que en vez de dar
+números calculados la página describe dónde está cada sitio ("justo al este de
+Sosúa", "al oeste de Puerto Plata") y manda al visitante a WhatsApp si quiere
+saber cuánto tarda. La tabla de aeropuertos tampoco tiene columnas de distancia
+ni de duración. **No añadas un kilómetro ni un minuto ahí sin dármelo tú antes.**
+
+**Dos cosas que aún me faltan de ti:**
+
+1. **Tarifas de Samaná, Santo Domingo y Punta Cana a Cabarete.** No existen en
+   `js/config.js`, así que la tabla dice **"On request"** en vez de inventar un
+   precio. En cuanto me des los números, los pongo.
+2. ~~Una foto de Cabarete~~ **✅ Hecha el 2026-08-22** — `img/cabarete.jpg`,
+   los kitesurfistas. Lo único: es una foto muy apaisada, así que en el móvil se
+   ve una franja del centro y se pierde parte del cielo con las cometas. Si
+   aparece un encuadre más vertical de lo mismo, lo cambio en un minuto.
 
 ## The Sosúa page (`sosua.html`) — added 2026-08-12
 This one is different from the other five: it exists to be **found**, and to

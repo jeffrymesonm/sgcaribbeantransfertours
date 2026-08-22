@@ -208,10 +208,10 @@ const POP_FIXED_DESTINATIONS = {
    have no confirmed routes yet — calculator.js shows a "request a quote"
    state instead of guessing a price for them. */
 const OTHER_AIRPORT_FIXED_FARES = {
-  sti: { 'fixed:sosua': 98.50, 'fixed:cabarete': 98.95 },
-  sdq: { 'fixed:sosua': 219 },
+  sti: { 'fixed:sosua': 98.50, 'fixed:cabarete': 98.95, 'puerto-plata': 98.50, 'fixed:cofresi-costambar': 98.50 },
   azs: { 'fixed:sosua': 148.50 },
-  puj: { 'fixed:sosua': 425 },
+  sdq: { 'fixed:sosua': 219, 'fixed:cabarete': 219, 'puerto-plata': 219, 'fixed:cofresi-costambar': 219, 'fixed:rio-san-juan': 219, 'fixed:las-terrenas': 219 },
+  puj: { 'fixed:sosua': 425, 'fixed:cabarete': 425, 'puerto-plata': 425, 'fixed:cofresi-costambar': 425, 'fixed:rio-san-juan': 425, 'fixed:las-terrenas': 425 },
 };
 
 /**

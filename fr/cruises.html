@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<!--
+  GENERATED FILE — do not edit by hand.
+
+  Rendered from the English page of the same name plus the fr dictionary in
+  js/i18n.js, by tools/build-langs.py. Any edit here is lost on the next run:
+  change the English page or the dictionary and re-run the script.
+-->
+<!--
+  SG Caribbean Transfers & Tours — Cruise Shore Excursions (Dominican Republic)
+  Purpose: dedicated landing page for cruise-ship passengers docking at
+  Amber Cove / Taino Bay (split out of index.html, sibling of
+  excursions.html). Static HTML/CSS/JS; the only generated files are /es/ and /fr/. Trilingual EN/ES/FR:
+  text lives in js/i18n.js and is applied via [data-i18n] / [data-i18n-attr]
+  attributes below (see DOCS/DEVELOPER_GUIDE.md). The Spanish and French builds of this page are
+  rendered into /es/ and /fr/ by tools/build-langs.py — edit this file, not those.
+  Structure: header/cart → hero → guaranteed-return promise band →
+             3 cruise excursion template cards (0-priced until the owner
+             fills real rates) with optional ship/departure-time capture →
+             trust strip (why + reviews) → booking CTA → footer.
+  Cards reuse the .exc / .excursions markup and CSS from excursions.html —
+  js/tours.js already reads any panel with class="exc"; the two extra
+  cruise-only inputs (.cruise-ship / .cruise-departure) are read
+  conditionally, so nothing here forks that logic.
+-->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+  <title>Excursions Amber Cove et Taino Bay | Puerto Plata et Sosúa</title>
+  <meta name="description" content="Excursions privées pour croisiéristes depuis Amber Cove et Taino Bay vers Sosúa, Puerto Plata et la côte nord. Retour garanti avant le départ." />
+  <meta name="theme-color" content="#062A31" />
+  <link rel="canonical" href="https://caribbeansgtransferstours.com/fr/cruises.html" />
+
+  <!-- One page, three addresses. x-default is English. -->
+  <link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/cruises.html" />
+  <link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/cruises.html" />
+  <link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/cruises.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/cruises.html" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Excursions Amber Cove et Taino Bay | Puerto Plata et Sosúa" />
+  <meta property="og:description" content="Excursions privées pour croisiéristes depuis Amber Cove et Taino Bay vers Sosúa, Puerto Plata et la côte nord. Retour garanti avant le départ." />
+  <meta property="og:image" content="https://caribbeansgtransferstours.com/img/hero-cruises.jpg" />
+  <meta property="og:image:alt" content="Vue aérienne de Puerto Plata avec un navire de croisière à quai à Taino Bay, la Fortaleza San Felipe sur la pointe et le Pico Isabel de Torres derrière" data-i18n-attr="content:alt.puertoPlataAerial" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="576" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="es_DO" />
+  <meta property="og:url" content="https://caribbeansgtransferstours.com/fr/cruises.html" />
+  <meta property="og:site_name" content="SG Caribbean Transfers &amp; Tours" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon: real company logo -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon-180.png" />
+
+  <!-- Typography: Fraunces (display) + Archivo (body) + IBM Plex Mono (ticket data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,340;1,9..144,420&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/styles.css" />
+
+  <!-- Structured data: ItemList of TouristTrip + BreadcrumbList for rich results (WebPage and BreadcrumbList follow the page language; the entity nodes keep one @id across all three) -->
+  <!-- Business entity, identical on every page under one stable @id so search
+       engines resolve all six pages to the same organisation. sameAs/hasMap
+       link it to the Google Business Profile. -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","alternateName":"SG Caribbean","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","knowsLanguage":["en","es"],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","contactPoint":[{"@type":"ContactPoint","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","contactType":"customer service","availableLanguage":["English","Spanish"],"areaServed":"DO","url":"https://wa.me/18296277733"}],"sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"OfferCatalog","name":"Private airport transfers","url":"https://caribbeansgtransferstours.com/transfers.html","description":"Door-to-door private transfers from POP, STI, SDQ, AZS and PUJ airports. Fixed price per vehicle for 1 to 6 guests, flight tracking, meet & greet, pay on arrival."},{"@type":"OfferCatalog","name":"Private day excursions","url":"https://caribbeansgtransferstours.com/excursions.html","description":"Private day tours on the north coast: Punta Rusia and Cayo Arena, Charcos de Damajagua, Puerto Plata city tour, beach experiences, ATV and dune buggy adventures."},{"@type":"OfferCatalog","name":"Cruise shore excursions","url":"https://caribbeansgtransferstours.com/cruises.html","description":"Shore excursions with pickup at the Amber Cove and Taino Bay cruise piers in Puerto Plata, with a guaranteed return before all-aboard time."}]}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ItemList","name":"Private shore excursions from Amber Cove and Taino Bay","itemListOrder":"https://schema.org/ItemListUnordered","numberOfItems":4,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"TouristTrip","name":"Charcos de Damajagua — shore excursion","description":"Limestone pools you climb up, then jump and slide back down. About an hour from either cruise pier, comfortably inside a normal port call, with a guaranteed return before all-aboard.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise1","image":"https://caribbeansgtransferstours.com/img/exc-waterfalls.jpeg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"235.00","highPrice":"324.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}},{"@type":"ListItem","position":2,"item":{"@type":"TouristTrip","name":"Puerto Plata City Tour — shore excursion","description":"The shortest run from either pier: Fort San Felipe, the Victorian old town and the cable car up Pico Isabel de Torres, back at the ship before all-aboard.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise2","image":"https://caribbeansgtransferstours.com/img/exc-city-tour.jpg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"260.00","highPrice":"390.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}},{"@type":"ListItem","position":3,"item":{"@type":"TouristTrip","name":"ATV Adventure — shore excursion","description":"Your own quad on country trails, river crossings and back roads behind Puerto Plata, roughly half an hour from Amber Cove or Taino Bay.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise4","image":"https://caribbeansgtransferstours.com/img/exc-atv.jpg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"260.00","highPrice":"390.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}},{"@type":"ListItem","position":4,"item":{"@type":"TouristTrip","name":"Dune Buggy Adventure — shore excursion","description":"The same backcountry as the quads, side by side under a roll cage, about half an hour from either cruise pier.","url":"https://caribbeansgtransferstours.com/cruises.html#cruise5","image":"https://caribbeansgtransferstours.com/img/exc-buggies.jpg","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"400.00","highPrice":"600.00","offerCount":3,"availability":"https://schema.org/InStock","description":"Total price for the whole private group (4 to 6 guests), transport included. Larger groups quoted on request."},"touristType":"Cruise passengers"}}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://caribbeansgtransferstours.com/fr/"},{"@type":"ListItem","position":2,"name":"Croisières","item":"https://caribbeansgtransferstours.com/fr/cruises.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"De quels ports de croisière partez-vous ?","acceptedAnswer":{"@type":"Answer","text":"Des deux terminaux de Puerto Plata : Amber Cove à Maimón et Taino Bay dans la ville de Puerto Plata. Nous vous accueillons à la sortie du terminal avec une pancarte à votre nom."}},{"@type":"Question","name":"Serai-je de retour avant le départ du navire ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Nous suivons le départ de votre navire et construisons chaque circuit à rebours de son heure d'embarquement, en vous ramenant au quai avec de la marge plutôt qu'à la dernière minute."}},{"@type":"Question","name":"Combien de temps dure une escale type à Puerto Plata ?","acceptedAnswer":{"@type":"Answer","text":"Généralement 8 à 9 heures. Nos excursions sont des demi-journées, ce qui laisse plusieurs heures de marge même en comptant la route dans les deux sens."}},{"@type":"Question","name":"À quelle distance Sosúa se trouve-t-elle des quais ?","acceptedAnswer":{"@type":"Answer","text":"Environ 50 minutes depuis Taino Bay et 60 minutes depuis Amber Cove."}},{"@type":"Question","name":"Les excursions pour croisiéristes sont-elles privées ?","acceptedAnswer":{"@type":"Answer","text":"Oui — votre groupe uniquement, dans votre propre véhicule, à votre rythme. Vous n'êtes jamais regroupé avec les passagers d'autres navires."}},{"@type":"Question","name":"Pouvons-nous composer notre propre itinéraire ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Dites-nous votre navire, votre port et ce que vous voulez voir, et nous construisons une journée sur mesure autour de votre heure d'embarquement plutôt qu'un forfait figé."}}]}
+  </script>
+
+  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P5B6J8Y75V');
+  </script>
+</head>
+<body data-page="cruises">
+
+  <a class="skip-link" href="#main" data-i18n="skip.toContent">Aller au contenu</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers &amp; Tours — accueil">
+        <img class="brand-mark" src="../img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
+        <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transferts et Circuits</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Principal" data-i18n-attr="aria-label:nav.mainAria">
+        <a href="transfers.html" data-i18n="nav.transfers">Transferts</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" aria-current="page" data-i18n="nav.cruises">Croisières</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Rencontrez l'équipe</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
+          <a class="lang-btn" href="../cruises.html" hreflang="en" aria-label="Switch to English">EN</a>
+          <a class="lang-btn" href="../es/cruises.html" hreflang="es" aria-label="Cambiar a español">ES</a>
+          <a class="lang-btn is-active" href="cruises.html" hreflang="fr" aria-current="page" aria-label="Passer au français">FR</a>
+        </div>
+        <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="Voir le panier" data-i18n-attr="aria-label:cart.toggleAria">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="cart-badge" id="cartBadge" hidden>0</span>
+        </button>
+        <a class="btn btn-primary btn-sm header-book-btn" href="#book" data-i18n="nav.bookNow">Demander un Devis</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" data-i18n-attr="aria-label:nav.mobileAria">
+      <a href="transfers.html" data-i18n="nav.transfers">Transferts</a>
+      <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+      <a href="cruises.html" aria-current="page" data-i18n="nav.cruises">Croisières</a>
+      <a href="nosotros.html" data-i18n="about.eyebrow">Rencontrez l'équipe</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Demander un Devis</a>
+    </nav>
+  </header>
+
+  <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
+       buttons; checkout sends one consolidated WhatsApp message. -->
+  <div class="cart-scrim" id="cartScrim"></div>
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Vos Demandes" data-i18n-attr="aria-label:cart.title">
+    <div class="cart-panel-inner">
+      <header class="cart-panel-header">
+        <h3 data-i18n="cart.title">Vos Demandes</h3>
+        <button type="button" class="cart-close" id="cartClose" aria-label="Fermer le panier" data-i18n-attr="aria-label:cart.close">×</button>
+      </header>
+      <div class="cart-items" id="cartItems"></div>
+      <p class="cart-empty" id="cartEmpty" data-i18n="cart.empty">Votre panier est vide. Ajoutez un transfert ou une excursion pour commencer.</p>
+      <div class="cart-panel-footer">
+        <div class="cart-channel-step" id="cartChannelStep">
+          <p class="cart-channel-lead" data-i18n="cart.channelLead">Comment souhaitez-vous envoyer votre demande ?</p>
+          <div class="cart-checkout-options">
+            <button type="button" class="btn btn-primary btn-block" id="cartChooseWhatsApp" data-i18n="cart.channelWhatsApp">WhatsApp</button>
+            <button type="button" class="btn btn-outline btn-block" id="cartChooseEmail" data-i18n="cart.channelEmail">Email</button>
+          </div>
+        </div>
+        <div class="cart-details-step" id="cartDetailsStep" hidden>
+          <button type="button" class="cart-channel-back" id="cartChannelBack" data-i18n="cart.channelBack">← Changer de méthode</button>
+          <div class="field">
+            <label for="cartName" data-i18n="cart.nameLabel">Nom complet</label>
+            <input type="text" id="cartName" autocomplete="name" required />
+          </div>
+          <div class="field" id="cartEmailField">
+            <label for="cartEmail" data-i18n="cart.emailLabel">Adresse email (pour répondre à votre réservation)</label>
+            <input type="email" id="cartEmail" autocomplete="email" />
+          </div>
+          <p class="cart-total"><span data-i18n="cart.total">Total estimé</span><strong id="cartTotal">US$0</strong></p>
+          <button type="button" class="btn btn-primary btn-block" id="cartSend" data-i18n="cart.checkout">Envoyer via WhatsApp</button>
+          <p class="cart-fineprint" data-i18n="cart.fineprint">Prix final confirmé par notre équipe sur WhatsApp.</p>
+          <p class="cart-status" id="cartStatus" role="status" aria-live="polite" hidden></p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main id="main">
+
+  <!-- ============ 1. HERO (cruises-specific) ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" id="heroBg">
+      <img
+        src="../img/hero-cruises.jpeg" width="900" height="1200"
+        alt="Navire de croisière à la coque peinte de couleurs vives à quai à Taino Bay, Puerto Plata, avec des chaises de plage colorées sur le sable"
+        fetchpriority="high" data-i18n-attr="alt:alt.cruiseShip" />
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-line"><span data-i18n="cruisesHero.eyebrow">Du bateau au paradis</span></p>
+      <h1 class="hero-title">
+        <span class="reveal-line"><span data-i18n="cruisesHero.title">Excursions depuis <em>Amber Cove et Taino Bay</em></span></span>
+      </h1>
+      <p class="hero-sub reveal-line"><span data-i18n="cruisesHero.lead">Circuits privés pour les passagers de croisière accostant à Amber Cove et Taino Bay — Sosúa, Puerto Plata et la côte nord, de retour à bord à temps.</span></p>
+    </div>
+
+    <a class="hero-scroll" href="#guarantee" aria-label="Défiler vers les services" data-i18n-attr="aria-label:hero.scrollAria">
+      <span class="hero-scroll-dot" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ============ BREADCRUMBS ============
+       Visible counterpart of this page's BreadcrumbList JSON-LD. Keep the two
+       in step: same steps, same order, same labels. -->
+  <nav class="crumbs" aria-label="Fil d'Ariane" data-i18n-attr="aria-label:crumbs.aria">
+    <div class="container">
+      <ol class="crumbs-list">
+        <li><a href="index.html" data-i18n="crumbs.home">Accueil</a></li>
+        <li aria-current="page"><span data-i18n="nav.cruises">Croisières</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ============ QUICK ANSWER (AEO) ============
+       Factual summary placed directly after the hero: one plain paragraph plus
+       a definition list of hard facts. This is what answer engines quote, so it
+       must stay factual — never let it drift into marketing prose. Every figure
+       here is also stated elsewhere on the site (js/config.js, the home FAQ). -->
+  <section class="section dest-answer" id="quick-answer">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="cruisesAeo.eyebrow">En bref</p>
+        <h2 data-i18n="cruisesAeo.heading">Excursions depuis Amber Cove et Taino Bay, <em>en un coup d&#39;œil</em></h2>
+      </header>
+
+      <p class="dest-answer-lead reveal" data-i18n="cruisesAeo.lead">Excursions privées pour les croisiéristes accostant à Amber Cove (Maimón) et Taino Bay (Puerto Plata). Nous vous accueillons à la sortie du terminal, construisons la journée à rebours de l'heure d'embarquement de votre navire et vous ramenons au quai avec de la marge. Une escale type à Puerto Plata dure 8 à 9 heures.</p>
+
+      <dl class="dest-facts reveal">
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f1Label">Quais desservis</dt>
+          <dd data-i18n="cruisesAeo.f1Value">Amber Cove (Maimón) · Taino Bay (Puerto Plata)</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f2Label">Point de rencontre</dt>
+          <dd data-i18n="cruisesAeo.f2Value">À la sortie du terminal, avec une pancarte à votre nom</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f3Label">Escale type</dt>
+          <dd data-i18n="cruisesAeo.f3Value">8–9 heures — les circuits sont calibrés pour</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f4Label">Retour au navire</dt>
+          <dd data-i18n="cruisesAeo.f4Value">Garanti avant l'heure d'embarquement</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="cruisesAeo.f5Label">Groupe</dt>
+          <dd data-i18n="cruisesAeo.f5Value">100 % privé · à partir de 4 personnes</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 2. GUARANTEED-RETURN PROMISE BAND ============ -->
+  <section class="section section-abyss guarantee-band" id="guarantee">
+    <div class="container">
+      <header class="section-head section-head-light reveal">
+        <h2 data-i18n="cruise.guaranteeTitle">De retour avant l'appareillage — garanti</h2>
+        <p class="section-lead" data-i18n="cruise.guaranteeBody">Nous suivons l'heure de départ de votre bateau et organisons chaque excursion en conséquence. Vous êtes toujours de retour au port avec du temps devant vous.</p>
+      </header>
+    </div>
+  </section>
+
+  <!-- ============ 3. CRUISE EXCURSIONS (3 template cards — reuses .exc / .excursions markup from excursions.html) ============ -->
+  <section class="excursions" id="cruises">
+    <!-- Each card is a full-width storytelling panel, identical to the
+         excursions.html template, plus two optional cruise-only inputs
+         (ship name + departure time) inside .exc-booking, before the add
+         button. data-prices are all 0 — the owner will fill real prices
+         once cruise-line rates are confirmed (see DOCS/USER_MANUAL.md). -->
+    <article class="exc" id="cruise1" data-prices='{"4":235,"5":270,"6":324}'>
+      <figure class="exc-media reveal-img">
+        <img src="../img/exc-waterfalls.jpeg" width="768" height="1024" alt="Cascades se déversant dans un bassin naturel entouré de forêt tropicale" loading="lazy" data-i18n-attr="alt:alt.excWaterfalls" />
+      </figure>
+      <div class="exc-body reveal">
+        <h3 data-i18n="cruise1.title">Charcos de Damajagua</h3>
+        <p class="exc-desc" data-i18n="cruise1.desc">Des vasques calcaires que l'on remonte avant de les redescendre en sautant et en glissant. À environ une heure de l'un ou l'autre quai, ce qui tient confortablement dans une escale normale. Prévoyez maillot et chaussures que vous pouvez mouiller.</p>
+        <p class="exc-duration mono" data-i18n="cruise1.duration">Demi-journée</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Nombre de personnes" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Personnes</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Ou indiquez la taille de votre groupe</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">235</span> <span class="exc-per" data-i18n="exc.perLabel">total · privé</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contactez-nous pour un devis</span>
+          </p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">58.75</span> <span data-i18n="exc.perPersonSuffix">par personne</span></p>
+          <div class="cruise-fields">
+            <label class="field">
+              <span data-i18n="cruise.shipLabel">Bateau de croisière (facultatif)</span>
+              <input type="text" class="cruise-ship" placeholder="ex. Carnival Vista" data-i18n-attr="placeholder:cruise.shipPlaceholder" />
+            </label>
+            <label class="field">
+              <span data-i18n="cruise.departureLabel">Heure de départ (facultatif)</span>
+              <input type="time" class="cruise-departure" />
+            </label>
+          </div>
+          <div class="exc-actions">
+            <button type="button" class="btn btn-primary exc-add" data-service-key="cruise-1" data-title-key="cruise1.title" data-i18n="cart.add">Ajouter au Panier</button>
+            <button type="button" class="btn btn-ghost exc-book-direct" data-i18n="cart.bookDirect">Réserver Directement</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc exc-flip" id="cruise2" data-prices='{"4":260,"5":325,"6":390}'>
+      <figure class="exc-media reveal-img">
+        <img src="../img/exc-city-tour.jpg" width="1338" height="892" alt="Architecture coloniale historique décorée de fanions colorés" loading="lazy" data-i18n-attr="alt:alt.excCityTour" />
+      </figure>
+      <div class="exc-body reveal">
+        <h3 data-i18n="cruise2.title">Visite de la Ville de Puerto Plata</h3>
+        <p class="exc-desc" data-i18n="cruise2.desc">Le trajet le plus court depuis les deux quais — Taino Bay se trouve dans la ville même. Forteresse San Felipe, vieille ville victorienne, téléphérique du Pico Isabel de Torres, et dégustations d'ambre, de rhum et de cacao. Le choix quand votre navire fait une escale courte. 65 $US par personne, jusqu'à 6 personnes.</p>
+        <p class="exc-duration mono" data-i18n="cruise2.duration">Demi-journée</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Nombre de personnes" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Personnes</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Ou indiquez la taille de votre groupe</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">260</span> <span class="exc-per" data-i18n="exc.perLabel">total · privé</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contactez-nous pour un devis</span>
+          </p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">65</span> <span data-i18n="exc.perPersonSuffix">par personne</span></p>
+          <div class="cruise-fields">
+            <label class="field">
+              <span data-i18n="cruise.shipLabel">Bateau de croisière (facultatif)</span>
+              <input type="text" class="cruise-ship" placeholder="ex. Carnival Vista" data-i18n-attr="placeholder:cruise.shipPlaceholder" />
+            </label>
+            <label class="field">
+              <span data-i18n="cruise.departureLabel">Heure de départ (facultatif)</span>
+              <input type="time" class="cruise-departure" />
+            </label>
+          </div>
+          <div class="exc-actions">
+            <button type="button" class="btn btn-primary exc-add" data-service-key="cruise-2" data-title-key="cruise2.title" data-i18n="cart.add">Ajouter au Panier</button>
+            <button type="button" class="btn btn-ghost exc-book-direct" data-i18n="cart.bookDirect">Réserver Directement</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc" id="cruise4" data-prices='{"4":260,"5":325,"6":390}'>
+      <figure class="exc-media reveal-img">
+        <img src="../img/exc-atv.jpg" width="1000" height="750" alt="Pilote sur un quad soulevant la poussière sur une piste de terre" loading="lazy" data-i18n-attr="alt:alt.excAtv" />
+      </figure>
+      <div class="exc-body reveal">
+        <h3 data-i18n="cruise4.title">Aventure en Quad</h3>
+        <p class="exc-desc" data-i18n="cruise4.desc">Votre propre quad sur les sentiers de campagne, les gués et les chemins derrière Puerto Plata. À environ une demi-heure d'Amber Cove ou de Taino Bay — poussiéreux, bruyant, bouclé en une demi-journée avec l'après-midi encore devant vous.</p>
+        <p class="exc-duration mono" data-i18n="cruise4.duration">Demi-journée</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Nombre de personnes" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Personnes</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Ou indiquez la taille de votre groupe</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">260</span> <span class="exc-per" data-i18n="exc.perLabel">total · privé</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contactez-nous pour un devis</span>
+          </p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">65</span> <span data-i18n="exc.perPersonSuffix">par personne</span></p>
+          <div class="cruise-fields">
+            <label class="field">
+              <span data-i18n="cruise.shipLabel">Bateau de croisière (facultatif)</span>
+              <input type="text" class="cruise-ship" placeholder="ex. Carnival Vista" data-i18n-attr="placeholder:cruise.shipPlaceholder" />
+            </label>
+            <label class="field">
+              <span data-i18n="cruise.departureLabel">Heure de départ (facultatif)</span>
+              <input type="time" class="cruise-departure" />
+            </label>
+          </div>
+          <div class="exc-actions">
+            <button type="button" class="btn btn-primary exc-add" data-service-key="cruise-4" data-title-key="cruise4.title" data-i18n="cart.add">Ajouter au Panier</button>
+            <button type="button" class="btn btn-ghost exc-book-direct" data-i18n="cart.bookDirect">Réserver Directement</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="exc exc-flip" id="cruise5" data-prices='{"4":400,"5":500,"6":600}'>
+      <figure class="exc-media reveal-img">
+        <img src="../img/exc-buggies.jpg" width="678" height="452" alt="Buggy des dunes garé dans le désert avec un fanion de sécurité fixé à l'arceau" loading="lazy" data-i18n-attr="alt:alt.excBuggies" />
+      </figure>
+      <div class="exc-body reveal">
+        <h3 data-i18n="cruise5.title">Aventure en Buggy</h3>
+        <p class="exc-desc" data-i18n="cruise5.desc">Le même arrière-pays que les quads, mais côte à côte sous un arceau de sécurité — plus simple si vous préférez vous relayer au volant. À environ une demi-heure de l'un ou l'autre quai, et calé à rebours de votre heure d'embarquement.</p>
+        <p class="exc-duration mono" data-i18n="cruise5.duration">Demi-journée</p>
+        <div class="exc-booking">
+          <div class="guest-picker" role="group" aria-label="Nombre de personnes" data-i18n-attr="aria-label:exc.guestsAria">
+            <button type="button" class="guest-btn is-active" data-guests="4" aria-pressed="true" data-i18n="exc.guest4">4 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="5" data-i18n="exc.guest5">5 Personnes</button>
+            <button type="button" class="guest-btn" data-guests="6" data-i18n="exc.guest6">6 Personnes</button>
+          </div>
+          <label class="guest-manual">
+            <span data-i18n="exc.manualLabel">Ou indiquez la taille de votre groupe</span>
+            <input type="number" class="guest-manual-input" min="4" step="1" inputmode="numeric" />
+          </label>
+          <p class="exc-price" aria-live="polite">
+            <span class="exc-price-amount">US$<span class="exc-amount">400</span> <span class="exc-per" data-i18n="exc.perLabel">total · privé</span></span>
+            <span class="exc-price-quote" data-i18n="exc.priceOnRequest" hidden>Contactez-nous pour un devis</span>
+          </p>
+          <p class="exc-per-person">US$<span class="exc-per-person-amount">100</span> <span data-i18n="exc.perPersonSuffix">par personne</span></p>
+          <div class="cruise-fields">
+            <label class="field">
+              <span data-i18n="cruise.shipLabel">Bateau de croisière (facultatif)</span>
+              <input type="text" class="cruise-ship" placeholder="ex. Carnival Vista" data-i18n-attr="placeholder:cruise.shipPlaceholder" />
+            </label>
+            <label class="field">
+              <span data-i18n="cruise.departureLabel">Heure de départ (facultatif)</span>
+              <input type="time" class="cruise-departure" />
+            </label>
+          </div>
+          <div class="exc-actions">
+            <button type="button" class="btn btn-primary exc-add" data-service-key="cruise-5" data-title-key="cruise5.title" data-i18n="cart.add">Ajouter au Panier</button>
+            <button type="button" class="btn btn-ghost exc-book-direct" data-i18n="cart.bookDirect">Réserver Directement</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ 4. TRUST STRIP (why + reviews, reused from excursions.html/index.html) ============ -->
+  <section class="section section-abyss why" id="why">
+    <div class="container">
+      <header class="section-head section-head-light reveal">
+        <h2 data-i18n="why.heading">Ce qui nous distingue</h2>
+      </header>
+
+      <div class="why-grid">
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 15V8.5A2.5 2.5 0 0 1 4.5 6H13l4-4h3a2 2 0 0 1 2 2v11a1 1 0 0 1-1 1h-1.4a2.8 2.8 0 0 1-5.4 0H9.8a2.8 2.8 0 0 1-5.4 0H3a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.1" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.9" cy="16.5" r="1.9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          <h3 data-i18n="why.card1Title">Service Sûr et Fiable</h3>
+          <p data-i18n="why.card1Desc">Votre sécurité et votre tranquillité d'esprit sont notre priorité tout au long du trajet.</p>
+        </article>
+        <article class="why-card reveal">
+          <svg class="why-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 6.5V12l3.8 2.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <h3 data-i18n="why.card3Title">Ponctualité Garantie</h3>
+          <p data-i18n="why.card3Desc">Nous savons que le temps de vos vacances est précieux. Nous arrivons toujours à l'heure pour que vous en profitiez au maximum.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sand reviews" id="reviews">
+    <div class="container">
+      <header class="section-head reveal">
+        <h2 data-i18n="reviews.heading">La confiance de voyageurs <em>du monde entier</em></h2>
+      </header>
+      <div class="review-grid">
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 étoiles sur 5" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote4">« Les 27 Charcos avec Sariel, c'était de l'adrénaline pure — les guides nous ont fait sentir en sécurité tout du long. Puis du poisson frais sur la plage. Journée parfaite. »</p>
+          <footer><strong>Lukas B.</strong><span>Munich, Germany 🇩🇪</span></footer>
+        </blockquote>
+        <blockquote class="review-card reveal">
+          <div class="review-stars" role="img" aria-label="5 étoiles sur 5" data-i18n-attr="aria-label:reviews.starsAria">★★★★★</div>
+          <p data-i18n="reviews.quote1">« Notre chauffeur nous attendait avec une pancarte même si notre vol avait atterri avec 2 heures de retard. Eau fraîche, van impeccable, zéro stress. C'est ainsi que devraient commencer toutes les vacances. »</p>
+          <footer><strong>Sarah M.</strong><span>Toronto, Canada 🇨🇦</span></footer>
+        </blockquote>
+      </div>
+      <!-- Google Business Profile CTA: populated and revealed by js/shell.js
+           once CONFIG.googleReviewsUrl is set. Real social proof, one click
+           away from the placeholder quotes above. -->
+      <div class="reviews-cta reveal">
+        <a class="btn btn-outline" id="googleReviewsLink" href="#" target="_blank" rel="noopener" hidden></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ (AEO) ============
+       Every question here is mirrored, word for word, in this page's FAQPage
+       JSON-LD in <head>. Edit one, edit the other — if they disagree, Google
+       may ignore the block entirely. -->
+  <section class="section faq" id="faq">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <h2 data-i18n="cruisesFaq.heading">Questions croisière, <em>répondues</em></h2>
+      </header>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ1" aria-expanded="false" aria-controls="crqA1"><span data-i18n="cruisesFaq.q1">De quels ports de croisière partez-vous ?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA1" role="region" aria-labelledby="crqQ1"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a1">Des deux terminaux de Puerto Plata : Amber Cove à Maimón et Taino Bay dans la ville de Puerto Plata. Nous vous accueillons à la sortie du terminal avec une pancarte à votre nom.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ2" aria-expanded="false" aria-controls="crqA2"><span data-i18n="cruisesFaq.q2">Serai-je de retour avant le départ du navire ?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA2" role="region" aria-labelledby="crqQ2"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a2">Oui. Nous suivons le départ de votre navire et construisons chaque circuit à rebours de son heure d'embarquement, en vous ramenant au quai avec de la marge plutôt qu'à la dernière minute.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ3" aria-expanded="false" aria-controls="crqA3"><span data-i18n="cruisesFaq.q3">Combien de temps dure une escale type à Puerto Plata ?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA3" role="region" aria-labelledby="crqQ3"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a3">Généralement 8 à 9 heures. Nos excursions sont des demi-journées, ce qui laisse plusieurs heures de marge même en comptant la route dans les deux sens.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ4" aria-expanded="false" aria-controls="crqA4"><span data-i18n="cruisesFaq.q4">À quelle distance Sosúa se trouve-t-elle des quais ?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA4" role="region" aria-labelledby="crqQ4"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a4">Environ 50 minutes depuis Taino Bay et 60 minutes depuis Amber Cove.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ5" aria-expanded="false" aria-controls="crqA5"><span data-i18n="cruisesFaq.q5">Les excursions pour croisiéristes sont-elles privées ?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA5" role="region" aria-labelledby="crqQ5"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a5">Oui — votre groupe uniquement, dans votre propre véhicule, à votre rythme. Vous n'êtes jamais regroupé avec les passagers d'autres navires.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="crqQ6" aria-expanded="false" aria-controls="crqA6"><span data-i18n="cruisesFaq.q6">Pouvons-nous composer notre propre itinéraire ?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="crqA6" role="region" aria-labelledby="crqQ6"><div class="faq-panel-inner"><p data-i18n="cruisesFaq.a6">Oui. Dites-nous votre navire, votre port et ce que vous voulez voir, et nous construisons une journée sur mesure autour de votre heure d'embarquement plutôt qu'un forfait figé.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. FINAL BOOKING CTA ============ -->
+  <section class="book" id="book">
+    <div class="book-bg" id="bookBg">
+      <img src="../img/cta-band.jpg" width="1800" height="1197" alt="" loading="lazy" aria-hidden="true" />
+    </div>
+    <div class="book-scrim" aria-hidden="true"></div>
+    <div class="container book-inner book-inner-solo">
+      <div class="book-copy reveal">
+        <h2 data-i18n="book.heading">Prêt à explorer la<br /><em>République Dominicaine ?</em></h2>
+        <p data-i18n="book.lead">Vous préférez parler à une vraie personne ? Envoyez-nous un message WhatsApp et nous vous aiderons à planifier des transferts, des excursions ou un itinéraire sur mesure — sans formulaires, sans attente.</p>
+        <ul class="book-points">
+          <li data-i18n="book.point1">Annulation gratuite jusqu'à 24 h avant</li>
+          <li data-i18n="book.point2">Aucun paiement anticipé — payez à l'arrivée</li>
+          <li data-i18n="book.point3">Confirmation instantanée par WhatsApp</li>
+        </ul>
+        <div class="book-direct-ctas">
+          <a class="btn btn-primary btn-lg" id="bookDirectCta" href="#" rel="noopener" data-i18n="book.directCta">Chatter sur WhatsApp</a>
+          <button type="button" class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" data-i18n="book.directCtaEmail">Écrivez-nous par Email</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers &amp; Tours — retour en haut" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="../img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
+          <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transferts et Circuits</span></span>
+        </a>
+        <p data-i18n="footer.desc">Transferts privés et excursions sur la côte nord de la République Dominicaine. Agréés et assurés.</p>
+      </div>
+      <nav class="footer-col" aria-label="Services">
+        <h4 class="mono" data-i18n="footer.servicesHeading">Services</h4>
+        <a href="transfers.html" data-i18n="footer.serviceTransfers">Transferts aéroportuaires</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Croisières</a>
+        <a href="#book" data-i18n="footer.serviceBooking">Demander une réservation</a>
+      </nav>
+      <nav class="footer-col" aria-label="Destinations" data-i18n-attr="aria-label:footer.destinationsHeading">
+        <h4 class="mono" data-i18n="footer.destinationsHeading">Destinations</h4>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Sosúa</a>
+        <a href="cabarete.html" data-i18n="footer.serviceCabarete">Cabarete</a>
+        <a href="puerto-plata.html" data-i18n="footer.servicePuertoplata">Puerto Plata</a>
+        <a href="cofresi.html" data-i18n="footer.serviceCofresi">Cofresí</a>
+        <a href="rio-san-juan.html" data-i18n="footer.serviceRiosanjuan">Río San Juan</a>
+        <a href="las-terrenas.html" data-i18n="footer.serviceLasterrenas">Las Terrenas</a>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <h4 class="mono" data-i18n="footer.companyHeading">Entreprise</h4>
+        <a href="#why" data-i18n="why.eyebrow">Pourquoi nous choisir ?</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Rencontrez l'équipe</a>
+        <a href="#reviews" data-i18n="nav.reviews">Avis</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="index.html#gallery" data-i18n="footer.companyGallery">Galerie</a>
+      </nav>
+      <div class="footer-col">
+        <h4 class="mono" data-i18n="footer.contactHeading">Contact</h4>
+        <a class="footer-whatsapp" id="footerWhatsApp" href="#" rel="noopener" data-i18n="footer.whatsappUs">Écrivez-nous sur WhatsApp</a>
+        <a href="mailto:sg.caribbeantransferstours@gmail.com">sg.caribbeantransferstours@gmail.com</a>
+        <a class="footer-instagram" href="https://www.instagram.com/sg.caribbean_transfers_tours/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <span>@sg.caribbean_transfers_tours</span>
+        </a>
+        <p data-i18n="footer.address">Puerto Plata, République Dominicaine</p>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. Tous droits réservés.</span></p>
+      <p class="mono" data-i18n="footer.tagline">POP · STI · Côte Nord · RD</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button: primary conversion shortcut, visible after hero -->
+  <a class="whatsapp-fab" id="whatsappFab" href="#" rel="noopener" aria-label="Chattez avec nous sur WhatsApp" data-i18n-attr="aria-label:fab.aria">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.3-.5v-.5L9.7 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a11.6 11.6 0 0 0 4.5 4.5c1.8.9 2.7 1 3.7.8.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
+  </a>
+
+  <!-- Contact dialog: opened by the "Email Us" CTA (js/shell.js) on all 5
+       pages — a short form (name/email/service/reason) posted to Formspree,
+       for visitors who'd rather not chat on WhatsApp. -->
+  <dialog class="contact-dialog" id="contactDialog" aria-labelledby="contactDialogTitle">
+    <div class="contact-dialog-inner">
+      <button type="button" class="contact-dialog-close" id="contactDialogClose" data-i18n-attr="aria-label:contact.close" aria-label="Fermer">×</button>
+      <h2 id="contactDialogTitle" data-i18n="contact.title">Envoyez-nous un message</h2>
+      <p class="contact-dialog-lead" data-i18n="contact.lead">Dites-nous ce dont vous avez besoin, nous répondrons par email.</p>
+      <div class="field">
+        <label for="contactName" data-i18n="cart.nameLabel">Nom complet</label>
+        <input type="text" id="contactName" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="contactEmail" data-i18n="contact.emailLabel">Adresse email</label>
+        <input type="email" id="contactEmail" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="contactService" data-i18n="contact.serviceLabel">Quel service vous intéresse ?</label>
+        <select id="contactService">
+          <option value="" data-i18n="contact.serviceAny">Pas encore sûr</option>
+          <option value="transfer" data-i18n="contact.serviceTransfer">Transfert aéroport</option>
+          <option value="excursion" data-i18n="contact.serviceExcursion">Excursion</option>
+          <option value="cruise" data-i18n="contact.serviceCruise">Excursion de croisière</option>
+          <option value="other" data-i18n="contact.serviceOther">Autre chose</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="contactReason" data-i18n="contact.reasonLabel">Dites-nous en un peu plus</label>
+        <textarea id="contactReason" rows="3"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="contactSubmit" data-i18n="contact.submit">Envoyer le Message</button>
+      <p class="contact-status" id="contactStatus" role="status" aria-live="polite" hidden></p>
+    </div>
+  </dialog>
+
+  <!-- Contact-choice dialog: every "Book Directly" / "Ask for a Quote" button
+       opens this first (js/contact-choice.js) so the visitor picks WhatsApp or
+       email instead of being dropped straight into WhatsApp. -->
+  <dialog class="contact-dialog" id="contactChoiceDialog" aria-labelledby="contactChoiceTitle">
+    <div class="contact-dialog-inner">
+      <button type="button" class="contact-dialog-close" id="contactChoiceClose" data-i18n-attr="aria-label:choice.close" aria-label="Fermer">×</button>
+      <h2 id="contactChoiceTitle" data-i18n="choice.title">Comment préférez-vous nous contacter ?</h2>
+      <p class="contact-dialog-lead" data-i18n="choice.lead">Votre demande est prête — choisissez simplement un canal.</p>
+      <p class="contact-choice-summary" id="contactChoiceSummary" hidden></p>
+      <div class="contact-choice-channel-step" id="contactChoiceChannelStep">
+        <div class="contact-choice-options">
+          <button type="button" class="contact-choice-option" id="contactChoiceWhatsApp">
+            <span class="contact-choice-icon" aria-hidden="true">💬</span>
+            <span class="contact-choice-name" data-i18n="choice.whatsapp">WhatsApp</span>
+            <span class="contact-choice-desc" data-i18n="choice.whatsappDesc">Ouvre la discussion avec votre demande déjà écrite</span>
+          </button>
+          <button type="button" class="contact-choice-option" id="contactChoiceEmail">
+            <span class="contact-choice-icon" aria-hidden="true">✉️</span>
+            <span class="contact-choice-name" data-i18n="choice.email">Email</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Laissez-nous vos coordonnées et nous répondrons</span>
+          </button>
+        </div>
+      </div>
+      <div class="contact-choice-details-step" id="contactChoiceDetailsStep" hidden>
+        <button type="button" class="contact-choice-back" id="contactChoiceBack" data-i18n="choice.back">Retour</button>
+        <div class="field">
+          <label for="contactChoiceName" data-i18n="cart.nameLabel">Nom complet</label>
+          <input type="text" id="contactChoiceName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="contactChoiceEmailInput" data-i18n="contact.emailLabel">Adresse email</label>
+          <input type="email" id="contactChoiceEmailInput" autocomplete="email" required />
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="contactChoiceSend" data-i18n="choice.send">Envoyer la Demande</button>
+        <p class="contact-choice-status" id="contactChoiceStatus" role="status" aria-live="polite" hidden></p>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="../js/i18n.js" defer></script>
+  <script src="../js/config.js" defer></script>
+  <script src="../js/core.js" defer></script>
+  <script src="../js/contact-choice.js" defer></script>
+  <script src="../js/cart.js" defer></script>
+  <script src="../js/shell.js" defer></script>
+  <script src="../js/tours.js" defer></script>
+</body>
+</html>

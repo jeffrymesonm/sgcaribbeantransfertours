@@ -51,7 +51,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -335,7 +335,12 @@ section { scroll-margin-top: var(--header-h); }
 
 .site-header.is-solid .lang-switch { border-color: rgba(6, 38, 46, 0.16); }
 
+/* Links, not buttons: each one is a real URL for another language, so a
+   crawler can follow it and a visitor can open it in a new tab. */
 .lang-btn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
   padding: 0.4rem 0.55rem;
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -478,7 +483,13 @@ section { scroll-margin-top: var(--header-h); }
 /* ---------- 6. Hero ---------- */
 .hero {
   position: relative;
-  min-height: 100svh;
+  /* Capped rather than a flat 100svh. The background is object-fit: cover, so
+     the box's proportions decide how much of the photo survives: a tall, narrow
+     box keeps only a vertical strip of a landscape image, and enlarges it past
+     its native size to do so. 50rem keeps the box nearer the photos' own shape
+     on large screens; the phone step below does the same where it mattered
+     most. min-height, so a hero whose text needs more room still gets it. */
+  min-height: min(100svh, 50rem);
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -502,6 +513,13 @@ section { scroll-margin-top: var(--header-h); }
   animation: hero-zoom 18s var(--ease-out) forwards;
 }
 
+/* Per-photo framing. object-fit: cover keeps a column of the frame whose width
+   the hero's proportions decide, and centre is only the right column when the
+   subject is centred. cabarete.jpg is a 3.2:1 panorama whose kitesurfer sits at
+   29% from the left; centred, a phone showed open water and no rider. Add a
+   line here for any hero whose subject is off-centre — and only then. */
+[data-page="cabarete"] .hero-bg img { object-position: 24% 50%; }
+
 /* Softened from 1.12 so the opening seconds — when the visitor first looks —
    do not add a further 12% of upscaling on top of object-fit: cover. */
 @keyframes hero-zoom {
@@ -523,6 +541,14 @@ section { scroll-margin-top: var(--header-h); }
   margin-inline: auto;
   padding-block: 7rem 5.5rem;
   color: var(--shell);
+}
+
+/* Phones are the worst case: a portrait viewport against landscape photos.
+   Letting the text set the height keeps the crop to something like half the
+   frame instead of a quarter, and the smaller sources stop being upscaled. */
+@media (max-width: 599.98px) {
+  .hero { min-height: 34rem; }
+  .hero-content { padding-block: 5.5rem 4rem; }
 }
 
 .hero-eyebrow {
@@ -1844,8 +1870,19 @@ section { scroll-margin-top: var(--header-h); }
   border-bottom: 1px solid rgba(252, 250, 245, 0.12);
 }
 
-@media (min-width: 760px) {
-  .footer-inner { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+/* Five columns since the destination hubs got their own (2026-08-21): brand +
+   Services + Destinations + Company + Contact. Two intermediate steps so the
+   columns never get squeezed narrower than a town name. */
+@media (min-width: 560px) {
+  .footer-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .footer-inner { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1120px) {
+  .footer-inner { grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; }
 }
 
 .footer-brand .brand-name { color: var(--shell); }
@@ -2691,3 +2728,60 @@ section { scroll-margin-top: var(--header-h); }
   gap: 1rem 1.6rem;
   margin-top: 2.2rem;
 }
+
+/* ============================================================
+   FIXED-FARES SECTION (transfers.html #fares)
+   The crawlable table that mirrors js/config.js. Reuses the
+   .dest-table styles built for sosua.html; only the subheading
+   and the closing note are specific to this section.
+   ============================================================ */
+.fares-subhead {
+  margin: 2.75rem 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  font-weight: 560;
+  color: var(--abyss);
+}
+.fares-note {
+  margin: 1.25rem 0 0;
+  max-width: 46rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   BREADCRUMBS (visible trail, all pages except the home page)
+   Sits directly under the hero. Deliberately quiet: it is a
+   wayfinding aid and a crawler signal, not a call to action.
+   ============================================================ */
+.crumbs {
+  border-bottom: 1px solid rgba(11, 93, 107, 0.12);
+  background: var(--shell);
+}
+.crumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.85rem 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.crumbs-list li + li::before {
+  content: "/";
+  margin-right: 0.5rem;
+  color: rgba(11, 93, 107, 0.4);
+}
+.crumbs-list a {
+  color: var(--ocean);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.25s var(--ease-out);
+}
+.crumbs-list a:hover { border-bottom-color: var(--lagoon); }
+.crumbs-list [aria-current="page"] { color: var(--ink); }

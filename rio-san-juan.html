@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<!--
+  SG Caribbean Transfers & Tours — Río San Juan destination hub (Dominican Republic)
+  Purpose: the SEO / AEO / GEO landing page for Río San Juan. Answers "how do I
+  get to Río San Juan and who should drive me" in one page, for airport arrivals
+  and cruise passengers, so search engines AND answer engines can quote concrete
+  facts instead of paraphrasing marketing copy.
+  Built 2026-08-21 from cabarete.html, the no-distance hub template. Trilingual
+  EN/ES/FR: text lives in js/i18n.js under the `riosanjuan.*` namespace and is applied
+  via [data-i18n] / [data-i18n-attr] (see DOCS/DEVELOPER_GUIDE.md).
+  FARES: only POP US$98.50 is confirmed (js/config.js). STI / AZS / SDQ / PUJ
+  have no confirmed fare to Río San Juan and show "On request" on purpose — do not
+  invent one.
+  DISTANCES: this page publishes NONE, by the owner's instruction (2026-08-21).
+  Places are described by position and character, never by kilometres or
+  minutes. Do not add either without a number from the owner.
+  HERO IMAGE: img/rio-san-juan.jpg is a real photo of this place, supplied by the owner
+  on 2026-08-22. Its alt text describes what is actually in frame.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+  <title>Río San Juan &amp; Playa Grande Transfers | POP Airport from $98.50</title>
+  <meta name="description" content="Getting to Río San Juan and Playa Grande, Dominican Republic: the quiet end of the north coast, with the Gri-Gri lagoon and cliff-backed Atlantic beaches. Private transfers from POP airport from $98.50, pay on arrival." />
+  <meta name="theme-color" content="#062A31" />
+  <link rel="canonical" href="https://caribbeansgtransferstours.com/rio-san-juan.html" />
+
+  <!-- One page, three addresses. x-default is English. -->
+  <link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/rio-san-juan.html" />
+  <link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/rio-san-juan.html" />
+  <link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/rio-san-juan.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/rio-san-juan.html" />
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Río San Juan &amp; Playa Grande Transfers | POP Airport from $98.50" />
+  <meta property="og:description" content="Getting to Río San Juan and Playa Grande, Dominican Republic: the quiet end of the north coast, with the Gri-Gri lagoon and cliff-backed Atlantic beaches. Private transfers from POP airport from $98.50, pay on arrival." />
+  <meta property="og:image" content="https://caribbeansgtransferstours.com/img/rio-san-juan.jpg" />
+  <meta property="og:image:alt" content="Calm turquoise cove backed by forested headlands on the coast at Río San Juan" data-i18n-attr="content:alt.rioSanJuan" />
+  <meta property="og:image:width" content="1500" />
+  <meta property="og:image:height" content="1000" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_DO" />
+  <meta property="og:locale:alternate" content="fr_FR" />
+  <meta property="og:url" content="https://caribbeansgtransferstours.com/rio-san-juan.html" />
+  <meta property="og:site_name" content="SG Caribbean Transfers &amp; Tours" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="img/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="img/favicon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,560;1,9..144,340;1,9..144,420&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Structured data: business + destination + service + FAQ + breadcrumb
+       (English only, matching the default rendered language). -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","alternateName":"SG Caribbean","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","knowsLanguage":["en","es"],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","contactPoint":[{"@type":"ContactPoint","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","contactType":"customer service","availableLanguage":["English","Spanish"],"areaServed":"DO","url":"https://wa.me/18296277733"}],"sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"OfferCatalog","name":"Private airport transfers","url":"https://caribbeansgtransferstours.com/transfers.html","description":"Door-to-door private transfers from POP, STI, SDQ, AZS and PUJ airports. Fixed price per vehicle for 1 to 6 guests, flight tracking, meet & greet, pay on arrival."},{"@type":"OfferCatalog","name":"Private day excursions","url":"https://caribbeansgtransferstours.com/excursions.html","description":"Private day tours on the north coast: Punta Rusia and Cayo Arena, Charcos de Damajagua, Puerto Plata city tour, beach experiences, ATV and dune buggy adventures."},{"@type":"OfferCatalog","name":"Cruise shore excursions","url":"https://caribbeansgtransferstours.com/cruises.html","description":"Shore excursions with pickup at the Amber Cove and Taino Bay cruise piers in Puerto Plata, with a guaranteed return before all-aboard time."}]}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TouristDestination","@id":"https://caribbeansgtransferstours.com/rio-san-juan.html#destination","name":"Río San Juan","description":"Small coastal town at the eastern end of the Dominican north coast, in Maria Trinidad Sanchez province. Known for the Gri-Gri mangrove lagoon and for the cliff-backed Atlantic beaches of Playa Grande, Playa Preciosa and Playa Caleton.","url":"https://caribbeansgtransferstours.com/rio-san-juan.html","image":"https://caribbeansgtransferstours.com/img/rio-san-juan.jpg","geo":{"@type":"GeoCoordinates","latitude":19.6333,"longitude":-70.0833},"address":{"@type":"PostalAddress","addressLocality":"Río San Juan","addressRegion":"María Trinidad Sánchez","addressCountry":"DO"},"touristType":["Quiet beach holidays","Golf","Nature","Long-stay visitors"],"includesAttraction":[{"@type":"TouristAttraction","name":"Laguna Gri-Gri","description":"Mangrove lagoon at the edge of town, toured by small boat."},{"@type":"TouristAttraction","name":"Playa Grande","description":"A wide Atlantic beach backed by cliffs and forest, with a golf course above it."},{"@type":"TouristAttraction","name":"Playa Caleton","description":"A small sheltered cove between Rio San Juan and Playa Grande."}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Service","@id":"https://caribbeansgtransferstours.com/rio-san-juan.html#service","name":"Private airport transfers to Río San Juan","serviceType":"Airport transfer","description":"Private door-to-door transfers to Rio San Juan and Playa Grande from Gregorio Luperon (POP), Santo Domingo (SDQ) and Punta Cana (PUJ) airports and from the Amber Cove and Taino Bay cruise piers. Fixed price per vehicle for 1 to 6 guests, no prepayment. The Santiago fare is quoted on request.","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"availableLanguage":["en","es"],"areaServed":{"@id":"https://caribbeansgtransferstours.com/rio-san-juan.html#destination"},"url":"https://caribbeansgtransferstours.com/rio-san-juan.html","hasOfferCatalog":{"@type":"OfferCatalog","name":"Fixed one-way fares to Río San Juan","description":"Confirmed fixed fares, one way, per vehicle, covering 1 to 6 guests. Each passenger beyond 6 adds US$5.","itemListElement":[{"@type":"Offer","name":"Puerto Plata Airport (POP) → Río San Juan","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/rio-san-juan.html#by-air"},{"@type":"Offer","name":"Santo Domingo Airport (SDQ) → Río San Juan","price":"219.00","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/rio-san-juan.html#by-air"},{"@type":"Offer","name":"Punta Cana Airport (PUJ) → Río San Juan","price":"425.00","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/rio-san-juan.html#by-air"}]}}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Where exactly is Río San Juan?","acceptedAnswer":{"@type":"Answer","text":"On the north coast of the Dominican Republic, in the province of María Trinidad Sánchez, at the eastern end of the coast road past Sosúa and Cabarete. The Gri-Gri lagoon is at the edge of the town itself; Playa Caletón, Playa Grande and Playa Preciosa follow one after another just beyond it."}},{"@type":"Question","name":"How much does a transfer from POP airport to Río San Juan cost?","acceptedAnswer":{"@type":"Answer","text":"US$98.50 one way, per vehicle, for 1 to 6 guests. Each passenger above six adds US$5. That price is fixed and confirmed in writing before you travel — there is no surge, no night rate and no luggage surcharge."}},{"@type":"Question","name":"Which airport is closest to Río San Juan?","acceptedAnswer":{"@type":"Answer","text":"Gregorio Luperón International Airport (POP) in Puerto Plata. It is the far end of the same coast road, and it is still the closest and by far the most practical option — this is the longest of our fixed north-coast routes for that reason."}},{"@type":"Question","name":"Can I reach Río San Juan from Santo Domingo or Punta Cana?","acceptedAnswer":{"@type":"Answer","text":"Yes, and we do it — but both are on the other side of the country and mean a long day on the road. We quote them on request rather than publishing a figure, because we only publish prices we have confirmed. Ask on WhatsApp and you get a fixed number, and an honest journey time, back the same day."}},{"@type":"Question","name":"How do I get from Amber Cove or Taino Bay to Río San Juan?","acceptedAnswer":{"@type":"Answer","text":"Both are private shore transfers, but be realistic: this is the far end of the coast from both piers and it uses a real share of a port call in each direction. We do it when a ship is in for a long day and you want the lagoon or Playa Grande specifically. If your call is short we will tell you so and suggest somewhere closer."}},{"@type":"Question","name":"Is there Uber in Río San Juan?","acceptedAnswer":{"@type":"Answer","text":"No. There is no Uber or Lyft service in Río San Juan, and none on this stretch of the coast. Your realistic options are a pre-booked private transfer, a local taxi negotiated on the spot, or a motoconcho for short hops in town."}},{"@type":"Question","name":"Is Playa Grande the same as Río San Juan?","acceptedAnswer":{"@type":"Answer","text":"No, but they are neighbours and our fare covers both. Río San Juan is the town — the lagoon, the shops, the places to eat. Playa Grande is the big Atlantic beach just past it, with the golf course on the headland above and no town of its own. Villa and hotel bookings sometimes say one when they mean the other, so give us the property name and we will find it."}},{"@type":"Question","name":"Do I have to pay in advance for a transfer to Río San Juan?","acceptedAnswer":{"@type":"Answer","text":"No. Nothing is paid up front and no card details are taken. You pay your driver in cash on arrival, in US dollars or Dominican pesos. The reservation is confirmed by message, not by payment."}},{"@type":"Question","name":"Is it worth coming here for a day from Sosúa or Cabarete?","acceptedAnswer":{"@type":"Answer","text":"Yes, and plenty of our guests do exactly that: the lagoon in the morning, Playa Caletón or Playa Grande in the afternoon, back for dinner. We run it as a private day with the vehicle staying with you, so you set the pace instead of a tour bus setting it. Ask us for a day rate rather than two one-way transfers."}},{"@type":"Question","name":"Do you drive late at night or very early in the morning?","acceptedAnswer":{"@type":"Answer","text":"Yes — we operate 24 hours a day, every day of the year. Flights into Puerto Plata land and leave at awkward hours, and a pre-dawn departure to the airport is an ordinary morning for us. Send the flight time and a driver will be outside."}}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Río San Juan","item":"https://caribbeansgtransferstours.com/rio-san-juan.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebPage","@id":"https://caribbeansgtransferstours.com/rio-san-juan.html#webpage","name":"Río San Juan & Playa Grande Transfers | POP Airport from $98.50","url":"https://caribbeansgtransferstours.com/rio-san-juan.html","description":"Getting to Río San Juan and Playa Grande, Dominican Republic: the quiet end of the north coast, with the Gri-Gri lagoon and cliff-backed Atlantic beaches. Private transfers from POP airport from $98.50, pay on arrival.","inLanguage":"en","datePublished":"2026-08-21","dateModified":"2026-08-21","primaryImageOfPage":"https://caribbeansgtransferstours.com/img/rio-san-juan.jpg","about":{"@id":"https://caribbeansgtransferstours.com/rio-san-juan.html#destination"},"publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"},"isPartOf":{"@type":"WebSite","@id":"https://caribbeansgtransferstours.com/#website","name":"SG Caribbean Transfers & Tours","url":"https://caribbeansgtransferstours.com/","publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"}}}
+  </script>
+
+  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P5B6J8Y75V');
+  </script>
+</head>
+<body data-page="riosanjuan">
+
+  <a class="skip-link" href="#main" data-i18n="skip.toContent">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="brand" href="index.html" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers &amp; Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
+        <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
+        <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
+          <a class="lang-btn is-active" href="rio-san-juan.html" hreflang="en" aria-current="page" aria-label="Switch to English">EN</a>
+          <a class="lang-btn" href="es/rio-san-juan.html" hreflang="es" aria-label="Cambiar a español">ES</a>
+          <a class="lang-btn" href="fr/rio-san-juan.html" hreflang="fr" aria-label="Passer au français">FR</a>
+        </div>
+        <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="cart-badge" id="cartBadge" hidden>0</span>
+        </button>
+        <a class="btn btn-primary btn-sm header-book-btn" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" data-i18n-attr="aria-label:nav.mobileAria">
+      <a href="transfers.html" data-i18n="nav.transfers">Transfers</a>
+      <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+      <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+      <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a class="btn btn-primary" href="#book" data-i18n="nav.bookNow">Get a Quote</a>
+    </nav>
+  </header>
+
+  <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
+       buttons; checkout sends one consolidated WhatsApp message. -->
+  <div class="cart-scrim" id="cartScrim"></div>
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your Requests" data-i18n-attr="aria-label:cart.title">
+    <div class="cart-panel-inner">
+      <header class="cart-panel-header">
+        <h3 data-i18n="cart.title">Your Requests</h3>
+        <button type="button" class="cart-close" id="cartClose" aria-label="Close cart" data-i18n-attr="aria-label:cart.close">×</button>
+      </header>
+      <div class="cart-items" id="cartItems"></div>
+      <p class="cart-empty" id="cartEmpty" data-i18n="cart.empty">Your cart is empty. Add a transfer or excursion to get started.</p>
+      <div class="cart-panel-footer">
+        <div class="cart-channel-step" id="cartChannelStep">
+          <p class="cart-channel-lead" data-i18n="cart.channelLead">How would you like to send your request?</p>
+          <div class="cart-checkout-options">
+            <button type="button" class="btn btn-primary btn-block" id="cartChooseWhatsApp" data-i18n="cart.channelWhatsApp">WhatsApp</button>
+            <button type="button" class="btn btn-outline btn-block" id="cartChooseEmail" data-i18n="cart.channelEmail">Email</button>
+          </div>
+        </div>
+        <div class="cart-details-step" id="cartDetailsStep" hidden>
+          <button type="button" class="cart-channel-back" id="cartChannelBack" data-i18n="cart.channelBack">← Change method</button>
+          <div class="field">
+            <label for="cartName" data-i18n="cart.nameLabel">Full name</label>
+            <input type="text" id="cartName" autocomplete="name" required />
+          </div>
+          <div class="field" id="cartEmailField">
+            <label for="cartEmail" data-i18n="cart.emailLabel">Email address (so we can reply to your booking)</label>
+            <input type="email" id="cartEmail" autocomplete="email" />
+          </div>
+          <p class="cart-total"><span data-i18n="cart.total">Estimated total</span><strong id="cartTotal">US$0</strong></p>
+          <button type="button" class="btn btn-primary btn-block" id="cartSend" data-i18n="cart.checkout">Send via WhatsApp</button>
+          <p class="cart-fineprint" data-i18n="cart.fineprint">Final price confirmed by our team on WhatsApp.</p>
+          <p class="cart-status" id="cartStatus" role="status" aria-live="polite" hidden></p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main id="main">
+
+  <!-- ============ 1. HERO (Cabarete-specific) ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" id="heroBg">
+      <img
+        src="img/rio-san-juan.jpg"
+        width="1500" height="1000"
+        alt="Calm turquoise cove backed by forested headlands on the coast at Río San Juan"
+        fetchpriority="high" data-i18n-attr="alt:alt.rioSanJuan" />
+    </div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-line"><span data-i18n="riosanjuan.hero.eyebrow">Río San Juan · María Trinidad Sánchez · Dominican Republic</span></p>
+      <h1 class="hero-title">
+        <span class="reveal-line"><span data-i18n="riosanjuan.hero.title">Getting to Río San Juan, <em>sorted before you land</em></span></span>
+      </h1>
+      <p class="hero-sub reveal-line"><span data-i18n="riosanjuan.hero.lead">The quiet end of the north coast, where the road runs out of resorts and into cliffs, forest and Atlantic beaches. It is a long way past Cabarete — which is exactly why people come. The price is agreed before you leave home.</span></p>
+    </div>
+  </section>
+
+  <!-- ============ BREADCRUMBS ============
+       Visible counterpart of this page's BreadcrumbList JSON-LD. Keep the two
+       in step: same steps, same order, same labels. -->
+  <nav class="crumbs" aria-label="Breadcrumb" data-i18n-attr="aria-label:crumbs.aria">
+    <div class="container">
+      <ol class="crumbs-list">
+        <li><a href="index.html" data-i18n="crumbs.home">Home</a></li>
+        <li aria-current="page"><span data-i18n="crumbs.riosanjuan">Río San Juan</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ============ 2. QUICK ANSWER (AEO) ============
+       Deliberately the first thing after the hero: one short, factual
+       paragraph plus a definition list of hard numbers. This is the block
+       answer engines lift verbatim, so it must stay accurate and must never
+       become marketing prose. -->
+  <section class="section dest-answer" id="quick-answer">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="riosanjuan.answer.eyebrow">The short version</p>
+        <h2 data-i18n="riosanjuan.answer.heading">How to get to Río San Juan, <em>in 30 seconds</em></h2>
+      </header>
+
+      <p class="dest-answer-lead reveal" data-i18n="riosanjuan.answer.lead">Río San Juan is a small town at the eastern end of the Dominican north coast, in the province of María Trinidad Sánchez. It is known for the Gri-Gri lagoon, a mangrove channel that opens onto the sea at the edge of town, and for the beaches just beyond it — Playa Caletón, Playa Grande and Playa Preciosa — which are backed by cliffs and forest rather than hotels. The closest airport is Gregorio Luperón International (POP). SG Caribbean Transfers &amp; Tours runs private door-to-door transfers from POP at a fixed US$98.50 for 1 to 6 guests, with no prepayment: you pay your driver in cash when you arrive.</p>
+
+      <dl class="dest-facts reveal">
+        <div class="dest-fact">
+          <dt data-i18n="riosanjuan.answer.f1Label">Nearest airport</dt>
+          <dd data-i18n="riosanjuan.answer.f1Value">Puerto Plata — Gregorio Luperón Intl. (POP)</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="riosanjuan.answer.f2Label">Fixed transfer price</dt>
+          <dd data-i18n="riosanjuan.answer.f2Value">US$98.50 one way from Puerto Plata (POP), 1–6 guests</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="riosanjuan.answer.f3Label">Nearest cruise piers</dt>
+          <dd data-i18n="riosanjuan.answer.f3Value">Taino Bay · Amber Cove, both in Puerto Plata</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="riosanjuan.answer.f4Label">Region</dt>
+          <dd data-i18n="riosanjuan.answer.f4Value">María Trinidad Sánchez province, north coast of the Dominican Republic</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="riosanjuan.answer.f5Label">Payment</dt>
+          <dd data-i18n="riosanjuan.answer.f5Value">Cash on arrival — US dollars or Dominican pesos</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="riosanjuan.answer.f6Label">Driver languages</dt>
+          <dd data-i18n="riosanjuan.answer.f6Value">English · Español</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 3. ARRIVING BY AIR ============
+       Fare table mirrors the Popular Routes rail in transfers.html and the
+       OTHER_AIRPORT_FIXED_FARES / POP_FIXED_DESTINATIONS values in
+       js/config.js. If a price changes there, change it here too. -->
+  <section class="section section-sand dest-air" id="by-air">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="riosanjuan.air.eyebrow">Arriving by air</p>
+        <h2 data-i18n="riosanjuan.air.heading">Every airport to Río San Juan, <em>with the real price</em></h2>
+        <p class="section-lead" data-i18n="riosanjuan.air.lead">Puerto Plata is the airport for this whole coast, and the one we quote a fixed price for. There is no closer option: everything else means either the mountains or the other side of the country.</p>
+      </header>
+
+      <div class="dest-table-wrap reveal">
+        <table class="dest-table">
+          <caption class="dest-table-caption" data-i18n="riosanjuan.air.caption">One-way private transfer fares to Río San Juan, for 1 to 6 guests</caption>
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="riosanjuan.air.thAirport">Airport</th>
+              <th scope="col" data-i18n="riosanjuan.air.thCode">Code</th>
+              <th scope="col" data-i18n="riosanjuan.air.thPrice">Fixed price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.air.popName">Puerto Plata — Gregorio Luperón Intl.</th>
+              <td class="mono">POP</td>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.air.stiName">Santiago — Cibao Intl.</th>
+              <td class="mono">STI</td>
+              <td class="dest-table-price mono" data-i18n="riosanjuan.air.onRequest">On request</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.air.azsName">Samaná — El Catey Intl.</th>
+              <td class="mono">AZS</td>
+              <td class="dest-table-price mono" data-i18n="riosanjuan.air.onRequest">On request</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.air.sdqName">Santo Domingo — Las Américas Intl.</th>
+              <td class="mono">SDQ</td>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.air.pujName">Punta Cana Intl.</th>
+              <td class="mono">PUJ</td>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="dest-note reveal" data-i18n="riosanjuan.air.note">Add US$5 per passenger above six. The US$98.50 covers Río San Juan and Playa Grande alike. The Santiago and Samaná fares are the two we still quote on request, because we will not put a guess on a public page — everything else in the table is confirmed and fixed in writing before you travel. Prices are per vehicle, not per person.</p>
+
+      <h3 class="dest-subhead reveal" data-i18n="riosanjuan.air.stepsHeading">What happens on the day you land</h3>
+      <ol class="dest-steps reveal">
+        <li class="dest-step">
+          <h4 data-i18n="riosanjuan.air.step1Title">You send us the flight number</h4>
+          <p data-i18n="riosanjuan.air.step1Body">One WhatsApp message is enough — no account, no form, no card details. Tell us how many bags are coming with you and we send the right vehicle. We reply with the price confirmed in writing.</p>
+        </li>
+        <li class="dest-step">
+          <h4 data-i18n="riosanjuan.air.step2Title">We watch the flight, not the clock</h4>
+          <p data-i18n="riosanjuan.air.step2Body">If you land two hours late, the pickup moves two hours later. Your driver waits at no extra cost — delays are our problem, not yours.</p>
+        </li>
+        <li class="dest-step">
+          <h4 data-i18n="riosanjuan.air.step3Title">Name sign at arrivals, then straight to your door</h4>
+          <p data-i18n="riosanjuan.air.step3Body">Your driver meets you inside with a sign, helps with the luggage and drives you to your hotel, villa or apartment in Río San Juan. Ask for a supermarket or ATM stop on the way and it costs nothing extra.</p>
+        </li>
+      </ol>
+
+      <div class="dest-cta-row reveal">
+        <a class="btn btn-primary btn-lg" href="transfers.html#transfers" data-i18n="riosanjuan.air.cta">See all transfer prices</a>
+        <a class="text-link" href="transfers.html#calculator" data-i18n="riosanjuan.air.ctaAlt">Quote another destination</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. ARRIVING BY CRUISE ============
+       No prices here on purpose: the cruise cards in cruises.html still carry
+       placeholder data-prices ("0"), so quoting a shore-excursion figure
+       would be inventing one. Route the visitor to a real quote instead. -->
+  <section class="section dest-cruise" id="by-cruise">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="riosanjuan.cruise.eyebrow">Arriving by cruise ship</p>
+        <h2 data-i18n="riosanjuan.cruise.heading">From the piers this is <em>a full day, not a half one</em></h2>
+        <p class="section-lead" data-i18n="riosanjuan.cruise.lead">Río San Juan is at the far eastern end of the coast from Puerto Plata's cruise terminals. We will happily take you — but on a normal port call it is a commitment, and we would rather tell you that now than at the pier.</p>
+      </header>
+
+      <div class="dest-ports reveal">
+        <article class="dest-port">
+          <h3 data-i18n="riosanjuan.cruise.tainoTitle">Taino Bay → Río San Juan</h3>
+          <p class="dest-port-meta mono" data-i18n="riosanjuan.cruise.tainoMeta">In Puerto Plata city</p>
+          <p data-i18n="riosanjuan.cruise.tainoBody">Taino Bay is in Puerto Plata itself, so the drive heads east along the whole coast, through Sosúa and Cabarete, before reaching Río San Juan. We meet you outside the terminal gate.</p>
+        </article>
+        <article class="dest-port">
+          <h3 data-i18n="riosanjuan.cruise.amberTitle">Amber Cove → Río San Juan</h3>
+          <p class="dest-port-meta mono" data-i18n="riosanjuan.cruise.amberMeta">In Maimón, west of Puerto Plata</p>
+          <p data-i18n="riosanjuan.cruise.amberBody">Amber Cove is west of Puerto Plata, which adds the whole width of the bay before the coast road even starts heading east. It is the longer of the two runs to this end of the coast.</p>
+        </article>
+      </div>
+
+      <div class="dest-callout reveal">
+        <h3 data-i18n="riosanjuan.cruise.timingTitle">The all-aboard maths, done for you</h3>
+        <p data-i18n="riosanjuan.cruise.timingBody">A typical Puerto Plata port call lasts 8 to 9 hours, and this run uses a serious share of it in each direction. It works if your ship is in port for a long day and you want one specific thing — the lagoon, or Playa Grande — rather than a tour. If your call is short, we will say so and point you at Sosúa or Puerto Plata instead. Either way we plan backwards from your all-aboard time and return you with a margin.</p>
+      </div>
+
+      <div class="dest-cta-row reveal">
+        <a class="btn btn-primary btn-lg" href="cruises.html" data-i18n="riosanjuan.cruise.cta">See cruise shore excursions</a>
+        <a class="text-link" href="#book" data-i18n="riosanjuan.cruise.ctaAlt">Ask for a cruise-day quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. WHY CHOOSE US (comparison) ============
+       Framed as a factual comparison rather than a claim of superiority:
+       every competing option is described neutrally and hedged ("often",
+       "usually"), because an unfair table is both dishonest and easy for a
+       reader to disprove on arrival. -->
+  <section class="section section-abyss dest-compare" id="why-us">
+    <div class="container">
+      <header class="section-head section-head-light reveal">
+        <p class="eyebrow" data-i18n="riosanjuan.compare.eyebrow">Why book us</p>
+        <h2 data-i18n="riosanjuan.compare.heading">Four ways to get to Río San Juan. <em>Here is the honest comparison.</em></h2>
+        <p class="section-lead" data-i18n="riosanjuan.compare.lead">This is the longest airport run on the north coast, which is precisely where a meter, a shared van or a rental with no signal becomes a bad idea. We are the option where the number you were told is the number you pay.</p>
+      </header>
+
+      <div class="dest-table-wrap dest-table-wrap-dark reveal">
+        <table class="dest-table dest-table-dark">
+          <caption class="dest-table-caption" data-i18n="riosanjuan.compare.caption">Private transfer compared with the usual alternatives from POP to Río San Juan</caption>
+          <thead>
+            <tr>
+              <th scope="col"><span class="dest-th-hidden" data-i18n="riosanjuan.compare.thWhat">What matters</span></th>
+              <th scope="col" class="dest-table-us" data-i18n="riosanjuan.compare.colUs">SG Caribbean</th>
+              <th scope="col" data-i18n="riosanjuan.compare.colTaxi">Airport taxi</th>
+              <th scope="col" data-i18n="riosanjuan.compare.colShuttle">Shared shuttle</th>
+              <th scope="col" data-i18n="riosanjuan.compare.colRental">Rental car</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.compare.rowPrice">Price</th>
+              <td class="dest-table-us" data-i18n="riosanjuan.compare.priceUs">Fixed and confirmed in writing before you travel</td>
+              <td data-i18n="riosanjuan.compare.priceTaxi">Negotiated at the kerb, often higher at night</td>
+              <td data-i18n="riosanjuan.compare.priceShuttle">Cheap per seat, but usually per person</td>
+              <td data-i18n="riosanjuan.compare.priceRental">Daily rate plus insurance, fuel and parking</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.compare.rowLate">If the flight is late</th>
+              <td class="dest-table-us" data-i18n="riosanjuan.compare.lateUs">We track the flight number and move the pickup — no extra charge</td>
+              <td data-i18n="riosanjuan.compare.lateTaxi">Whoever is still on the rank at that hour</td>
+              <td data-i18n="riosanjuan.compare.lateShuttle">The van usually leaves without you</td>
+              <td data-i18n="riosanjuan.compare.lateRental">The desk may already be closed</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.compare.rowWho">Who is in the vehicle</th>
+              <td class="dest-table-us" data-i18n="riosanjuan.compare.whoUs">Only your group, in a private air-conditioned van</td>
+              <td data-i18n="riosanjuan.compare.whoTaxi">Only your group</td>
+              <td data-i18n="riosanjuan.compare.whoShuttle">Whoever else booked that run</td>
+              <td data-i18n="riosanjuan.compare.whoRental">You, driving</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.compare.rowStops">Luggage and extra bags</th>
+              <td class="dest-table-us" data-i18n="riosanjuan.compare.stopsUs">Tell us the count and we send a vehicle that fits it — no surcharge</td>
+              <td data-i18n="riosanjuan.compare.stopsTaxi">Depends entirely on the car that turns up</td>
+              <td data-i18n="riosanjuan.compare.stopsShuttle">Often refused or charged as an extra seat</td>
+              <td data-i18n="riosanjuan.compare.stopsRental">Only if you booked the right size of car</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.compare.rowPay">Paying</th>
+              <td class="dest-table-us" data-i18n="riosanjuan.compare.payUs">Cash on arrival in US dollars or pesos — nothing up front</td>
+              <td data-i18n="riosanjuan.compare.payTaxi">Cash, rate agreed on the spot</td>
+              <td data-i18n="riosanjuan.compare.payShuttle">Usually prepaid online</td>
+              <td data-i18n="riosanjuan.compare.payRental">Card, plus a security deposit held</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="riosanjuan.compare.rowSeats">Child seats</th>
+              <td class="dest-table-us" data-i18n="riosanjuan.compare.seatsUs">Free — tell us the ages and they are fitted before pickup</td>
+              <td data-i18n="riosanjuan.compare.seatsTaxi">Rarely available</td>
+              <td data-i18n="riosanjuan.compare.seatsShuttle">Rarely available</td>
+              <td data-i18n="riosanjuan.compare.seatsRental">A paid add-on</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="dest-note dest-note-light reveal" data-i18n="riosanjuan.compare.note">One more thing that does not fit in a table: we live here. Saul, Sariel, Luis and Leuris drive this coast every day, speak English and Spanish, and will tell you honestly which beach is worth your afternoon.</p>
+
+      <div class="dest-cta-row reveal">
+        <a class="btn btn-primary btn-lg" href="nosotros.html" data-i18n="riosanjuan.compare.cta">Meet the drivers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. WHAT IS AROUND CABARETE ============
+       Topical depth for generative search: named places, real distances and
+       one genuinely distinctive fact (the 1940 settlement) that no competitor
+       page repeats. -->
+  <section class="section section-sand dest-spots" id="around">
+    <div class="container">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="riosanjuan.spots.eyebrow">Once you are here</p>
+        <h2 data-i18n="riosanjuan.spots.heading">What is <em>within reach of Río San Juan</em></h2>
+        <p class="section-lead" data-i18n="riosanjuan.spots.lead">Río San Juan is a working town, not a resort, and that is the appeal: the beaches nearby have cliffs and forest behind them instead of hotels. These are the places our guests actually ask us to take them to.</p>
+      </header>
+
+      <div class="dest-spot-grid">
+        <article class="dest-spot reveal">
+          <h3 data-i18n="riosanjuan.spots.s1Name">Laguna Gri-Gri</h3>
+          <p class="dest-spot-meta mono" data-i18n="riosanjuan.spots.s1Meta">Mangrove lagoon</p>
+          <p data-i18n="riosanjuan.spots.s1Body">A channel of dark green water running out through the mangroves to the sea, right at the edge of town. Small boats take you down it and out along the cliffs to a swimming cove. It is the thing Río San Juan is known for and it takes a morning.</p>
+        </article>
+        <article class="dest-spot reveal">
+          <h3 data-i18n="riosanjuan.spots.s2Name">Playa Grande</h3>
+          <p class="dest-spot-meta mono" data-i18n="riosanjuan.spots.s2Meta">Atlantic beach</p>
+          <p data-i18n="riosanjuan.spots.s2Body">A long, wide beach of pale sand with forested cliffs behind it and real Atlantic surf in front. Nothing gentle about it on a big day — but on a calm one it is the most impressive beach on this coast, and there is a golf course on the headland above.</p>
+        </article>
+        <article class="dest-spot reveal">
+          <h3 data-i18n="riosanjuan.spots.s3Name">Playa Caletón</h3>
+          <p class="dest-spot-meta mono" data-i18n="riosanjuan.spots.s3Meta">Sheltered cove</p>
+          <p data-i18n="riosanjuan.spots.s3Body">The small one, tucked into a cove between the town and Playa Grande: calm, shallow, turquoise, with a handful of fish shacks on the sand. Where you go when Playa Grande is too rough to swim.</p>
+        </article>
+        <article class="dest-spot reveal">
+          <h3 data-i18n="riosanjuan.spots.s4Name">Playa Preciosa</h3>
+          <p class="dest-spot-meta mono" data-i18n="riosanjuan.spots.s4Meta">Wild beach</p>
+          <p data-i18n="riosanjuan.spots.s4Body">Next along from Playa Grande and emptier still — a wide arc of sand with strong water and almost nothing built on it. Beautiful to walk, and one to ask a local about before swimming.</p>
+        </article>
+        <article class="dest-spot reveal">
+          <h3 data-i18n="riosanjuan.spots.s5Name">Cabarete</h3>
+          <p class="dest-spot-meta mono" data-i18n="riosanjuan.spots.s5Meta">Along the coast</p>
+          <p data-i18n="riosanjuan.spots.s5Body">Back west along the coast road: the kitesurfing town, and the nearest place with a real night out. <a href="cabarete.html">See the full Cabarete guide</a>.</p>
+        </article>
+        <article class="dest-spot reveal">
+          <h3 data-i18n="riosanjuan.spots.s6Name">Cabrera</h3>
+          <p class="dest-spot-meta mono" data-i18n="riosanjuan.spots.s6Meta">Clifftop town</p>
+          <p data-i18n="riosanjuan.spots.s6Body">Further east again, a village on the cliffs with viewpoints straight down onto the Atlantic and a couple of hidden coves below. The end of the north coast before the road turns inland towards Samaná.</p>
+        </article>
+      </div>
+
+      <div class="dest-cta-row reveal">
+        <a class="btn btn-primary btn-lg" href="excursions.html" data-i18n="riosanjuan.spots.cta">Browse private excursions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. FAQ (AEO) ============
+       Every question here is mirrored, word for word, in the FAQPage JSON-LD
+       in <head>. Edit one, edit the other. -->
+  <section class="section faq" id="faq">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <h2 data-i18n="riosanjuan.faq.heading">Río San Juan questions, <em>answered</em></h2>
+      </header>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ1" aria-expanded="false" aria-controls="sosuaA1"><span data-i18n="riosanjuan.faq.q1">Where exactly is Río San Juan?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA1" role="region" aria-labelledby="sosuaQ1"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a1">On the north coast of the Dominican Republic, in the province of María Trinidad Sánchez, at the eastern end of the coast road past Sosúa and Cabarete. The Gri-Gri lagoon is at the edge of the town itself; Playa Caletón, Playa Grande and Playa Preciosa follow one after another just beyond it.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ2" aria-expanded="false" aria-controls="sosuaA2"><span data-i18n="riosanjuan.faq.q2">How much does a transfer from POP airport to Río San Juan cost?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA2" role="region" aria-labelledby="sosuaQ2"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a2">US$98.50 one way, per vehicle, for 1 to 6 guests. Each passenger above six adds US$5. That price is fixed and confirmed in writing before you travel — there is no surge, no night rate and no luggage surcharge.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ3" aria-expanded="false" aria-controls="sosuaA3"><span data-i18n="riosanjuan.faq.q3">Which airport is closest to Río San Juan?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA3" role="region" aria-labelledby="sosuaQ3"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a3">Gregorio Luperón International Airport (POP) in Puerto Plata. It is the far end of the same coast road, and it is still the closest and by far the most practical option — this is the longest of our fixed north-coast routes for that reason.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ4" aria-expanded="false" aria-controls="sosuaA4"><span data-i18n="riosanjuan.faq.q4">Can I reach Río San Juan from Santo Domingo or Punta Cana?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA4" role="region" aria-labelledby="sosuaQ4"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a4">Yes, and we do it — but both are on the other side of the country and mean a long day on the road. We quote them on request rather than publishing a figure, because we only publish prices we have confirmed. Ask on WhatsApp and you get a fixed number, and an honest journey time, back the same day.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ5" aria-expanded="false" aria-controls="sosuaA5"><span data-i18n="riosanjuan.faq.q5">How do I get from Amber Cove or Taino Bay to Río San Juan?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA5" role="region" aria-labelledby="sosuaQ5"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a5">Both are private shore transfers, but be realistic: this is the far end of the coast from both piers and it uses a real share of a port call in each direction. We do it when a ship is in for a long day and you want the lagoon or Playa Grande specifically. If your call is short we will tell you so and suggest somewhere closer.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ6" aria-expanded="false" aria-controls="sosuaA6"><span data-i18n="riosanjuan.faq.q6">Is there Uber in Río San Juan?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA6" role="region" aria-labelledby="sosuaQ6"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a6">No. There is no Uber or Lyft service in Río San Juan, and none on this stretch of the coast. Your realistic options are a pre-booked private transfer, a local taxi negotiated on the spot, or a motoconcho for short hops in town.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ7" aria-expanded="false" aria-controls="sosuaA7"><span data-i18n="riosanjuan.faq.q7">Is Playa Grande the same as Río San Juan?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA7" role="region" aria-labelledby="sosuaQ7"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a7">No, but they are neighbours and our fare covers both. Río San Juan is the town — the lagoon, the shops, the places to eat. Playa Grande is the big Atlantic beach just past it, with the golf course on the headland above and no town of its own. Villa and hotel bookings sometimes say one when they mean the other, so give us the property name and we will find it.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ8" aria-expanded="false" aria-controls="sosuaA8"><span data-i18n="riosanjuan.faq.q8">Do I have to pay in advance for a transfer to Río San Juan?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA8" role="region" aria-labelledby="sosuaQ8"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a8">No. Nothing is paid up front and no card details are taken. You pay your driver in cash on arrival, in US dollars or Dominican pesos. The reservation is confirmed by message, not by payment.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ9" aria-expanded="false" aria-controls="sosuaA9"><span data-i18n="riosanjuan.faq.q9">Is it worth coming here for a day from Sosúa or Cabarete?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA9" role="region" aria-labelledby="sosuaQ9"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a9">Yes, and plenty of our guests do exactly that: the lagoon in the morning, Playa Caletón or Playa Grande in the afternoon, back for dinner. We run it as a private day with the vehicle staying with you, so you set the pace instead of a tour bus setting it. Ask us for a day rate rather than two one-way transfers.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-heading"><button type="button" class="faq-trigger" id="sosuaQ10" aria-expanded="false" aria-controls="sosuaA10"><span data-i18n="riosanjuan.faq.q10">Do you drive late at night or very early in the morning?</span><span class="faq-chevron" aria-hidden="true"></span></button></h3>
+          <div class="faq-panel" id="sosuaA10" role="region" aria-labelledby="sosuaQ10"><div class="faq-panel-inner"><p data-i18n="riosanjuan.faq.a10">Yes — we operate 24 hours a day, every day of the year. Flights into Puerto Plata land and leave at awkward hours, and a pre-dawn departure to the airport is an ordinary morning for us. Send the flight time and a driver will be outside.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. FINAL BOOKING CTA ============ -->
+  <section class="book" id="book">
+    <div class="book-bg" id="bookBg">
+      <img src="img/cta-band.jpg" width="1800" height="1197" alt="" loading="lazy" aria-hidden="true" />
+    </div>
+    <div class="book-scrim" aria-hidden="true"></div>
+    <div class="container book-inner book-inner-solo">
+      <div class="book-copy reveal">
+        <h2 data-i18n="riosanjuan.book.heading">Landing in Puerto Plata?<br /><em>Let's get you to Río San Juan.</em></h2>
+        <p data-i18n="riosanjuan.book.lead">Send us your flight number, your arrival date and how many of you are travelling. You get a fixed price back in writing, and a driver waiting at arrivals with your name on a sign.</p>
+        <ul class="book-points">
+          <li data-i18n="book.point1">Free cancellation up to 24 h before</li>
+          <li data-i18n="book.point2">No prepayment — pay on arrival</li>
+          <li data-i18n="book.point3">Instant WhatsApp confirmation</li>
+        </ul>
+        <div class="book-direct-ctas">
+          <a class="btn btn-primary btn-lg" id="bookDirectCta" href="#" rel="noopener" data-i18n="book.directCta">Chat on WhatsApp</a>
+          <button type="button" class="btn btn-ghost btn-lg" id="bookDirectCtaEmail" data-i18n="book.directCtaEmail">Email Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers &amp; Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
+          <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
+        </a>
+        <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
+      </div>
+      <nav class="footer-col" aria-label="Services">
+        <h4 class="mono" data-i18n="footer.servicesHeading">Services</h4>
+        <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
+        <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
+        <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
+        <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Destinations" data-i18n-attr="aria-label:footer.destinationsHeading">
+        <h4 class="mono" data-i18n="footer.destinationsHeading">Destinations</h4>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Sosúa</a>
+        <a href="cabarete.html" data-i18n="footer.serviceCabarete">Cabarete</a>
+        <a href="puerto-plata.html" data-i18n="footer.servicePuertoplata">Puerto Plata</a>
+        <a href="cofresi.html" data-i18n="footer.serviceCofresi">Cofresí</a>
+        <a href="rio-san-juan.html" aria-current="page" data-i18n="footer.serviceRiosanjuan">Río San Juan</a>
+        <a href="las-terrenas.html" data-i18n="footer.serviceLasterrenas">Las Terrenas</a>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>
+        <a href="#why-us" data-i18n="why.eyebrow">Why choose us?</a>
+        <a href="nosotros.html" data-i18n="about.eyebrow">Meet the team</a>
+        <a href="index.html#reviews" data-i18n="nav.reviews">Reviews</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="index.html#gallery" data-i18n="footer.companyGallery">Gallery</a>
+      </nav>
+      <div class="footer-col">
+        <h4 class="mono" data-i18n="footer.contactHeading">Contact</h4>
+        <a class="footer-whatsapp" id="footerWhatsApp" href="#" rel="noopener" data-i18n="footer.whatsappUs">WhatsApp us</a>
+        <a href="mailto:sg.caribbeantransferstours@gmail.com">sg.caribbeantransferstours@gmail.com</a>
+        <a class="footer-instagram" href="https://www.instagram.com/sg.caribbean_transfers_tours/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <span>@sg.caribbean_transfers_tours</span>
+        </a>
+        <p data-i18n="footer.address">Puerto Plata, Dominican Republic</p>
+      </div>
+    </div>
+    <div class="container footer-legal">
+      <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. All rights reserved.</span></p>
+      <p class="mono" data-i18n="footer.tagline">POP · STI · North Coast · DR</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button: primary conversion shortcut, visible after hero -->
+  <a class="whatsapp-fab" id="whatsappFab" href="#" rel="noopener" aria-label="Chat with us on WhatsApp" data-i18n-attr="aria-label:fab.aria">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.2-.3.3-.5v-.5L9.7 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.2 2.2-.4 3.7a11.6 11.6 0 0 0 4.5 4.5c1.8.9 2.7 1 3.7.8.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
+  </a>
+
+  <!-- Contact dialog: opened by the "Email Us" CTA (js/shell.js) on all
+       pages — a short form (name/email/service/reason) posted to Formspree,
+       for visitors who'd rather not chat on WhatsApp. -->
+  <dialog class="contact-dialog" id="contactDialog" aria-labelledby="contactDialogTitle">
+    <div class="contact-dialog-inner">
+      <button type="button" class="contact-dialog-close" id="contactDialogClose" data-i18n-attr="aria-label:contact.close" aria-label="Close">×</button>
+      <h2 id="contactDialogTitle" data-i18n="contact.title">Send us a message</h2>
+      <p class="contact-dialog-lead" data-i18n="contact.lead">Tell us what you need and we'll reply by email.</p>
+      <div class="field">
+        <label for="contactName" data-i18n="cart.nameLabel">Full name</label>
+        <input type="text" id="contactName" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="contactEmail" data-i18n="contact.emailLabel">Email address</label>
+        <input type="email" id="contactEmail" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="contactService" data-i18n="contact.serviceLabel">What service are you interested in?</label>
+        <select id="contactService">
+          <option value="" data-i18n="contact.serviceAny">Not sure yet</option>
+          <option value="transfer" data-i18n="contact.serviceTransfer">Airport transfer</option>
+          <option value="excursion" data-i18n="contact.serviceExcursion">Excursion</option>
+          <option value="cruise" data-i18n="contact.serviceCruise">Cruise shore excursion</option>
+          <option value="other" data-i18n="contact.serviceOther">Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="contactReason" data-i18n="contact.reasonLabel">Tell us a bit more</label>
+        <textarea id="contactReason" rows="3"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="contactSubmit" data-i18n="contact.submit">Send Message</button>
+      <p class="contact-status" id="contactStatus" role="status" aria-live="polite" hidden></p>
+    </div>
+  </dialog>
+
+  <!-- Contact-choice dialog: every "Book Directly" / "Ask for a Quote" button
+       opens this first (js/contact-choice.js) so the visitor picks WhatsApp or
+       email instead of being dropped straight into WhatsApp. -->
+  <dialog class="contact-dialog" id="contactChoiceDialog" aria-labelledby="contactChoiceTitle">
+    <div class="contact-dialog-inner">
+      <button type="button" class="contact-dialog-close" id="contactChoiceClose" data-i18n-attr="aria-label:choice.close" aria-label="Close">×</button>
+      <h2 id="contactChoiceTitle" data-i18n="choice.title">How would you like to reach us?</h2>
+      <p class="contact-dialog-lead" data-i18n="choice.lead">Your request is ready — just pick a channel.</p>
+      <p class="contact-choice-summary" id="contactChoiceSummary" hidden></p>
+      <div class="contact-choice-channel-step" id="contactChoiceChannelStep">
+        <div class="contact-choice-options">
+          <button type="button" class="contact-choice-option" id="contactChoiceWhatsApp">
+            <span class="contact-choice-icon" aria-hidden="true">💬</span>
+            <span class="contact-choice-name" data-i18n="choice.whatsapp">WhatsApp</span>
+            <span class="contact-choice-desc" data-i18n="choice.whatsappDesc">Opens the chat with your request filled in</span>
+          </button>
+          <button type="button" class="contact-choice-option" id="contactChoiceEmail">
+            <span class="contact-choice-icon" aria-hidden="true">✉️</span>
+            <span class="contact-choice-name" data-i18n="choice.email">Email</span>
+            <span class="contact-choice-desc" data-i18n="choice.emailDesc">Leave us your details and we'll reply</span>
+          </button>
+        </div>
+      </div>
+      <div class="contact-choice-details-step" id="contactChoiceDetailsStep" hidden>
+        <button type="button" class="contact-choice-back" id="contactChoiceBack" data-i18n="choice.back">Back</button>
+        <div class="field">
+          <label for="contactChoiceName" data-i18n="cart.nameLabel">Full name</label>
+          <input type="text" id="contactChoiceName" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="contactChoiceEmailInput" data-i18n="contact.emailLabel">Email address</label>
+          <input type="email" id="contactChoiceEmailInput" autocomplete="email" required />
+        </div>
+        <button type="button" class="btn btn-primary btn-block" id="contactChoiceSend" data-i18n="choice.send">Send Request</button>
+        <p class="contact-choice-status" id="contactChoiceStatus" role="status" aria-live="polite" hidden></p>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="js/i18n.js" defer></script>
+  <script src="js/config.js" defer></script>
+  <script src="js/core.js" defer></script>
+  <script src="js/contact-choice.js" defer></script>
+  <script src="js/cart.js" defer></script>
+  <script src="js/shell.js" defer></script>
+</body>
+</html>

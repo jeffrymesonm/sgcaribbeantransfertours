@@ -3,7 +3,7 @@
   SG Caribbean Transfers & Tours — Meet the Team & Our Fleet (Puerto Plata, Dominican Republic)
   Purpose: dedicated "About Us" page (split out of index.html's #about section on
   2026-07-20 so the team/fleet/company story get their own page instead of a
-  home-page anchor). Static HTML/CSS/JS, no build step. Trilingual EN/ES/FR:
+  home-page anchor). Static HTML/CSS/JS; the only generated files are /es/ and /fr/. Trilingual EN/ES/FR:
   text lives in js/i18n.js and is applied via [data-i18n] / [data-i18n-attr]
   attributes below (see DOCS/DEVELOPER_GUIDE.md).
   Structure: header/cart → hero (banner nosotros.jpeg) → intro (logo + company
@@ -14,26 +14,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-P5B6J8Y75V');
-  </script>
 
   <title>Our Team &amp; Fleet | Transfers in Puerto Plata, Sosúa &amp; Cabarete</title>
   <meta name="description" content="Meet the local drivers and modern fleet behind SG Caribbean Transfers &amp; Tours — real people serving Puerto Plata, Sosúa, Cabarete and the north coast." />
   <meta name="theme-color" content="#062A31" />
   <link rel="canonical" href="https://caribbeansgtransferstours.com/nosotros.html" />
 
+  <!-- One page, three addresses. x-default is English. -->
+  <link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/nosotros.html" />
+  <link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/nosotros.html" />
+  <link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/nosotros.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/nosotros.html" />
+
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Our Team &amp; Fleet | Transfers in Puerto Plata, Sosúa &amp; Cabarete" />
   <meta property="og:description" content="Meet the local drivers and modern fleet behind SG Caribbean Transfers &amp; Tours — real people serving Puerto Plata, Sosúa, Cabarete and the north coast." />
   <meta property="og:image" content="https://caribbeansgtransferstours.com/img/banner%20nosotros.jpeg" />
+  <meta property="og:image:alt" content="The SG Caribbean Transfers &amp; Tours team and their vans on the Puerto Plata coast" data-i18n-attr="content:alt.teamBanner" />
+  <meta property="og:image:width" content="1161" />
+  <meta property="og:image:height" content="574" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_DO" />
+  <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:url" content="https://caribbeansgtransferstours.com/nosotros.html" />
   <meta property="og:site_name" content="SG Caribbean Transfers &amp; Tours" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -49,18 +52,30 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Structured data: AboutPage + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <!-- Structured data: AboutPage + BreadcrumbList for rich results (WebPage and BreadcrumbList follow the page language; the entity nodes keep one @id across all three) -->
   <!-- Business entity, identical on every page under one stable @id so search
        engines resolve all six pages to the same organisation. sameAs/hasMap
        link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","alternateName":"SG Caribbean","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","knowsLanguage":["en","es"],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","contactPoint":[{"@type":"ContactPoint","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","contactType":"customer service","availableLanguage":["English","Spanish"],"areaServed":"DO","url":"https://wa.me/18296277733"}],"sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"OfferCatalog","name":"Private airport transfers","url":"https://caribbeansgtransferstours.com/transfers.html","description":"Door-to-door private transfers from POP, STI, SDQ, AZS and PUJ airports. Fixed price per vehicle for 1 to 6 guests, flight tracking, meet & greet, pay on arrival."},{"@type":"OfferCatalog","name":"Private day excursions","url":"https://caribbeansgtransferstours.com/excursions.html","description":"Private day tours on the north coast: Punta Rusia and Cayo Arena, Charcos de Damajagua, Puerto Plata city tour, beach experiences, ATV and dune buggy adventures."},{"@type":"OfferCatalog","name":"Cruise shore excursions","url":"https://caribbeansgtransferstours.com/cruises.html","description":"Shore excursions with pickup at the Amber Cove and Taino Bay cruise piers in Puerto Plata, with a guaranteed return before all-aboard time."}]}}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"AboutPage","name":"Meet the Team & Our Fleet — SG Caribbean Transfers & Tours","url":"https://caribbeansgtransferstours.com/nosotros.html","about":{"@id":"https://caribbeansgtransferstours.com/#organization"}}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Meet the team","item":"https://caribbeansgtransferstours.com/nosotros.html"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","employee":[{"@type":"Person","name":"Saul","jobTitle":"Professional driver","image":"https://caribbeansgtransferstours.com/img/team-saul.jpg","worksFor":{"@id":"https://caribbeansgtransferstours.com/#organization"},"knowsLanguage":["en","es"]},{"@type":"Person","name":"Sariel","jobTitle":"Professional driver","image":"https://caribbeansgtransferstours.com/img/team-sariel.jpg","worksFor":{"@id":"https://caribbeansgtransferstours.com/#organization"},"knowsLanguage":["en","es"]},{"@type":"Person","name":"Luis","jobTitle":"Professional driver","image":"https://caribbeansgtransferstours.com/img/team-luis.jpg","worksFor":{"@id":"https://caribbeansgtransferstours.com/#organization"},"knowsLanguage":["en","es"]},{"@type":"Person","name":"Leuris","jobTitle":"Professional driver","image":"https://caribbeansgtransferstours.com/img/team-leuris.jpg","worksFor":{"@id":"https://caribbeansgtransferstours.com/#organization"},"knowsLanguage":["en","es"]}]}
+  </script>
+
+  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P5B6J8Y75V');
   </script>
 </head>
 <body data-page="nosotros">
@@ -70,8 +85,8 @@
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
-      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers & Tours — home">
-        <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers &amp; Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
         <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
       </a>
       <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
@@ -83,9 +98,9 @@
       </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
-          <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
-          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a español">ES</button>
-          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" aria-label="Passer au français">FR</button>
+          <a class="lang-btn is-active" href="nosotros.html" hreflang="en" aria-current="page" aria-label="Switch to English">EN</a>
+          <a class="lang-btn" href="es/nosotros.html" hreflang="es" aria-label="Cambiar a español">ES</a>
+          <a class="lang-btn" href="fr/nosotros.html" hreflang="fr" aria-label="Passer au français">FR</a>
         </div>
         <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -110,7 +125,7 @@
   <!-- Cart drawer: items added from ticket/calculator/excursion "Add to Cart"
        buttons; checkout sends one consolidated WhatsApp message. -->
   <div class="cart-scrim" id="cartScrim"></div>
-  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your cart" data-i18n-attr="aria-label:cart.title">
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your Requests" data-i18n-attr="aria-label:cart.title">
     <div class="cart-panel-inner">
       <header class="cart-panel-header">
         <h3 data-i18n="cart.title">Your Requests</h3>
@@ -151,9 +166,9 @@
   <section class="hero" id="top">
     <div class="hero-bg" id="heroBg">
       <img
-        src="img/banner%20nosotros.jpeg"
-        alt="SG Caribbean Transfers & Tours team banner"
-        fetchpriority="high" />
+        src="img/banner%20nosotros.jpeg" width="1161" height="574"
+        alt="The SG Caribbean Transfers &amp; Tours team and their vans on the Puerto Plata coast"
+        fetchpriority="high" data-i18n-attr="alt:alt.teamBanner" />
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
 
@@ -166,6 +181,18 @@
     </div>
   </section>
 
+  <!-- ============ BREADCRUMBS ============
+       Visible counterpart of this page's BreadcrumbList JSON-LD. Keep the two
+       in step: same steps, same order, same labels. -->
+  <nav class="crumbs" aria-label="Breadcrumb" data-i18n-attr="aria-label:crumbs.aria">
+    <div class="container">
+      <ol class="crumbs-list">
+        <li><a href="index.html" data-i18n="crumbs.home">Home</a></li>
+        <li aria-current="page"><span data-i18n="about.eyebrow">Meet the team</span></li>
+      </ol>
+    </div>
+  </nav>
+
   <!-- ============ 2. ABOUT US / MEET THE TEAM ============
        Real team + fleet photos live in img/ (resized + EXIF-stripped copies
        of the owner's "Nueva carpeta" originals). All 4 drivers (Saul,
@@ -175,7 +202,7 @@
   <section class="section about" id="about">
     <div class="container">
       <header class="section-head reveal about-intro">
-        <img class="about-logo" src="img/logo.jpg" alt="SG Caribbean Transfers & Tours logo" width="120" height="120" loading="lazy" />
+        <img class="about-logo" src="img/logo.jpg" alt="SG Caribbean Transfers &amp; Tours logo" width="120" height="120" loading="lazy" data-i18n-attr="alt:alt.logo" />
         <h2 data-i18n="about.introHeading">Why <em>choose us</em></h2>
         <p class="section-lead" data-i18n="about.introBody">At SG Caribbean Transfers & Tours we believe a tour is much more than transporting people from one place to another. Our mission is to make every visitor live a safe, comfortable and authentic experience, from the first contact to the end of their adventure.</p>
         <dl class="stats stats-light reveal">
@@ -218,19 +245,19 @@
 
       <div class="team-grid">
         <figure class="team-card reveal">
-          <div class="team-photo"><img src="img/team-saul.jpg" width="960" height="1280" alt="Saul, one of our drivers, standing beside a white Toyota Hiace van" loading="lazy" /></div>
+          <div class="team-photo"><img src="img/team-saul.jpg" width="960" height="1280" alt="Saul, one of our drivers, standing beside a white Toyota Hiace van" loading="lazy" data-i18n-attr="alt:alt.teamSaul" /></div>
           <figcaption><strong class="team-name">Saul</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
         </figure>
         <figure class="team-card reveal">
-          <div class="team-photo"><img src="img/team-sariel.jpg" width="1200" height="1500" alt="Sariel, one of our drivers, in the team's yellow taxi polo" loading="lazy" /></div>
+          <div class="team-photo"><img src="img/team-sariel.jpg" width="1200" height="1500" alt="Sariel, one of our drivers, in the team's yellow taxi polo" loading="lazy" data-i18n-attr="alt:alt.teamSariel" /></div>
           <figcaption><strong class="team-name">Sariel</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
         </figure>
         <figure class="team-card reveal">
-          <div class="team-photo"><img src="img/team-luis.jpg" width="860" height="1280" alt="Luis, one of our drivers, smiling at a beachside lounge" loading="lazy" /></div>
+          <div class="team-photo"><img src="img/team-luis.jpg" width="860" height="1280" alt="Luis, one of our drivers, smiling at a beachside lounge" loading="lazy" data-i18n-attr="alt:alt.teamLuis" /></div>
           <figcaption><strong class="team-name">Luis</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
         </figure>
         <figure class="team-card reveal">
-          <div class="team-photo"><img src="img/team-leuris.jpg" width="523" height="1139" alt="Leuris, one of our drivers, smiling in a garden wearing the company polo" loading="lazy" /></div>
+          <div class="team-photo"><img src="img/team-leuris.jpg" width="523" height="1139" alt="Leuris, one of our drivers, smiling in a garden wearing the company polo" loading="lazy" data-i18n-attr="alt:alt.teamLeuris" /></div>
           <figcaption><strong class="team-name">Leuris</strong><span class="team-role mono" data-i18n="about.role">Professional driver</span></figcaption>
         </figure>
       </div>
@@ -240,14 +267,14 @@
           <h3 class="fleet-heading" data-i18n="about.fleetHeading">Travel in a Toyota Hiace, kept <em>spotless</em></h3>
         </header>
         <div class="fleet-grid">
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-vans.jpg" width="1280" height="960" alt="Three white Toyota Hiace vans of the SG Caribbean fleet parked side by side" loading="lazy" /><figcaption data-i18n="about.fleet1">The Hiace fleet — room for up to 15 guests</figcaption></figure>
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-1.jpg" width="1280" height="960" alt="White Toyota Hiace van gleaming at golden hour" loading="lazy" /><figcaption data-i18n="about.fleet2">Detailed and inspected before every pickup</figcaption></figure>
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-2.jpg" width="960" height="1280" alt="White Toyota Hiace van parked at the airport" loading="lazy" /><figcaption data-i18n="about.fleet4">Every van, ready for the road</figcaption></figure>
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-3.jpg" width="960" height="1280" alt="White Toyota Hiace van facing the camera at the airport" loading="lazy" /><figcaption data-i18n="about.fleet5">Custom-fitted and road-tested</figcaption></figure>
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-4.jpg" width="900" height="1179" alt="White Toyota Hiace van with off-road styling under a cloudy sky" loading="lazy" /><figcaption data-i18n="about.fleet6">Our newest addition to the fleet</figcaption></figure>
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-1.jpg" width="1200" height="799" alt="Spotless two-tone seats inside a Toyota Hiace van" loading="lazy" /><figcaption data-i18n="about.fleet3">Air-conditioned, spotless interiors</figcaption></figure>
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-2.jpg" width="960" height="1280" alt="Grey leather seats inside a Toyota Hiace van with the door open" loading="lazy" /><figcaption data-i18n="about.fleet7">Comfortable seating for every group size</figcaption></figure>
-          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-3.jpg" width="1448" height="1086" alt="Grey fabric seats inside a Toyota Hiace van, seen from the back row" loading="lazy" /><figcaption data-i18n="about.fleet8">Spacious and immaculate, every trip</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-vans.jpg" width="1280" height="960" alt="Three white Toyota Hiace vans of the SG Caribbean fleet parked side by side" loading="lazy" data-i18n-attr="alt:alt.fleetVans" /><figcaption data-i18n="about.fleet1">The Hiace fleet — room for up to 15 guests</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-1.jpg" width="1280" height="960" alt="White Toyota Hiace van gleaming at golden hour" loading="lazy" data-i18n-attr="alt:alt.fleetVan1" /><figcaption data-i18n="about.fleet2">Detailed and inspected before every pickup</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-2.jpg" width="960" height="1280" alt="White Toyota Hiace van parked at the airport" loading="lazy" data-i18n-attr="alt:alt.fleetVan2" /><figcaption data-i18n="about.fleet4">Every van, ready for the road</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-3.jpg" width="960" height="1280" alt="White Toyota Hiace van facing the camera at the airport" loading="lazy" data-i18n-attr="alt:alt.fleetVan3" /><figcaption data-i18n="about.fleet5">Custom-fitted and road-tested</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-van-4.jpg" width="900" height="1179" alt="White Toyota Hiace van with off-road styling under a cloudy sky" loading="lazy" data-i18n-attr="alt:alt.fleetVan4" /><figcaption data-i18n="about.fleet6">Our newest addition to the fleet</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-1.jpg" width="1200" height="799" alt="Spotless two-tone seats inside a Toyota Hiace van" loading="lazy" data-i18n-attr="alt:alt.fleetInterior1" /><figcaption data-i18n="about.fleet3">Air-conditioned, spotless interiors</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-2.jpg" width="960" height="1280" alt="Grey leather seats inside a Toyota Hiace van with the door open" loading="lazy" data-i18n-attr="alt:alt.fleetInterior2" /><figcaption data-i18n="about.fleet7">Comfortable seating for every group size</figcaption></figure>
+          <figure class="masonry-item fleet-item reveal"><img src="img/fleet-interior-3.jpg" width="1448" height="1086" alt="Grey fabric seats inside a Toyota Hiace van, seen from the back row" loading="lazy" data-i18n-attr="alt:alt.fleetInterior3" /><figcaption data-i18n="about.fleet8">Spacious and immaculate, every trip</figcaption></figure>
         </div>
       </div>
     </div>
@@ -256,7 +283,7 @@
   <!-- ============ 3. FINAL BOOKING CTA ============ -->
   <section class="book" id="book">
     <div class="book-bg" id="bookBg">
-      <img src="img/cta-band.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="img/cta-band.jpg" width="1800" height="1197" alt="" loading="lazy" aria-hidden="true" />
     </div>
     <div class="book-scrim" aria-hidden="true"></div>
     <div class="container book-inner book-inner-solo">
@@ -282,8 +309,8 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="#top" aria-label="SG Caribbean Transfers & Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
-          <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers &amp; Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
           <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
         </a>
         <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
@@ -293,8 +320,16 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
-        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Destinations" data-i18n-attr="aria-label:footer.destinationsHeading">
+        <h4 class="mono" data-i18n="footer.destinationsHeading">Destinations</h4>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Sosúa</a>
+        <a href="cabarete.html" data-i18n="footer.serviceCabarete">Cabarete</a>
+        <a href="puerto-plata.html" data-i18n="footer.servicePuertoplata">Puerto Plata</a>
+        <a href="cofresi.html" data-i18n="footer.serviceCofresi">Cofresí</a>
+        <a href="rio-san-juan.html" data-i18n="footer.serviceRiosanjuan">Río San Juan</a>
+        <a href="las-terrenas.html" data-i18n="footer.serviceLasterrenas">Las Terrenas</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
         <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>

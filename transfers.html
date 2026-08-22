@@ -2,10 +2,10 @@
 <!--
   SG Caribbean Transfers & Tours — Private Airport & Point-to-Point Transfers (Dominican Republic)
   Purpose: dedicated transfers landing page (split out of index.html). Static
-  HTML/CSS/JS, no build step. Bilingual EN/ES: text lives in js/i18n.js and is
+  HTML/CSS/JS, no build step. Trilingual EN/ES/FR: text lives in js/i18n.js and is
   applied via [data-i18n] / [data-i18n-attr] attributes below (see
-  DOCS/DEVELOPER_GUIDE.md). Structured data (JSON-LD) stays English-only to
-  match the default rendered language.
+  DOCS/DEVELOPER_GUIDE.md). The Spanish and French builds of this page are
+  rendered into /es/ and /fr/ by tools/build-langs.py — edit this file, not those.
   Structure: header/cart → hero → services/flota → Popular Routes tickets →
              full destination price list → price calculator →
              trust strip (why + reviews) → booking CTA → footer.
@@ -15,26 +15,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-P5B6J8Y75V');
-  </script>
 
   <title>Airport Transfers Puerto Plata &amp; Sosúa | POP to Sosúa from $23.95</title>
   <meta name="description" content="Private door-to-door transfers from Puerto Plata airport (POP) to Sosúa, Cabarete and Playa Dorada. Fixed prices from $23.95, flight tracking, pay on arrival." />
   <meta name="theme-color" content="#062A31" />
   <link rel="canonical" href="https://caribbeansgtransferstours.com/transfers.html" />
 
+  <!-- One page, three addresses. x-default is English. -->
+  <link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/transfers.html" />
+  <link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/transfers.html" />
+  <link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/transfers.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/transfers.html" />
+
   <!-- Open Graph / social sharing -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Airport Transfers Puerto Plata &amp; Sosúa | POP to Sosúa from $23.95" />
   <meta property="og:description" content="Private door-to-door transfers from Puerto Plata airport (POP) to Sosúa, Cabarete and Playa Dorada. Fixed prices from $23.95, flight tracking, pay on arrival." />
   <meta property="og:image" content="https://caribbeansgtransferstours.com/img/hero-main.jpg" />
+  <meta property="og:image:alt" content="Three white minivans from the SG Caribbean fleet parked under a blue Caribbean sky" data-i18n-attr="content:alt.heroMain" />
+  <meta property="og:image:width" content="1800" />
+  <meta property="og:image:height" content="1350" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_DO" />
+  <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="og:url" content="https://caribbeansgtransferstours.com/transfers.html" />
   <meta property="og:site_name" content="SG Caribbean Transfers &amp; Tours" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -50,21 +53,30 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- Structured data: Service + BreadcrumbList for rich results (English-only, matches default page language) -->
+  <!-- Structured data: Service + BreadcrumbList for rich results (WebPage and BreadcrumbList follow the page language; the entity nodes keep one @id across all three) -->
   <!-- Business entity, identical on every page under one stable @id so search
        engines resolve all six pages to the same organisation. sameAs/hasMap
        link it to the Google Business Profile. -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"]}
+  {"@context":"https://schema.org","@type":"TravelAgency","@id":"https://caribbeansgtransferstours.com/#organization","name":"SG Caribbean Transfers & Tours","alternateName":"SG Caribbean","description":"Private airport transfers, transportation and excursions in Sosúa, Puerto Plata, Cabarete and the Dominican Republic north coast.","url":"https://caribbeansgtransferstours.com/","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","image":"https://caribbeansgtransferstours.com/img/hero-main.jpg","logo":"https://caribbeansgtransferstours.com/img/logo.jpg","priceRange":"$$","currenciesAccepted":"USD, DOP","paymentAccepted":"Cash, Credit Card","knowsLanguage":["en","es"],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"address":{"@type":"PostalAddress","addressLocality":"Puerto Plata","addressRegion":"Puerto Plata","addressCountry":"DO"},"geo":{"@type":"GeoCoordinates","latitude":19.7934,"longitude":-70.6884},"hasMap":"https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8","contactPoint":[{"@type":"ContactPoint","telephone":"+1-829-627-7733","email":"sg.caribbeantransferstours@gmail.com","contactType":"customer service","availableLanguage":["English","Spanish"],"areaServed":"DO","url":"https://wa.me/18296277733"}],"sameAs":["https://www.instagram.com/sg.caribbean_transfers_tours/","https://www.google.com/maps/place/?q=place_id:ChIJV_SML-x-iykRPJ-B3dkTbA8"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Puerto Plata Airport (POP)","Amber Cove","Taino Bay","Samaná","Dominican Republic"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[{"@type":"OfferCatalog","name":"Private airport transfers","url":"https://caribbeansgtransferstours.com/transfers.html","description":"Door-to-door private transfers from POP, STI, SDQ, AZS and PUJ airports. Fixed price per vehicle for 1 to 6 guests, flight tracking, meet & greet, pay on arrival."},{"@type":"OfferCatalog","name":"Private day excursions","url":"https://caribbeansgtransferstours.com/excursions.html","description":"Private day tours on the north coast: Punta Rusia and Cayo Arena, Charcos de Damajagua, Puerto Plata city tour, beach experiences, ATV and dune buggy adventures."},{"@type":"OfferCatalog","name":"Cruise shore excursions","url":"https://caribbeansgtransferstours.com/cruises.html","description":"Shore excursions with pickup at the Amber Cove and Taino Bay cruise piers in Puerto Plata, with a guaranteed return before all-aboard time."}]}}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Service","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Dominican Republic"],"url":"https://caribbeansgtransferstours.com/transfers.html","offers":{"@type":"Offer","priceCurrency":"USD","price":"23.95","description":"Puerto Plata Airport (POP) to Sosúa, private one-way transfer"}}
+  {"@context":"https://schema.org","@type":"Service","@id":"https://caribbeansgtransferstours.com/transfers.html#service","name":"Private airport transfers — Puerto Plata, Sosúa and the Dominican Republic","serviceType":"Airport transfer","description":"Private door-to-door airport transfers from Puerto Plata (POP), Santiago (STI), Santo Domingo (SDQ), Samaná (AZS) and Punta Cana (PUJ). Fixed price per vehicle for up to 6 guests, US$5 per extra passenger, flight tracking, meet & greet, no prepayment — pay the driver on arrival in cash (USD or DOP).","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"},"availableLanguage":["en","es"],"areaServed":["Sosúa","Puerto Plata","Cabarete","Playa Dorada","Cofresí","Río San Juan","Las Terrenas","Samaná","Santiago","Santo Domingo","Punta Cana","Dominican Republic"],"url":"https://caribbeansgtransferstours.com/transfers.html","offers":{"@type":"AggregateOffer","priceCurrency":"USD","lowPrice":"23.95","highPrice":"425.00","offerCount":30,"description":"One-way private transfer, per vehicle, 1 to 6 guests"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Fixed one-way transfer fares","description":"Confirmed fixed fares, one way, per vehicle, covering 1 to 6 guests. Each passenger beyond 6 adds US$5.","itemListElement":[{"@type":"Offer","name":"Puerto Plata Airport (POP) → Sosúa","price":"23.95","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Sosúa","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Cabarete","price":"33.95","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Cabarete","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Puerto Plata · Playa Dorada","price":"38.95","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Puerto Plata · Playa Dorada","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Cofresí · Costambar","price":"48.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Cofresí · Costambar","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Cabrera","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Cabrera","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Damajagua","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Damajagua","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Luperón","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Luperón","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Playa Grande","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Playa Grande","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Río San Juan","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Río San Juan","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Santiago","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Santiago","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Blue Lagoon","price":"118.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Blue Lagoon","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Castillo La Isabela","price":"128.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Castillo La Isabela","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Las Terrenas","price":"178.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Las Terrenas","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Monte Cristi","price":"178.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Monte Cristi","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Samaná","price":"178.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Samaná","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → La Galera","price":"198.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → La Galera","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Punta Rusia","price":"198.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Punta Rusia","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Dajabón","price":"198.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Dajabón","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Juan Dolio","price":"218.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Juan Dolio","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → San Pedro de Macorís","price":"218.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → San Pedro de Macorís","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Santo Domingo","price":"219","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Santo Domingo","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Boca Chica","price":"260","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Boca Chica","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Barahona","price":"298.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Barahona","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Higüey","price":"398.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Higüey","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Puerto Plata Airport (POP) → Punta Cana","price":"425","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Puerto Plata Airport (POP) → Punta Cana","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Santiago Airport (STI) → Sosúa","price":"98.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Santiago Airport (STI) → Sosúa","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Santiago Airport (STI) → Cabarete","price":"98.95","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Santiago Airport (STI) → Cabarete","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Samaná Airport (AZS) → Sosúa","price":"148.50","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Samaná Airport (AZS) → Sosúa","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Santo Domingo Airport (SDQ) → Sosúa","price":"219","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Santo Domingo Airport (SDQ) → Sosúa","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}},{"@type":"Offer","name":"Punta Cana Airport (PUJ) → Sosúa","price":"425","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://caribbeansgtransferstours.com/transfers.html#fares","itemOffered":{"@type":"Service","name":"Private airport transfer — Punta Cana Airport (PUJ) → Sosúa","serviceType":"Airport transfer","provider":{"@id":"https://caribbeansgtransferstours.com/#organization"}}}]}}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://caribbeansgtransferstours.com/"},{"@type":"ListItem","position":2,"name":"Transfers","item":"https://caribbeansgtransferstours.com/transfers.html"}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much is a transfer from Puerto Plata airport to Sosúa?","acceptedAnswer":{"@type":"Answer","text":"US$23.95 one way for 1 to 6 guests in a private vehicle, plus US$5 for each extra passenger above six. The price is fixed before you travel."}},{"@type":"Question","name":"Which airports do you cover?","acceptedAnswer":{"@type":"Answer","text":"We run fixed-price transfers from Puerto Plata (POP), Santiago (STI), Santo Domingo (SDQ), Punta Cana (PUJ) and Samaná El Catey (AZS). La Romana (LRM) and Barahona (BRX) are quoted on request."}},{"@type":"Question","name":"Do I have to pay in advance?","acceptedAnswer":{"@type":"Answer","text":"No. Your reservation is confirmed on WhatsApp with nothing charged up front — you settle with the driver in cash, US dollars or Dominican pesos, at the end of the ride. Ask us if you would rather pay by card."}},{"@type":"Question","name":"What happens if my flight is delayed?","acceptedAnswer":{"@type":"Answer","text":"You do not need to tell us. The flight number you send when booking is tracked in real time, and the pickup slides with it — two hours late means your driver shows up two hours later, and the price does not move."}},{"@type":"Question","name":"How many passengers fit in the vehicle?","acceptedAnswer":{"@type":"Answer","text":"Four vehicle sizes, picked from your group: 3 guests in a car, 6 in a minivan, 10 in a van, 15 in a minibus. The calculator on this page upgrades you automatically once your passenger count outgrows the smaller option."}},{"@type":"Question","name":"Is there an extra charge for luggage?","acceptedAnswer":{"@type":"Answer","text":"Up to 10 suitcases travel free. Above that a flat US$15 is added to that vehicle, because a trailer is needed. Surfboards or oversized bags — tell us and we plan for it."}}]}
+  </script>
+
+  <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P5B6J8Y75V');
   </script>
 </head>
 <body data-page="transfers">
@@ -74,8 +86,8 @@
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="siteHeader">
     <div class="header-inner">
-      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers & Tours — home">
-        <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+      <a class="brand" href="#top" data-i18n-attr="aria-label:brand.homeAria" aria-label="SG Caribbean Transfers &amp; Tours — home">
+        <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
         <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
       </a>
       <nav class="site-nav" aria-label="Main" data-i18n-attr="aria-label:nav.mainAria">
@@ -87,9 +99,9 @@
       </nav>
       <div class="header-actions">
         <div class="lang-switch" role="group" aria-label="Language / Idioma / Langue">
-          <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" aria-label="Switch to English">EN</button>
-          <button type="button" class="lang-btn" data-lang="es" aria-pressed="false" aria-label="Cambiar a español">ES</button>
-          <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" aria-label="Passer au français">FR</button>
+          <a class="lang-btn is-active" href="transfers.html" hreflang="en" aria-current="page" aria-label="Switch to English">EN</a>
+          <a class="lang-btn" href="es/transfers.html" hreflang="es" aria-label="Cambiar a español">ES</a>
+          <a class="lang-btn" href="fr/transfers.html" hreflang="fr" aria-label="Passer au français">FR</a>
         </div>
         <button type="button" class="cart-btn" id="cartToggle" aria-expanded="false" aria-controls="cartPanel" aria-label="View cart" data-i18n-attr="aria-label:cart.toggleAria">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 6M7 13l-1.4 2.8A1 1 0 0 0 6.5 17H17M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM17 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -114,7 +126,7 @@
   <!-- Cart drawer: items added from ticket/calculator "Add to Cart"
        buttons; checkout sends one consolidated WhatsApp message. -->
   <div class="cart-scrim" id="cartScrim"></div>
-  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your cart" data-i18n-attr="aria-label:cart.title">
+  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-label="Your Requests" data-i18n-attr="aria-label:cart.title">
     <div class="cart-panel-inner">
       <header class="cart-panel-header">
         <h3 data-i18n="cart.title">Your Requests</h3>
@@ -155,9 +167,9 @@
   <section class="hero" id="top">
     <div class="hero-bg" id="heroBg">
       <img
-        src="img/hero-main.jpg"
+        src="img/hero-main.jpg" width="1800" height="1350"
         alt="Three white minivans from the SG Caribbean fleet parked under a blue Caribbean sky"
-        fetchpriority="high" />
+        fetchpriority="high" data-i18n-attr="alt:alt.heroMain" />
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
 
@@ -178,6 +190,18 @@
       <span class="hero-scroll-dot" aria-hidden="true"></span>
     </a>
   </section>
+
+  <!-- ============ BREADCRUMBS ============
+       Visible counterpart of this page's BreadcrumbList JSON-LD. Keep the two
+       in step: same steps, same order, same labels. -->
+  <nav class="crumbs" aria-label="Breadcrumb" data-i18n-attr="aria-label:crumbs.aria">
+    <div class="container">
+      <ol class="crumbs-list">
+        <li><a href="index.html" data-i18n="crumbs.home">Home</a></li>
+        <li aria-current="page"><span data-i18n="nav.transfers">Transfers</span></li>
+      </ol>
+    </div>
+  </nav>
 
   <!-- ============ QUICK ANSWER (AEO) ============
        Factual summary placed directly after the hero: one plain paragraph plus
@@ -228,7 +252,7 @@
       <div class="service-grid">
         <article class="service-card reveal">
           <figure class="service-media">
-            <img src="img/transfer-trust-airport.jpg" alt="Airplane wing over golden clouds during landing approach" loading="lazy" />
+            <img src="img/transfer-trust-airport.jpg" width="900" height="598" alt="Airplane wing over golden clouds during landing approach" loading="lazy" data-i18n-attr="alt:alt.trustAirport" />
           </figure>
           <div class="service-body">
             <h3 data-i18n="services.transferTitle">Airport Transfers</h3>
@@ -240,7 +264,7 @@
 
         <article class="service-card reveal">
           <figure class="service-media">
-            <img src="img/transfer-trust-resort.jpg" alt="Aerial view of a beachfront resort pool surrounded by palm trees" loading="lazy" />
+            <img src="img/transfer-trust-resort.jpg" width="900" height="600" alt="Aerial view of a beachfront resort pool surrounded by palm trees" loading="lazy" data-i18n-attr="alt:alt.trustResort" />
           </figure>
           <div class="service-body">
             <h3 data-i18n="services.privateTitle">Private Transportation</h3>
@@ -252,7 +276,7 @@
 
         <article class="service-card reveal">
           <figure class="service-media">
-            <img src="img/transfer-trust-beach.jpg" alt="Sailboat anchored on white sand surrounded by turquoise Caribbean water" loading="lazy" />
+            <img src="img/transfer-trust-beach.jpg" width="900" height="675" alt="Sailboat anchored on white sand surrounded by turquoise Caribbean water" loading="lazy" data-i18n-attr="alt:alt.trustBeach" />
           </figure>
           <div class="service-body">
             <h3 data-i18n="services.excursionsTitle">Excursions</h3>
@@ -433,9 +457,13 @@
   <!-- ============ 3. PRICE CALCULATOR ============
        Includes fixed one-way fares FROM Puerto Plata Airport (POP) only —
        see POP_PROVINCE_FIXED_FARES/POP_FIXED_DESTINATIONS in js/config.js
-       and the "Fixed destinations" optgroup below. Merged into this one
-       calculator (2026-07-20) rather than a separate static list, so there
-       is exactly one place a price for a given route is shown. -->
+       and the "Fixed destinations" optgroup below.
+       js/config.js stays the single source of truth for every number here.
+       Section 4 below repeats those same fares as a static table: not a
+       second source, a crawlable mirror, because search and answer engines
+       never run this calculator and so could not read any of its prices
+       (added 2026-08-21 — supersedes the 2026-07-20 "one place only"
+       decision, which cost the site ~25 indexable routes). -->
   <section class="section section-sand calculator" id="calculator">
     <div class="container">
       <header class="section-head reveal">
@@ -569,7 +597,260 @@
     </div>
   </section>
 
-  <!-- ============ 4. TRUST STRIP (why + reviews, reused from index.html) ============ -->
+  <!-- ============ 4. ALL FIXED FARES (crawlable) ============
+       Static mirror of POP_PROVINCE_FIXED_FARES / POP_FIXED_DESTINATIONS /
+       OTHER_AIRPORT_FIXED_FARES in js/config.js. The calculator above is the
+       tool visitors use; this table exists because search crawlers and answer
+       engines do not run the calculator, so every fare it could quote was
+       invisible to them. Destination names are proper nouns and stay
+       untranslated — only the headings carry data-i18n keys.
+       KEEP IN SYNC WITH js/config.js whenever a fare changes. -->
+  <section class="section fares" id="fares">
+    <div class="container">
+      <header class="section-head reveal">
+        <h2 data-i18n="fares.heading">Every fixed fare from <em>Puerto Plata Airport</em></h2>
+        <p class="section-lead" data-i18n="fares.lead">One-way, per vehicle, for 1 to 6 guests. Confirmed prices — what you read here is what you hand the driver.</p>
+      </header>
+
+      <div class="dest-table-wrap reveal">
+        <table class="dest-table">
+          <caption class="dest-table-caption" data-i18n="fares.popCaption">Fixed one-way fares from Puerto Plata Airport (POP), 1–6 guests</caption>
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="fares.thDestination">Destination</th>
+              <th scope="col" data-i18n="fares.thFare">Fixed price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Sosúa</th>
+              <td class="dest-table-price mono">US$23.95</td>
+            </tr>
+            <tr>
+              <th scope="row">Cabarete</th>
+              <td class="dest-table-price mono">US$33.95</td>
+            </tr>
+            <tr>
+              <th scope="row">Puerto Plata · Playa Dorada</th>
+              <td class="dest-table-price mono">US$38.95</td>
+            </tr>
+            <tr>
+              <th scope="row">Cofresí · Costambar</th>
+              <td class="dest-table-price mono">US$48.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Cabrera</th>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Damajagua</th>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Luperón</th>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Playa Grande</th>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Río San Juan</th>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Santiago</th>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Blue Lagoon</th>
+              <td class="dest-table-price mono">US$118.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Castillo La Isabela</th>
+              <td class="dest-table-price mono">US$128.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Las Terrenas</th>
+              <td class="dest-table-price mono">US$178.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Monte Cristi</th>
+              <td class="dest-table-price mono">US$178.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Samaná</th>
+              <td class="dest-table-price mono">US$178.50</td>
+            </tr>
+            <tr>
+              <th scope="row">La Galera</th>
+              <td class="dest-table-price mono">US$198.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Rusia</th>
+              <td class="dest-table-price mono">US$198.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Dajabón</th>
+              <td class="dest-table-price mono">US$198.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Juan Dolio</th>
+              <td class="dest-table-price mono">US$218.50</td>
+            </tr>
+            <tr>
+              <th scope="row">San Pedro de Macorís</th>
+              <td class="dest-table-price mono">US$218.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Santo Domingo</th>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row">Boca Chica</th>
+              <td class="dest-table-price mono">US$260</td>
+            </tr>
+            <tr>
+              <th scope="row">Barahona</th>
+              <td class="dest-table-price mono">US$298.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Higüey</th>
+              <td class="dest-table-price mono">US$398.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Cana</th>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="fares-subhead reveal" data-i18n="fares.otherHeading">Fixed fares from the other airports</h3>
+
+      <div class="dest-table-wrap reveal">
+        <table class="dest-table">
+          <caption class="dest-table-caption" data-i18n="fares.otherCaption">Confirmed one-way fares from Santiago, Samaná, Santo Domingo and Punta Cana</caption>
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="fares.thAirport">Airport</th>
+              <th scope="col" data-i18n="fares.thCode">Code</th>
+              <th scope="col" data-i18n="fares.thTo">Destination</th>
+              <th scope="col" data-i18n="fares.thFare">Fixed price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Santiago — Cibao Intl.</th>
+              <td class="mono">STI</td>
+              <td>Sosúa</td>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Santiago — Cibao Intl.</th>
+              <td class="mono">STI</td>
+              <td>Cabarete</td>
+              <td class="dest-table-price mono">US$98.95</td>
+            </tr>
+            <tr>
+              <th scope="row">Santiago — Cibao Intl.</th>
+              <td class="mono">STI</td>
+              <td>Puerto Plata</td>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Santiago — Cibao Intl.</th>
+              <td class="mono">STI</td>
+              <td>Cofresí · Costambar</td>
+              <td class="dest-table-price mono">US$98.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Samaná — El Catey Intl.</th>
+              <td class="mono">AZS</td>
+              <td>Sosúa</td>
+              <td class="dest-table-price mono">US$148.50</td>
+            </tr>
+            <tr>
+              <th scope="row">Santo Domingo — Las Américas Intl.</th>
+              <td class="mono">SDQ</td>
+              <td>Sosúa</td>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row">Santo Domingo — Las Américas Intl.</th>
+              <td class="mono">SDQ</td>
+              <td>Cabarete</td>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row">Santo Domingo — Las Américas Intl.</th>
+              <td class="mono">SDQ</td>
+              <td>Puerto Plata</td>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row">Santo Domingo — Las Américas Intl.</th>
+              <td class="mono">SDQ</td>
+              <td>Cofresí · Costambar</td>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row">Santo Domingo — Las Américas Intl.</th>
+              <td class="mono">SDQ</td>
+              <td>Río San Juan</td>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row">Santo Domingo — Las Américas Intl.</th>
+              <td class="mono">SDQ</td>
+              <td>Las Terrenas</td>
+              <td class="dest-table-price mono">US$219</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Cana Intl.</th>
+              <td class="mono">PUJ</td>
+              <td>Sosúa</td>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Cana Intl.</th>
+              <td class="mono">PUJ</td>
+              <td>Cabarete</td>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Cana Intl.</th>
+              <td class="mono">PUJ</td>
+              <td>Puerto Plata</td>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Cana Intl.</th>
+              <td class="mono">PUJ</td>
+              <td>Cofresí · Costambar</td>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Cana Intl.</th>
+              <td class="mono">PUJ</td>
+              <td>Río San Juan</td>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+            <tr>
+              <th scope="row">Punta Cana Intl.</th>
+              <td class="mono">PUJ</td>
+              <td>Las Terrenas</td>
+              <td class="dest-table-price mono">US$425</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="fares-note reveal" data-i18n="fares.note">Every price covers up to 6 guests; each extra passenger adds US$5. Any destination not listed is quoted on request — send a WhatsApp message and you get a fixed price back, never a meter.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5. TRUST STRIP (why + reviews, reused from index.html) ============ -->
   <section class="section section-abyss why" id="why">
     <div class="container">
       <header class="section-head section-head-light reveal">
@@ -656,10 +937,10 @@
     </div>
   </section>
 
-  <!-- ============ 5. FINAL BOOKING CTA ============ -->
+  <!-- ============ 6. FINAL BOOKING CTA ============ -->
   <section class="book" id="book">
     <div class="book-bg" id="bookBg">
-      <img src="img/cta-band.jpg" alt="" loading="lazy" aria-hidden="true" />
+      <img src="img/cta-band.jpg" width="1800" height="1197" alt="" loading="lazy" aria-hidden="true" />
     </div>
     <div class="book-scrim" aria-hidden="true"></div>
     <div class="container book-inner book-inner-solo">
@@ -685,8 +966,8 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="#top" aria-label="SG Caribbean Transfers & Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
-          <img class="brand-mark" src="img/logo.jpg" alt="" loading="lazy" />
+        <a class="brand" href="#top" aria-label="SG Caribbean Transfers &amp; Tours — back to top" data-i18n-attr="aria-label:brand.topAria">
+          <img class="brand-mark" src="img/logo.jpg" width="800" height="800" alt="" loading="lazy" />
           <span class="brand-name">SG Caribbean<span class="brand-sub" data-i18n="brand.tagline">Transfers &amp; Tours</span></span>
         </a>
         <p data-i18n="footer.desc">Private transfers and excursions on the north coast of the Dominican Republic. Licensed &amp; insured.</p>
@@ -696,8 +977,16 @@
         <a href="transfers.html" data-i18n="footer.serviceTransfers">Airport transfers</a>
         <a href="excursions.html" data-i18n="nav.excursions">Excursions</a>
         <a href="cruises.html" data-i18n="nav.cruises">Cruises</a>
-        <a href="sosua.html" data-i18n="footer.serviceSosua">Transfers to Sosúa</a>
         <a href="#book" data-i18n="footer.serviceBooking">Request booking</a>
+      </nav>
+      <nav class="footer-col" aria-label="Destinations" data-i18n-attr="aria-label:footer.destinationsHeading">
+        <h4 class="mono" data-i18n="footer.destinationsHeading">Destinations</h4>
+        <a href="sosua.html" data-i18n="footer.serviceSosua">Sosúa</a>
+        <a href="cabarete.html" data-i18n="footer.serviceCabarete">Cabarete</a>
+        <a href="puerto-plata.html" data-i18n="footer.servicePuertoplata">Puerto Plata</a>
+        <a href="cofresi.html" data-i18n="footer.serviceCofresi">Cofresí</a>
+        <a href="rio-san-juan.html" data-i18n="footer.serviceRiosanjuan">Río San Juan</a>
+        <a href="las-terrenas.html" data-i18n="footer.serviceLasterrenas">Las Terrenas</a>
       </nav>
       <nav class="footer-col" aria-label="Company">
         <h4 class="mono" data-i18n="footer.companyHeading">Company</h4>
