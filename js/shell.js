@@ -12,7 +12,7 @@
      posted to Formspree via submitBookingEmail (see core.js) — same channel
      as the cart's email checkout, no mailto: involved
    Depends on: core.js (prefersReducedMotion, whatsappLink,
-   submitBookingEmail), i18n.js (t()).
+   trackBookingConversion, submitBookingEmail), i18n.js (t()).
    All motion respects prefers-reduced-motion.
    ============================================================ */
 
@@ -265,6 +265,14 @@
   }
   updateLinks();
   document.addEventListener('sariel:langchange', updateLinks);
+
+  // A new tab keeps this page alive so the conversion hit isn't cancelled by
+  // navigating away, and matches every other WhatsApp path on the site.
+  [fab, footerLink, directCta].forEach((link) => {
+    if (!link) return;
+    link.target = '_blank';
+    link.addEventListener('click', trackBookingConversion);
+  });
 
   if (fab) {
     // Reveal the FAB only after the visitor leaves the hero.

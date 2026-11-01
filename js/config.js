@@ -23,6 +23,13 @@ const CONFIG = {
   // email hardcoded — update those too if it ever changes, see
   // DOCS/USER_MANUAL.md.
   formspreeEndpoint: 'https://formspree.io/f/xbdnzrez',
+  // Google Ads conversion "SG - Solicitud de reserva" as `AW-<id>/<label>`,
+  // reported by trackBookingConversion() in js/core.js. The Ads account is
+  // shared with Agendaterd: the G-YWXJ54LH6S tag Google's setup offers belongs
+  // to that site and must never be installed here, and js/consent.js blocks the
+  // reports this AW tag would otherwise send to it. This site's GA4 tag is the
+  // G-P5B6J8Y75V snippet in each page's <head>.
+  googleAdsConversion: 'AW-18346905448/HH2DCK2E568dEOievqxE',
   // Google Business Profile (connected 2026-08-12). Three different links come
   // off the same listing — do not swap them, they do different jobs:
   //  - googleReviewsUrl → where "Read our reviews on Google" sends visitors.

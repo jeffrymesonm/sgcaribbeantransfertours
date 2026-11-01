@@ -5,15 +5,27 @@
    - prefersReducedMotion flag
    - animatePrice (blur "reprint" + count transition)
    - formatDuration
-   - whatsappLink
+   - whatsappLink, openWhatsApp
+   - trackBookingConversion (Google Ads)
    - submitBookingEmail (Formspree)
-   Depends on: config.js (CONFIG.whatsappNumber, CONFIG.formspreeEndpoint).
+   Depends on: config.js (CONFIG.whatsappNumber, CONFIG.formspreeEndpoint,
+   CONFIG.googleAdsConversion). `gtag` comes from the GA4 snippet in each
+   page's <head>.
    All motion respects prefers-reduced-motion.
    ============================================================ */
 
 'use strict';
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Registers the Ads destination on the GA4 tag already loaded in <head>, so a
+// visitor arriving from an ad keeps its click ID until they send a request.
+// Personalization signals stay off: without them Google doesn't build
+// remarketing lists from these visitors, which would otherwise land in the
+// account shared with Agendaterd. Conversions are measured either way.
+if (typeof gtag === 'function') {
+  gtag('config', CONFIG.googleAdsConversion.split('/')[0], { allow_ad_personalization_signals: false });
+}
 
 /* ============================================================
    Utilities
@@ -93,12 +105,35 @@ function whatsappLink(message) {
 }
 
 /**
+ * Reports one booking or contact request to Google Ads. Sends no visitor data,
+ * only the conversion ID, and the action counts one per ad click, so repeat
+ * calls from the same visitor are harmless.
+ * @returns {void}
+ */
+function trackBookingConversion() {
+  if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: CONFIG.googleAdsConversion });
+}
+
+/**
+ * Opens WhatsApp in a new tab with a prefilled message and reports the
+ * conversion. Call it directly from a click handler: deferring it (timeout,
+ * promise) gets the new tab blocked in Safari and Firefox.
+ * @param {string} message Plain-text message to prefill.
+ * @returns {void}
+ */
+function openWhatsApp(message) {
+  trackBookingConversion();
+  window.open(whatsappLink(message), '_blank', 'noopener');
+}
+
+/**
  * Submits a booking or contact request to Formspree (CONFIG.formspreeEndpoint)
  * — used by both the cart's "Send via Email" checkout and the "Email Us"
  * contact dialog (js/cart.js, js/shell.js) — the owner receives it by email
  * without the visitor needing a configured mail client. `email` is sent as
  * `_replyto` (Formspree sets the Reply-To header from it) and `subject` as
  * `_subject` (Formspree's own field conventions for its plain POST API).
+ * Reports the conversion only once Formspree accepts the request.
  * @param {Object} fields
  * @param {string} fields.name
  * @param {string} fields.email
@@ -113,6 +148,7 @@ async function submitBookingEmail({ name, email, subject, message }) {
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ name, email, _replyto: email, _subject: subject, message }),
     });
+    if (response.ok) trackBookingConversion();
     return response.ok;
   } catch {
     return false;

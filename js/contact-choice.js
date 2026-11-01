@@ -7,7 +7,7 @@
    WhatsApp, which dead-ends any visitor without it. Now they open this
    dialog: WhatsApp keeps the old behaviour, Email posts the same request to
    Formspree without leaving the page.
-   Depends on: core.js (whatsappLink, submitBookingEmail), i18n.js (t()).
+   Depends on: core.js (openWhatsApp, submitBookingEmail), i18n.js (t()).
    Markup: #contactChoiceDialog, present on all 5 pages.
    ============================================================ */
 
@@ -97,7 +97,7 @@ let showContactChoiceDialog = null;
     // Opened inside this button's own click handler, so it stays a direct user
     // gesture and pop-up blockers leave it alone. Deferring it (timeout,
     // promise) would get it blocked in Safari and Firefox.
-    window.open(whatsappLink(request.message), '_blank', 'noopener');
+    openWhatsApp(request.message);
     dialog.close();
   });
 
@@ -175,7 +175,7 @@ let showContactChoiceDialog = null;
  */
 function openContactChoice(buildRequest) {
   if (!showContactChoiceDialog) {
-    window.open(whatsappLink(buildRequest().message), '_blank', 'noopener');
+    openWhatsApp(buildRequest().message);
     return;
   }
   showContactChoiceDialog(buildRequest);

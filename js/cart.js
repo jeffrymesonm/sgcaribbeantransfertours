@@ -28,7 +28,7 @@
      and recomputes correctly when a quantity/luggage count is edited.
    Depends on: config.js (AIRPORTS/PROVINCES/VEHICLES/estimateRoute,
    LUGGAGE_FREE_LIMIT, FIXED_FARE_PAX_INCLUDED, fixedFarePrice,
-   luggageSurcharge), core.js (formatDuration, formatMoney, whatsappLink,
+   luggageSurcharge), core.js (formatDuration, formatMoney, openWhatsApp,
    submitBookingEmail), i18n.js (t()).
    ============================================================ */
 
@@ -558,7 +558,7 @@ function buildCartMessage({ name, email }) {
     if (!canCheckout()) return;
 
     if (checkoutChannel === 'whatsapp') {
-      window.open(whatsappLink(buildCartMessage(readCheckoutDetails())), '_blank', 'noopener');
+      openWhatsApp(buildCartMessage(readCheckoutDetails()));
       clearCart();
       closeCart();
       return;
