@@ -591,14 +591,6 @@ section { scroll-margin-top: var(--header-h); }
   font-size: 0.88rem;
   color: rgba(252, 250, 245, 0.85);
 }
-.hero-trust strong { font-weight: 700; color: var(--shell); }
-.hero-trust .star {
-  width: 0.85rem; height: 0.85rem;
-  fill: var(--gold);
-  margin: 0 0.35rem 0 0.25rem;
-  vertical-align: -1px;
-  display: inline-block;
-}
 .hero-trust li { display: inline-flex; align-items: center; }
 
 /* Masked line reveal: each hero line slides up from its own clip box */
@@ -1681,7 +1673,11 @@ section { scroll-margin-top: var(--header-h); }
 
 .reviews-cta [hidden] { display: none; }
 
-@media (min-width: 760px) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 760px) {
+  .review-grid { grid-template-columns: repeat(2, 1fr); }
+  /* The home page shows three; service pages show a pair. */
+  .review-grid:has(> :nth-child(3)) { grid-template-columns: repeat(3, 1fr); }
+}
 
 .review-card {
   margin: 0;
