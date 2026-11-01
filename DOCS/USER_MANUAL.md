@@ -179,8 +179,8 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
    still pending your photos is in `DOCS/DEPLOYMENT.md`'s go-live checklist.
 5. **Domain** — done. All five pages, `sitemap.xml` and `robots.txt` now
    use `https://caribbeansgtransferstours.com/` (set 2026-07-20).
-6. **Reviews** — replace the four sample testimonials (on the home page)
-   with real guest quotes.
+6. **Reviews** — done 2026-11-01: real Google reviews, copied word for word.
+   Add new ones the same way. Never edit or invent them.
 
 ## Changing prices
 > **Puerto Plata City Tour, 2026-08-21:** su precio pasó de 100/125/150 a
@@ -595,3 +595,14 @@ cambias un texto, ejecuta `python tools/build-langs.py`.
 **Mantenla al día:** si añades una herramienta, cookie o dato nuevo, actualiza la
 política. No es asesoría legal: revisa sobre todo lo que promete sobre no vender
 datos y sobre el tiempo que guardas los mensajes.
+
+### Lo que promete la política de privacidad
+
+La política se compromete a esto, así que hay que cumplirlo:
+
+- Borrar los mensajes de un cliente de WhatsApp y Gmail si lo pide. No hay un
+  borrado automático: los mensajes siguen ahí hasta que alguien los borre.
+- Responder en 5 días hábiles a quien pida ver sus datos, y en 10 días hábiles a quien
+  pida corregirlos o borrarlos.
+- No pasar datos de reservas a choferes independientes ni a otros operadores. Si eso
+  cambia, hay que actualizar la política antes.

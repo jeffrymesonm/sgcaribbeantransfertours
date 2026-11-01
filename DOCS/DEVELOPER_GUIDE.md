@@ -40,9 +40,12 @@ isn't one.
    the site no longer charges. Update it in the same commit as any fare, tour
    or contact change.
 
-**Never add `Review` or `aggregateRating` JSON-LD while the testimonials in
-`js/i18n.js` are placeholders** (`DOCS/DEPLOYMENT.md` go-live checklist).
-Marking up invented reviews is structured-data spam and risks a manual action.
+**Testimonials are real Google reviews, word for word** (since 2026-11-01),
+under `reviews.quote*` in `js/i18n.js`, kept in their original language in all
+three dictionaries. Never edit, reword or invent
+one. Reviewer names are literal in each page's markup, first name plus initial.
+**Do not add `Review` or `aggregateRating` JSON-LD** for reviews a business
+publishes about itself: they do not qualify for rich results.
 
 ### Page-level content duplication
 `cruises.html` reuses the `.exc` card markup from `excursions.html`, which

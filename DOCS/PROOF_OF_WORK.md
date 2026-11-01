@@ -3154,3 +3154,40 @@ columnas quedaban 1, 1, 2 y 2.
 `css/styles.css`, `DOCS/FOLDER_STRUCTURE.md`, `DOCS/DEPLOYMENT.md`,
 `DOCS/PROOF_OF_WORK.md`.
 **Files deleted:** `img/gallery-5-hiking.jpg`, `img/gallery-7-overwater-villas.jpg`.
+
+## 2026-11-01T14:00:00.000Z — Resenas reales y sin calificacion inventada
+
+**Pedido:** cambiar las resenas inventadas por 3 reales de Google, y quitar
+"4.9 ★ · 350+ reviews" de la portada.
+
+**Hecho:** portada con 3 resenas; transfers, excursions y cruises con pares distintos.
+El texto es literal y sigue en ingles en los tres idiomas, con "Google review"
+traducido debajo. Los nombres van como nombre e inicial. Portada a 3 columnas.
+Fuera `reviews.quote4`, `hero.trustReviews` y los estilos que solo usaba la calificacion.
+
+**Decision del dueno:** la tercera resena es de "Jeffry O. Meson M.", el mismo
+nombre del perfil de pagos de Google Ads. El dueno fue avisado del riesgo de publicarla
+sin aclarar esa relacion y decidio mantener las 3.
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`, `cruises.html`,
+sus versiones `es/` y `fr/`, `js/i18n.js`, `css/styles.css`,
+`DOCS/DEVELOPER_GUIDE.md`, `DOCS/DEPLOYMENT.md`, `DOCS/USER_MANUAL.md`,
+`DOCS/PROOF_OF_WORK.md`.
+
+## 2026-11-01T15:00:00.000Z — Politica de privacidad completada
+
+**Pedido:** completar la politica con los datos del dueno.
+
+**Hecho:** negocio familiar en Sosua, Puerto Plata; sin operadores externos; base de cada
+uso; transferencia fuera del pais con la excepcion de contrato de la Ley 172-13 (art. 80);
+sin base de datos de clientes: las solicitudes quedan en WhatsApp y correo, y se borran si
+el cliente lo pide (se descarto un plazo fijo porque el negocio no borra mensajes por
+rutina y seria una promesa falsa); plazos de 5 y 10 dias habiles (arts. 10 y 8). Los tres puntos tecnicos quedaron como estaban, por
+decision del dueno.
+
+**Sin resolver:** el negocio no esta registrado, asi que la politica no puede dar un
+nombre legal. El dueno confirmo que tienen licencia y seguro, asi que "Licensed & insured"
+se mantiene en el sitio y en el anuncio.
+
+**Files modified:** `privacy.html`, `es/privacy.html`, `fr/privacy.html`, `js/i18n.js`,
+`DOCS/DEPLOYMENT.md`, `DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`.
