@@ -43,7 +43,8 @@ isn't one.
 **Testimonials are real Google reviews, word for word** (since 2026-11-01),
 under `reviews.quote*` in `js/i18n.js`, kept in their original language in all
 three dictionaries. Never edit, reword or invent
-one. Reviewer names are literal in each page's markup, first name plus initial.
+one, and never use a review by anyone who manages or works for the business.
+Reviewer names are literal in each page's markup, first name plus initial.
 **Do not add `Review` or `aggregateRating` JSON-LD** for reviews a business
 publishes about itself: they do not qualify for rich results.
 
@@ -54,8 +55,9 @@ makes it easy to also reuse the *copy* — that happened, and drove a 73%
 describe the same activity **from the pier** (distance from Amber Cove /
 Taino Bay, how it fits a port call). Keep it that way; measure with a 5-gram
 overlap check if you add cards. Anything above ~50% is near-duplicate.
-Each service page also shows a **different pair** of testimonials for the
-same reason.
+Each service page used to show a **different pair** of testimonials for the
+same reason. With only two real reviews (2026-11-01) every page shows both, in a
+varied order. Go back to different pairs once there are more.
 
 ## Architecture
 Static **six-page** site, no dependencies, no build step. Every page shares

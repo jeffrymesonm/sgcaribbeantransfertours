@@ -1673,11 +1673,7 @@ section { scroll-margin-top: var(--header-h); }
 
 .reviews-cta [hidden] { display: none; }
 
-@media (min-width: 760px) {
-  .review-grid { grid-template-columns: repeat(2, 1fr); }
-  /* The home page shows three; service pages show a pair. */
-  .review-grid:has(> :nth-child(3)) { grid-template-columns: repeat(3, 1fr); }
-}
+@media (min-width: 760px) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .review-card {
   margin: 0;

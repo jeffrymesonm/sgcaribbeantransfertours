@@ -3191,3 +3191,16 @@ se mantiene en el sitio y en el anuncio.
 
 **Files modified:** `privacy.html`, `es/privacy.html`, `fr/privacy.html`, `js/i18n.js`,
 `DOCS/DEPLOYMENT.md`, `DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`.
+
+## 2026-11-01T16:00:00.000Z — Resena de quien gestiona la pagina retirada
+
+**Pedido:** borrar la resena de Jeffry M. Quien pidio el cambio gestiona el sitio y la
+cuenta de Ads, pero el negocio no es suyo, asi que su opinion no es la de un cliente.
+Las entradas anteriores llaman "dueno" a esa persona; corrige ese termino.
+
+**Hecho:** quedan 2 resenas, Donald C. y Daniela, en todas las paginas con resenas. Fuera
+`reviews.quote3` y la regla CSS de 3 columnas.
+
+**Files modified:** `index.html`, `transfers.html`, `excursions.html`, `cruises.html`,
+sus versiones `es/` y `fr/`, `js/i18n.js`, `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/DEPLOYMENT.md`, `DOCS/PROOF_OF_WORK.md`.
