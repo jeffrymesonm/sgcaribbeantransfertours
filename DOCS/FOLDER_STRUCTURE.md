@@ -72,7 +72,7 @@ sariel taxi/
 │   │                                                      unconfirmed, so replace with an owned or licensed
 │   │                                                      photo when one is available. If you swap the file,
 │   │                                                      update width/height in sosua.html's hero <img>
-│   ├── gallery-1..8-*.jpg                                 Home masonry gallery
+│   ├── gallery-1,2,3,4,6,8-*.jpg                          Home masonry gallery (6 photos)
 │   ├── transfer-trust-airport/resort/beach.jpg            transfers.html trust strip
 │   └── exc-punta-rusia/waterfalls/whale-watching/city-tour/beach-day/atv/buggies.jpg
 │                                                            Excursion + cruise card photos

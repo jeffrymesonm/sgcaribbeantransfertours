@@ -3137,3 +3137,20 @@ idiomas; sin errores en consola ni recursos rotos.
 ese ID falso, que no corresponde a ningun clic real.
 
 **Sin probar:** un clic real de anuncio y el aviso desde la UE o el Reino Unido.
+
+## 2026-11-01T04:20:00.000Z — Dos fotos menos en la galeria de la portada
+
+**Pedido:** quitar las fotos "Ridge walk" y la de las villas sobre el agua.
+
+**Hecho:** se quitaron `gallery-5-hiking.jpg` y `gallery-7-overwater-villas.jpg` de
+`index.html` y de `img/`, junto con sus 12 textos en `js/i18n.js`. `es/` y `fr/` se
+regeneraron. En escritorio la galeria pasa de 4 a 3 columnas, porque 6 fotos en 4
+columnas quedaban 1, 1, 2 y 2.
+
+**Verificacion:** 6 fotos en EN/ES/FR, ninguna rota; 3 columnas de 2 fotos en
+1280 px y 820 px, 2 columnas de 3 en 390 px. `python tools/verify.py`: TODO OK.
+
+**Files modified:** `index.html`, `es/index.html`, `fr/index.html`, `js/i18n.js`,
+`css/styles.css`, `DOCS/FOLDER_STRUCTURE.md`, `DOCS/DEPLOYMENT.md`,
+`DOCS/PROOF_OF_WORK.md`.
+**Files deleted:** `img/gallery-5-hiking.jpg`, `img/gallery-7-overwater-villas.jpg`.

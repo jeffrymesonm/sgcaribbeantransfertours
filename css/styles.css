@@ -1462,7 +1462,6 @@ section { scroll-margin-top: var(--header-h); }
 }
 
 @media (min-width: 760px) { .masonry { columns: 3; column-gap: 1.25rem; } }
-@media (min-width: 1080px) { .masonry { columns: 4; } }
 
 .masonry-item {
   margin: 0 0 1rem;
