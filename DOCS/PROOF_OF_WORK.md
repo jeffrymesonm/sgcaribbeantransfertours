@@ -3120,3 +3120,20 @@ del visitante, y un clic real de anuncio. La politica no es asesoria legal.
 `js/i18n.js`, `js/config.js`, `css/styles.css`, `sitemap.xml`,
 `tools/build-langs.py`, `tools/verify.py`, `PROJECT_INFO.md`, `tasks/todo.md`,
 `memory/decisions.md`, `memory/lessons.md` y los documentos de `DOCS/`.
+
+## 2026-11-01T04:10:00.000Z — Publicado y comprobado en produccion
+
+**Pedido:** publicar la medicion, la politica y el aviso de cookies.
+
+**Hecho:** commits `fab3193`, `a633402` y `17e2197` en `master`, en vivo en GitHub Pages.
+
+**Verificado en `caribbeansgtransferstours.com`,** con Formspree y `wa.me` simulados:
+aviso visible en la primera visita; `G-YWXJ54LH6S` bloqueada; rechazar no deja cookies;
+aceptar crea `_ga`, `_ga_P5B6J8Y75V`, `_gcl_au` y `_gcl_aw`; la conversion sale con su
+etiqueta; 9 envios a GA4, todos a `G-P5B6J8Y75V`; privacidad responde 200 en los tres
+idiomas; sin errores en consola ni recursos rotos.
+
+`_gcl_aw` se comprobo con un `gclid` inventado, y esa prueba envio una conversion con
+ese ID falso, que no corresponde a ningun clic real.
+
+**Sin probar:** un clic real de anuncio y el aviso desde la UE o el Reino Unido.

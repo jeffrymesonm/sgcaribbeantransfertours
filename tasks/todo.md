@@ -342,7 +342,7 @@ marcarlos violaría las guidelines de Google (riesgo de acción manual).
 - [x] Medir WhatsApp y correo con `SG - Solicitud de reserva`
 - [x] Probar en navegador con Formspree y wa.me simulados
 - [x] Actualizar DOCS y memoria
-- [ ] Publicar en `master`
+- [x] Publicar en `master`
 - [ ] Confirmar la conversión con un clic real desde producción
 - [x] Página de privacidad y aviso de cookies en 3 idiomas
 - [ ] Revisar la política de privacidad con el dueño

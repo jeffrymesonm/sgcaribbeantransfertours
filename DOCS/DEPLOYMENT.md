@@ -3,8 +3,10 @@
 > Last updated: 2026-07-20 UTC (real domain set, nosotros.html added)
 
 ## Current state
-Not deployed. Pure static site (HTML/CSS/JS) — works on any static host.
-No environment variables, no build command, no server-side code.
+Live on GitHub Pages at `caribbeansgtransferstours.com`, served from `master`
+at the repository root. Every folder in the repository is therefore public,
+including `DOCS/`, `memory/` and `tasks/`. Never commit secrets to them.
+Pure static site (HTML/CSS/JS). No environment variables, no server-side code.
 
 ## Local preview
 ```
