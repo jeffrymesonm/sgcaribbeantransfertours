@@ -480,3 +480,19 @@ por ítem. Todas las claves i18n usadas por cart.js existen en EN/ES/FR (de
 paso se detectó y corrigió que el bloque FR de la sesión anterior no tenía
 `cart.emailLabel`/`emailRequired`/`emailSending`/`emailSuccess`/`emailError`
 ni `whatsapp.labelEmail` — caían a inglés por el fallback de `t()`).
+
+## 2026-11-01T03:30Z — Conversión de Google Ads centralizada en core.js
+Se registra el destino AW desde `js/core.js` en lugar de editar las 33 páginas:
+un solo lugar para el ID y ningún cambio en el HTML generado. `openWhatsApp()`
+sustituye los `window.open` repetidos, y `submitBookingEmail()` reporta solo si
+Formspree acepta. `allow_ad_personalization_signals: false` porque no hay
+remarketing previsto, la cuenta de Ads se comparte con Agendaterd y el sitio no
+tiene aviso de consentimiento.
+
+## 2026-11-01T03:45Z — Consentimiento por región, con el aviso para todos
+Sin servidor no se puede saber el país, así que el aviso se muestra a todos y
+Google resuelve el valor por defecto: denegado en EEE, Reino Unido, Suiza y Quebec,
+activo en el resto. Denegar en todo el mundo perdería casi todas las conversiones de
+quien ignora el aviso, en una campaña con muy pocos clics. Consent Mode avanzado: con
+rechazo salen pings sin cookies, declarados en `privacy.html`. Una sola decisión para
+Analytics y Ads, por simplicidad.

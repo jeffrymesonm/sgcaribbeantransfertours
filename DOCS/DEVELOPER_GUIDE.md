@@ -765,3 +765,51 @@ visitors which service they want, then routes them to the matching page.
    load the identical shared set, this holds today, but if a future page ever
    omits one of them, cross-page cart rendering breaks silently (no console
    error, just a wrong/blank cart row).
+
+## Google Ads conversion tracking (2026-11-01 UTC)
+Every booking or contact request reports one Google Ads conversion. The ID lives
+in `CONFIG.googleAdsConversion` (`AW-<id>/<label>`), action
+"SG - Solicitud de reserva", category Contact, count One.
+
+- **Tag:** no second script in `<head>`. `js/core.js` adds the Ads destination to
+  the GA4 `gtag` each page already defines, guarded by `typeof gtag` so pages
+  without the snippet keep working.
+- **Reporting:** `trackBookingConversion()` is the only place that fires it. New
+  WhatsApp buttons call `openWhatsApp(message)`, not `window.open`, or they go
+  unmeasured. Email paths get it from `submitBookingEmail()`, only when Formspree
+  accepts the request, so failed sends never count.
+- **General WhatsApp links** (`#whatsappFab`, `#footerWhatsApp`, `#bookDirectCta`)
+  open in a new tab, set in `initWhatsAppLinks` (`js/shell.js`), because leaving
+  the page in the same tab can cancel the hit.
+- **No personal data:** the event carries only `send_to`. Enhanced conversions
+  stay off, and `allow_ad_personalization_signals: false` keeps these visitors
+  out of remarketing lists in an Ads account shared with Agendaterd.
+- **Agendaterd's property `G-YWXJ54LH6S` stays blocked.** Never install that tag.
+  The account's `AW-` Google tag also reports to it, so registering the AW
+  destination alone sends this site's visits there. `js/consent.js` sets
+  `window['ga-disable-G-YWXJ54LH6S'] = true` before anything loads, and
+  `tools/verify.py` fails if that line goes. This site's GA4 is `G-P5B6J8Y75V`.
+- **Not measured:** the `mailto:` footer links and the plain `wa.me` link on
+  `404.html`, which loads no scripts.
+
+## Cookie consent and the privacy page (2026-11-01 UTC)
+`js/consent.js` runs Google Consent Mode. It is the one script that loads
+**blocking, in `<head>`, above the gtag snippet**, because Google reads consent
+in queue order. `tools/verify.py` section 12 enforces the order on every page.
+
+- **Defaults:** denied in `CONSENT_REQUIRED_REGIONS` (EEA, UK, Switzerland,
+  Quebec), granted elsewhere. Google resolves the region from the visitor's
+  location, so this cannot be tested without a connection from one of them.
+- **Choice:** stored in `localStorage['sg-cookie-consent']` and re-applied in
+  `<head>` on every page. Rejecting also deletes existing `_ga*` and `_gcl*`.
+- **Ad personalization** is always denied, whatever the visitor answers.
+- **Rejected or unanswered in a required region:** no cookies, but gtag still
+  sends cookieless pings (`gcs=G100`). `privacy.html` says so.
+- **Markup:** `#consentBanner` before the scripts on every page, plus a
+  `[data-cookie-settings]` button in `.footer-policy`. Any button with that
+  attribute reopens the banner. Accept and Reject share one style on purpose.
+- **WhatsApp button:** `--consent-offset` lifts it above the banner.
+
+`privacy.html` is a normal page in `PAGES` (`tools/build-langs.py`), text under
+`privacy.*`. **It describes what the code does:** a new cookie, provider or
+collected field must be added there in the same change.

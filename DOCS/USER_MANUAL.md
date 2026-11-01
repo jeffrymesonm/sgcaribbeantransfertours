@@ -563,3 +563,35 @@ fall back to English wherever the other language is missing it. Each page's
 browser-tab title and meta description are also translated text — they live
 under `meta.home.*`, `meta.transfers.*`, `meta.excursions.*`,
 `meta.cruises.*`, `meta.nosotros.*` and `meta.sosua.*` in the same file.
+
+## Medición de solicitudes en Google Ads — 2026-11-01
+
+Cada solicitud cuenta como una conversión llamada **SG - Solicitud de reserva** en
+Google Ads. Se registra al pulsar WhatsApp (diálogo, carrito, botón flotante, pie
+de página y botón de contacto directo) y cuando un correo se envía bien. Un correo
+que falla no cuenta. Pulsar WhatsApp no garantiza que el cliente envíe el mensaje,
+así que compara esta cifra con los chats que recibes de verdad.
+
+Los enlaces generales de WhatsApp ahora abren en una pestaña nueva.
+
+Si Google te vuelve a ofrecer el código `G-YWXJ54LH6S`, no lo instales: es de
+Agendaterd, que usa la misma cuenta. El ID de esta conversión se cambia en un solo
+lugar: `googleAdsConversion` en `js/config.js`.
+
+## Aviso de cookies y política de privacidad — 2026-11-01
+
+Cada página muestra un aviso de cookies con **Aceptar** y **Rechazar**. La elección
+queda guardada, y el enlace **Configurar cookies** del pie permite cambiarla.
+
+- En el Espacio Económico Europeo, Reino Unido, Suiza y Quebec, la medición queda
+  apagada hasta aceptar. Por eso, en esos lugares verás menos conversiones que chats
+  reales.
+- En el resto del mundo la medición está activa, salvo que el visitante rechace.
+
+La política está en `privacy.html`, enlazada desde todos los pies de página. Sus
+textos están en `js/i18n.js`, bajo las claves `privacy.*`, en los tres idiomas. Si
+cambias un texto, ejecuta `python tools/build-langs.py`.
+
+**Mantenla al día:** si añades una herramienta, cookie o dato nuevo, actualiza la
+política. No es asesoría legal: revisa sobre todo lo que promete sobre no vender
+datos y sobre el tiempo que guardas los mensajes.

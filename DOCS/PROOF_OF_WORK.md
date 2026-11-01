@@ -3006,3 +3006,117 @@ para el dueno.
 **Files created / deleted:** ninguno.
 
 **Sigue pendiente:** solo **`sameAs`: las URLs de Facebook y TripAdvisor.**
+
+## 2026-11-01T03:30:00.000Z — Medicion de conversiones de Google Ads
+
+**Pedido:** medir las solicitudes que trae la campana "Transfers EN" (empieza el
+1 de noviembre de 2026). El sitio no registraba ninguna conversion: solo tenia
+GA4, y los botones principales abren WhatsApp con `window.open`, que la medicion
+automatica de clics salientes de GA4 no detecta.
+
+**Hecho:**
+- `CONFIG.googleAdsConversion` guarda la conversion `SG - Solicitud de reserva`.
+- `js/core.js` registra el destino `AW-18346905448` sobre el GA4 que ya carga
+  cada pagina, con `allow_ad_personalization_signals: false`.
+- `trackBookingConversion()` y `openWhatsApp()` en `js/core.js`. Las tres
+  llamadas repetidas a `window.open` (dialogo, respaldo sin dialogo y carrito)
+  ahora pasan por `openWhatsApp()`.
+- `submitBookingEmail()` reporta la conversion solo si Formspree acepta el
+  envio, lo que cubre el dialogo, el carrito y "Email Us" en un solo sitio.
+- Boton flotante, enlace del pie y `#bookDirectCta` reportan el clic y abren en
+  pestana nueva: navegar en la misma pestana podia cancelar el envio.
+
+**No se instalo `G-YWXJ54LH6S`**, el codigo que ofrecia Google: es la etiqueta de
+Agendaterd, que comparte esta cuenta de Ads. Sus visitas se habrian mezclado.
+
+### Verificacion
+
+Navegador real (Playwright) contra `python -m http.server`, con Formspree y
+`wa.me` simulados para no enviar solicitudes reales al dueno.
+
+| Escenario | Conversiones |
+|---|---|
+| Cargar la pagina | 0 |
+| Dialogo → WhatsApp | 1 |
+| Dialogo correo: sin nombre / correo invalido / Formspree 500 | 0 |
+| Dialogo correo aceptado | 1 |
+| Carrito WhatsApp sin nombre | 0 |
+| Carrito WhatsApp / carrito correo | 1 / 1 |
+| CTA directo / enlace del pie / "Email Us" | 1 / 1 / 1 |
+| Boton flotante pulsado 3 veces seguidas | 3 (la accion cuenta "Una") |
+| Movil 390 px en `es/transfers.html` | 1 |
+
+Destino AW presente en las 9 paginas revisadas (`en`, `es`, `fr`). `404.html` no
+carga GA ni core.js y sigue igual, sin errores. Consola limpia salvo el 500
+simulado a proposito. Con la senal de personalizacion apagada desaparecieron
+`rmkt/collect` y `1p-user-list`; `googleadservices.com/pagead/conversion` sigue
+saliendo. `python tools/verify.py`: TODO OK.
+
+**Sin probar todavia:** un clic real de anuncio en produccion. Las pruebas locales
+llevan el evento a Google pero no tienen `gclid`, asi que no cuentan como
+conversiones de la campana.
+
+**Files modified:** `js/config.js`, `js/core.js`, `js/contact-choice.js`,
+`js/cart.js`, `js/shell.js`, `DOCS/PROOF_OF_WORK.md`, `DOCS/DEVELOPER_GUIDE.md`,
+`DOCS/USER_MANUAL.md`, `DOCS/DEPLOYMENT.md`, `PROJECT_INFO.md`,
+`memory/decisions.md`, `tasks/todo.md`.
+**Files created / deleted:** ninguno.
+
+**Sigue pendiente:** aviso de privacidad y consentimiento de cookies. El sitio no
+tiene ninguno y la campana puede llegar a visitantes de la UE y el Reino Unido.
+
+## 2026-11-01T03:45:00.000Z — Politica de privacidad y aviso de cookies
+
+**Pedido:** "haz privacidad y cookies". El sitio tenia GA4 y Google Ads sin aviso
+ni politica, y la campana puede llegar a la UE y el Reino Unido.
+
+**Hecho:**
+- `js/consent.js`: Consent Mode, por defecto denegado en EEE, Reino Unido, Suiza y
+  Quebec, y activo en el resto. Guarda la eleccion y borra `_ga*`/`_gcl*` al rechazar.
+- Aviso en las 36 paginas, con Aceptar y Rechazar en igualdad, y "Configurar cookies"
+  en el pie para cambiar de opinion.
+- `privacy.html` en EN/ES/FR, con tabla de cookies y empresas implicadas.
+- `tools/verify.py`, seccion 12: consent.js antes de gtag, aviso y pie en todas.
+- `tools/build-langs.py`: la pagina nueva entra en `PAGES`.
+
+**Correccion a la entrada anterior:** decia que no se instalo `G-YWXJ54LH6S`. Es
+cierto, pero estaba incompleto. La prueba con cookies mostro `_ga_YWXJ54LH6S`: la
+etiqueta `AW-18346905448` tambien reporta a esa propiedad de Agendaterd. Antes del
+arreglo salieron 2 envios a esa propiedad en una sola carga de pagina. Ahora
+`window['ga-disable-G-YWXJ54LH6S'] = true` la bloquea, y `verify.py` lo vigila.
+Mis pruebas locales previas pudieron dejar unas pocas visitas en esa propiedad.
+Nada de esto se llego a publicar.
+
+**Tambien:** la sombra del carrito cerrado se veia en el borde derecho de todas las
+paginas sobre fondos claros. Ahora solo aparece con el carrito abierto.
+
+### Verificacion
+
+Navegador real con Formspree y `wa.me` simulados.
+
+| Prueba | Resultado |
+|---|---|
+| Orden de la cola | `consent default` x2 antes de `js` y `config` |
+| Primera visita | Aviso visible, sin robar el foco |
+| Rechazar | Sin cookies Google tras recargar, `gcs=G100` |
+| Rechazar y enviar solicitud | Sin cookies, evento cookieless |
+| Configurar cookies | Reabre, foco en Aceptar, luego vuelve al boton |
+| Aceptar | `_ga`, `_ga_P5B6J8Y75V`, `_gcl_au`, `gcs=G111` |
+| Rechazar tras aceptar | Cookies borradas |
+| Propiedades GA con el bloqueo | Solo `G-P5B6J8Y75V`; conversion con su etiqueta |
+| Regresion de conversiones | 7 validas = 7 envios; invalidas y fallidas = 0 |
+| Home con selector de servicio | Conviven aviso y dialogo |
+| Carrito abierto | Cubre el aviso |
+| 390 px en frances | Sin scroll horizontal; boton de WhatsApp sobre el aviso |
+| `es`/`fr` de privacidad | Idioma, titulo y textos correctos, sin claves vacias |
+
+`python tools/verify.py`: TODO OK, 36 paginas mas 404.
+
+**Sin probar:** el valor por defecto por region, porque depende de la ubicacion real
+del visitante, y un clic real de anuncio. La politica no es asesoria legal.
+
+**Files created:** `privacy.html`, `es/privacy.html`, `fr/privacy.html`, `js/consent.js`.
+**Files modified:** las 11 paginas en ingles, sus 22 versiones `es/` y `fr/`,
+`js/i18n.js`, `js/config.js`, `css/styles.css`, `sitemap.xml`,
+`tools/build-langs.py`, `tools/verify.py`, `PROJECT_INFO.md`, `tasks/todo.md`,
+`memory/decisions.md`, `memory/lessons.md` y los documentos de `DOCS/`.

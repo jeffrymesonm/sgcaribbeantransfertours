@@ -15,6 +15,8 @@ sariel taxi/
 │                         Watching, City Tour, Beach Experiences, ATV, Dune Buggy) + trust strip
 ├── cruises.html          Hero + guaranteed-return band + 3 template cruise cards + trust strip
 ├── nosotros.html         "Meet the team" page (2026-07-20): hero banner + company
+├── privacy.html          Privacy policy and cookie table (2026-11-01), linked from
+│                         every footer. Text in js/i18n.js under privacy.*
 │                         intro (logo + story) + team grid + fleet grid + book CTA
 ├── sosua.html            Sosúa destination hub (2026-08-12) — the SEO/AEO/GEO
 │                         page: hero + quick-answer fact block + airport fare
@@ -80,6 +82,8 @@ sariel taxi/
 │   ├── i18n.js            EN/ES/FR dictionary + language switcher + per-page meta (loads first)
 │   ├── config.js           CONFIG (WhatsApp number) + AIRPORTS/PROVINCES/VEHICLES + pricing model
 │   ├── core.js              Shared utilities: animatePrice, formatDuration, whatsappLink
+│   ├── consent.js           Cookie consent (Google Consent Mode) and banner. Loads
+│   │                        blocking in <head>, above gtag (2026-11-01)
 │   ├── contact-choice.js     WhatsApp-or-email <dialog> for Book Directly / Ask for a Quote
 │   ├── cart.js               Cart state/panel/checkout (versioned localStorage)
 │   ├── shell.js                Header, mobile nav, reveals, parallax, counters, FAQ, WhatsApp links

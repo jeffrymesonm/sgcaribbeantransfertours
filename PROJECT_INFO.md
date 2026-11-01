@@ -1,6 +1,6 @@
 # PROJECT_INFO — SG Caribbean Transfers & Tours
 
-> Last updated: 2026-08-21 UTC
+> Last updated: 2026-11-01 UTC
 
 ## What it is
 A small conversion-focused marketing **site** (six static pages, one shared
@@ -33,6 +33,7 @@ nearby attractions, 10-item FAQ).
 - Fonts: Google Fonts — Fraunces (display), Archivo (body), IBM Plex Mono (ticket data).
 - Images: all photos are local files in `img/` (team/fleet photos from the owner + stock photos for the remaining sections — see `DOCS/DEPLOYMENT.md` go-live checklist for which are still placeholders).
 - No backend. Conversion channel is **WhatsApp deep links** (`wa.me`), number `+1 829-627-7733`.
+- Measurement: GA4 `G-P5B6J8Y75V` in each page's `<head>`, plus Google Ads conversion `AW-18346905448` set in `CONFIG.googleAdsConversion` (`js/config.js`).
 
 ## Files
 | Path | Purpose |
@@ -42,6 +43,7 @@ nearby attractions, 10-item FAQ).
 | `excursions.html` | Hero + 7 excursion cards (Punta Rusia, 27 Charcos, Whale Watching, City Tour, Beach Experiences, ATV Adventure, Dune Buggy Adventure) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `cruises.html` | Hero + guaranteed-return promise band + 3 template cruise cards (optional ship name + departure time) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `nosotros.html` | Hero banner + company-story intro (logo + copy) + driver team grid + fleet grid + book CTA. JSON-LD (BreadcrumbList) |
+| `privacy.html` | Privacy policy: data collected, cookie table, providers, rights. Linked from every footer |
 | `puerto-plata.html` | Puerto Plata / Playa Dorada hub — the airport city and cruise city. POP US$38.95 confirmed; other airports "On request". Hero: `img/puerto-plata.jpg`, the Christ statue on Pico Isabel de Torres over the city |
 | `cofresi.html` | Cofresí / Costambar hub — Ocean World, resort strip west of the city. POP US$48.50 confirmed. **The only hub without a real photo of its place** — hero is a generic resort shot |
 | `rio-san-juan.html` | Río San Juan / Playa Grande hub — Gri-Gri lagoon, Atlantic beaches. POP US$98.50 confirmed |
@@ -53,6 +55,7 @@ nearby attractions, 10-item FAQ).
 | `js/i18n.js` | EN/ES/FR dictionary + language switcher, per-page meta (`meta.<page>.*` via `data-page`) — see DEVELOPER_GUIDE.md |
 | `js/config.js` | Business config: `CONFIG.whatsappNumber`, `AIRPORTS`, `PROVINCES`, `VEHICLES`, pricing constants, `LUGGAGE_FREE_LIMIT`/`LUGGAGE_EXTRA_FEE_USD`, `haversineKm`/`estimateRoute` — **the single file to edit for numbers** |
 | `js/core.js` | Shared utilities: `animatePrice`, `formatDuration`, `whatsappLink`, `prefersReducedMotion` |
+| `js/consent.js` | Google Consent Mode defaults and cookie banner. Blocking script in `<head>`, above gtag. Also blocks Agendaterd's GA4 property |
 | `js/cart.js` | Cart state/panel/checkout — versioned `localStorage` (`sariel-cart`, v3), per-item trip details (flight/date/luggage per transfer, date per excursion) + per-item quantity/luggage editing, `describeCartItem`, `buildCartMessage` |
 | `js/shell.js` | Header, mobile nav, scroll reveals, parallax, counters, FAQ accordion, WhatsApp links — loaded on all 6 pages |
 | `js/calculator.js` | Transfer price calculator — `transfers.html` only |

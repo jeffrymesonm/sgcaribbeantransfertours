@@ -89,3 +89,12 @@ con ese nombre. Si aparece un archivo "de más" con un nombre distinto al
 esperado y el mismo tamaño que algo en `Nueva carpeta/`, es casi seguro el
 dueño reemplazándolo — renombrar para que coincida con el nombre esperado
 en vez de tocar el HTML.
+
+## 2026-11-01T03:45Z — Un ID de Google Ads puede arrastrar el GA4 de otro sitio
+**Qué salió mal:** se afirmó que no se instalaba la etiqueta de Agendaterd porque no
+aparecía en el código, pero `gtag('config','AW-…')` carga la etiqueta de Google de la
+cuenta, que también reporta a esa propiedad. El contador de conversiones pasaba
+igual: el problema solo se vio al listar las cookies tras aceptar.
+**Regla:** al añadir cualquier ID de Google, comprobar en el navegador las cookies
+resultantes y los `tid` de `/g/collect`, no solo que el evento salga. Las etiquetas se
+configuran en la cuenta y pueden traer destinos que el código no menciona.

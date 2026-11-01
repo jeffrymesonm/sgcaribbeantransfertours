@@ -337,3 +337,15 @@ marcarlos violaría las guidelines de Google (riesgo de acción manual).
 - [x] 4. Medido antes/despues en movil, portatil y escritorio
 - [x] 5. Documentado que las-terrenas.jpg no se arregla por encuadre
 - [ ] 6. sameAs: URLs de Facebook y TripAdvisor (unico pendiente del dueno)
+
+## 2026-11-01 — Conversión de Google Ads
+- [x] Medir WhatsApp y correo con `SG - Solicitud de reserva`
+- [x] Probar en navegador con Formspree y wa.me simulados
+- [x] Actualizar DOCS y memoria
+- [ ] Publicar en `master`
+- [ ] Confirmar la conversión con un clic real desde producción
+- [x] Página de privacidad y aviso de cookies en 3 idiomas
+- [ ] Revisar la política de privacidad con el dueño
+- [ ] Confirmar el aviso desde una conexión real en la UE o Reino Unido
+
+**Revisión:** cada envío válido suma una conversión; los inválidos y fallidos, ninguna.
