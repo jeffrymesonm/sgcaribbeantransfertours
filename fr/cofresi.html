@@ -85,6 +85,9 @@
   {"@context":"https://schema.org","@type":"WebPage","@id":"https://caribbeansgtransferstours.com/fr/cofresi.html#webpage","name":"Transferts Cofresí et Costambar | Aéroport POP dès 48,50 $","url":"https://caribbeansgtransferstours.com/fr/cofresi.html","description":"Comment rejoindre Cofresí et Costambar, République dominicaine : la zone hôtelière à l'ouest de Puerto Plata et siège d'Ocean World. Transferts privés depuis l'aéroport POP dès 48,50 $, 1 à 6 personnes, paiement à l'arrivée.","inLanguage":"fr","datePublished":"2026-08-21","dateModified":"2026-08-22","primaryImageOfPage":"https://caribbeansgtransferstours.com/img/cofresi.jpg","about":{"@id":"https://caribbeansgtransferstours.com/cofresi.html#destination"},"publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"},"isPartOf":{"@type":"WebSite","@id":"https://caribbeansgtransferstours.com/#website","name":"SG Caribbean Transfers & Tours","url":"https://caribbeansgtransferstours.com/","publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"}}}
   </script>
 
+  <!-- Cookie consent. Must stay above the gtag snippet: see js/consent.js. -->
+  <script src="../js/consent.js"></script>
+
   <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
   <script>
@@ -622,6 +625,7 @@
     </div>
     <div class="container footer-legal">
       <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. Tous droits réservés.</span></p>
+      <p class="footer-policy"><a href="privacy.html" data-i18n="footer.privacy">Politique de confidentialité</a><button type="button" class="footer-cookies" data-cookie-settings data-i18n="footer.cookies">Gérer les cookies</button></p>
       <p class="mono" data-i18n="footer.tagline">POP · STI · Côte Nord · RD</p>
     </div>
   </footer>
@@ -704,6 +708,18 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Cookie consent banner: js/consent.js shows it until the visitor chooses,
+       and the "Cookie settings" buttons reopen it. Both answers carry the same
+       weight on purpose. -->
+  <section class="consent-banner" id="consentBanner" aria-labelledby="consentTitle" hidden>
+    <h2 class="consent-title" id="consentTitle" data-i18n="consent.title">Cookies sur ce site</h2>
+    <p class="consent-text"><span data-i18n="consent.text">Nous utilisons des cookies Google pour compter les visites et savoir quelles annonces génèrent des demandes de réservation. Nous ne transmettons jamais à Google votre nom, votre email ni vos messages.</span> <a href="privacy.html" data-i18n="consent.policyLink">Lire notre politique de confidentialité</a></p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="consentAccept" data-i18n="consent.accept">Accepter</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="consentReject" data-i18n="consent.reject">Refuser</button>
+    </div>
+  </section>
 
   <script src="../js/i18n.js" defer></script>
   <script src="../js/config.js" defer></script>

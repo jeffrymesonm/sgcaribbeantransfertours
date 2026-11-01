@@ -77,6 +77,9 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Combien coûte un transfert de l'aéroport de Puerto Plata à Sosúa ?","acceptedAnswer":{"@type":"Answer","text":"23,95 $ US aller simple pour 1 à 6 passagers en véhicule privé, plus 5 $ US par passager supplémentaire au-delà de six. Le prix est fixé avant le voyage."}},{"@type":"Question","name":"Quels aéroports desservez-vous ?","acceptedAnswer":{"@type":"Answer","text":"Nous assurons des transferts à prix fixe depuis Puerto Plata (POP), Santiago (STI), Saint-Domingue (SDQ), Punta Cana (PUJ) et Samaná El Catey (AZS). La Romana (LRM) et Barahona (BRX) sont sur devis."}},{"@type":"Question","name":"Dois-je payer à l'avance ?","acceptedAnswer":{"@type":"Answer","text":"Non. Votre réservation est confirmée sur WhatsApp sans rien prélever à l'avance — vous réglez le chauffeur en espèces, dollars US ou pesos dominicains, à la fin du trajet. Demandez-nous si vous préférez la carte."}},{"@type":"Question","name":"Que se passe-t-il si mon vol a du retard ?","acceptedAnswer":{"@type":"Answer","text":"Vous n'avez pas à nous prévenir. Le numéro de vol transmis à la réservation est suivi en temps réel et la prise en charge glisse avec lui — deux heures de retard, votre chauffeur arrive deux heures plus tard, et le prix ne bouge pas."}},{"@type":"Question","name":"Combien de passagers tiennent dans le véhicule ?","acceptedAnswer":{"@type":"Answer","text":"Quatre tailles de véhicule, selon votre groupe : 3 passagers en voiture, 6 en minivan, 10 en van, 15 en minibus. Le calculateur de cette page vous fait monter de catégorie automatiquement dès que votre nombre de passagers dépasse l'option plus petite."}},{"@type":"Question","name":"Y a-t-il un supplément bagages ?","acceptedAnswer":{"@type":"Answer","text":"Jusqu'à 10 valises voyagent gratuitement. Au-delà, 15 $ US forfaitaires sont ajoutés à ce véhicule, car une remorque devient nécessaire. Planches de surf ou bagages hors format : dites-le-nous et nous le prévoyons."}}]}
   </script>
 
+  <!-- Cookie consent. Must stay above the gtag snippet: see js/consent.js. -->
+  <script src="../js/consent.js"></script>
+
   <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
   <script>
@@ -1016,6 +1019,7 @@
     </div>
     <div class="container footer-legal">
       <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. Tous droits réservés.</span></p>
+      <p class="footer-policy"><a href="privacy.html" data-i18n="footer.privacy">Politique de confidentialité</a><button type="button" class="footer-cookies" data-cookie-settings data-i18n="footer.cookies">Gérer les cookies</button></p>
       <p class="mono" data-i18n="footer.tagline">POP · STI · Côte Nord · RD</p>
     </div>
   </footer>
@@ -1098,6 +1102,18 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Cookie consent banner: js/consent.js shows it until the visitor chooses,
+       and the "Cookie settings" buttons reopen it. Both answers carry the same
+       weight on purpose. -->
+  <section class="consent-banner" id="consentBanner" aria-labelledby="consentTitle" hidden>
+    <h2 class="consent-title" id="consentTitle" data-i18n="consent.title">Cookies sur ce site</h2>
+    <p class="consent-text"><span data-i18n="consent.text">Nous utilisons des cookies Google pour compter les visites et savoir quelles annonces génèrent des demandes de réservation. Nous ne transmettons jamais à Google votre nom, votre email ni vos messages.</span> <a href="privacy.html" data-i18n="consent.policyLink">Lire notre politique de confidentialité</a></p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="consentAccept" data-i18n="consent.accept">Accepter</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="consentReject" data-i18n="consent.reject">Refuser</button>
+    </div>
+  </section>
 
   <script src="../js/i18n.js" defer></script>
   <script src="../js/config.js" defer></script>

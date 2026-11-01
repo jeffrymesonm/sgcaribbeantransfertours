@@ -70,6 +70,9 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much is a transfer from Puerto Plata airport to Sosúa?","acceptedAnswer":{"@type":"Answer","text":"US$23.95 one way for 1 to 6 guests in a private vehicle, plus US$5 for each extra passenger above six. The price is fixed before you travel."}},{"@type":"Question","name":"Which airports do you cover?","acceptedAnswer":{"@type":"Answer","text":"We run fixed-price transfers from Puerto Plata (POP), Santiago (STI), Santo Domingo (SDQ), Punta Cana (PUJ) and Samaná El Catey (AZS). La Romana (LRM) and Barahona (BRX) are quoted on request."}},{"@type":"Question","name":"Do I have to pay in advance?","acceptedAnswer":{"@type":"Answer","text":"No. Your reservation is confirmed on WhatsApp with nothing charged up front — you settle with the driver in cash, US dollars or Dominican pesos, at the end of the ride. Ask us if you would rather pay by card."}},{"@type":"Question","name":"What happens if my flight is delayed?","acceptedAnswer":{"@type":"Answer","text":"You do not need to tell us. The flight number you send when booking is tracked in real time, and the pickup slides with it — two hours late means your driver shows up two hours later, and the price does not move."}},{"@type":"Question","name":"How many passengers fit in the vehicle?","acceptedAnswer":{"@type":"Answer","text":"Four vehicle sizes, picked from your group: 3 guests in a car, 6 in a minivan, 10 in a van, 15 in a minibus. The calculator on this page upgrades you automatically once your passenger count outgrows the smaller option."}},{"@type":"Question","name":"Is there an extra charge for luggage?","acceptedAnswer":{"@type":"Answer","text":"Up to 10 suitcases travel free. Above that a flat US$15 is added to that vehicle, because a trailer is needed. Surfboards or oversized bags — tell us and we plan for it."}}]}
   </script>
 
+  <!-- Cookie consent. Must stay above the gtag snippet: see js/consent.js. -->
+  <script src="js/consent.js"></script>
+
   <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
   <script>
@@ -1009,6 +1012,7 @@
     </div>
     <div class="container footer-legal">
       <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. All rights reserved.</span></p>
+      <p class="footer-policy"><a href="privacy.html" data-i18n="footer.privacy">Privacy policy</a><button type="button" class="footer-cookies" data-cookie-settings data-i18n="footer.cookies">Cookie settings</button></p>
       <p class="mono" data-i18n="footer.tagline">POP · STI · North Coast · DR</p>
     </div>
   </footer>
@@ -1091,6 +1095,18 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Cookie consent banner: js/consent.js shows it until the visitor chooses,
+       and the "Cookie settings" buttons reopen it. Both answers carry the same
+       weight on purpose. -->
+  <section class="consent-banner" id="consentBanner" aria-labelledby="consentTitle" hidden>
+    <h2 class="consent-title" id="consentTitle" data-i18n="consent.title">Cookies on this site</h2>
+    <p class="consent-text"><span data-i18n="consent.text">We use Google cookies to count visits and see which ads bring booking requests. We never give Google your name, email or messages.</span> <a href="privacy.html" data-i18n="consent.policyLink">Read our privacy policy</a></p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="consentAccept" data-i18n="consent.accept">Accept</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="consentReject" data-i18n="consent.reject">Reject</button>
+    </div>
+  </section>
 
   <script src="js/i18n.js" defer></script>
   <script src="js/config.js" defer></script>

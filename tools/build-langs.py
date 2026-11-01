@@ -15,7 +15,7 @@ WHAT IT TOUCHES
   es/*.html, fr/*.html   generated in full — never hand-edit these
   *.html                 English originals: only the hreflang block, the
                          language switcher and the [data-i18n] fallbacks
-  sitemap.xml            regenerated: 33 URLs, each with its alternates
+  sitemap.xml            regenerated: every URL, each with its alternates
 
 The English pages stay at the root, unchanged in address, so no existing link
 or ranking moves.
@@ -52,6 +52,7 @@ PAGES = {
     'cofresi.html': 'cofresi',
     'rio-san-juan.html': 'riosanjuan',
     'las-terrenas.html': 'lasterrenas',
+    'privacy.html': 'privacy',
 }
 
 BANNER = """<!--
@@ -302,7 +303,7 @@ def build(src, lang, page, dic):
 
 # ---------------------------------------------------------------------------
 def build_sitemap(existing):
-    """33 URLs, each declaring all three alternates plus x-default."""
+    """Every URL, each declaring all three alternates plus x-default."""
     rows = []
     for page in PAGES:
         lastmod, priority = existing.get(page, ('2026-08-22', '0.8'))

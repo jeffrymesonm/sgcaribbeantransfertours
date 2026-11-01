@@ -83,6 +83,9 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Desde qué puertos de crucero recogen?","acceptedAnswer":{"@type":"Answer","text":"Desde las dos terminales de Puerto Plata: Amber Cove en Maimón y Taino Bay en la ciudad de Puerto Plata. Te recibimos a la salida de la terminal con un cartel con tu nombre."}},{"@type":"Question","name":"¿Voy a estar de vuelta antes de que zarpe mi barco?","acceptedAnswer":{"@type":"Answer","text":"Sí. Seguimos la salida de tu barco y planificamos cada tour hacia atrás desde su hora de embarque, devolviéndote al muelle con margen y no justo a tiempo."}},{"@type":"Question","name":"¿Cuánto dura una escala típica en Puerto Plata?","acceptedAnswer":{"@type":"Answer","text":"Normalmente de 8 a 9 horas. Nuestras excursiones para crucero son de medio día, lo que deja varias horas de margen incluso contando el trayecto de ida y vuelta."}},{"@type":"Question","name":"¿A qué distancia está Sosúa de los muelles?","acceptedAnswer":{"@type":"Answer","text":"A unos 50 minutos desde Taino Bay y unos 60 minutos desde Amber Cove."}},{"@type":"Question","name":"¿Las excursiones para crucero son privadas?","acceptedAnswer":{"@type":"Answer","text":"Sí — solo tu grupo, en tu propio vehículo, a tu propio ritmo. Nunca te juntamos con pasajeros de otros barcos."}},{"@type":"Question","name":"¿Podemos armar nuestro propio itinerario?","acceptedAnswer":{"@type":"Answer","text":"Sí. Dinos tu barco, tu puerto y qué quieres ver, y planificamos un día a medida alrededor de tu hora de embarque en lugar de un paquete cerrado."}}]}
   </script>
 
+  <!-- Cookie consent. Must stay above the gtag snippet: see js/consent.js. -->
+  <script src="../js/consent.js"></script>
+
   <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
   <script>
@@ -591,6 +594,7 @@
     </div>
     <div class="container footer-legal">
       <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. Todos los derechos reservados.</span></p>
+      <p class="footer-policy"><a href="privacy.html" data-i18n="footer.privacy">Política de privacidad</a><button type="button" class="footer-cookies" data-cookie-settings data-i18n="footer.cookies">Configurar cookies</button></p>
       <p class="mono" data-i18n="footer.tagline">POP · STI · Costa Norte · RD</p>
     </div>
   </footer>
@@ -673,6 +677,18 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Cookie consent banner: js/consent.js shows it until the visitor chooses,
+       and the "Cookie settings" buttons reopen it. Both answers carry the same
+       weight on purpose. -->
+  <section class="consent-banner" id="consentBanner" aria-labelledby="consentTitle" hidden>
+    <h2 class="consent-title" id="consentTitle" data-i18n="consent.title">Cookies en este sitio</h2>
+    <p class="consent-text"><span data-i18n="consent.text">Usamos cookies de Google para contar visitas y saber qué anuncios traen solicitudes de reserva. Nunca le damos a Google tu nombre, tu correo ni tus mensajes.</span> <a href="privacy.html" data-i18n="consent.policyLink">Lee nuestra política de privacidad</a></p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="consentAccept" data-i18n="consent.accept">Aceptar</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="consentReject" data-i18n="consent.reject">Rechazar</button>
+    </div>
+  </section>
 
   <script src="../js/i18n.js" defer></script>
   <script src="../js/config.js" defer></script>

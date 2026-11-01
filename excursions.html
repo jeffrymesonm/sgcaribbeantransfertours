@@ -69,6 +69,9 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are the excursions private?","acceptedAnswer":{"@type":"Answer","text":"Always. There is no shared option — you book the whole vehicle and the whole guide. That is why departure times are yours to set and why a tour can be cut short or stretched out on the day without asking anyone else."}},{"@type":"Question","name":"What is the minimum group size?","acceptedAnswer":{"@type":"Answer","text":"Four guests on every tour. Below that we can still quote you privately on WhatsApp, but the listed prices start at four."}},{"@type":"Question","name":"Is transport included?","acceptedAnswer":{"@type":"Answer","text":"Yes. Round-trip private transport from your hotel, villa or Airbnb in Sosúa, Puerto Plata or Cabarete is included in every excursion price."}},{"@type":"Question","name":"What if we are more than six people?","acceptedAnswer":{"@type":"Answer","text":"Type your group size into the field on any tour card. If that number is priced, it shows instantly; if not, the card switches to \"Ask for a Quote\" and we price it for you on WhatsApp rather than guessing."}},{"@type":"Question","name":"Which tour do most people book?","acceptedAnswer":{"@type":"Answer","text":"Charcos de Damajagua — limestone pools you climb up, then jump and slide back down. Punta Rusia and the Puerto Plata City Tour come next."}},{"@type":"Question","name":"Can you pick us up from a cruise ship instead?","acceptedAnswer":{"@type":"Answer","text":"Yes. Pickups from Amber Cove and Taino Bay are planned around your ship's all-aboard time — see our cruise shore excursions page."}}]}
   </script>
 
+  <!-- Cookie consent. Must stay above the gtag snippet: see js/consent.js. -->
+  <script src="js/consent.js"></script>
+
   <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
   <script>
@@ -637,6 +640,7 @@
     </div>
     <div class="container footer-legal">
       <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. All rights reserved.</span></p>
+      <p class="footer-policy"><a href="privacy.html" data-i18n="footer.privacy">Privacy policy</a><button type="button" class="footer-cookies" data-cookie-settings data-i18n="footer.cookies">Cookie settings</button></p>
       <p class="mono" data-i18n="footer.tagline">POP · STI · North Coast · DR</p>
     </div>
   </footer>
@@ -719,6 +723,18 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Cookie consent banner: js/consent.js shows it until the visitor chooses,
+       and the "Cookie settings" buttons reopen it. Both answers carry the same
+       weight on purpose. -->
+  <section class="consent-banner" id="consentBanner" aria-labelledby="consentTitle" hidden>
+    <h2 class="consent-title" id="consentTitle" data-i18n="consent.title">Cookies on this site</h2>
+    <p class="consent-text"><span data-i18n="consent.text">We use Google cookies to count visits and see which ads bring booking requests. We never give Google your name, email or messages.</span> <a href="privacy.html" data-i18n="consent.policyLink">Read our privacy policy</a></p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="consentAccept" data-i18n="consent.accept">Accept</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="consentReject" data-i18n="consent.reject">Reject</button>
+    </div>
+  </section>
 
   <script src="js/i18n.js" defer></script>
   <script src="js/config.js" defer></script>

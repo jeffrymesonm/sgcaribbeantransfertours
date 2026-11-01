@@ -334,4 +334,34 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://caribbeansgtransferstours.com/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/privacy.html" />
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://caribbeansgtransferstours.com/es/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/privacy.html" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.1</priority>
+  </url>
+  <url>
+    <loc>https://caribbeansgtransferstours.com/fr/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://caribbeansgtransferstours.com/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://caribbeansgtransferstours.com/es/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://caribbeansgtransferstours.com/fr/privacy.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://caribbeansgtransferstours.com/privacy.html" />
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.1</priority>
+  </url>
 </urlset>

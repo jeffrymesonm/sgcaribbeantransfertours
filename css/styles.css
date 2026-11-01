@@ -2005,12 +2005,14 @@ section { scroll-margin-top: var(--header-h); }
   width: min(100%, 26rem);
   height: 100dvh;
   background: var(--shell);
-  box-shadow: -20px 0 50px -20px rgba(3, 16, 20, 0.5);
   transform: translateX(100%);
   transition: transform 320ms var(--ease-in-out);
 }
 
-.cart-panel.is-open { transform: translateX(0); }
+.cart-panel.is-open {
+  transform: translateX(0);
+  box-shadow: -20px 0 50px -20px rgba(3, 16, 20, 0.5);
+}
 
 .cart-panel-inner {
   display: flex;
@@ -2785,3 +2787,121 @@ section { scroll-margin-top: var(--header-h); }
 }
 .crumbs-list a:hover { border-bottom-color: var(--lagoon); }
 .crumbs-list [aria-current="page"] { color: var(--ink); }
+
+/* ---------- Cookie consent banner ---------- */
+/* Sits above the WhatsApp button (60) and below the open cart (70). On wide
+   screens it goes bottom right: the hero's copy and CTAs are on the left, and
+   they are the first thing a visitor from an ad needs to see. */
+.consent-banner {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 65;
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.15rem 1.25rem 1.25rem;
+  background: var(--abyss);
+  color: var(--shell);
+  border: 1px solid rgba(252, 250, 245, 0.14);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 48px -20px rgba(6, 38, 46, 0.7);
+}
+/* Without this the `display: grid` above outranks the UA's [hidden] rule. */
+.consent-banner[hidden] { display: none; }
+
+.consent-title { font-size: 1.2rem; }
+
+.consent-text {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: rgba(252, 250, 245, 0.82);
+}
+.consent-text a { color: var(--shell); text-underline-offset: 0.2em; }
+
+.consent-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-top: 0.15rem;
+}
+
+@media (min-width: 40rem) {
+  .consent-banner {
+    left: auto;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    width: 26rem;
+  }
+}
+
+/* The banner shares the button's corner, so the button rides above it. */
+.whatsapp-fab { bottom: calc(1.25rem + var(--consent-offset, 0px)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .consent-banner { animation: consent-in 260ms var(--ease-out); }
+}
+@keyframes consent-in {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+/* ---------- Footer legal links ---------- */
+.footer-policy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+.footer-policy a,
+.footer-cookies {
+  color: rgba(252, 250, 245, 0.75);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: color 200ms ease;
+}
+.footer-cookies { padding: 0; border: 0; cursor: pointer; }
+
+@media (hover: hover) and (pointer: fine) {
+  .footer-policy a:hover,
+  .footer-cookies:hover { color: var(--shell); }
+}
+
+/* ---------- Legal pages ---------- */
+/* Keeps the transparent header readable, like a photo hero. Ocean, not abyss:
+   the header's abyss button would vanish against abyss. */
+.legal-head {
+  padding-block: calc(var(--header-h) + clamp(3rem, 8vw, 5.5rem)) clamp(2.5rem, 5vw, 3.5rem);
+  background: var(--ocean);
+  color: var(--shell);
+}
+.legal-head h1 { font-size: clamp(2.5rem, 7vw, 4.25rem); }
+
+.legal-lead {
+  margin-top: 1rem;
+  max-width: 38rem;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: rgba(252, 250, 245, 0.9);
+}
+.legal-updated {
+  margin-top: 1.25rem;
+  font-size: 0.86rem;
+  color: rgba(252, 250, 245, 0.8);
+}
+
+.legal-body { padding-block: clamp(2rem, 5vw, 3.5rem) clamp(4rem, 8vw, 6rem); }
+.legal-body h2 {
+  margin-top: 2.75rem;
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+}
+.legal-body h2:first-child { margin-top: 0; }
+.legal-body p,
+.legal-body ul { margin-top: 0.85rem; }
+.legal-body ul { padding-left: 1.2rem; }
+.legal-body li + li { margin-top: 0.5rem; }
+.legal-body a { color: var(--ocean); text-underline-offset: 0.2em; }
+.legal-body .dest-table-wrap { margin-top: 1.5rem; }
+/* Cookie names are identifiers, so .mono must not uppercase them. */
+.legal-body .dest-table th[scope="row"] {
+  font-size: 0.8rem;
+  text-transform: none;
+  letter-spacing: 0;
+}

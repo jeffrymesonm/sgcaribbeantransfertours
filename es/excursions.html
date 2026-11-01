@@ -76,6 +76,9 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Las excursiones son privadas?","acceptedAnswer":{"@type":"Answer","text":"Siempre. No existe opción compartida — reservas el vehículo completo y el guía completo. Por eso los horarios de salida los pones tú, y por eso un tour se puede acortar o alargar el mismo día sin pedirle permiso a nadie."}},{"@type":"Question","name":"¿Cuál es el tamaño mínimo de grupo?","acceptedAnswer":{"@type":"Answer","text":"Cuatro personas en todas las excursiones. Por debajo de eso igual podemos cotizarte en privado por WhatsApp, pero los precios publicados empiezan en cuatro."}},{"@type":"Question","name":"¿El transporte está incluido?","acceptedAnswer":{"@type":"Answer","text":"Sí. El transporte privado de ida y vuelta desde tu hotel, villa o Airbnb en Sosúa, Puerto Plata o Cabarete está incluido en el precio de cada excursión."}},{"@type":"Question","name":"¿Y si somos más de seis personas?","acceptedAnswer":{"@type":"Answer","text":"Escribe el tamaño de tu grupo en el campo de cualquier tarjeta. Si ese número tiene precio, aparece al instante; si no, la tarjeta cambia a \"Pedir cotización\" y te lo cotizamos por WhatsApp en vez de adivinar."}},{"@type":"Question","name":"¿Cuál es la excursión más reservada?","acceptedAnswer":{"@type":"Answer","text":"Los Charcos de Damajagua — pozas de piedra caliza que subes para luego bajarlas saltando y deslizándote. Punta Rusia y el City Tour de Puerto Plata vienen después."}},{"@type":"Question","name":"¿Pueden recogernos desde un crucero?","acceptedAnswer":{"@type":"Answer","text":"Sí. Las recogidas en Amber Cove y Taino Bay se planifican alrededor de la hora de embarque de tu barco — mira nuestra página de excursiones para cruceros."}}]}
   </script>
 
+  <!-- Cookie consent. Must stay above the gtag snippet: see js/consent.js. -->
+  <script src="../js/consent.js"></script>
+
   <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
   <script>
@@ -644,6 +647,7 @@
     </div>
     <div class="container footer-legal">
       <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. Todos los derechos reservados.</span></p>
+      <p class="footer-policy"><a href="privacy.html" data-i18n="footer.privacy">Política de privacidad</a><button type="button" class="footer-cookies" data-cookie-settings data-i18n="footer.cookies">Configurar cookies</button></p>
       <p class="mono" data-i18n="footer.tagline">POP · STI · Costa Norte · RD</p>
     </div>
   </footer>
@@ -726,6 +730,18 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Cookie consent banner: js/consent.js shows it until the visitor chooses,
+       and the "Cookie settings" buttons reopen it. Both answers carry the same
+       weight on purpose. -->
+  <section class="consent-banner" id="consentBanner" aria-labelledby="consentTitle" hidden>
+    <h2 class="consent-title" id="consentTitle" data-i18n="consent.title">Cookies en este sitio</h2>
+    <p class="consent-text"><span data-i18n="consent.text">Usamos cookies de Google para contar visitas y saber qué anuncios traen solicitudes de reserva. Nunca le damos a Google tu nombre, tu correo ni tus mensajes.</span> <a href="privacy.html" data-i18n="consent.policyLink">Lee nuestra política de privacidad</a></p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="consentAccept" data-i18n="consent.accept">Aceptar</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="consentReject" data-i18n="consent.reject">Rechazar</button>
+    </div>
+  </section>
 
   <script src="../js/i18n.js" defer></script>
   <script src="../js/config.js" defer></script>

@@ -86,6 +86,9 @@
   {"@context":"https://schema.org","@type":"WebPage","@id":"https://caribbeansgtransferstours.com/cabarete.html#webpage","name":"Cabarete Transfers & Travel Guide | POP Airport to Cabarete from $33.95","url":"https://caribbeansgtransferstours.com/cabarete.html","description":"How to get to Cabarete, Dominican Republic: the kitesurfing town on the north coast, just east of Sosúa. Private transfers from Puerto Plata airport (POP) from $33.95, boards carried free, cruise pickups from Amber Cove and Taino Bay.","inLanguage":"en","datePublished":"2026-08-21","dateModified":"2026-08-21","primaryImageOfPage":"https://caribbeansgtransferstours.com/img/cabarete.jpg","about":{"@id":"https://caribbeansgtransferstours.com/cabarete.html#destination"},"publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"},"isPartOf":{"@type":"WebSite","@id":"https://caribbeansgtransferstours.com/#website","name":"SG Caribbean Transfers & Tours","url":"https://caribbeansgtransferstours.com/","publisher":{"@id":"https://caribbeansgtransferstours.com/#organization"}}}
   </script>
 
+  <!-- Cookie consent. Must stay above the gtag snippet: see js/consent.js. -->
+  <script src="js/consent.js"></script>
+
   <!-- Google Analytics 4 (gtag.js) — property G-P5B6J8Y75V -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5B6J8Y75V"></script>
   <script>
@@ -623,6 +626,7 @@
     </div>
     <div class="container footer-legal">
       <p><span data-i18n="footer.legalPrefix">© </span><span id="year">2026</span><span data-i18n="footer.legalSuffix"> SG Caribbean Transfers &amp; Tours. All rights reserved.</span></p>
+      <p class="footer-policy"><a href="privacy.html" data-i18n="footer.privacy">Privacy policy</a><button type="button" class="footer-cookies" data-cookie-settings data-i18n="footer.cookies">Cookie settings</button></p>
       <p class="mono" data-i18n="footer.tagline">POP · STI · North Coast · DR</p>
     </div>
   </footer>
@@ -705,6 +709,18 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Cookie consent banner: js/consent.js shows it until the visitor chooses,
+       and the "Cookie settings" buttons reopen it. Both answers carry the same
+       weight on purpose. -->
+  <section class="consent-banner" id="consentBanner" aria-labelledby="consentTitle" hidden>
+    <h2 class="consent-title" id="consentTitle" data-i18n="consent.title">Cookies on this site</h2>
+    <p class="consent-text"><span data-i18n="consent.text">We use Google cookies to count visits and see which ads bring booking requests. We never give Google your name, email or messages.</span> <a href="privacy.html" data-i18n="consent.policyLink">Read our privacy policy</a></p>
+    <div class="consent-actions">
+      <button type="button" class="btn btn-ghost btn-sm" id="consentAccept" data-i18n="consent.accept">Accept</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="consentReject" data-i18n="consent.reject">Reject</button>
+    </div>
+  </section>
 
   <script src="js/i18n.js" defer></script>
   <script src="js/config.js" defer></script>

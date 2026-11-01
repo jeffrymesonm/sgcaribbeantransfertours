@@ -355,5 +355,28 @@ bad_js = [f for f in sorted(glob.glob('js/*.js'))
 check(not bad_js, f'{len(glob.glob("js/*.js"))} archivos js/ parsean'
       + ('' if not bad_js else f' -> {bad_js}'))
 
+# ------------------------------------------------------- consentimiento ------
+print('\n== 12. Consentimiento de cookies ==')
+# Google reads consent in queue order: if the gtag snippet came first, tags
+# would run before the defaults exist, so this order is a legal requirement.
+bad_order, no_banner, no_policy = [], [], []
+for f in cluster:
+    consent, tag = src_of[f].find('js/consent.js"'), src_of[f].find('googletagmanager.com/gtag/js')
+    if consent == -1 or tag == -1 or consent > tag:
+        bad_order.append(f)
+    if 'id="consentBanner"' not in src_of[f] or 'data-cookie-settings' not in src_of[f]:
+        no_banner.append(f)
+    if 'class="footer-policy"' not in src_of[f]:
+        no_policy.append(f)
+check(not bad_order, f'{len(cluster)} paginas cargan js/consent.js antes de gtag'
+      + ('' if not bad_order else f' -> {bad_order[:4]}'))
+check(not no_banner, 'todas llevan el aviso y el boton para reabrirlo'
+      + ('' if not no_banner else f' -> {no_banner[:4]}'))
+check(not no_policy, 'todas enlazan la politica de privacidad en el pie'
+      + ('' if not no_policy else f' -> {no_policy[:4]}'))
+# The AW tag also reports to Agendaterd's GA4 unless this switch is on.
+check("window['ga-disable-G-YWXJ54LH6S'] = true" in open('js/consent.js', encoding='utf-8').read(),
+      'la propiedad de Agendaterd sigue bloqueada en js/consent.js')
+
 print('\n' + ('TODO OK' if not fails else f'{len(fails)} FALLOS:\n - ' + '\n - '.join(fails)))
 sys.exit(1 if fails else 0)
