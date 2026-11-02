@@ -2743,6 +2743,109 @@ section { scroll-margin-top: var(--header-h); }
 }
 
 /* ============================================================
+   FULL-DAY DRIVER (transfers.html #full-day-driver)
+   Quote-only service on a dark band. The cards match .why-card;
+   .btn-primary needs a gold fill because its own abyss background
+   would disappear against this section.
+   ============================================================ */
+.driver-day .section-head .section-lead { color: rgba(252, 250, 245, 0.75); }
+
+.driver-day-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 900px) {
+  .driver-day-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+}
+
+.driver-day-card {
+  padding: 1.7rem 1.5rem;
+  background: rgba(252, 250, 245, 0.05);
+  border: 1px solid rgba(252, 250, 245, 0.1);
+  border-radius: var(--radius);
+}
+
+.driver-day-card h3 {
+  margin-bottom: 1.1rem;
+  font-size: 1.15rem;
+  color: var(--shell);
+}
+
+.driver-day-list,
+.driver-day-notes {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+
+.driver-day-list li {
+  position: relative;
+  padding-left: 1.6rem;
+  color: rgba(252, 250, 245, 0.88);
+}
+
+.driver-day-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.4em;
+  left: 0.1rem;
+  width: 0.7rem;
+  height: 0.38rem;
+  border-bottom: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+  transform: rotate(-45deg);
+}
+
+.driver-day-notes {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed rgba(252, 250, 245, 0.2);
+  color: rgba(252, 250, 245, 0.72);
+}
+
+.driver-day-rules {
+  display: grid;
+  gap: 1.1rem;
+  margin: 0;
+}
+
+.driver-day-rules dt {
+  margin-bottom: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.driver-day-rules dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(252, 250, 245, 0.88);
+}
+
+.driver-day-cta {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.driver-day-cta p {
+  max-width: 34rem;
+  margin: 0 auto 1.25rem;
+  color: rgba(252, 250, 245, 0.75);
+}
+
+.driver-day .btn-primary {
+  background: var(--gold);
+  color: var(--abyss);
+}
+
+/* ============================================================
    BREADCRUMBS (visible trail, all pages except the home page)
    Sits directly under the hero. Deliberately quiet: it is a
    wayfinding aid and a crawler signal, not a call to action.

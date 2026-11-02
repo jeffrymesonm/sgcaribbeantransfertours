@@ -89,8 +89,10 @@ let showContactChoiceDialog = null;
 
   closeBtn.addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', (event) => {
-    // Click on the backdrop (outside .contact-dialog-inner) closes it.
-    if (event.target === dialog) dialog.close();
+    // Click on the backdrop (outside .contact-dialog-inner) closes it. The
+    // second click of a double-click is ignored: it lands where the button
+    // that opened the dialog was, and would shut the dialog straight away.
+    if (event.target === dialog && event.detail < 2) dialog.close();
   });
 
   whatsAppBtn.addEventListener('click', () => {

@@ -1,6 +1,6 @@
 # USER_MANUAL — SG Caribbean Transfers & Tours site
 
-> Last updated: 2026-08-12 UTC (sosua.html destination page added — SEO / AI-answer page)
+> Last updated: 2026-11-02 UTC (full-day driver service added to transfers.html)
 > Audience: the business owner / content editor. No coding experience assumed
 > beyond opening a file in a text editor.
 
@@ -60,7 +60,8 @@ to maintain.
   "Sending…" then a success/error message in place, and only empties the cart
   on success (on error it stays intact so they can retry or use WhatsApp
   instead). Either way, you reply to confirm availability and take payment
-  details however you normally do (cash on arrival, per the site's copy).
+  details however you normally do (cash, PayPal, Cash App or Zelle on arrival,
+  per the site's copy).
 - The email checkout posts to `CONFIG.formspreeEndpoint` in `js/config.js`
   (`https://formspree.io/f/xbdnzrez`) — manage which inbox receives these from
   your Formspree dashboard (formspree.io), not from this file.
@@ -183,11 +184,14 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
    Add new ones the same way. Never edit or invent them.
 
 ## Changing prices
-> **Puerto Plata City Tour, 2026-08-21:** su precio pasó de 100/125/150 a
-> **260/325/390 (US$65 por persona)**, confirmado por ti. Vive en tres sitios y
-> los tres ya están al día: el `data-prices` de `#exc4` en `excursions.html`,
-> el de `#cruise2` en `cruises.html` (es el mismo tour para cruceristas) y la
-> fila de `llms.txt`. Si vuelve a cambiar, los tres juntos.
+> **Puerto Plata City Tour, 2026-11-02:** su precio pasó de 260/325/390 a
+> **80/100/120 (US$20 por persona)** y ya no incluye boletos de teleférico. Si
+> vuelve a cambiar, actualiza todo junto: en las tarjetas `#exc4`
+> (`excursions.html`) y `#cruise2` (`cruises.html`), el `data-prices`, el total y
+> el monto por persona; las claves `exc4.desc` y `cruise2.desc` de `js/i18n.js`;
+> `lowPrice` y `highPrice` en el JSON-LD de ambas páginas; y la fila de `llms.txt`.
+> El ATV Adventure (`#exc6`, `#cruise4`) sigue en 260/325/390: no lo cambies con
+> un reemplazo global.
 
 - **Transfers — Popular Routes (fixed prices):** near the top of
   `transfers.html`, the "Popular routes" ticket rail shows your 9 real,
@@ -281,6 +285,33 @@ ask Claude Code to do this, it's a couple of PowerShell commands (see
   (e.g. `"8":420`) to that card's `data-prices`.
 - **Cruises:** same mechanism as excursions, on `cruises.html` — see
   "Editing the cruise cards" below.
+
+## Chofer todo el día (`transfers.html`) — 2026-11-02
+La sección "Chofer todo el día" está después de la calculadora. No tiene precio
+publicado: el botón "Solicitar Cotización" abre WhatsApp o correo con el mensaje
+ya escrito, y la solicitud no pasa por el carrito.
+
+- **Cambiar un texto:** edita las claves `driverDay.*` en `js/i18n.js`, en los tres
+  idiomas, y copia el texto en inglés en `transfers.html`. Después ejecuta
+  `python tools/build-langs.py` y `python tools/verify.py`.
+- **Capacidad:** se publica "hasta 15 pasajeros" porque la van tiene 16 asientos
+  contando al chofer. No escribas 16 pasajeros.
+- **Horario:** no anuncies "24 horas". El chofer trabaja de día o de noche, hasta
+  14 horas por jornada, con 8 horas seguidas de descanso entre jornadas.
+- **Publicar un precio:** hace falta un cambio de código para mostrarlo y agregarlo
+  al carrito, y también hay que incluirlo en `llms.txt`.
+
+## Métodos de pago — 2026-11-02
+El sitio anuncia efectivo (dólares o pesos), PayPal, Cash App y Zelle al llegar, sin
+pago anticipado, y tarjeta a solicitud. Si esto cambia, hay que actualizarlo en todos
+estos lugares a la vez:
+
+- `js/i18n.js`, en los tres idiomas: busca PayPal para ver cada frase.
+- Las páginas en inglés: el texto visible, las preguntas frecuentes del JSON-LD y
+  `paymentAccepted`, que debe ser idéntico en las 12 páginas.
+- `llms.txt` y `privacy.collectPayment`, en la política de privacidad.
+
+Después ejecuta `python tools/build-langs.py` y `python tools/verify.py`.
 
 ## Editing the cruise cards (`cruises.html`)
 There are 3 cruise cards, each built from the same markup as an excursion

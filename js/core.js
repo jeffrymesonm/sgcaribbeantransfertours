@@ -36,10 +36,13 @@ if (typeof gtag === 'function') {
  * effect and a short count transition (tabular numerals prevent jitter).
  * @param {HTMLElement} el       Element whose textContent holds the number.
  * @param {number}      target   Final value to display.
- * @param {number}      decimals Decimal places to render (default 0).
+ * @param {number}      decimals Decimal places to render. Defaults to the
+ *                               rule formatMoney() follows: none for whole
+ *                               numbers, 2 for amounts with cents, so a fare of
+ *                               38.95 never shows up rounded to 39.
  * @returns {void}
  */
-function animatePrice(el, target, decimals = 0) {
+function animatePrice(el, target, decimals = Number.isInteger(target) ? 0 : 2) {
   const from = parseFloat(el.textContent.replace(/[^0-9.]/g, '')) || 0;
   if (from === target) return;
 

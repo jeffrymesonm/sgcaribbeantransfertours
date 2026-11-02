@@ -1,6 +1,6 @@
 # PROJECT_INFO — SG Caribbean Transfers & Tours
 
-> Last updated: 2026-11-01 UTC
+> Last updated: 2026-11-02 UTC
 
 ## What it is
 A small conversion-focused marketing **site** (six static pages, one shared
@@ -17,7 +17,7 @@ Pages: `index.html` (home — hero, services picker, gallery, why-us,
 reviews, FAQ, talk-to-us CTA, first-visit service-picker popup),
 `transfers.html` (fixed-price Popular Routes ticket rail + airport transfer
 price calculator, which also covers ~50 more fixed Puerto-Plata-Airport
-destinations), `excursions.html` (7
+destinations, plus the quote-only full-day driver service), `excursions.html` (7
 private day-tour panels: Punta Rusia, 27 Charcos, Whale Watching, City Tour,
 Beach Experiences, ATV Adventure, Dune Buggy Adventure), `cruises.html` (3
 shore-excursion cards for cruise passengers), `nosotros.html` ("Meet the
@@ -39,7 +39,7 @@ nearby attractions, 10-item FAQ).
 | Path | Purpose |
 |------|---------|
 | `index.html` | Home page: hero, services-picker section, why-us, gallery, reviews, FAQ, book CTA, service-picker `<dialog>` popup (backdrop shows the logo as a watermark). SEO meta + JSON-LD (TravelAgency + FAQPage) |
-| `transfers.html` | Hero + services + fixed-price Popular Routes ticket rail (9 tickets) + boarding-pass price calculator (also covers ~50 fixed fares from Puerto Plata Airport, via a "Fixed destinations" optgroup) + **static "Every fixed fare" tables (`#fares`, 25 POP rows + 5 other-airport rows)** + trust strip. JSON-LD (Service with a 30-offer OfferCatalog + BreadcrumbList + FAQPage). **The `#fares` tables are literal text — keep in sync with `js/config.js`** |
+| `transfers.html` | Hero + services + fixed-price Popular Routes ticket rail (9 tickets) + boarding-pass price calculator (also covers ~50 fixed fares from Puerto Plata Airport, via a "Fixed destinations" optgroup) + quote-only full-day driver section (`#full-day-driver`) + **static "Every fixed fare" tables (`#fares`, 25 POP rows + 5 other-airport rows)** + trust strip. JSON-LD (Service with a 30-offer OfferCatalog + BreadcrumbList + FAQPage). **The `#fares` tables are literal text — keep in sync with `js/config.js`** |
 | `excursions.html` | Hero + 7 excursion cards (Punta Rusia, 27 Charcos, Whale Watching, City Tour, Beach Experiences, ATV Adventure, Dune Buggy Adventure) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `cruises.html` | Hero + guaranteed-return promise band + 3 template cruise cards (optional ship name + departure time) + trust strip. JSON-LD (ItemList/TouristTrip + BreadcrumbList) |
 | `nosotros.html` | Hero banner + company-story intro (logo + copy) + driver team grid + fleet grid + book CTA. JSON-LD (BreadcrumbList) |

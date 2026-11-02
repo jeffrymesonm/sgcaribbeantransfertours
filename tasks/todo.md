@@ -349,3 +349,19 @@ marcarlos violaría las guidelines de Google (riesgo de acción manual).
 - [ ] Confirmar el aviso desde una conexión real en la UE o Reino Unido
 
 **Revisión:** cada envío válido suma una conversión; los inválidos y fallidos, ninguna.
+
+## 2026-11-02 — Chofer todo el día
+- [x] Sección `#full-day-driver` en `transfers.html`, en EN/ES/FR
+- [x] Botón de cotización por WhatsApp o correo, sin carrito
+- [x] Describir el servicio en `llms.txt`
+- [x] Corregir el doble clic que cerraba el diálogo de contacto
+- [x] Probar en navegador con Google y Formspree bloqueados o simulados
+- [x] Actualizar DOCS y memoria
+- [ ] Publicar en `master`, cuando se pida
+- [x] Corregir el redondeo de la calculadora: mostraba 39 para US$38.95
+- [x] Agregar PayPal, Cash App y Zelle en los 3 idiomas, JSON-LD, `llms.txt` y privacidad
+- [ ] Confirmar que se acepta Zelle: el pedido decía "zeller"
+- [x] City Tour a US$20 por persona (80/100/120) en excursiones y cruceros
+- [x] Quitar el teleférico del City Tour
+
+**Revisión:** `tools/verify.py` da TODO OK. La sección funciona en los 3 idiomas, en escritorio y en móvil. Las 126 combinaciones probadas de la calculadora coinciden con `js/config.js`.

@@ -1,6 +1,6 @@
 # DEVELOPER_GUIDE — SG Caribbean Transfers & Tours site
 
-> Last updated: 2026-08-12 UTC (sosua.html destination hub + site-wide SEO/AEO pass)
+> Last updated: 2026-11-02 UTC (full-day driver section, payment methods, calculator cents)
 
 ## SEO / AEO invariants — read before editing content
 Five rules the whole site now depends on. Breaking any of them silently
@@ -40,6 +40,12 @@ isn't one.
    the site no longer charges. Update it in the same commit as any fare, tour
    or contact change.
 
+**Payment methods are duplicated the same way** (2026-11-02): cash, PayPal,
+Cash App and Zelle on arrival, card on request. They appear in about 33 keys per
+language, FAQ answers and their JSON-LD, the `Service` description on
+`transfers.html`, `paymentAccepted` on all 12 pages (part of the shared entity in
+rule 3), `llms.txt` and `privacy.collectPayment`. Grep `PayPal` before changing one.
+
 **Testimonials are real Google reviews, word for word** (since 2026-11-01),
 under `reviews.quote*` in `js/i18n.js`, kept in their original language in all
 three dictionaries. Never edit, reword or invent
@@ -69,7 +75,7 @@ index.html         Home: hero + #services-picker + gallery + why-us +
                     reviews + FAQ + book CTA + service-picker <dialog> popup
 transfers.html      Hero + services + Popular Routes ticket rail (9 tickets) +
                     full destination price list (50 fixed fares) +
-                    boarding-pass price calculator + trust strip
+                    boarding-pass price calculator + full-day driver + trust strip
 excursions.html      Hero + 7 excursion cards + trust strip
 cruises.html          Hero + guaranteed-return band + 3 template cruise cards + trust strip
 nosotros.html          "Meet the team" (2026-07-20, split out of index.html's
@@ -508,6 +514,8 @@ identical and shared (via `localStorage`) across all four pages.
   trailing zero. `describeCartItem()`'s callers (cart panel rows, cart
   total, `buildCartMessage()`) all go through it; `cartTotal()` also rounds
   its sum to 2 decimals to avoid float drift when adding decimal prices.
+  `animatePrice()` in `js/core.js` follows the same rule when no `decimals`
+  argument is passed, which is how the calculator shows fares with cents.
 - **Core functions** (all top-level in `js/cart.js`, callable from any other
   module once `cart.js` has loaded): `addToCart`, `removeFromCart`,
   `clearCart`, `cartTotal`, `describeCartItem` (resolves an item to
@@ -712,6 +720,13 @@ counts rather than adding an item with a fake price. `renderAddBtnLabel()`
 also re-runs on `sariel:langchange` since the button's label is set purely
 in JS (not `data-i18n`) once a panel has toggled into the quote state.
 
+**Full-day driver (2026-11-02):** `#full-day-driver` on `transfers.html` is
+quote-only. With no confirmed price it has no cart item shape; `#driverDayQuote`
+is wired in `js/calculator.js` to `openContactChoice()`, so WhatsApp and email
+requests report the usual conversion. Text lives under `driverDay.*`. Publish
+"up to 15 guests" (16 seats counting the driver), and never advertise "24 hours":
+the driver works up to 14 hours per shift.
+
 ## Service-picker dialog (home only)
 `index.html` includes a native `<dialog id="serviceDialog">` (markup at the
 end of the page, wired by `js/service-picker.js`) that asks first-time
@@ -770,6 +785,9 @@ visitors which service they want, then routes them to the matching page.
    load the identical shared set, this holds today, but if a future page ever
    omits one of them, cross-page cart rendering breaks silently (no console
    error, just a wrong/blank cart row).
+9. A modal opens on the first click of a double-click, so the second click can
+   land on its backdrop. `js/contact-choice.js` checks `event.detail < 2` before
+   closing; apply the same check to any new backdrop-click handler.
 
 ## Google Ads conversion tracking (2026-11-01 UTC)
 Every booking or contact request reports one Google Ads conversion. The ID lives

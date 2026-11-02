@@ -496,3 +496,29 @@ activo en el resto. Denegar en todo el mundo perdería casi todas las conversion
 quien ignora el aviso, en una campaña con muy pocos clics. Consent Mode avanzado: con
 rechazo salen pings sin cookies, declarados en `privacy.html`. Una sola decisión para
 Analytics y Ads, por simplicidad.
+
+## 2026-11-02T17:11Z — Chofer todo el día: solo cotización, 15 pasajeros, sin "24 horas"
+El texto recibido no traía precio, así que el servicio se publica sin monto y fuera del
+carrito, con la misma regla de publicar solo precios confirmados. Decía "van de 16
+pasajeros", pero son 16 asientos contando al chofer: se publica "hasta 15", igual que el
+resto del sitio. También anunciaba "Disponibilidad 24 Horas" y "24/7" con una jornada
+máxima de 14 horas, y se cambió a "de día o de noche, hasta 14 horas por jornada" para que
+nadie reserve esperando 24 horas seguidas. Queda añadida la condición de que otros destinos
+se cotizan aparte, que el texto original no incluía. Va después de la calculadora para no
+cortar el paso de rutas a calculadora, que es lo que busca el tráfico de los anuncios.
+
+## 2026-11-02T17:19Z — Pagos: efectivo, PayPal, Cash App y Zelle al llegar
+Quien gestiona el sitio pidió agregar PayPal, Cash App y "zeller"; se publicó como Zelle,
+porque Zeller es un servicio australiano sin relación con este mercado. Se mantuvieron "sin
+pago anticipado" y la tarjeta a solicitud, ya que el pedido solo añadía métodos. El sitio no
+publica cuentas ni datos para pagar. La política de privacidad menciona los tres servicios
+porque el cliente les entrega datos al pagar, aunque el sitio siga sin cobrar nada.
+
+El redondeo se corrigió en `animatePrice()` y no en la llamada de la calculadora: el valor por
+defecto de 0 decimales era la causa, y así ninguna llamada futura vuelve a redondear.
+
+## 2026-11-02T17:29Z — City Tour: US$20 por persona y sin teleférico
+Quien gestiona el sitio bajó el tour de US$65 a US$20 por persona y pidió quitar los boletos
+de teleférico. Se aplicó también a `#cruise2`, que es el mismo tour para cruceristas. Se
+quitó además el teleférico de las descripciones del tour, porque seguían prometiéndolo sin
+boletos incluidos. Las guías de destino lo conservan porque describen el lugar, no el tour.

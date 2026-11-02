@@ -3204,3 +3204,97 @@ Las entradas anteriores llaman "dueno" a esa persona; corrige ese termino.
 **Files modified:** `index.html`, `transfers.html`, `excursions.html`, `cruises.html`,
 sus versiones `es/` y `fr/`, `js/i18n.js`, `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`,
 `DOCS/DEPLOYMENT.md`, `DOCS/PROOF_OF_WORK.md`.
+
+## 2026-11-02T17:11:00.000Z — Servicio de chofer todo el dia en transfers
+
+**Pedido:** agregar en transfers el servicio de chofer todo el dia, con el texto entregado.
+
+**Decidido por quien gestiona el sitio:** sin precio publicado, solo cotizacion; hasta 15
+pasajeros (la van tiene 16 asientos contando al chofer); "de dia o de noche, hasta 14 horas
+por jornada" en lugar de "24 horas"; otros destinos se cotizan aparte.
+
+**Hecho:** seccion `#full-day-driver` entre la calculadora y `#fares`, en EN/ES/FR. El boton
+abre `openContactChoice()` y no pasa por el carrito. `llms.txt` describe el servicio.
+Tambien se corrigio `js/contact-choice.js`: el segundo clic de un doble clic ya no cierra
+el dialogo.
+
+**Como verificar:** abrir `/es/transfers.html`, ir a "Chofer todo el dia" y pulsar
+"Solicitar Cotizacion". `python tools/verify.py` da TODO OK. En navegador, con Google y
+Formspree bloqueados o simulados: los 3 idiomas, WhatsApp, correo con campos vacios,
+invalidos y validos, doble clic, clics repetidos, Esc, clic fuera, movil a 390 px y ticket
+al carrito. La consola solo mostro el bloqueo de Google hecho por la prueba.
+
+**Sin resolver, ajeno a este cambio:** la calculadora redondea los centavos
+(`js/calculator.js:150`), asi que muestra 39 para una tarifa de US$38.95.
+
+**Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`,
+`js/i18n.js`, `js/calculator.js`, `js/contact-choice.js`, `css/styles.css`, `llms.txt`,
+`PROJECT_INFO.md`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/USER_MANUAL.md`,
+`DOCS/PROOF_OF_WORK.md`, `memory/decisions.md`, `tasks/todo.md`.
+
+## 2026-11-02T17:19:00.000Z — Centavos en la calculadora y nuevos metodos de pago
+
+**Pedido:** corregir el redondeo de la calculadora y agregar PayPal, Cash App y Zelle como
+opciones de pago, porque el sitio solo decia efectivo. El pedido decia "zeller"; se
+interpreto como Zelle.
+
+**Hecho:** `animatePrice()` usa por defecto la misma regla que `formatMoney()`: sin decimales
+en enteros y 2 con centavos. El valor estatico de `#bpAmount` pasa de 40 a 38.95, la tarifa
+real de la ruta inicial. Los pagos se actualizaron en 33 claves por idioma, en las 12 paginas
+en ingles y en `llms.txt`. Se mantienen "sin pago anticipado" y la tarjeta a solicitud.
+`paymentAccepted` y las respuestas FAQ del JSON-LD coinciden con lo visible. La politica de
+privacidad menciona esos servicios y su fecha pasa al 2 de noviembre.
+
+**Como verificar:** `python tools/verify.py` da TODO OK y ninguna frase del negocio deja solo
+efectivo. En navegador: 126 combinaciones de ruta y pasajeros coinciden con `js/config.js`,
+cambios rapidos seguidos terminan en 38.95, y 7 pasajeros con 11 maletas dan US$58.95 en la
+calculadora y en el carrito. El boleto no se desborda en EN/ES/FR a 1440 y 390 px. La consola
+solo mostro el bloqueo de Google hecho por la prueba.
+
+**Files modified:** las 12 paginas en ingles que llevan JSON-LD, sus versiones `es/` y `fr/`,
+`js/core.js`, `js/i18n.js`, `llms.txt`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/USER_MANUAL.md`,
+`DOCS/PROOF_OF_WORK.md`, `memory/decisions.md`, `tasks/todo.md`.
+
+## 2026-11-02T17:29:00.000Z — City Tour a US$20 por persona, sin teleferico
+
+**Pedido:** el City Tour es US$20 por persona; quitar tambien los boletos de teleferico.
+
+**Hecho:** 80/100/120 en `#exc4` y `#cruise2`, que es el mismo tour para cruceristas, con
+total, monto por persona, descripcion en EN/ES/FR, JSON-LD y `llms.txt`. Se quito la linea
+de boletos (`exc4.include2`). Tambien se quito el teleferico de las descripciones del tour,
+porque seguian prometiendolo. Las guias de destino no cambian: hablan del lugar.
+
+**Como verificar:** `python tools/verify.py` da TODO OK. En navegador, en los 3 idiomas y en
+las 2 paginas: 4, 5 y 6 personas dan 80, 100 y 120, siempre con US$20 por persona; 7 pide
+cotizacion; 6 personas suman US$120 en el carrito; el ATV sigue en 260/325/390. Sin
+desbordes a 390 px. La consola solo mostro el bloqueo de Google hecho por la prueba.
+
+**Files modified:** `excursions.html`, `cruises.html`, sus versiones `es/` y `fr/`,
+`js/i18n.js`, `llms.txt`, `DOCS/USER_MANUAL.md`, `DOCS/PROOF_OF_WORK.md`,
+`memory/decisions.md`, `tasks/todo.md`.
+
+## 2026-11-02T18:09:00.000Z — Chofer todo el dia: un solo viaje a Puerto Plata
+
+**Pedido:** el viaje a Puerto Plata no es por dia, es solo uno.
+
+**Hecho:** `driverDay.inc5` en EN/ES/FR y `llms.txt` dicen ahora un solo viaje de ida y
+vuelta. Se mantiene "ida y vuelta", como en el texto original del servicio.
+
+**Como verificar:** `python tools/verify.py` da TODO OK. En `/es/transfers.html`, la seccion
+"Chofer todo el dia" dice "Un solo viaje de ida y vuelta a Puerto Plata".
+
+**Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`, `js/i18n.js`,
+`llms.txt`, `DOCS/PROOF_OF_WORK.md`.
+
+## 2026-11-02T18:10:00.000Z — Chofer todo el dia: texto del viaje a Puerto Plata
+
+**Pedido:** quitar "solo", porque suena a poco.
+
+**Hecho:** la linea dice "Un viaje de ida y vuelta a Puerto Plata" en EN/ES/FR y en
+`llms.txt`. Sigue sin "por dia", asi que incluye un viaje en total.
+
+**Como verificar:** `python tools/verify.py` da TODO OK. En `/es/transfers.html`, la seccion
+"Chofer todo el dia" muestra la linea nueva.
+
+**Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`, `js/i18n.js`,
+`llms.txt`, `DOCS/PROOF_OF_WORK.md`.

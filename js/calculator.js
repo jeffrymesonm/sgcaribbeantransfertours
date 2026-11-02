@@ -3,7 +3,8 @@
    Module: calculator.js
    Purpose: transfer price calculator — every selectable destination has an
    owner-confirmed fixed price (no distance-estimated guessing) — and its
-   "Add to Cart"/"Book Directly" wiring, including the route ticket buttons.
+   "Add to Cart"/"Book Directly" wiring, including the route ticket buttons
+   and the full-day driver's quote button.
    Depends on: config.js (AIRPORTS/PROVINCES/POP_FIXED_DESTINATIONS/
    POP_PROVINCE_FIXED_FARES/OTHER_AIRPORT_FIXED_FARES/FIXED_FARE_*,
    fixedFarePrice, luggageSurcharge),
@@ -266,6 +267,19 @@
           summary: pickupName,
         };
       });
+    });
+  }
+
+  // The full-day driver has no published price, so it can't enter the cart:
+  // the visitor asks for a quote directly.
+  const driverDayQuoteBtn = document.getElementById('driverDayQuote');
+  if (driverDayQuoteBtn) {
+    driverDayQuoteBtn.addEventListener('click', () => {
+      openContactChoice(() => ({
+        message: t('driverDay.quoteMessage'),
+        subject: t('email.subject'),
+        summary: t('driverDay.summary'),
+      }));
     });
   }
 
