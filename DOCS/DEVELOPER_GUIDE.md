@@ -843,17 +843,22 @@ collected field must be added there in the same change.
 `transfers.html` is the final URL of the Google Ads campaign, so it is laid out
 for a visitor who has already searched for a transfer.
 
-- **Section order:** hero, breadcrumbs, route tickets (`#transfers`),
-  calculator, quick answer (AEO), service cards (`#services`), then the rest.
-  The tickets used to close the services section, about four phone screens
-  down; the calculator was near the seventh. Do not put explanatory sections
-  back above the two booking tools.
+- **Section order:** hero, breadcrumbs, calculator, route tickets
+  (`#transfers`), quick answer (AEO), service cards (`#services`), then the
+  rest. The tickets used to close the services section, about four phone
+  screens down; the calculator was near the seventh. The calculator goes
+  first at the owner's request (2026-11-10), matching the hero button
+  "Calculate my fare". Do not put explanatory sections back above the two
+  booking tools.
 - **`#transfers` now names the ticket section.** The six destination pages
   link to `transfers.html#transfers` ("See all transfer prices"), which is why
   the id moved with the tickets and the service cards became `#services`.
-- **The ticket rail has no `.reveal`.** It is about 1,900px tall on a phone and
-  the observer in `js/shell.js` waits for 12% of an element, so directly under
-  the hero it stayed invisible for the first ~300px of scrolling.
+- **Neither booking tool uses `.reveal`.** The ticket rail is about 1,900px
+  tall on a phone and `.calc-layout` about 1,000px; the observer in
+  `js/shell.js` waits for 12% of an element, so a tall block stays invisible
+  for the first few hundred pixels of scrolling into it.
+- **`.section-first`** trims the top padding of the section right under the
+  landing hero (the calculator), so its heading is on the first phone screen.
 - **`.hero--landing`** (css, right after the hero keyframes): denser scrim,
   because `hero-main.jpg` is mostly white vans; a 450 ms reveal with no
   stagger, so the offer is readable at once; and on phones no scroll cue, which

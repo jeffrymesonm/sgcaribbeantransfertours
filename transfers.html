@@ -201,7 +201,7 @@
       </ul>
     </div>
 
-    <a class="hero-scroll" href="#transfers" aria-label="Scroll to services" data-i18n-attr="aria-label:hero.scrollAria">
+    <a class="hero-scroll" href="#calculator" aria-label="Scroll to services" data-i18n-attr="aria-label:hero.scrollAria">
       <span class="hero-scroll-dot" aria-hidden="true"></span>
     </a>
   </section>
@@ -218,11 +218,158 @@
     </div>
   </nav>
 
-  <!-- ============ 2. POPULAR ROUTES ============
-       First thing under the hero on purpose: a visitor arriving from an ad
-       has already searched for a transfer, so prices and the booking
-       buttons come before any explanation. Keeps the id the destination
-       pages link to (transfers.html#transfers, "See all transfer prices"). -->
+  <!-- ============ 2. PRICE CALCULATOR ============
+       First thing under the hero, whose button is "Calculate my fare".
+       Nothing in it uses .reveal for that reason: .calc-layout is tall on
+       a phone and the reveal observer (js/shell.js) waits for 12% of an
+       element, which would leave a blank band under the hero.
+       Includes fixed one-way fares FROM Puerto Plata Airport (POP) only —
+       see POP_PROVINCE_FIXED_FARES/POP_FIXED_DESTINATIONS in js/config.js
+       and the "Fixed destinations" optgroup below.
+       js/config.js stays the single source of truth for every number here.
+       The #fares section below repeats those same fares as a static table: not a
+       second source, a crawlable mirror, because search and answer engines
+       never run this calculator and so could not read any of its prices
+       (added 2026-08-21 — supersedes the 2026-07-20 "one place only"
+       decision, which cost the site ~25 indexable routes). -->
+  <section class="section section-sand section-first calculator" id="calculator">
+    <div class="container">
+      <header class="section-head">
+        <h2 data-i18n="calc.heading">Calculate your <em>transfer price</em></h2>
+        <p class="section-lead" data-i18n="calc.lead">Fixed prices per vehicle — not per person. No hidden fees, pay on arrival.</p>
+      </header>
+
+      <div class="calc-layout">
+        <form class="calc-form" id="calcForm" aria-label="Transfer price calculator" data-i18n-attr="aria-label:calc.formAria">
+          <div class="field">
+            <label for="calcPickup" data-i18n="calc.labelPickup">Pickup location</label>
+            <select id="calcPickup" name="pickup">
+              <option value="pop" selected data-i18n="option.pickupPop">Puerto Plata Airport (POP)</option>
+              <option value="sti" data-i18n="option.pickupSti">Santiago Airport (STI)</option>
+              <option value="sdq" data-i18n="option.pickupSdq">Santo Domingo Airport (SDQ)</option>
+              <option value="puj" data-i18n="option.pickupPuj">Punta Cana Airport (PUJ)</option>
+              <option value="azs" data-i18n="option.pickupAzs">Samaná Airport (AZS)</option>
+              <option value="lrm" data-i18n="option.pickupLrm">La Romana Airport (LRM)</option>
+              <option value="brx" data-i18n="option.pickupBrx">Barahona Airport (BRX)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="calcDest" data-i18n="calc.labelDest">Destination</label>
+            <select id="calcDest" name="destination">
+              <optgroup label="Fixed destinations (Puerto Plata Airport)" data-i18n-attr="label:calc.fixedDestGroup">
+                <option value="fixed:sosua" data-i18n="place.sosua">Sosúa</option>
+                <option value="fixed:cabarete" data-i18n="place.cabarete">Cabarete</option>
+                <option value="fixed:blue-lagoon">Blue Lagoon</option>
+                <option value="fixed:boca-chica">Boca Chica</option>
+                <option value="fixed:cabrera">Cabrera</option>
+                <option value="fixed:castillo-la-isabela">Castillo La Isabela</option>
+                <option value="fixed:cofresi-costambar">Cofresí · Costambar</option>
+                <option value="fixed:damajagua">Damajagua</option>
+                <option value="fixed:higuey">Higüey</option>
+                <option value="fixed:juan-dolio">Juan Dolio</option>
+                <option value="fixed:la-galera">La Galera</option>
+                <option value="fixed:las-terrenas">Las Terrenas</option>
+                <option value="fixed:luperon">Luperón</option>
+                <option value="fixed:playa-grande">Playa Grande</option>
+                <option value="fixed:punta-cana">Punta Cana</option>
+                <option value="fixed:punta-rusia">Punta Rusia</option>
+                <option value="fixed:rio-san-juan">Río San Juan</option>
+              </optgroup>
+              <optgroup label="Provinces" data-i18n-attr="label:calc.provincesGroup">
+                <option value="puerto-plata" selected data-i18n="province.puertoPlata">Puerto Plata</option>
+                <option value="barahona" data-i18n="province.barahona">Barahona</option>
+                <option value="dajabon" data-i18n="province.dajabon">Dajabón</option>
+                <option value="monte-cristi" data-i18n="province.monteCristi">Monte Cristi</option>
+                <option value="samana" data-i18n="province.samana">Samaná</option>
+                <option value="san-pedro-de-macoris" data-i18n="province.sanPedroDeMacoris">San Pedro de Macorís</option>
+                <option value="santiago" data-i18n="province.santiago">Santiago</option>
+                <option value="santo-domingo" data-i18n="province.santoDomingo">Santo Domingo</option>
+              </optgroup>
+            </select>
+            <p class="field-hint" id="calcNoDestHint" data-i18n="calc.noDestHint" hidden>No fixed routes yet from this airport — request a custom quote.</p>
+            <!-- The list only holds owner-confirmed fixed fares, so anything
+                 else needs a personal quote. js/calculator.js wires this to the
+                 same WhatsApp-or-email chooser the booking buttons use. -->
+            <p class="field-hint">
+              <span data-i18n="calc.missingDest">Don't see your destination?</span>
+              <button type="button" class="link-btn" id="calcMissingDest" data-i18n="calc.missingDestCta">Write to us</button>
+            </p>
+          </div>
+
+          <div class="calc-form-row">
+            <div class="field" id="calcPaxField">
+              <label for="calcPax" data-i18n="calc.labelPax">Number of passengers</label>
+              <div class="stepper">
+                <button type="button" class="stepper-btn" id="paxMinus" aria-label="Remove one passenger" data-i18n-attr="aria-label:calc.paxMinusAria">−</button>
+                <input type="number" id="calcPax" name="passengers" inputmode="numeric" min="1" max="15" value="3" aria-live="polite" />
+                <button type="button" class="stepper-btn" id="paxPlus" aria-label="Add one passenger" data-i18n-attr="aria-label:calc.paxPlusAria">+</button>
+              </div>
+            </div>
+
+            <div class="field" id="calcLuggageField">
+              <label for="calcLuggage" data-i18n="calc.labelLuggage">Number of suitcases</label>
+              <div class="stepper">
+                <button type="button" class="stepper-btn" id="luggageMinus" aria-label="Remove one suitcase" data-i18n-attr="aria-label:calc.luggageMinusAria">−</button>
+                <input type="number" id="calcLuggage" name="luggage" min="0" inputmode="numeric" value="0" required aria-live="polite" />
+                <button type="button" class="stepper-btn" id="luggagePlus" aria-label="Add one suitcase" data-i18n-attr="aria-label:calc.luggagePlusAria">+</button>
+              </div>
+              <p class="field-hint" data-i18n="cart.luggageHint">More than 10 suitcases? A US$15 fee applies.</p>
+            </div>
+          </div>
+        </form>
+
+        <!-- Result rendered as a boarding pass; dynamic values updated by js/calculator.js -->
+        <div class="boarding-pass" id="boardingPass" aria-live="polite">
+          <div class="bp-content" id="bpContent">
+            <div class="bp-main">
+              <p class="bp-label mono" data-i18n="calc.bpLabel">SG Caribbean · Private Transfer</p>
+              <div class="bp-route">
+                <div class="bp-point">
+                  <span class="mono bp-code" id="bpFromCode">POP</span>
+                  <span class="bp-place" id="bpFromName">Puerto Plata Airport</span>
+                </div>
+                <div class="bp-path" aria-hidden="true">
+                  <svg class="bp-van" viewBox="0 0 24 14"><path d="M1 10V5.5A1.5 1.5 0 0 1 2.5 4H13l3.5-3H21a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1h-1.3a2.6 2.6 0 0 1-5 0H8.8a2.6 2.6 0 0 1-5 0H2a1 1 0 0 1-1-1z"/><circle cx="6.3" cy="11" r="1.7" fill="var(--abyss)"/><circle cx="18.2" cy="11" r="1.7" fill="var(--abyss)"/></svg>
+                </div>
+                <div class="bp-point">
+                  <span class="mono bp-code" id="bpToCode">POP</span>
+                  <span class="bp-place" id="bpToName">Puerto Plata</span>
+                </div>
+              </div>
+              <dl class="bp-details">
+                <div><dt class="mono" data-i18n="calc.vehicleLabel">Vehicle</dt><dd id="bpVehicle">Private Car</dd></div>
+                <div><dt class="mono" data-i18n="calc.capacityLabel">Capacity</dt><dd id="bpCapacity">Up to 3 guests</dd></div>
+                <div><dt class="mono" data-i18n="calc.suitcasesLabel">Suitcases</dt><dd id="bpSuitcases">0</dd></div>
+                <div><dt class="mono" data-i18n="calc.paymentLabel">Payment</dt><dd data-i18n="calc.paymentValue">Cash, PayPal, Cash App or Zelle</dd></div>
+              </dl>
+              <p class="bp-note" id="bpNote" hidden></p>
+            </div>
+            <div class="bp-divider" aria-hidden="true"></div>
+            <div class="bp-stub">
+              <p class="bp-label mono" data-i18n="calc.totalLabel">Total · per vehicle</p>
+              <p class="bp-price"><span class="bp-currency">US$</span><span class="bp-amount" id="bpAmount">38.95</span></p>
+              <div class="cart-checkout-options">
+                <button type="button" class="btn btn-primary btn-block" id="bpReserve" data-i18n="cart.add">Add to Cart</button>
+                <button type="button" class="btn btn-outline btn-block" id="bpBookDirect" data-i18n="cart.bookDirect">Book Directly</button>
+              </div>
+              <p class="bp-fineprint" data-i18n="calc.fineprint">Free cancellation · Flight tracked</p>
+            </div>
+          </div>
+          <div class="bp-quote-cta" id="bpQuoteCta" hidden>
+            <p class="bp-quote-text" data-i18n="calc.noRoutesMessage">We don't have a fixed route from this airport yet — message us for a custom quote.</p>
+            <button type="button" class="btn btn-primary btn-block" id="bpQuoteRequest" data-i18n="calc.requestQuoteBtn">Ask for a Quote</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. POPULAR ROUTES ============
+       Right after the calculator and before any explanation: a visitor
+       arriving from an ad has already searched for a transfer, so the two
+       booking tools come first. Keeps the id the destination pages link to
+       (transfers.html#transfers, "See all transfer prices"). -->
   <section class="section routes-section" id="transfers">
     <div class="container">
       <!-- Signature element: boarding-pass style route tickets. These are
@@ -233,8 +380,8 @@
            the province calculator, since Sosúa/Cabarete aren't provinces.
            No .reveal here: the rail is ~1,900px tall on a phone, and the
            reveal observer (js/shell.js) waits for 12% of an element to be on
-           screen, which left a blank band under the hero for the first ~300px
-           of scrolling. -->
+           screen, which leaves a blank band for the first ~300px of
+           scrolling into it. -->
       <div class="routes">
         <p class="routes-label mono" data-i18n="routes.label">Popular routes — fixed price, up to 6 guests</p>
         <div class="ticket-rail" role="list">
@@ -391,149 +538,6 @@
             </div>
           </article>
 
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 3. PRICE CALCULATOR ============
-       Includes fixed one-way fares FROM Puerto Plata Airport (POP) only —
-       see POP_PROVINCE_FIXED_FARES/POP_FIXED_DESTINATIONS in js/config.js
-       and the "Fixed destinations" optgroup below.
-       js/config.js stays the single source of truth for every number here.
-       The #fares section below repeats those same fares as a static table: not a
-       second source, a crawlable mirror, because search and answer engines
-       never run this calculator and so could not read any of its prices
-       (added 2026-08-21 — supersedes the 2026-07-20 "one place only"
-       decision, which cost the site ~25 indexable routes). -->
-  <section class="section section-sand calculator" id="calculator">
-    <div class="container">
-      <header class="section-head reveal">
-        <h2 data-i18n="calc.heading">Calculate your <em>transfer price</em></h2>
-        <p class="section-lead" data-i18n="calc.lead">Fixed prices per vehicle — not per person. No hidden fees, pay on arrival.</p>
-      </header>
-
-      <div class="calc-layout reveal">
-        <form class="calc-form" id="calcForm" aria-label="Transfer price calculator" data-i18n-attr="aria-label:calc.formAria">
-          <div class="field">
-            <label for="calcPickup" data-i18n="calc.labelPickup">Pickup location</label>
-            <select id="calcPickup" name="pickup">
-              <option value="pop" selected data-i18n="option.pickupPop">Puerto Plata Airport (POP)</option>
-              <option value="sti" data-i18n="option.pickupSti">Santiago Airport (STI)</option>
-              <option value="sdq" data-i18n="option.pickupSdq">Santo Domingo Airport (SDQ)</option>
-              <option value="puj" data-i18n="option.pickupPuj">Punta Cana Airport (PUJ)</option>
-              <option value="azs" data-i18n="option.pickupAzs">Samaná Airport (AZS)</option>
-              <option value="lrm" data-i18n="option.pickupLrm">La Romana Airport (LRM)</option>
-              <option value="brx" data-i18n="option.pickupBrx">Barahona Airport (BRX)</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="calcDest" data-i18n="calc.labelDest">Destination</label>
-            <select id="calcDest" name="destination">
-              <optgroup label="Fixed destinations (Puerto Plata Airport)" data-i18n-attr="label:calc.fixedDestGroup">
-                <option value="fixed:sosua" data-i18n="place.sosua">Sosúa</option>
-                <option value="fixed:cabarete" data-i18n="place.cabarete">Cabarete</option>
-                <option value="fixed:blue-lagoon">Blue Lagoon</option>
-                <option value="fixed:boca-chica">Boca Chica</option>
-                <option value="fixed:cabrera">Cabrera</option>
-                <option value="fixed:castillo-la-isabela">Castillo La Isabela</option>
-                <option value="fixed:cofresi-costambar">Cofresí · Costambar</option>
-                <option value="fixed:damajagua">Damajagua</option>
-                <option value="fixed:higuey">Higüey</option>
-                <option value="fixed:juan-dolio">Juan Dolio</option>
-                <option value="fixed:la-galera">La Galera</option>
-                <option value="fixed:las-terrenas">Las Terrenas</option>
-                <option value="fixed:luperon">Luperón</option>
-                <option value="fixed:playa-grande">Playa Grande</option>
-                <option value="fixed:punta-cana">Punta Cana</option>
-                <option value="fixed:punta-rusia">Punta Rusia</option>
-                <option value="fixed:rio-san-juan">Río San Juan</option>
-              </optgroup>
-              <optgroup label="Provinces" data-i18n-attr="label:calc.provincesGroup">
-                <option value="puerto-plata" selected data-i18n="province.puertoPlata">Puerto Plata</option>
-                <option value="barahona" data-i18n="province.barahona">Barahona</option>
-                <option value="dajabon" data-i18n="province.dajabon">Dajabón</option>
-                <option value="monte-cristi" data-i18n="province.monteCristi">Monte Cristi</option>
-                <option value="samana" data-i18n="province.samana">Samaná</option>
-                <option value="san-pedro-de-macoris" data-i18n="province.sanPedroDeMacoris">San Pedro de Macorís</option>
-                <option value="santiago" data-i18n="province.santiago">Santiago</option>
-                <option value="santo-domingo" data-i18n="province.santoDomingo">Santo Domingo</option>
-              </optgroup>
-            </select>
-            <p class="field-hint" id="calcNoDestHint" data-i18n="calc.noDestHint" hidden>No fixed routes yet from this airport — request a custom quote.</p>
-            <!-- The list only holds owner-confirmed fixed fares, so anything
-                 else needs a personal quote. js/calculator.js wires this to the
-                 same WhatsApp-or-email chooser the booking buttons use. -->
-            <p class="field-hint">
-              <span data-i18n="calc.missingDest">Don't see your destination?</span>
-              <button type="button" class="link-btn" id="calcMissingDest" data-i18n="calc.missingDestCta">Write to us</button>
-            </p>
-          </div>
-
-          <div class="calc-form-row">
-            <div class="field" id="calcPaxField">
-              <label for="calcPax" data-i18n="calc.labelPax">Number of passengers</label>
-              <div class="stepper">
-                <button type="button" class="stepper-btn" id="paxMinus" aria-label="Remove one passenger" data-i18n-attr="aria-label:calc.paxMinusAria">−</button>
-                <input type="number" id="calcPax" name="passengers" inputmode="numeric" min="1" max="15" value="3" aria-live="polite" />
-                <button type="button" class="stepper-btn" id="paxPlus" aria-label="Add one passenger" data-i18n-attr="aria-label:calc.paxPlusAria">+</button>
-              </div>
-            </div>
-
-            <div class="field" id="calcLuggageField">
-              <label for="calcLuggage" data-i18n="calc.labelLuggage">Number of suitcases</label>
-              <div class="stepper">
-                <button type="button" class="stepper-btn" id="luggageMinus" aria-label="Remove one suitcase" data-i18n-attr="aria-label:calc.luggageMinusAria">−</button>
-                <input type="number" id="calcLuggage" name="luggage" min="0" inputmode="numeric" value="0" required aria-live="polite" />
-                <button type="button" class="stepper-btn" id="luggagePlus" aria-label="Add one suitcase" data-i18n-attr="aria-label:calc.luggagePlusAria">+</button>
-              </div>
-              <p class="field-hint" data-i18n="cart.luggageHint">More than 10 suitcases? A US$15 fee applies.</p>
-            </div>
-          </div>
-        </form>
-
-        <!-- Result rendered as a boarding pass; dynamic values updated by js/calculator.js -->
-        <div class="boarding-pass" id="boardingPass" aria-live="polite">
-          <div class="bp-content" id="bpContent">
-            <div class="bp-main">
-              <p class="bp-label mono" data-i18n="calc.bpLabel">SG Caribbean · Private Transfer</p>
-              <div class="bp-route">
-                <div class="bp-point">
-                  <span class="mono bp-code" id="bpFromCode">POP</span>
-                  <span class="bp-place" id="bpFromName">Puerto Plata Airport</span>
-                </div>
-                <div class="bp-path" aria-hidden="true">
-                  <svg class="bp-van" viewBox="0 0 24 14"><path d="M1 10V5.5A1.5 1.5 0 0 1 2.5 4H13l3.5-3H21a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1h-1.3a2.6 2.6 0 0 1-5 0H8.8a2.6 2.6 0 0 1-5 0H2a1 1 0 0 1-1-1z"/><circle cx="6.3" cy="11" r="1.7" fill="var(--abyss)"/><circle cx="18.2" cy="11" r="1.7" fill="var(--abyss)"/></svg>
-                </div>
-                <div class="bp-point">
-                  <span class="mono bp-code" id="bpToCode">POP</span>
-                  <span class="bp-place" id="bpToName">Puerto Plata</span>
-                </div>
-              </div>
-              <dl class="bp-details">
-                <div><dt class="mono" data-i18n="calc.vehicleLabel">Vehicle</dt><dd id="bpVehicle">Private Car</dd></div>
-                <div><dt class="mono" data-i18n="calc.capacityLabel">Capacity</dt><dd id="bpCapacity">Up to 3 guests</dd></div>
-                <div><dt class="mono" data-i18n="calc.suitcasesLabel">Suitcases</dt><dd id="bpSuitcases">0</dd></div>
-                <div><dt class="mono" data-i18n="calc.paymentLabel">Payment</dt><dd data-i18n="calc.paymentValue">Cash, PayPal, Cash App or Zelle</dd></div>
-              </dl>
-              <p class="bp-note" id="bpNote" hidden></p>
-            </div>
-            <div class="bp-divider" aria-hidden="true"></div>
-            <div class="bp-stub">
-              <p class="bp-label mono" data-i18n="calc.totalLabel">Total · per vehicle</p>
-              <p class="bp-price"><span class="bp-currency">US$</span><span class="bp-amount" id="bpAmount">38.95</span></p>
-              <div class="cart-checkout-options">
-                <button type="button" class="btn btn-primary btn-block" id="bpReserve" data-i18n="cart.add">Add to Cart</button>
-                <button type="button" class="btn btn-outline btn-block" id="bpBookDirect" data-i18n="cart.bookDirect">Book Directly</button>
-              </div>
-              <p class="bp-fineprint" data-i18n="calc.fineprint">Free cancellation · Flight tracked</p>
-            </div>
-          </div>
-          <div class="bp-quote-cta" id="bpQuoteCta" hidden>
-            <p class="bp-quote-text" data-i18n="calc.noRoutesMessage">We don't have a fixed route from this airport yet — message us for a custom quote.</p>
-            <button type="button" class="btn btn-primary btn-block" id="bpQuoteRequest" data-i18n="calc.requestQuoteBtn">Ask for a Quote</button>
-          </div>
         </div>
       </div>
     </div>

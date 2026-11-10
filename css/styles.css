@@ -659,8 +659,8 @@ section { scroll-margin-top: var(--header-h); }
 .hero-trust--checks strong { font-weight: 700; margin-inline: 0.3em; }
 
 /* On a phone the checklist wraps to two rows and reaches the centred scroll
-   cue. The cue goes: the route tickets start right under this hero, so there
-   is nothing to hint at, and its space returns to the first screen. */
+   cue. The cue goes: the calculator starts right under this hero, so there is
+   nothing to hint at, and its space returns to the first screen. */
 @media (max-width: 599.98px) {
   .hero--landing .hero-scroll { display: none; }
   .hero--landing .hero-content { padding-bottom: 3rem; }
@@ -752,12 +752,14 @@ section { scroll-margin-top: var(--header-h); }
 /* --- Route tickets (signature element) --- */
 .routes { margin-top: clamp(2.5rem, 5vw, 4rem); }
 
-/* transfers.html: the tickets are their own section, first thing under the
-   hero, so prices and booking buttons are one short scroll away. Tighter than
-   the generic .section padding for that reason; no top margin because nothing
-   sits above the rail inside this section. */
-.routes-section { padding-block: clamp(2.25rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem); }
+/* transfers.html: the tickets are their own section, right after the
+   calculator. No top margin because nothing sits above the rail inside it. */
 .routes-section .routes { margin-top: 0; }
+
+/* The section directly under the landing hero (the calculator on
+   transfers.html): less top padding than the generic .section, so the first
+   booking tool is one short scroll away. */
+.section-first { padding-top: clamp(2.25rem, 5vw, 4rem); }
 
 .routes-label {
   color: var(--ink-soft);

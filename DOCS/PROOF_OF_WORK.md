@@ -3319,3 +3319,20 @@ cabe en una linea y no toca el indicador de scroll.
 **Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`,
 `js/i18n.js`, `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/PROOF_OF_WORK.md`.
 **Files created:** `.claude/launch.json` (servidor local de vista previa, sin versionar).
+
+## 2026-11-10T13:54:00.000Z — Traslados: la calculadora va antes que las rutas populares
+
+**Pedido:** poner las rutas populares debajo de la calculadora, no arriba.
+
+**Hecho:** el orden es ahora hero, calculadora, rutas populares y despues el resto. La
+calculadora ya no usa `.reveal`, para que no quede una franja en blanco bajo el hero, y
+tiene menos espacio arriba (`.section-first`). El indicador de scroll del hero apunta a
+`#calculator`.
+
+**Como verificar:** `python tools/verify.py` da TODO OK. En navegador a 375 px, el titulo
+de la calculadora empieza en 704 px y la primera ruta en 1.897 px. "Book Directly" abre
+el dialogo desde la calculadora y desde una ruta. `/es/` tiene el mismo orden, sin
+desbordes ni errores en consola.
+
+**Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`,
+`css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/PROOF_OF_WORK.md`.
