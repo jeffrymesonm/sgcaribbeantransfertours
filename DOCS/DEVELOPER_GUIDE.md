@@ -859,6 +859,13 @@ for a visitor who has already searched for a transfer.
   for the first few hundred pixels of scrolling into it.
 - **`.section-first`** trims the top padding of the section right under the
   landing hero (the calculator), so its heading is on the first phone screen.
+- **Tickets are two per row on phones** (2026-11-10). `.ticket-rail` is two
+  columns below 1080px, and under 600px the "Compact tickets" block in
+  `css/styles.css` re-lays the same markup: codes and van track on one line,
+  place names wrapping on the next (`.ticket-point` is `display: contents`),
+  price and buttons stacked. Eight tickets take about 1,200px instead of
+  2,000px. Place names must keep `overflow: visible` there, or the flex
+  minimum drops to zero and long words are cut on a 320px phone.
 - **`.hero--landing`** (css, right after the hero keyframes): denser scrim,
   because `hero-main.jpg` is mostly white vans; a 450 ms reveal with no
   stagger, so the offer is readable at once; and on phones no scroll cue, which

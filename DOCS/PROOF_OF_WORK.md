@@ -3336,3 +3336,18 @@ desbordes ni errores en consola.
 
 **Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`,
 `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/PROOF_OF_WORK.md`.
+
+## 2026-11-10T14:03:00.000Z — Traslados: rutas populares de dos en dos en movil
+
+**Pedido:** en movil las rutas ocupan mucho espacio; ponerlas de 2 en 2.
+
+**Hecho:** las tarjetas van en dos columnas tambien en movil, con una version compacta
+por debajo de 600 px: codigos y furgoneta en una linea, nombres debajo sin cortarse,
+precio y botones apilados. Solo cambia `css/styles.css`.
+
+**Como verificar:** `python tools/verify.py` da TODO OK. En navegador a 375 px las 8
+rutas ocupan 1.193 px (antes unos 2.000) y cada fila queda alineada. A 320 px en espanol
+ningun texto se corta ni se sale. A 680, 900 y 1280 px el diseno es el de siempre (2, 2 y
+4 columnas). "Book Directly" abre el dialogo con la ruta. Sin errores en consola.
+
+**Files modified:** `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/PROOF_OF_WORK.md`.

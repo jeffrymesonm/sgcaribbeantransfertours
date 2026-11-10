@@ -766,14 +766,16 @@ section { scroll-margin-top: var(--header-h); }
   margin-bottom: 1rem;
 }
 
+/* Two per row at every width below the desktop step. One per row made eight
+   tickets about 2,000px of scrolling on a phone; see "Compact tickets" below
+   for how a ticket fits in half a phone screen. minmax(0, …) lets a column
+   shrink below its content instead of pushing the page sideways. */
 .ticket-rail {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
-@media (min-width: 760px) {
-  .ticket-rail { grid-template-columns: repeat(2, 1fr); }
-}
 @media (min-width: 1080px) {
   .ticket-rail { grid-template-columns: repeat(4, 1fr); }
 }
@@ -920,6 +922,66 @@ section { scroll-margin-top: var(--header-h); }
 @media (hover: hover) and (pointer: fine) {
   .ticket-reserve:hover { background: #D6A64A; }
   .ticket-book-direct:hover { background: rgba(252, 250, 245, 0.08); border-color: var(--shell); }
+}
+
+/* --- Compact tickets (phones) ---
+   Half a phone screen leaves each ticket about 135px of content width, so the
+   same markup is laid out differently:
+   - the two codes and the van track share the first line, and the place
+     names drop to a second line where they may wrap instead of being cut to
+     "Puerto P…" (.ticket-point becomes display: contents so its code and
+     name can sit on different lines of .ticket-route);
+   - capacity and price stack, and so do the two buttons;
+   - the stub is pushed to the bottom, so stubs and buttons line up across a
+     row even when one ticket's names wrap to more lines than its neighbour's. */
+@media (max-width: 599.98px) {
+  .ticket-rail { gap: 0.75rem; }
+
+  .ticket {
+    display: flex;
+    flex-direction: column;
+    padding: 0.9rem 0.8rem 0.85rem;
+  }
+
+  .ticket-route { flex-wrap: wrap; align-items: flex-end; gap: 0.3rem 0.4rem; }
+  .ticket-point { display: contents; }
+  .ticket-code { order: 1; font-size: 1rem; }
+  .ticket-path { order: 2; flex: 1 1 24px; min-width: 24px; margin-bottom: 0.3rem; }
+  .ticket-point:last-child .ticket-code { order: 3; }
+  .ticket-place {
+    order: 4;
+    align-self: flex-start;
+    /* The airport name gets the larger share. overflow goes back to visible
+       so the flex minimum is the longest word again: with the base rule's
+       overflow: hidden it is zero, and "Aeropuerto" was cut to "Aeropue…"
+       on a 320px phone. */
+    flex: 1 1 50%;
+    overflow: visible;
+    font-size: 0.68rem;
+    line-height: 1.3;
+    white-space: normal;
+  }
+  .ticket-point:last-child .ticket-place { order: 5; flex-basis: 30%; text-align: right; }
+
+  .ticket-stub {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    margin-top: auto;
+    padding-top: 0.7rem;
+  }
+  /* The stub's own top margin is "auto" above, so the gap under the route
+     lives here instead. */
+  .ticket-route { margin-bottom: 0.8rem; }
+  /* Same notches, re-centred on the narrower padding. */
+  .ticket-stub::before { left: calc(-0.8rem - 7px); }
+  .ticket-stub::after { right: calc(-0.8rem - 7px); }
+
+  .ticket-time { font-size: 0.64rem; }
+  .ticket-extra-note { font-size: 0.66rem; line-height: 1.35; }
+
+  .ticket-actions { flex-direction: column; margin-top: 0.75rem; }
+  .ticket-reserve, .ticket-book-direct { font-size: 0.78rem; padding-inline: 0.4rem; }
 }
 
 /* ---------- 7b. Full destination price list ---------- */
