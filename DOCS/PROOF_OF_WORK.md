@@ -3298,3 +3298,24 @@ vuelta. Se mantiene "ida y vuelta", como en el texto original del servicio.
 
 **Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`, `js/i18n.js`,
 `llms.txt`, `DOCS/PROOF_OF_WORK.md`.
+
+## 2026-11-10T13:44:00.000Z — Pagina de traslados pensada para quien llega del anuncio
+
+**Pedido:** aplicar las mejoras de prioridad alta del analisis de la pagina: subir las
+rutas, mejorar el hero y mostrar "Licensed & insured". Las resenas quedan fuera.
+
+**Hecho:** las rutas con precio y la calculadora van ahora justo debajo del hero; el
+resumen y las tres tarjetas de servicios bajan. El hero muestra precio desde US$23.95,
+pago al llegar, cancelacion gratuita y licencia y seguro, con fondo mas oscuro y el
+texto visible en 0,45 s. `#transfers` apunta ahora a las rutas y las tarjetas pasan a
+`#services`. Se quito `.reveal` de las rutas porque dejaba una franja en blanco.
+
+**Como verificar:** `python tools/verify.py` da TODO OK. En navegador a 375 px, la
+primera ruta empieza en 757 px (antes 3.346) y la calculadora en 2.686 px (antes 5.423).
+"Book Directly" abre el dialogo con la ruta y "Add to Cart" la anade al carrito. ES y FR
+muestran la lista traducida, sin desbordes y sin errores en consola. A 1024 px la lista
+cabe en una linea y no toca el indicador de scroll.
+
+**Files modified:** `transfers.html`, `es/transfers.html`, `fr/transfers.html`,
+`js/i18n.js`, `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/PROOF_OF_WORK.md`.
+**Files created:** `.claude/launch.json` (servidor local de vista previa, sin versionar).

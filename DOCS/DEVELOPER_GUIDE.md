@@ -24,6 +24,8 @@ isn't one.
    stop resolving them to one organisation.
 4. **Prices are duplicated as literal text.** `js/config.js` is the source of
    truth, but the same numbers appear in `transfers.html`'s ticket rail, in
+   the `transfers.html` hero checklist (`transfersHero.trustPrice`, added
+   2026-11-10), in
    the `transfers.html#fares` tables (25 POP rows + 5 other-airport rows,
    added 2026-08-21), in `sosua.html`'s fare table, in `services.transferMeta`,
    in `llms.txt`, and inside JSON-LD `Offer`s. Grep the old number across
@@ -73,7 +75,7 @@ content and the per-page script list differ.
 ```
 index.html         Home: hero + #services-picker + gallery + why-us +
                     reviews + FAQ + book CTA + service-picker <dialog> popup
-transfers.html      Hero + services + Popular Routes ticket rail (9 tickets) +
+transfers.html      Landing hero + Popular Routes ticket rail (9 tickets) +
                     full destination price list (50 fixed fares) +
                     boarding-pass price calculator + full-day driver + trust strip
 excursions.html      Hero + 7 excursion cards + trust strip
@@ -836,3 +838,27 @@ in queue order. `tools/verify.py` section 12 enforces the order on every page.
 `privacy.html` is a normal page in `PAGES` (`tools/build-langs.py`), text under
 `privacy.*`. **It describes what the code does:** a new cookie, provider or
 collected field must be added there in the same change.
+
+## Transfers page as the ad landing page (2026-11-10T13:44:00.000Z)
+`transfers.html` is the final URL of the Google Ads campaign, so it is laid out
+for a visitor who has already searched for a transfer.
+
+- **Section order:** hero, breadcrumbs, route tickets (`#transfers`),
+  calculator, quick answer (AEO), service cards (`#services`), then the rest.
+  The tickets used to close the services section, about four phone screens
+  down; the calculator was near the seventh. Do not put explanatory sections
+  back above the two booking tools.
+- **`#transfers` now names the ticket section.** The six destination pages
+  link to `transfers.html#transfers` ("See all transfer prices"), which is why
+  the id moved with the tickets and the service cards became `#services`.
+- **The ticket rail has no `.reveal`.** It is about 1,900px tall on a phone and
+  the observer in `js/shell.js` waits for 12% of an element, so directly under
+  the hero it stayed invisible for the first ~300px of scrolling.
+- **`.hero--landing`** (css, right after the hero keyframes): denser scrim,
+  because `hero-main.jpg` is mostly white vans; a 450 ms reveal with no
+  stagger, so the offer is readable at once; and on phones no scroll cue, which
+  the checklist would otherwise run into. The home page uses the same photo
+  with the standard hero and was left alone.
+- **`.hero-trust--checks`**: four reassurances under the button. Price, pay on
+  arrival and free cancellation are `transfersHero.trust*`; "Licensed &
+  insured" reuses `hero.trustLicensed` from the home page.

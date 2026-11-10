@@ -173,8 +173,12 @@
 
   <main id="main">
 
-  <!-- ============ 1. HERO (transfers-specific) ============ -->
-  <section class="hero" id="top">
+  <!-- ============ 1. HERO (transfers-specific) ============
+       .hero--landing: this is the page the Google Ads campaign sends visitors
+       to, so the hero states the price and the reassurances up front, keeps
+       the text readable over the white vans and shows it without the staged
+       reveal the other heroes use (see css/styles.css, "Landing hero"). -->
+  <section class="hero hero--landing" id="top">
     <div class="hero-bg" id="heroBg">
       <img
         src="../img/hero-main.jpg" width="1800" height="1350"
@@ -194,6 +198,14 @@
           <a class="btn btn-primary btn-lg" href="#calculator" data-i18n="transfersHero.cta">Calculer mon tarif</a>
         </span>
       </div>
+      <!-- The price is one more literal copy of the POP → Sosúa fare: see
+           rule 4 of the SEO / AEO invariants in DOCS/DEVELOPER_GUIDE.md. -->
+      <ul class="hero-trust hero-trust--checks reveal-line">
+        <li data-i18n="transfersHero.trustPrice">À partir de <strong>23,95 $ US</strong> par véhicule</li>
+        <li data-i18n="transfersHero.trustPay">Payez à l'arrivée</li>
+        <li data-i18n="transfersHero.trustCancel">Annulation gratuite</li>
+        <li data-i18n="hero.trustLicensed">Agréés et assurés</li>
+      </ul>
     </div>
 
     <a class="hero-scroll" href="#transfers" aria-label="Défiler vers les services" data-i18n-attr="aria-label:hero.scrollAria">
@@ -213,97 +225,24 @@
     </div>
   </nav>
 
-  <!-- ============ QUICK ANSWER (AEO) ============
-       Factual summary placed directly after the hero: one plain paragraph plus
-       a definition list of hard facts. This is what answer engines quote, so it
-       must stay factual — never let it drift into marketing prose. Every figure
-       here is also stated elsewhere on the site (js/config.js, the home FAQ). -->
-  <section class="section dest-answer" id="quick-answer">
-    <div class="container container-narrow">
-      <header class="section-head reveal">
-        <p class="eyebrow" data-i18n="transfersAeo.eyebrow">En bref</p>
-        <h2 data-i18n="transfersAeo.heading">Transferts aéroport vers Sosúa et Puerto Plata, <em>en un coup d&#39;œil</em></h2>
-      </header>
-
-      <p class="dest-answer-lead reveal" data-i18n="transfersAeo.lead">Transferts privés porte-à-porte depuis tous les aéroports internationaux de République Dominicaine vers Sosúa, Cabarete, Puerto Plata et Playa Dorada. Les prix sont fixés avant votre vol et réglés à l'arrivée, en espèces ou par PayPal, Cash App ou Zelle — de l'aéroport de Puerto Plata (POP) à Sosúa, c'est 23,95 $ US pour 1 à 6 passagers.</p>
-
-      <dl class="dest-facts reveal">
-        <div class="dest-fact">
-          <dt data-i18n="transfersAeo.f1Label">Trajet le plus réservé</dt>
-          <dd data-i18n="transfersAeo.f1Value">POP → Sosúa · 23,95 $ US (1–6 passagers)</dd>
-        </div>
-        <div class="dest-fact">
-          <dt data-i18n="transfersAeo.f2Label">Aéroports à prix fixe</dt>
-          <dd data-i18n="transfersAeo.f2Value">POP · STI · SDQ · PUJ · AZS</dd>
-        </div>
-        <div class="dest-fact">
-          <dt data-i18n="transfersAeo.f3Label">Toujours inclus</dt>
-          <dd data-i18n="transfersAeo.f3Value">Accueil avec pancarte, suivi du vol, sièges enfant</dd>
-        </div>
-        <div class="dest-fact">
-          <dt data-i18n="transfersAeo.f4Label">Paiement</dt>
-          <dd data-i18n="transfersAeo.f4Value">Espèces (dollars ou pesos), PayPal, Cash App ou Zelle à l'arrivée — sans acompte</dd>
-        </div>
-        <div class="dest-fact">
-          <dt data-i18n="transfersAeo.f5Label">Véhicules</dt>
-          <dd data-i18n="transfersAeo.f5Value">Voiture (3) · Minivan (6) · Van (10) · Minibus (15)</dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- ============ 2. SERVICES / FLOTA ============ -->
-  <section class="section services" id="transfers">
+  <!-- ============ 2. POPULAR ROUTES ============
+       First thing under the hero on purpose: a visitor arriving from an ad
+       has already searched for a transfer, so prices and the booking
+       buttons come before any explanation. Keeps the id the destination
+       pages link to (transfers.html#transfers, "See all transfer prices"). -->
+  <section class="section routes-section" id="transfers">
     <div class="container">
-      <header class="section-head reveal">
-        <h2 data-i18n="services.heading">Partout où vous devez être,<br /><em>confortablement</em></h2>
-      </header>
-
-      <div class="service-grid">
-        <article class="service-card reveal">
-          <figure class="service-media">
-            <img src="../img/transfer-trust-airport.jpg" width="900" height="598" alt="Aile d'avion au-dessus de nuages dorés pendant l'approche d'atterrissage" loading="lazy" data-i18n-attr="alt:alt.trustAirport" />
-          </figure>
-          <div class="service-body">
-            <h3 data-i18n="services.transferTitle">Transferts Aéroportuaires</h3>
-            <p data-i18n="services.transferDesc">Votre chauffeur vous attend à l'arrivée avec votre nom — vol suivi, eau fraîche prête, sans files d'attente ni marchandage.</p>
-            <p class="service-meta"><span class="mono">POP · STI</span> <span data-i18n="services.transferMeta">À partir de <strong>US$23.95</strong> · Jusqu'à 15 personnes</span></p>
-            <a class="text-link" href="#calculator" data-i18n="services.transferLink">Calculez votre prix</a>
-          </div>
-        </article>
-
-        <article class="service-card reveal">
-          <figure class="service-media">
-            <img src="../img/transfer-trust-resort.jpg" width="900" height="600" alt="Vue aérienne de la piscine d'un complexe hôtelier en bord de mer entourée de palmiers" loading="lazy" data-i18n-attr="alt:alt.trustResort" />
-          </figure>
-          <div class="service-body">
-            <h3 data-i18n="services.privateTitle">Transport Privé</h3>
-            <p data-i18n="services.privateDesc">Hôtels, restaurants, mariages et événements — un chauffeur privé selon votre horaire, partout sur l'île.</p>
-            <p class="service-meta" data-i18n="services.privateMeta">Service horaire et journalier · Itinéraires personnalisés</p>
-            <a class="text-link" href="#book" data-i18n="services.privateLink">Demander un devis</a>
-          </div>
-        </article>
-
-        <article class="service-card reveal">
-          <figure class="service-media">
-            <img src="../img/transfer-trust-beach.jpg" width="900" height="675" alt="Voilier ancré sur le sable blanc entouré d'une eau caraïbe turquoise" loading="lazy" data-i18n-attr="alt:alt.trustBeach" />
-          </figure>
-          <div class="service-body">
-            <h3 data-i18n="services.excursionsTitle">Excursions</h3>
-            <p data-i18n="services.excursionsDesc">Circuits privés vers des cascades, plages cachées et sanctuaires de baleines — guidés par des habitants qui ont grandi ici.</p>
-            <p class="service-meta" data-i18n="services.excursionsMeta">6 expériences uniques · 100% privé</p>
-            <a class="text-link" href="excursions.html" data-i18n="services.excursionsLink">Voir toutes les excursions</a>
-          </div>
-        </article>
-      </div>
-
       <!-- Signature element: boarding-pass style route tickets. These are
            FIXED prices (not calculator-derived) for the airport-to-town
            routes the business actually sells day to day. Each button uses
            data-fixed-from/to/price → js/calculator.js adds a 'fixedRoute'
            cart item (see js/cart.js describeCartItem) instead of syncing
-           the province calculator, since Sosúa/Cabarete aren't provinces. -->
-      <div class="routes reveal">
+           the province calculator, since Sosúa/Cabarete aren't provinces.
+           No .reveal here: the rail is ~1,900px tall on a phone, and the
+           reveal observer (js/shell.js) waits for 12% of an element to be on
+           screen, which left a blank band under the hero for the first ~300px
+           of scrolling. -->
+      <div class="routes">
         <p class="routes-label mono" data-i18n="routes.label">Trajets populaires — prix fixe, jusqu'à 6 personnes</p>
         <div class="ticket-rail" role="list">
 
@@ -469,7 +408,7 @@
        see POP_PROVINCE_FIXED_FARES/POP_FIXED_DESTINATIONS in js/config.js
        and the "Fixed destinations" optgroup below.
        js/config.js stays the single source of truth for every number here.
-       Section 4 below repeats those same fares as a static table: not a
+       The #fares section below repeats those same fares as a static table: not a
        second source, a crawlable mirror, because search and answer engines
        never run this calculator and so could not read any of its prices
        (added 2026-08-21 — supersedes the 2026-07-20 "one place only"
@@ -604,6 +543,95 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ QUICK ANSWER (AEO) ============
+       Factual summary placed after the two booking tools: one plain paragraph plus
+       a definition list of hard facts. This is what answer engines quote, so it
+       must stay factual — never let it drift into marketing prose. Every figure
+       here is also stated elsewhere on the site (js/config.js, the home FAQ). -->
+  <section class="section dest-answer" id="quick-answer">
+    <div class="container container-narrow">
+      <header class="section-head reveal">
+        <p class="eyebrow" data-i18n="transfersAeo.eyebrow">En bref</p>
+        <h2 data-i18n="transfersAeo.heading">Transferts aéroport vers Sosúa et Puerto Plata, <em>en un coup d&#39;œil</em></h2>
+      </header>
+
+      <p class="dest-answer-lead reveal" data-i18n="transfersAeo.lead">Transferts privés porte-à-porte depuis tous les aéroports internationaux de République Dominicaine vers Sosúa, Cabarete, Puerto Plata et Playa Dorada. Les prix sont fixés avant votre vol et réglés à l'arrivée, en espèces ou par PayPal, Cash App ou Zelle — de l'aéroport de Puerto Plata (POP) à Sosúa, c'est 23,95 $ US pour 1 à 6 passagers.</p>
+
+      <dl class="dest-facts reveal">
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f1Label">Trajet le plus réservé</dt>
+          <dd data-i18n="transfersAeo.f1Value">POP → Sosúa · 23,95 $ US (1–6 passagers)</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f2Label">Aéroports à prix fixe</dt>
+          <dd data-i18n="transfersAeo.f2Value">POP · STI · SDQ · PUJ · AZS</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f3Label">Toujours inclus</dt>
+          <dd data-i18n="transfersAeo.f3Value">Accueil avec pancarte, suivi du vol, sièges enfant</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f4Label">Paiement</dt>
+          <dd data-i18n="transfersAeo.f4Value">Espèces (dollars ou pesos), PayPal, Cash App ou Zelle à l'arrivée — sans acompte</dd>
+        </div>
+        <div class="dest-fact">
+          <dt data-i18n="transfersAeo.f5Label">Véhicules</dt>
+          <dd data-i18n="transfersAeo.f5Value">Voiture (3) · Minivan (6) · Van (10) · Minibus (15)</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES / FLOTA ============
+       Below the booking tools: these cards explain the offer, they do not
+       sell it. The route tickets used to sit at the end of this section. -->
+  <section class="section services" id="services">
+    <div class="container">
+      <header class="section-head reveal">
+        <h2 data-i18n="services.heading">Partout où vous devez être,<br /><em>confortablement</em></h2>
+      </header>
+
+      <div class="service-grid">
+        <article class="service-card reveal">
+          <figure class="service-media">
+            <img src="../img/transfer-trust-airport.jpg" width="900" height="598" alt="Aile d'avion au-dessus de nuages dorés pendant l'approche d'atterrissage" loading="lazy" data-i18n-attr="alt:alt.trustAirport" />
+          </figure>
+          <div class="service-body">
+            <h3 data-i18n="services.transferTitle">Transferts Aéroportuaires</h3>
+            <p data-i18n="services.transferDesc">Votre chauffeur vous attend à l'arrivée avec votre nom — vol suivi, eau fraîche prête, sans files d'attente ni marchandage.</p>
+            <p class="service-meta"><span class="mono">POP · STI</span> <span data-i18n="services.transferMeta">À partir de <strong>US$23.95</strong> · Jusqu'à 15 personnes</span></p>
+            <a class="text-link" href="#calculator" data-i18n="services.transferLink">Calculez votre prix</a>
+          </div>
+        </article>
+
+        <article class="service-card reveal">
+          <figure class="service-media">
+            <img src="../img/transfer-trust-resort.jpg" width="900" height="600" alt="Vue aérienne de la piscine d'un complexe hôtelier en bord de mer entourée de palmiers" loading="lazy" data-i18n-attr="alt:alt.trustResort" />
+          </figure>
+          <div class="service-body">
+            <h3 data-i18n="services.privateTitle">Transport Privé</h3>
+            <p data-i18n="services.privateDesc">Hôtels, restaurants, mariages et événements — un chauffeur privé selon votre horaire, partout sur l'île.</p>
+            <p class="service-meta" data-i18n="services.privateMeta">Service horaire et journalier · Itinéraires personnalisés</p>
+            <a class="text-link" href="#book" data-i18n="services.privateLink">Demander un devis</a>
+          </div>
+        </article>
+
+        <article class="service-card reveal">
+          <figure class="service-media">
+            <img src="../img/transfer-trust-beach.jpg" width="900" height="675" alt="Voilier ancré sur le sable blanc entouré d'une eau caraïbe turquoise" loading="lazy" data-i18n-attr="alt:alt.trustBeach" />
+          </figure>
+          <div class="service-body">
+            <h3 data-i18n="services.excursionsTitle">Excursions</h3>
+            <p data-i18n="services.excursionsDesc">Circuits privés vers des cascades, plages cachées et sanctuaires de baleines — guidés par des habitants qui ont grandi ici.</p>
+            <p class="service-meta" data-i18n="services.excursionsMeta">6 expériences uniques · 100% privé</p>
+            <a class="text-link" href="excursions.html" data-i18n="services.excursionsLink">Voir toutes les excursions</a>
+          </div>
+        </article>
+      </div>
+
     </div>
   </section>
 

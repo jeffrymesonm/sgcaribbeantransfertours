@@ -612,6 +612,60 @@ section { scroll-margin-top: var(--header-h); }
 @keyframes line-up { to { transform: translateY(0); } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
+/* --- Landing hero (transfers.html) ---
+   The page the Google Ads campaign sends visitors to. Three differences from
+   the other heroes: a denser scrim, because hero-main.jpg is mostly white vans
+   and the title sits right on top of them; a short reveal with no stagger, so
+   nobody arriving from an ad waits ~1.5 s to read the offer; and a checklist
+   of reassurances under the button.
+   Must stay below the .reveal-line delay rules above: same specificity, so
+   source order is what makes these win. */
+.hero--landing .hero-scrim {
+  background:
+    linear-gradient(to bottom, rgba(6, 38, 46, 0.58) 0%, rgba(6, 38, 46, 0.5) 40%, rgba(6, 38, 46, 0.84) 100%);
+}
+
+/* Scoped to no-preference so the reduced-motion block (section 19), which has
+   lower specificity than this selector, keeps the last word. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero--landing .hero-content .reveal-line > span {
+    animation-duration: 450ms;
+    animation-delay: 0ms;
+  }
+  .hero--landing .hero-trust.reveal-line {
+    animation-duration: 300ms;
+    animation-delay: 150ms;
+  }
+}
+
+/* Checklist variant of .hero-trust: a tick per item instead of the "·"
+   separators, which strand at line ends once four items wrap on a phone.
+   display is restated because .reveal-line (above) resets it to block. */
+.hero-trust--checks {
+  display: flex;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1.9rem;
+  color: var(--shell);
+}
+.hero-trust--checks li::before {
+  content: "";
+  width: 0.3rem;
+  height: 0.62rem;
+  margin: 0 0.6rem 0.15rem 0.15rem;
+  border: solid #EFD9A7;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.hero-trust--checks strong { font-weight: 700; margin-inline: 0.3em; }
+
+/* On a phone the checklist wraps to two rows and reaches the centred scroll
+   cue. The cue goes: the route tickets start right under this hero, so there
+   is nothing to hint at, and its space returns to the first screen. */
+@media (max-width: 599.98px) {
+  .hero--landing .hero-scroll { display: none; }
+  .hero--landing .hero-content { padding-bottom: 3rem; }
+}
+
 .hero-scroll {
   position: absolute;
   left: 50%;
@@ -697,6 +751,13 @@ section { scroll-margin-top: var(--header-h); }
 
 /* --- Route tickets (signature element) --- */
 .routes { margin-top: clamp(2.5rem, 5vw, 4rem); }
+
+/* transfers.html: the tickets are their own section, first thing under the
+   hero, so prices and booking buttons are one short scroll away. Tighter than
+   the generic .section padding for that reason; no top margin because nothing
+   sits above the rail inside this section. */
+.routes-section { padding-block: clamp(2.25rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem); }
+.routes-section .routes { margin-top: 0; }
 
 .routes-label {
   color: var(--ink-soft);

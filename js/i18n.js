@@ -81,6 +81,9 @@ const I18N = {
     'transfersHero.title': 'Airport transfers in <em>Puerto Plata &amp; Sosúa</em>',
     'transfersHero.lead': 'Private, door-to-door transfers — your private taxi — anywhere in the Dominican Republic. Fixed price, no surprises. Calculate your fare below.',
     'transfersHero.cta': 'Calculate my fare',
+    'transfersHero.trustPrice': 'From <strong>US$23.95</strong> per vehicle',
+    'transfersHero.trustPay': 'Pay on arrival',
+    'transfersHero.trustCancel': 'Free cancellation',
 
     'excursionsHero.eyebrow': 'Days you\'ll never forget',
     'excursionsHero.title': 'Private day tours from <em>Sosúa &amp; Puerto Plata</em>',
@@ -1663,6 +1666,9 @@ const I18N = {
     'transfersHero.title': 'Transfers de aeropuerto en <em>Puerto Plata y Sosúa</em>',
     'transfersHero.lead': 'Transfers privados puerta a puerta — tu taxi privado — en toda República Dominicana. Precio fijo, sin sorpresas. Calcula tu tarifa abajo.',
     'transfersHero.cta': 'Calcular mi tarifa',
+    'transfersHero.trustPrice': 'Desde <strong>US$23.95</strong> por vehículo',
+    'transfersHero.trustPay': 'Paga al llegar',
+    'transfersHero.trustCancel': 'Cancelación gratuita',
 
     'excursionsHero.eyebrow': 'Días que nunca olvidarás',
     'excursionsHero.title': 'Excursiones privadas desde <em>Sosúa y Puerto Plata</em>',
@@ -3226,6 +3232,9 @@ const I18N = {
     'transfersHero.title': 'Transferts aéroport à <em>Puerto Plata et Sosúa</em>',
     'transfersHero.lead': 'Transferts privés porte-à-porte — votre taxi privé — partout en République Dominicaine. Prix fixe, sans surprises. Calculez votre tarif ci-dessous.',
     'transfersHero.cta': 'Calculer mon tarif',
+    'transfersHero.trustPrice': 'À partir de <strong>23,95 $ US</strong> par véhicule',
+    'transfersHero.trustPay': "Payez à l'arrivée",
+    'transfersHero.trustCancel': 'Annulation gratuite',
 
     'excursionsHero.eyebrow': "Des journées que vous n'oublierez jamais",
     'excursionsHero.title': 'Excursions privées depuis <em>Sosúa et Puerto Plata</em>',
