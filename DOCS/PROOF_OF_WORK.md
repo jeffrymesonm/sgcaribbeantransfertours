@@ -3351,3 +3351,9 @@ ningun texto se corta ni se sale. A 680, 900 y 1280 px el diseno es el de siempr
 4 columnas). "Book Directly" abre el dialogo con la ruta. Sin errores en consola.
 
 **Files modified:** `css/styles.css`, `DOCS/DEVELOPER_GUIDE.md`, `DOCS/PROOF_OF_WORK.md`.
+
+## 2026-11-10T00:00:00.000Z — Calculator destination defaults to Sosúa
+- **Requested:** the transfer calculator's Destination should default to Sosúa instead of Puerto Plata.
+- **Changed:** moved the `selected` attribute from `puerto-plata` to `fixed:sosua` in `#calcDest`; aligned the static boarding-pass placeholder (SOS / Sosúa / 23.95) so no Puerto Plata flash shows before JS runs. ES/FR regenerated with `python tools/build-langs.py`.
+- **Files:** transfers.html, es/transfers.html, fr/transfers.html.
+- **Verify:** open /transfers.html (and /es/, /fr/) → Destination shows Sosúa, boarding pass POP → SOS, US$23.95; picking another destination still recalculates.
