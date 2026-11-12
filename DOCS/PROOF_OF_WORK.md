@@ -3357,3 +3357,20 @@ ningun texto se corta ni se sale. A 680, 900 y 1280 px el diseno es el de siempr
 - **Changed:** moved the `selected` attribute from `puerto-plata` to `fixed:sosua` in `#calcDest`; aligned the static boarding-pass placeholder (SOS / Sosúa / 23.95) so no Puerto Plata flash shows before JS runs. ES/FR regenerated with `python tools/build-langs.py`.
 - **Files:** transfers.html, es/transfers.html, fr/transfers.html.
 - **Verify:** open /transfers.html (and /es/, /fr/) → Destination shows Sosúa, boarding pass POP → SOS, US$23.95; picking another destination still recalculates.
+
+## 2026-11-12T14:25:00.000Z — Selector de servicios: tarjetas legibles y sin emojis
+
+**Pedido:** en el popup "What can we help you with?" el texto de las 3 opciones casi no
+se leia sobre el logo de fondo; hacerlas mas visibles y quitar los emojis.
+
+**Hecho:** se quitaron los emojis (🚐 🏝️ 🛳️) de las 3 tarjetas en EN/ES/FR. Cada tarjeta
+tiene ahora fondo blanco casi opaco, borde mas marcado y sombra; el nombre sube a 1.2rem y
+la descripcion pasa a gris oscuro. "Browse everything" lleva un fondo blanco suave para
+no perderse sobre el logo. Se elimino la regla `.service-option-icon`, que ya no se usa.
+
+**Como verificar:** `python tools/verify.py` da TODO OK y `tools/build-langs.py` no cambia
+nada. En navegador a 560 px se ven las 3 tarjetas en fila y a 390 px apiladas, con el texto
+claro sobre fondo blanco. Sin errores en consola.
+
+**Files modified:** `index.html`, `es/index.html`, `fr/index.html`, `css/styles.css`,
+`DOCS/PROOF_OF_WORK.md`.

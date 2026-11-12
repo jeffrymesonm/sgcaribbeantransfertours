@@ -2431,22 +2431,24 @@ section { scroll-margin-top: var(--header-h); }
 .service-dialog .eyebrow, .service-dialog h2, .service-dialog .service-option-name,
 .service-dialog .service-option-desc, .service-dialog-browse { color: #000; }
 .service-dialog .eyebrow { font-size: 0.82rem; }
-.service-dialog .service-option-name { font-size: 1.1rem; }
-.service-dialog .service-option-desc { font-size: 0.9rem; }
+.service-dialog .service-option-name { font-size: 1.2rem; }
+.service-dialog .service-option-desc { font-size: 0.92rem; color: #1f2a2e; }
 .service-dialog-browse { font-size: 1.05rem; }
 .service-dialog-inner { padding: clamp(1.5rem, 4vw, 2.5rem); text-align: center; position: relative; }
 .service-dialog-close { position: absolute; top: .75rem; right: 1rem; background: none; border: none;
   font-size: 1.75rem; line-height: 1; cursor: pointer; color: var(--ocean); }
 .service-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin: 1.5rem 0; }
-.service-option { display: flex; flex-direction: column; align-items: center; gap: .4rem; padding: 1.25rem .5rem;
-  border: 1.5px solid rgba(11,93,107,.18); border-radius: 16px; text-decoration: none; color: inherit;
+/* Cards sit on a near-opaque white panel so their text stays readable over
+   the logo watermark behind the dialog. */
+.service-option { display: flex; flex-direction: column; align-items: center; gap: .5rem; padding: 1.25rem .75rem;
+  background: rgba(255,255,255,.94); border: 1.5px solid rgba(11,93,107,.3); border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(6,38,46,.12); text-decoration: none; color: inherit;
   transition: border-color .18s, transform .18s, box-shadow .18s; }
-.service-option:hover { border-color: var(--lagoon); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(6,38,46,.12); }
-.service-option-icon { font-size: 2rem; }
+.service-option:hover { border-color: var(--lagoon); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(6,38,46,.2); }
 .service-option-name { font-weight: 700; }
-.service-option-desc { font-size: .8rem; color: var(--ocean); }
-.service-dialog-browse { background: none; border: none; color: var(--ocean); text-decoration: underline;
-  cursor: pointer; font: inherit; }
+.service-option-desc { font-size: .8rem; line-height: 1.45; color: var(--ocean); }
+.service-dialog-browse { background: rgba(255,255,255,.9); border: none; border-radius: 999px; padding: .35rem 1rem;
+  color: var(--ocean); text-decoration: underline; cursor: pointer; font: inherit; }
 @media (max-width: 480px) { .service-options { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: no-preference) {
   .service-dialog[open] { animation: dialogpop .25s ease-out; }
